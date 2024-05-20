@@ -514,6 +514,13 @@ body {
   }
 }
 
+@media (max-width: 600px) {
+  .user-page {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
 @media (max-width: 427px) {
   .filter-task__list {
     flex-wrap: wrap;
