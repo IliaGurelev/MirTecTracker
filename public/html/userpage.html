@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href=" https://use.fontawesome.com/releases/v6.5.2/css/all.css">
+
+  <link rel="stylesheet" href="../css/user-page-style.css">
+
+  <title>МИРТЕК трекер</title>
+</head>
+<body>
+  <main class="user-page">
+    <section class="user-page__user-tasks user-tasks">
+      <div class="user-tasks__welocome">
+        <h3 class="user-tasks__welcome-text">Привет, Александр!</h3>
+      </div>
+      <div class="user-tasks__title">
+        <h2 class="user-tasks__title-text">Мои задачи</h2>
+      </div>
+      <div class="user-tasks__filter-task filter-task">
+        <ul class="filter-task__list">
+          <li class="filter-task__item filter-task__item--active">
+            <p class="filter-task__filter">Новые</p>
+          </li>
+          <li class="filter-task__item">
+            <p class="filter-task__filter">На сегодня</p>
+          </li>
+          <li class="filter-task__item">
+            <p class="filter-task__filter">Предстоящие</p>
+          </li>
+          <li class="filter-task__item">
+            <p class="filter-task__filter">Закрытые</p>
+          </li>
+        </ul>
+      </div>
+      <div class="user-tasks__tasks-list tasks-list">
+        <ul class="tasks-list__list">
+          <li class="tasks-list__item">
+            <div class="tasks-list__task-details task-details">
+              <div class="task-details__header-task">
+                <h3 class="task-details__title">Верстка - главной страницы</h3>
+                <div class="task-details__decorative-block">
+                  <div class="task-details__tags task__tags">
+                    <span class="task__tag task__tag--develop">Разработка</span>
+                  </div>
+                  <div class="task-details__properity-button properety-button">
+                    <div class="properety-button__element"></div>
+                    <div class="properety-button__element"></div>
+                    <div class="properety-button__element"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="task-details__description">Создай полную верстку по макету главной страницы</p>
+              <ul class="task-details__workers-list workers-list">
+                <li class="workers-list__item">
+                  <div class="workers-list__icon-wrapp">
+                    <img class="workers-list__icon" src="../img/user-icon-1.jpg" alt="">
+                  </div>
+                </li>
+                <li class="workers-list__item">
+                  <div class="workers-list__icon-wrapp">
+                    <img class="workers-list__icon" src="../img/user-icon-2.jpg" alt="">
+                  </div>
+                </li>
+                <li class="workers-list__item">
+                  <div class="workers-list__icon-wrapp">
+                    <img class="workers-list__icon" src="../img/user-icon-3.jpg" alt="">
+                  </div>
+                </li>
+              </ul>
+              <div class="task-details__progress-task">
+                <div class="progress-task__text-block">
+                  <label class="progress-task__label" for="progress-task">Прогресс</label>
+                  <p class="progress-task__value">3/5</p>
+                </div>
+                <progress class="progress-task__bar" id="progress-task" max="5" value="3"></progress>
+              </div>
+              <div class="task-details__task__stats task__stats">
+                <span>
+                  <time datetime="2023-05-20T15:00:00">
+                    <i class="fa-regular fa-calendar-days"></i> 20.05.2024
+                  </time>
+                </span>
+                <div class="status__owners">
+                  <span class="status__owner status--open">
+                    <i class="fa-solid fa-circle-notch"></i> Открыт
+                  </span>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="tasks-list__item">
+            <div class="tasks-list__task-details task-details">
+              <div class="task-details__header-task">
+                <h3 class="task-details__title">Починить зум</h3>
+                <div class="task-details__decorative-block">
+                  <div class="task-details__tags task__tags">
+                    <span class="task__tag task__tag--buy">Продажи</span>
+                  </div>
+                  <div class="task-details__properity-button properety-button">
+                    <div class="properety-button__element"></div>
+                    <div class="properety-button__element"></div>
+                    <div class="properety-button__element"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="task-details__description">На странице товара не работает зум для изображений</p>
+              <ul class="task-details__workers-list workers-list">
+                <li class="workers-list__item">
+                  <div class="workers-list__icon-wrapp">
+                    <img class="workers-list__icon" src="../img/user-icon-3.jpg" alt="">
+                  </div>
+                </li>
+                <li class="workers-list__item">
+                  <div class="workers-list__icon-wrapp">
+                    <img class="workers-list__icon" src="../img/user-icon-1.jpg" alt="">
+                  </div>
+                </li>
+              </ul>
+              <div class="task-details__progress-task">
+                <div class="progress-task__text-block">
+                  <label class="progress-task__label" for="progress-task">Прогресс</label>
+                  <p class="progress-task__value">10/10</p>
+                </div>
+                <progress class="progress-task__bar" id="progress-task" max="10" value="10"></progress>
+              </div>
+              <div class="task-details__task__stats task__stats">
+                <span>
+                  <time datetime="2023-05-20T15:00:00"><i class="fa-regular fa-calendar-days"></i> 20.05.2024</time>
+                </span>
+                <div class="status__owners">
+                  <span class="status__owner status--close">
+                    <i class="fa-regular fa-circle-check"></i> Закрыт
+                  </span>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="user-page__user-section user-section">
+      <section class="user-section__user-info user-info">
+        <img class="user-info__user-icon" src="../img/user-icon-1.jpg" alt="">
+        <p class="user-info__user-name">Александр</p>
+      </section>
+      <section class="user-page__user-diary user-diary">
+        <div class="user-diary__header">
+          <div class="user-diary__text-block">
+            <p class="user-diary__date">Май 20, 2024</p>
+            <p class="user-diary__title">Сегодня</p>
+          </div>
+          <button class="user-diary__add-task-button">Добавить задачу</button>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

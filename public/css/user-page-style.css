@@ -1,0 +1,370 @@
+:root {
+  --main-font: "Raleway", sans-serif;
+  --color-background: #f7f7f7;
+  --color-light: #cfeaff;
+  --color-light-dark: #a5d8ff;
+  --color-text-muted: #7fc7ff;
+  --color-text-important: #59b6ff;
+
+  --tag-1:#ceecfd;
+  --tag-1-text:#2e87ba;
+  --tag-2:#d6ede2;
+  --tag-2-text:#13854e;
+  --tag-3:#ceecfd;
+  --tag-3-text:#2d86ba;
+  --tag-4:#f2dcf5;
+  --tag-4-text:#a734ba;
+  --tag-5:#fde3ce;
+  --tag-5-text:#ba662e;
+  --status-open:#e9edf0;
+  --status-open-text:#586a7a;
+  --status-inwork:#e5ecff;
+  --status-inwork-text:#4e79eb;
+  --status-close:#e1f7e1;
+  --status-close-text:#39b634;
+  --light-grey:#c4cad3;
+}
+
+* {
+  font-family: var(--main-font);
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-background); 
+}
+
+.user-tasks {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.user-page__user-tasks {
+  margin-right: 50px;
+}
+
+.user-tasks__welcome-text {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 5px;
+  font-weight: 400;
+  color: #b8b8b8;
+  cursor: default;
+}
+
+.user-tasks__title-text {
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 40px;
+  margin-bottom: 15px;
+  cursor: default;
+}
+
+.user-page {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.filter-task {
+  margin-bottom: 15px;
+}
+
+.filter-task__list {
+  display: flex;
+  font-weight: 600;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.filter-task__item {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.filter-task__item:not(:last-child) {
+  margin-right: 20px;
+}
+
+.filter-task__item--active {
+  color: #59b6ff;
+}
+
+.filter-task__filter {
+  margin: 0;
+  padding: 0;
+}
+
+.tasks-list__list {
+  text-decoration: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tasks-list__item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.task-details {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px 5px rgba(43, 43, 43, 0.082);
+  border-radius: 11px;
+  padding: 20px;
+  position: relative;
+}
+
+.task-details__header-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.task-details__decorative-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-details__tags {
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.task-details__title {
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.task-details__description {
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+
+.task-details__description {
+  font-weight: 400;
+  color: rgb(156, 156, 156);
+}
+
+.task-details__workers-list {
+  margin-bottom: 20px;
+}
+
+.workers-list {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  height: 50px;
+  margin: 0;
+  margin-bottom: 25px;
+  padding: 0;
+  list-style: none;
+}
+
+.workers-list__icon-wrapp {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.workers-list__icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: #ffffff 5px solid;
+  cursor: pointer;
+}
+
+.task-details__progress-task {
+  margin-bottom: 20px;
+}
+
+.progress-task__text-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-task__label {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.progress-task__value {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text-important);
+}
+
+.progress-task__bar {
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+        appearance: none;
+  border: none;
+  border-radius: 10px;
+  height: 10px;
+}
+
+.progress-task__bar::-webkit-progress-bar {
+  background-color: var(--color-light);
+}
+
+.progress-task__bar::-moz-progress-bar {
+  background-color: var(--color-light);
+}
+
+.progress-task__bar::-webkit-progress-value {
+  background: var(--color-text-important);
+}
+
+.progress-task__bar::-webkit-progress-bar, .progress-task__bar::-webkit-progress-value {
+  border-radius: 10px;
+}
+
+.properety-button {
+  display: flex;
+  cursor: pointer;
+}
+
+.properety-button__element {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgb(197, 197, 197);
+}
+
+.properety-button__element:not(:last-child) {
+  margin-right: 3px;
+}
+
+/* Секция пользователя с его ежедневником */
+
+.user-section {
+  width: 350px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-section__user-info {
+  margin-bottom: 30px;
+}
+
+.user-info__user-icon {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.user-info__user-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.user-diary {
+  width: 100%;
+}
+
+.user-diary__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-diary__title {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.user-diary__add-task-button {
+  color: #ffffff;
+  background-color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Удалить */
+
+.task__tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task__tag {
+  border-radius: 100px;
+  padding: 2px 13px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.task__tag--develop {
+  color: var(--tag-4-text);
+  background-color: var(--tag-4);
+}
+
+.task__tag--mark {
+    color: var(--tag-3-text);
+    background-color: var(--tag-3);
+  }
+
+.task__tag--buy {
+  color: var(--tag-2-text);
+  background-color: var(--tag-2);
+}
+
+.task__tag--financ {
+  color: var(--tag-5-text);
+  background-color: var(--tag-5);
+}
+
+.task__stats {
+  position: relative;
+  width: 100%;
+  color: var(--light-grey);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.task-details__task__stats {
+  cursor: default;
+}
+
+.status__owners {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.status__owner{
+  border-radius: 100px;
+  padding: 2px 13px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status--close {
+  color: var(--status-close-text);
+  background-color: var(--status-close);
+}
+
+.status--open {
+  color: var(--status-open-text);
+  background-color: var(--status-open);
+}
+
+.status--inwork {
+  color: var(--status-inwork-text);
+  background-color: var(--status-inwork);
+}
