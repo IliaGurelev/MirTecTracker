@@ -35,6 +35,66 @@ body {
   background-color: var(--color-background); 
 }
 
+/* Календарь */
+
+.user-diary__calendar {
+  width: 100%;
+}
+
+.calendar__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar__th, .calendar__td {
+  text-align: center;
+  padding: 4px 8px 0 8px;
+}
+
+.calendar__td {
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+}
+
+.calendar__th {
+  font-weight: 400;
+}
+
+.calendar__tr:last-child .calendar__td {
+  padding-top: 12px;
+}
+
+.calendar__th--active {
+  font-weight: 600;
+  color: var(--color-text-important);
+}
+
+.calendar__td--active{
+  color: var(--color-text-important);
+  position: relative;
+}
+
+.calendar__td--active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px; 
+  height: 4px; 
+  background-color: var(--color-text-important); 
+  border-radius: 50%;
+}
+
+.calendar__td--muted {
+  color: var(--light-grey)
+}
+
+.user-diary__calendar {
+  margin-bottom: 20px;
+}
+
+/* Задачи пользователя */
 .user-tasks {
   display: flex;
   flex-direction: column;
@@ -145,7 +205,7 @@ body {
 }
 
 .task-details__description {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   cursor: pointer;
 }
 
@@ -164,22 +224,23 @@ body {
   justify-content: flex-end;
   height: 50px;
   margin: 0;
-  margin-bottom: 25px;
   padding: 0;
   list-style: none;
 }
 
+.task-details__workers-list {
+  margin-bottom: 20px;
+}
+
 .workers-list__icon-wrapp {
-  width: 40px;
-  height: 40px;
+  width: 30px;
   position: relative;
 }
 
 .workers-list__icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
   border-radius: 50%;
-  border: #ffffff 5px solid;
+  border: #ffffff 4px solid;
   cursor: pointer;
 }
 
@@ -249,15 +310,22 @@ body {
 /* Секция пользователя с его ежедневником */
 
 .user-section {
-  width: 350px;
+  max-width: 500px;
 }
 
 .user-info {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
-.user-section__user-info {
+.user-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-section__user-block {
   margin-bottom: 30px;
 }
 
@@ -272,6 +340,10 @@ body {
   font-weight: 600;
 }
 
+.user-block__settings {
+  cursor: pointer;
+}
+
 .user-diary {
   width: 100%;
 }
@@ -279,6 +351,7 @@ body {
 .user-diary__header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .user-diary__title {
@@ -287,14 +360,167 @@ body {
 }
 
 .user-diary__add-task-button {
+  font-weight: 600;
   color: #ffffff;
   background-color: black;
   border: none;
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Удалить */
+.user-diary .user-diary__add-task-button:hover, .user-diary .diary-task__button-complite:hover {
+  cursor: pointer;
+  background-color: rgb(71, 71, 71);
+}
+
+.user-diary__list {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-diary__list::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 3px;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--color-text-important);
+}
+
+.user-diary__item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-diary__radio-select-task-wrap {
+  display: block;
+  margin-right: 20px;
+  width: 15px;
+  height: 15px;
+}
+
+.user-diary__radio-select-task{
+  position: relative;
+  width: 15px;
+  height: 15px;
+  background-color: var(--color-text-important);
+  border-radius: 50%;
+  border: 2px solid var(--color-text-important);
+}
+
+.user-diary__radio-select-task::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+.user-diary__radio-select-task--active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  background-color: var(--color-text-important);
+  border-radius: 50%;
+  transform: scale(-70%);
+}
+
+.user-diary__radio-select-task-wrap:not(:has(.user-diary__radio-select-task--active)) {
+  padding-top: 20px;
+}
+
+.user-diary__radio-select-task:not(.user-diary__radio-select-task--active) {
+  transform: scale(0.7);
+}
+
+.diary-task {
+  border-radius: 11px;
+  padding: 20px;
+  width: 100%;
+}
+
+.diary-task--active {
+  background-color: var(--color-text-important);
+}
+
+.diary-task__header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.diary-task__description {
+  color:  #1a5585;
+  font-weight: 600;
+  margin-bottom: 15px;
+  width: 60%;
+}
+
+.diary-task__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.diary-task__workers-list .workers-list__icon {
+  border-color: var(--color-background);
+}
+
+.diary-task--active .diary-task__workers-list .workers-list__icon {
+  border-color: var(--color-text-important);
+}
+
+.diary-task__button-complite {
+  background-color: black;
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  transition: background-color 0.3s;
+}
+
+.diary-task__button-complite>.button-complite__icon {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+/* АДАПТИВ */
+
+@media (max-width: 750px) {
+  .user-page {
+    flex-direction: column-reverse;
+  }
+
+  .user-page__user-section {
+    margin-bottom: 50px;
+  }
+
+  .user-page__user-tasks {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 427px) {
+  .filter-task__list {
+    flex-wrap: wrap;
+  }
+}
+
+/* -------------- Удалить ---------- */
 
 .task__tags {
   display: flex;

@@ -8,6 +8,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
   <link rel="stylesheet" href=" https://use.fontawesome.com/releases/v6.5.2/css/all.css">
 
   <link rel="stylesheet" href="../css/user-page-style.css">
@@ -147,9 +152,14 @@
       </div>
     </section>
     <section class="user-page__user-section user-section">
-      <section class="user-section__user-info user-info">
-        <img class="user-info__user-icon" src="../img/user-icon-1.jpg" alt="">
-        <p class="user-info__user-name">Александр</p>
+      <section class="user-section__user-block user-block">
+        <div class="user-block__user-info user-info">
+          <img class="user-info__user-icon" src="../img/user-icon-1.jpg" alt="">
+          <p class="user-info__user-name">Александр</p>
+        </div>
+        <div class="user-block__settings">
+          <i class="fa-solid fa-gear"></i>
+        </div>
       </section>
       <section class="user-page__user-diary user-diary">
         <div class="user-diary__header">
@@ -157,8 +167,107 @@
             <p class="user-diary__date">Май 20, 2024</p>
             <p class="user-diary__title">Сегодня</p>
           </div>
-          <button class="user-diary__add-task-button">Добавить задачу</button>
+          <button class="user-diary__add-task-button"> <i class="fa-regular fa-plus"></i> Добавить задачу</button>
         </div>
+        <section class="user-diary__calendar calendar">
+          <table class="calendar__table">
+            <thead class="calendar__head">
+              <tr>
+                <th class="calendar__th calendar__th--active">Пн</th>
+                <th class="calendar__th">Вт</th>
+                <th class="calendar__th">Ср</th>
+                <th class="calendar__th">Чт</th>
+                <th class="calendar__th">Пт</th>
+                <th class="calendar__th">Сб</th>
+                <th class="calendar__th">Вс</th>
+              </tr>
+            </thead>
+            <tbody class="calendar__tbody">
+              <tr class="calendar__tr">
+                <td class="calendar__td calendar__td--active">20</td>
+                <td class="calendar__td">21</td>
+                <td class="calendar__td">22</td>
+                <td class="calendar__td">23</td>
+                <td class="calendar__td">24</td>
+                <td class="calendar__td">25</td>
+                <td class="calendar__td">26</td>
+              </tr>
+              <tr class="calendar__tr">
+                <td class="calendar__td">27</td>
+                <td class="calendar__td">28</td>
+                <td class="calendar__td">29</td>
+                <td class="calendar__td">30</td>
+                <td class="calendar__td">31</td>
+                <td class="calendar__td calendar__td--muted">1</td>
+                <td class="calendar__td calendar__td--muted">2</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <ul class="user-diary__list">
+          <li class="user-diary__item">
+            <div class="user-diary__radio-select-task-wrap">
+              <div class="user-diary__radio-select-task user-diary__radio-select-task--active"></div>
+            </div>
+            <div class="user-diary__diary-task diary-task diary-task--active">
+              <div class="diary-task__header">
+                <p class="diary-task__title">Собрание</p>
+                <time datetime="09:00">9:00</time>
+              </div>
+              <div class="diary-task__main">
+                <p class="diary-task__description">Обсуждение с командой о задачах на сегодня</p>
+                <div class="diary-task__content">
+                  <ul class="diary-task__workers-list workers-list">
+                    <li class="workers-list__item">
+                      <div class="workers-list__icon-wrapp">
+                        <img class="workers-list__icon" src="../img/user-icon-1.jpg" alt="">
+                      </div>
+                    </li>
+                    <li class="workers-list__item">
+                      <div class="workers-list__icon-wrapp">
+                        <img class="workers-list__icon" src="../img/user-icon-2.jpg" alt="">
+                      </div>
+                    </li>
+                    <li class="workers-list__item">
+                      <div class="workers-list__icon-wrapp">
+                        <img class="workers-list__icon" src="../img/user-icon-3.jpg" alt="">
+                      </div>
+                    </li>
+                  </ul>
+                  <button class="diary-task__button-complite">
+                    <i class="button-complite__icon fa-solid fa-check"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="user-diary__item">
+            <div class="user-diary__radio-select-task-wrap">
+              <div class="user-diary__radio-select-task"></div>
+            </div>
+            <div class="user-diary__diary-task diary-task">
+              <div class="diary-task__header">
+                <p class="diary-task__title">Обед</p>
+                <time datetime="09:00">12:00</time>
+              </div>
+              <div class="diary-task__main">
+                <p class="diary-task__description">Съесть салат на обед</p>
+                <div class="diary-task__content">
+                  <ul class="diary-task__workers-list workers-list">
+                    <li class="workers-list__item">
+                      <div class="workers-list__icon-wrapp">
+                        <img class="workers-list__icon" src="../img/user-icon-1.jpg" alt="">
+                      </div>
+                    </li>
+                  </ul>
+                  <button class="diary-task__button-complite">
+                    <i class="button-complite__icon fa-solid fa-check"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </section>
     </section>
   </main>
