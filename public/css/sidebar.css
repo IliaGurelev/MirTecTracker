@@ -140,14 +140,7 @@ body.dark {
 	color: var(--grey-color);
 	text-align: center;
   }
-  .sidebar .nav_link:focus,   .sidebar .nav_link:hover,
-  .menu_link:focus, .menu_link:hover,
-  .btn_menu:focus, .btn_menu:hover {
-	transform: scale(1.090);
-	color: #fff;
-	background: var(--blue-color);
-	box-shadow: rgba(0, 0, 0, 0.342) 0px 2px 8px 0px;
-  }
+
 .btn_account::before {
 	content: "Личный кабинет";
   }
@@ -243,6 +236,7 @@ body.dark {
 .sidebar.close .navlink {
   display: none;
 }
+
 .nav_link:hover {
 	color: #59b6ff;
 	background: var(--blue-color);
@@ -251,6 +245,16 @@ body.dark {
 	color: var(--white-color);
 	background: var(--blue-color);
   }
+
+
+.sidebar .nav_link:focus, .sidebar .nav_link:hover,
+.menu_link:focus, .menu_link:hover,
+.btn_menu:focus, .btn_menu:hover {
+	transform: scale(1.090);
+	color: #fff;
+	background: var(--blue-color);
+	box-shadow: rgba(0, 0, 0, 0.342) 0px 2px 8px 0px;
+}
 
 .submenu_item {
   cursor: pointer;
