@@ -6,91 +6,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel='preconnect' href='https://fonts.gstatic.com'>
 	<link rel='stylesheet' href='../css/fullpage.css'>
+	<link rel='stylesheet' href='../css/sidebar.css'>
 	<link rel='stylesheet' href=' https://use.fontawesome.com/releases/v6.5.2/css/all.css'>
+	
 </head>
 <body>
-	<div class="sidebar">
-		<div class="logo-details">
-		  <img src="../img/logo.svg" alt="" class="image"> 
-			<div class="logo_name">Миртек Трекер</div>
-			<i class="fa-solid fa-bars" id="btn" ></i>
+	<nav class="navbar">
+		<div class="logo_item">
+			<i class="fa-solid fa-bars" id="sidebarOpen"></i>
+		  <img src="../img/logo.svg" alt=""></i>Миртек Трекер
 		</div>
-		<ul class="nav-list">
+		<div class="navbar_content">
+		  <i class="fa-solid fa-sun" id="darkLight"></i>
+		</div>
+	  </nav>
+  
+	  <nav class="sidebar">
+		<div class="menu_content">
+		  <ul class="menu_items">
+			<div class="menu_title menu_dahsboard"></div>
+			<li class="item">
+			  <div href="#" class="nav_link submenu_item">
+				<span class="navlink_icon">
+					<i class="fa-solid fa-rectangle-list"></i>
+				</span>
+				<span class="navlink">Мои задачи</span>
+			  </div>
+			 
+			</li>
+			<li class="item">
+			  <div href="#" class="nav_link submenu_item">
+				<span class="navlink_icon">
+					<i class="fa-regular fa-rectangle-list"></i>
+				</span>
+				<span class="navlink">Все задачи</span>
+			  </div>
+			</li>
+		  </ul>
+  
+		  <ul class="menu_items">
+			<div class="menu_btns">
+				<li class="item_btn">
+					<div href="#" class="menu_link submenu_item">
+					  <span class="menu_titles">
+						<i class="fa-regular fa-address-card"></i>
+					  </span>
+					  <span class="navlink"> Личный кабинет</span>
+					</div>
+				   
+				  </li>
+				  <li class="item_btn">
+					<div href="#" class="menu_link submenu_item">
+					  <span class="menu_titles">
+						<i class="fa-solid fa-suitcase"></i>
+					  </span>
+					  <span class="navlink">Портфели</span>
+					</div>
+				   
+				  </li>
 
-		  <li>
-			<a href="#">
-			  <i class='bx bx-grid-alt'></i>
-			  <span class="links_name">Dashboard</span>
-			</a>
-			 <span class="tooltip">Dashboard</span>
-		  </li>
-		  <li>
-		   <a href="#">
-			 <i class='bx bx-user' ></i>
-			 <span class="links_name">User</span>
-		   </a>
-		   <span class="tooltip">User</span>
-		 </li>
-		 <li>
-		   <a href="#">
-			 <i class='bx bx-chat' ></i>
-			 <span class="links_name">Messages</span>
-		   </a>
-		   <span class="tooltip">Messages</span>
-		 </li>
-		 <li>
-		   <a href="#">
-			 <i class='bx bx-pie-chart-alt-2' ></i>
-			 <span class="links_name">Analytics</span>
-		   </a>
-		   <span class="tooltip">Analytics</span>
-		 </li>
-		 <li>
-		   <a href="#">
-			 <i class='bx bx-folder' ></i>
-			 <span class="links_name">File Manager</span>
-		   </a>
-		   <span class="tooltip">Files</span>
-		 </li>
-		 <li>
-		   <a href="#">
-			 <i class='bx bx-cart-alt' ></i>
-			 <span class="links_name">Order</span>
-		   </a>
-		   <span class="tooltip">Order</span>
-		 </li>
-		 <li>
-		   <a href="#">
-			 <i class='bx bx-heart' ></i>
-			 <span class="links_name">Saved</span>
-		   </a>
-		   <span class="tooltip">Saved</span>
-		 </li>
-		 <li>
-		   <a href="#">
-			 <i class='bx bx-cog' ></i>
-			 <span class="links_name">Setting</span>
-		   </a>
-		   <span class="tooltip">Setting</span>
-		 </li>
-		 <li class="profile">
-			 <div class="profile-details">
-			   <img src="../img/logo.svg" alt="">
-			   <div class="name_job">
-				 <div class="name">Prem Shahi</div>
-				 <div class="job">Web designer</div>
-			   </div>
-			 </div>
-			 <i class='bx bx-log-out' id="log_out" ></i>
-		 </li>
-		</ul>
-	  </div>
+			  </div>			
+			</ul>
+
+  
+		  <div class="bottom_content">
+			<div class="bottom expand_sidebar">
+			  <span> Зафиксировать</span>
+			  <i class='bx bx-log-in' ></i>
+			</div>
+			<div class="bottom collapse_sidebar">
+			  <span> Скрыть</span>
+			  <i class='bx bx-log-out'></i>
+			</div>
+		  </div>
+		</div>
+	  </nav>
 	  <section class="home-section">
 		  <div class="text">Миртек Трекер</div>
 		  <div class='app'>
 			<main class='project'>
 			  <div class='project-info'>
-				<h1>Дашборд с вашими задачами</h1>
+				<h1>Дашборд со всеми задачами</h1>
 			  </div>
 			  <div class='project-tasks'>
 				<div class='project-column'>
@@ -236,6 +232,6 @@
 	  </section>
 
   </script><script  src='../js/fullpage.js'></script>
-
+</script><script  src='../js/script.js'></script>
 </body>
 </html>
