@@ -322,7 +322,9 @@ body.dark-theme {
 	}
   }
   @media only screen and (max-width: 1000px) {
-
+	.task-details{
+		height: auto;
+	}
 	.project-column{
 		margin-top: 1rem;
 	}
@@ -337,12 +339,17 @@ body.dark-theme {
 	left: 78px;
 	transition: all 0.5s ease;
 	z-index: 2;
-	width: 95%;
+	width: 91%;
   }
   @media only screen and (max-width: 800px) {
+	
+	.home-section{
+		width: 100%;
+	}
 	.project-tasks{
 		display: flex;
 		flex-direction: column;
+		
 	}
 	.project-column{
 		margin-top: 1rem;
@@ -359,7 +366,7 @@ body.dark-theme {
 	} 
   }
   @media only screen and (max-width: 600px) {
-  
+	
 	.project-tasks {
 		flex-direction: column;
 	}
