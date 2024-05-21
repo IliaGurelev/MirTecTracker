@@ -3,157 +3,238 @@
 <head>
   <meta charset='UTF-8'>
   <title>Страница всех задач</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel='preconnect' href='https://fonts.gstatic.com'>
 	<link rel='stylesheet' href='../css/fullpage.css'>
 	<link rel='stylesheet' href=' https://use.fontawesome.com/releases/v6.5.2/css/all.css'>
 </head>
 <body>
-<div class='app'>
-  <main class='project'>
-    <div class='project-info'>
-      <h1>Дашборд с вашими задачами</h1>
-    </div>
-    <div class='project-tasks'>
-      <div class='project-column'>
-        <div class='project-column-heading'>
-          <h2 class='project-column-heading__title'>Открыт</h2>
-        </div>
-        <div class='task'>
-          <div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span>
-</div>
-          <p>Cоздание Миртек Трекер</p>
-          <div class='task__stats'>
-            <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			<div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> Открыт</span></div>
+	<div class="sidebar">
+		<div class="logo-details">
+		  <img src="../img/logo.svg" alt="" class="image"> 
+			<div class="logo_name">Миртек Трекер</div>
+			<i class="fa-solid fa-bars" id="btn" ></i>
 		</div>
-        </div>
-        
-                <div class='task' draggable='true'>
-          <div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
-          <p>Пропиарить Трекер</p>
-          <div class='task__stats'>
-            <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			<div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> Открыт</span></div>
-		</div>
-        </div>
-        
-		<div class='task' draggable='true'>
-			<div class='task__tags'><span class='task__tag task__tag--green'>Продажи</span></div>
-			<p>Продать подпписку Трекера</p>
-			<div class='task__stats'>
-			  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			  <div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> Открыт</span></div>
-			</div>
-		  </div>
-      </div>
-      <div class='project-column'><div class='project-column-heading'>
-          <h2 class='project-column-heading__title'>В работе</h2>
-        </div>
-          
-        <div class='task' draggable='true'>
-          <div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span></div>
-          <p>Сделать верстку главной страницы Трекера</p>
-          <div class='task__stats'>
-            <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			<div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
-		</div>
-        </div>
-        <div class='task' draggable='true'>
-			<div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span></div>
-			<p>Верстка - личная страница</p>
-			<div class='task__stats'>
-			  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			  <div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
-			</div>
-		  </div>
-        <div class='task' draggable='true'>
-          <div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
-          <p>Анализ рекламы и прихода</p>
-          <div class='task__stats'>
-            <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-            <span class='task__owner'></span>
-			<div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
-		</div>
-        </div>
-        
-        <div class='task' draggable='true'>
-          <div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span></div>
-          <p>Верстка - общей доски</p>
-          <div class='task__stats'>
-            <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			<div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
-		</div>
-        </div>
-        
-        <div class='task' draggable='true'>
-          <div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
-          <p>Придумать контент для продвижения Трекера</p>
-          <div class='task__stats'>
-            <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			<div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
-          </div>
-        </div>
-        
-        </div>
+		<ul class="nav-list">
 
-		<div class='project-column'><div class='project-column-heading'>
-			<h2 class='project-column-heading__title'>Закрыт</h2>
-		  </div>
-		  
-		   <div class='task' draggable='true'>
-			<div class='task__tags'><span class='task__tag task__tag--orange'>Финансы</span></div>
-			<p>Расчёт зарплаты сотрудникам</p>
-			<div class='task__stats'>
-			  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-			  <div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> Закрыт</span></div>
-			</div>
-		  </div>
-		  
-		   <div class='task' draggable='true'>
-			<div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
-			<p>Придумать новую пиар-акцию</p>
-			<div class='task__stats'>
-			  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-
-			  <div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> Закрыт</span></div>
-			</div>
-		  </div>
-		  
-		   <div class='task' draggable='true'>
-			<div class='task__tags'><span class='task__tag task__tag--orange'>Финансы</span></div>
-			<p>Отчёт по продажам подписки</p>
-			<div class='task__stats'>
-			  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
-
-			  <div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> Закрыт</span></div>
-			</div>
-		  </div>
-		  
-		  </div>
-      
-    </div>
-</main>
-<aside class='task-details'>
-  <div class='tag-progress'>
-	<h2>Статус задач по портфелям</h2>
-	<div class='tag-progress'>
-	  <p>Финансы <span>2/2</span></p>
-	  <progress class="progress progress--orаnge" max="2" value="2"> 0 </progress>
-	</div>
-	<div class='tag-progress'>
-	  <p>Разработка <span>0/4</span></p>
-	  <progress class="progress progress--pink" max="4" value="4"> 0 </progress>
-	</div>
-	<div class='tag-progress'>
-	  <p>Маркетинг <span>1/4</span></p>
-	  <progress class="progress progress--blue" max="4" value="1"> 1 </progress>
-	</div>
-	<div class='tag-progress'>
-		<p>Продажи <span>0/1</span></p>
-		<progress class="progress progress--green" max="1" value="0"> 0 </progress>
+		  <li>
+			<a href="#">
+			  <i class='bx bx-grid-alt'></i>
+			  <span class="links_name">Dashboard</span>
+			</a>
+			 <span class="tooltip">Dashboard</span>
+		  </li>
+		  <li>
+		   <a href="#">
+			 <i class='bx bx-user' ></i>
+			 <span class="links_name">User</span>
+		   </a>
+		   <span class="tooltip">User</span>
+		 </li>
+		 <li>
+		   <a href="#">
+			 <i class='bx bx-chat' ></i>
+			 <span class="links_name">Messages</span>
+		   </a>
+		   <span class="tooltip">Messages</span>
+		 </li>
+		 <li>
+		   <a href="#">
+			 <i class='bx bx-pie-chart-alt-2' ></i>
+			 <span class="links_name">Analytics</span>
+		   </a>
+		   <span class="tooltip">Analytics</span>
+		 </li>
+		 <li>
+		   <a href="#">
+			 <i class='bx bx-folder' ></i>
+			 <span class="links_name">File Manager</span>
+		   </a>
+		   <span class="tooltip">Files</span>
+		 </li>
+		 <li>
+		   <a href="#">
+			 <i class='bx bx-cart-alt' ></i>
+			 <span class="links_name">Order</span>
+		   </a>
+		   <span class="tooltip">Order</span>
+		 </li>
+		 <li>
+		   <a href="#">
+			 <i class='bx bx-heart' ></i>
+			 <span class="links_name">Saved</span>
+		   </a>
+		   <span class="tooltip">Saved</span>
+		 </li>
+		 <li>
+		   <a href="#">
+			 <i class='bx bx-cog' ></i>
+			 <span class="links_name">Setting</span>
+		   </a>
+		   <span class="tooltip">Setting</span>
+		 </li>
+		 <li class="profile">
+			 <div class="profile-details">
+			   <img src="../img/logo.svg" alt="">
+			   <div class="name_job">
+				 <div class="name">Prem Shahi</div>
+				 <div class="job">Web designer</div>
+			   </div>
+			 </div>
+			 <i class='bx bx-log-out' id="log_out" ></i>
+		 </li>
+		</ul>
 	  </div>
-</div>
-</aside>
+	  <section class="home-section">
+		  <div class="text">Миртек Трекер</div>
+		  <div class='app'>
+			<main class='project'>
+			  <div class='project-info'>
+				<h1>Дашборд с вашими задачами</h1>
+			  </div>
+			  <div class='project-tasks'>
+				<div class='project-column'>
+				  <div class='project-column-heading'>
+					<h2 class='project-column-heading__title'>Открыт</h2>
+				  </div>
+				  <div class='task'>
+					<div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span>
+		  </div>
+					<p>Cоздание Миртек Трекер</p>
+					<div class='task__stats'>
+					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+					  <div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> Открыт</span></div>
+				  </div>
+				  </div>
+				  
+						  <div class='task' draggable='true'>
+					<div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
+					<p>Пропиарить Трекер</p>
+					<div class='task__stats'>
+					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+					  <div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> Открыт</span></div>
+				  </div>
+				  </div>
+				  
+				  <div class='task' draggable='true'>
+					  <div class='task__tags'><span class='task__tag task__tag--green'>Продажи</span></div>
+					  <p>Продать подпписку Трекера</p>
+					  <div class='task__stats'>
+						<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+						<div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> Открыт</span></div>
+					  </div>
+					</div>
+				</div>
+				<div class='project-column'><div class='project-column-heading'>
+					<h2 class='project-column-heading__title'>В работе</h2>
+				  </div>
+					
+				  <div class='task' draggable='true'>
+					<div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span></div>
+					<p>Сделать верстку главной страницы Трекера</p>
+					<div class='task__stats'>
+					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+					  <div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
+				  </div>
+				  </div>
+				  <div class='task' draggable='true'>
+					  <div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span></div>
+					  <p>Верстка - личная страница</p>
+					  <div class='task__stats'>
+						<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+						<div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
+					  </div>
+					</div>
+				  <div class='task' draggable='true'>
+					<div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
+					<p>Анализ рекламы и прихода</p>
+					<div class='task__stats'>
+					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+					  <span class='task__owner'></span>
+					  <div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
+				  </div>
+				  </div>
+				  
+				  <div class='task' draggable='true'>
+					<div class='task__tags'><span class='task__tag task__tag--pink'>Разработка</span></div>
+					<p>Верстка - общей доски</p>
+					<div class='task__stats'>
+					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+					  <div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
+				  </div>
+				  </div>
+				  
+				  <div class='task' draggable='true'>
+					<div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
+					<p>Придумать контент для продвижения Трекера</p>
+					<div class='task__stats'>
+					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+					  <div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> В работе</span></div>
+					</div>
+				  </div>
+				  
+				  </div>
+		  
+				  <div class='project-column'><div class='project-column-heading'>
+					  <h2 class='project-column-heading__title'>Закрыт</h2>
+					</div>
+					
+					 <div class='task' draggable='true'>
+					  <div class='task__tags'><span class='task__tag task__tag--orange'>Финансы</span></div>
+					  <p>Расчёт зарплаты сотрудникам</p>
+					  <div class='task__stats'>
+						<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+						<div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> Закрыт</span></div>
+					  </div>
+					</div>
+					
+					 <div class='task' draggable='true'>
+					  <div class='task__tags'><span class='task__tag task__tag--blue'>Маркетинг</span></div>
+					  <p>Придумать новую пиар-акцию</p>
+					  <div class='task__stats'>
+						<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+		  
+						<div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> Закрыт</span></div>
+					  </div>
+					</div>
+					
+					 <div class='task' draggable='true'>
+					  <div class='task__tags'><span class='task__tag task__tag--orange'>Финансы</span></div>
+					  <p>Отчёт по продажам подписки</p>
+					  <div class='task__stats'>
+						<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> 20.05.2024</time></span>
+		  
+						<div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> Закрыт</span></div>
+					  </div>
+					</div>
+					
+					</div>
+				
+			  </div>
+		  </main>
+		  <aside class='task-details'>
+			<div class='tag-progress'>
+			  <h2>Статус задач по портфелям</h2>
+			  <div class='tag-progress'>
+				<p>Финансы <span>2/2</span></p>
+				<progress class="progress progress--orаnge" max="2" value="2"> 0 </progress>
+			  </div>
+			  <div class='tag-progress'>
+				<p>Разработка <span>0/4</span></p>
+				<progress class="progress progress--pink" max="4" value="0"> 0 </progress>
+			  </div>
+			  <div class='tag-progress'>
+				<p>Маркетинг <span>1/4</span></p>
+				<progress class="progress progress--blue" max="4" value="1"> 1 </progress>
+			  </div>
+			  <div class='tag-progress'>
+				  <p>Продажи <span>0/1</span></p>
+				  <progress class="progress progress--green" max="1" value="0"> 0 </progress>
+				</div>
+		  </div>
+		  </aside>
+	  </section>
+
   </script><script  src='../js/fullpage.js'></script>
 
 </body>
