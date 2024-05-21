@@ -9,7 +9,7 @@
 :root {
   --white-color: #fff;
   --blue-color: #59b6ff;
-  --grey-color: #707070;
+  --grey-color: #000000;
   --grey-color-light: #aaa;
 }
 
@@ -72,7 +72,7 @@ body.dark {
   z-index: 100;
   overflow-y: scroll;
   box-shadow: 0 0 1px var(--grey-color-light);
-  transition: all 0.5s ease;
+  transition: all 0.1s ease;
   scrollbar-width: none;
 }
 .sidebar.close {
@@ -95,7 +95,6 @@ body.dark {
   font-size: 18px;
 }
 .menu_titles {
-	margin-left: -5%;
 	font-size: 18px;
   }
 
@@ -107,18 +106,17 @@ body.dark {
 .sidebar.close .menu_title{
   padding: 6px 30px;
 }
-
 .sidebar.close .item_btn{
+	padding: 6px 17px;
+  }
+  .sidebar.close .item{
 	padding: 6px 17px;
   }
 .menu_titles::before {
 	color: var(--grey-color);
 	white-space: nowrap;
   }
-  .navlink_icon ::before {
-	color: var(--grey-color);
-	white-space: nowrap;
-  }
+ 
 .menu_title::before {
   color: var(--grey-color);
   white-space: nowrap;
@@ -140,7 +138,18 @@ body.dark {
 	color: var(--grey-color);
 	text-align: center;
   }
+<<<<<<< HEAD
 
+=======
+  .nav_link:focus, .nav_link:hover,
+  .menu_link:focus, .menu_link:hover,
+  .btn_menu:focus, .btn_menu:hover {
+	transform: scale(1.090);
+	color: #fff;
+	background: var(--blue-color);
+	box-shadow: rgba(0, 0, 0, 0.342) 0px 2px 8px 0px;
+  }
+>>>>>>> e4383210762492cec46b2fe783b086de7a241fa4
 .btn_account::before {
 	content: "Личный кабинет";
   }
@@ -175,16 +184,13 @@ body.dark {
 	content: "";
   }
 
-  .sidebar .navlink_icon::before {
-	content: "";
-  }
 
 .menu_items {
   padding: 0;
   list-style: none;
 }
 
-.sidebar .navlink_icon {
+.nav_link_icon {
 	position: relative;
 	font-size: 22px;
 	min-width: 50px;
@@ -192,15 +198,16 @@ body.dark {
 	display: inline-block;
 	text-align: center;
 	border-radius: 6px;
-
   }
-  .sidebar  .navlink_icon::before {
+  .nav_link_icon::before {
 	content: "";
 	position: absolute;
 	height: 100%;
 	width: calc(100% + 100px);
   }
-
+  .nav_link_icon:hover {
+	background: var(--blue-color);
+  }
 
 .menu_titles {
   position: relative;
@@ -222,28 +229,71 @@ body.dark {
 
 .menu_titles:hover {
   background: var(--blue-color);
-
 }
 .sidebar .nav_link {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 4px 15px;
   border-radius: 8px;
   text-decoration: none;
   color: var(--grey-color);
+  white-space: nowrap;
+}
+.squares{
+	width: 35px;
+	height: 40px;
+	margin: auto;
+}
+.square {
+	position: relative;
+	width:  20px;
+	border-radius: 10px;
+	top: 1.2rem;
+	left: 0.5rem;
+}
+
+.icon {
+	position: absolute;
+	font-size: 10px;
+}
+
+.top-left {
+	top: 0;
+	left: 0;
+}
+
+.top-right {
+	top: 0;
+	right: 0;
+}
+
+.bottom-left {
+	bottom: 0;
+	left: 0;
+}
+
+.bottom-right {
+	bottom: 0;
+	right: 0;
 }
 .sidebar.close .navlink {
   display: none;
 }
 
 .nav_link:hover {
-	color: #59b6ff;
-	background: var(--blue-color);
-  }
+  color: var(--white-color);
+  background: var(--blue-color);
+}
+
 .menu_link:hover {
 	color: var(--white-color);
 	background: var(--blue-color);
+  }
+  .sidebar.close .nav_link:hover {
+	background: var(--white-color);
+  }
+  .sidebar.close .menu_link:hover {
+	background: var(--white-color);
   }
 
 
@@ -281,7 +331,7 @@ body.dark {
   left: 0;
   width: 260px;
   cursor: pointer;
-  transition: all 0.5s ease;
+  transition: all 0.1s ease;
 }
 .bottom {
   position: absolute;
@@ -315,10 +365,14 @@ body.dark {
 .sidebar.close .item_btn::before{
 	margin-left: 20rem;
 }
+
+.sidebar.close .item::before{
+	margin-left: 20rem;
+}
 #sidebarOpen {
   display: none;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   #sidebarOpen {
     font-size: 25px;
     display: block;

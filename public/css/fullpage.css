@@ -34,7 +34,7 @@
 	--grey-color: #707070;
 	--grey-color-light: #aaa;
   }
-  
+
   * {
 	margin: 0;
 	padding: 0;
@@ -44,8 +44,27 @@
   
   body {
 	color: var(--text);
+	transition: background-color 0.3s ease;
   }
-  
+  body.dark {
+	background-color: #333;
+  }
+  body.dark {
+	--white-color: #333;
+	--blue-color: #fff;
+	--grey-color: #f2f2f2;
+	--grey-color-light: #aaa;
+  }
+
+body.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+}
   .app {
 	background-color: var(--bg);
 	width: 100%;
@@ -303,7 +322,9 @@
 	}
   }
   @media only screen and (max-width: 1000px) {
-
+	.task-details{
+		height: auto;
+	}
 	.project-column{
 		margin-top: 1rem;
 	}
@@ -318,11 +339,17 @@
 	left: 78px;
 	transition: all 0.5s ease;
 	z-index: 2;
+	width: 91%;
   }
   @media only screen and (max-width: 800px) {
+	
+	.home-section{
+		width: 100%;
+	}
 	.project-tasks{
 		display: flex;
 		flex-direction: column;
+		
 	}
 	.project-column{
 		margin-top: 1rem;
@@ -339,7 +366,7 @@
 	} 
   }
   @media only screen and (max-width: 600px) {
-  
+	
 	.project-tasks {
 		flex-direction: column;
 	}
