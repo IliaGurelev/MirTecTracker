@@ -1,0 +1,147 @@
+:root {
+  --main-font: "Raleway", sans-serif;
+  --color-light: #cfeaff;
+  --color-text-muted: #7fc7ff;
+  --color-text-important: #59b6ff;
+	--light-grey:#c4cad3;
+	--tag-1:#ceecfd;
+	--tag-1-light-dark:#a7dfff;
+	--tag-1-text:#2e87ba;
+	--tag-2:#d6ede2;
+	--tag-2-light-dark:#c0f3da;
+	--tag-2-text:#13854e;
+	--tag-3:#ceecfd;
+	--tag-3-light-dark:#9ad8fa;
+	--tag-3-text:#2d86ba;
+	--tag-4:#f2dcf5;
+	--tag-4-light-dark: #e5c3eb;
+	--tag-4-text:#a734ba;
+	--tag-5:#fde3ce;
+	--tag-5-light-dark:#f8c297;
+	--tag-5-text:#ba662e;
+	--status-open:#e9edf0;
+	--status-open-text:#586a7a;
+	--status-inwork:#e5ecff;
+	--status-inwork-text:#4e79eb;
+	--status-close:#e1f7e1;
+	--status-close-text:#39b634;
+}
+
+* {
+	font-family: "Raleway", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.portfolios {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.portfolios__list {
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+	list-style: none;
+}
+
+.portfolios__link {
+	text-decoration: none;
+}
+
+.portfolio-card {
+	position: relative;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	width: 300px;
+	height: 100px;
+	padding: 20px;
+	border-radius: 15px;
+	background: linear-gradient(to bottom, var(--tag-3), var(--tag-3-light-dark));
+	cursor: pointer;
+	transition: box-shadow 0.3s;
+}
+
+.portfolio-card:hover {
+	box-shadow: 0px 0px 20px 0px rgb(224, 224, 224);
+}
+
+.portfolio-card__name {
+	font-size: 35px;
+	font-weight: 500;
+	color: var(--tag-3-text);
+}
+
+.portfolio-card__icon {
+	position: absolute;
+	right: -20px;
+  width: 200px;
+	fill: var(--tag-3-text);
+	filter: opacity(15%);
+}
+
+/* первый цвет карточки */
+.portfolio-card--1-color {
+	background: linear-gradient(to bottom, var(--tag-1), var(--tag-1-light-dark));
+}
+
+.portfolio-card--1-color .portfolio-card__name  {
+	color: var(--tag-1-text);
+}
+
+.portfolio-card--1-color .portfolio-card__icon {
+	fill: var(--tag-1-text);
+}
+
+/* второй цвет карточки */
+.portfolio-card--2-color {
+	background: linear-gradient(to bottom, var(--tag-2), var(--tag-2-light-dark));
+}
+
+.portfolio-card--2-color .portfolio-card__name  {
+	color: var(--tag-2-text);
+}
+
+.portfolio-card--2-color .portfolio-card__icon {
+	fill: var(--tag-2-text);
+}
+
+/* трейтий цвет карточки */
+.portfolio-card--3-color {
+	background: linear-gradient(to bottom, var(--tag-3), var(--tag-3-light-dark));
+}
+
+.portfolio-card--3-color .portfolio-card__name  {
+	color: var(--tag-3-text);
+}
+
+.portfolio-card--3-color .portfolio-card__icon {
+	fill: var(--tag-3-text);
+}
+
+/* четвертый цвет карточки */
+.portfolio-card--4-color {
+	background: linear-gradient(to bottom, var(--tag-4), var(--tag-4-light-dark));
+}
+
+.portfolio-card--4-color .portfolio-card__name  {
+	color: var(--tag-4-text);
+}
+
+.portfolio-card--4-color .portfolio-card__icon {
+	fill: var(--tag-4-text);
+}
+
+/* пятый цвет карточки */
+.portfolio-card--5-color {
+	background: linear-gradient(to bottom, var(--tag-5), var(--tag-5-light-dark));
+}
+
+.portfolio-card--5-color .portfolio-card__name  {
+	color: var(--tag-5-text);
+}
+
+.portfolio-card--5-color .portfolio-card__icon {
+	fill: var(--tag-5-text);
+}
