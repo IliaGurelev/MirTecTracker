@@ -35,6 +35,15 @@ darkLight.addEventListener("click", () => {
   }
 });
 
+document.getElementById('themeToggle').addEventListener('click', function() {
+    const currentTheme = document.body.className;
+    if (currentTheme === 'light-theme') {
+        document.body.className = 'dark-theme';
+    } else {
+        document.body.className = 'light-theme';
+    }
+});
+
 submenuItems.forEach((item, index) => {
   item.addEventListener("click", () => {
     item.classList.toggle("show_submenu");
@@ -51,3 +60,5 @@ if (window.innerWidth < 768) {
 } else {
   sidebar.classList.remove("close");
 }
+
+

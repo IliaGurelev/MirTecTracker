@@ -10,24 +10,20 @@
 	<link rel='stylesheet' href=' https://use.fontawesome.com/releases/v6.5.2/css/all.css'>
 	
 </head>
-<body>
+<body id="main">
 	<nav class="navbar">
 		<div class="logo_item">
 			<i class="fa-solid fa-bars" id="sidebarOpen"></i>
 		  <img src="../img/logo.svg" alt=""></i>Миртек Трекер
-		</div>
-		<div class="navbar_content">
-		  <i class="fa-solid fa-sun" id="darkLight"></i>
 		</div>
 	  </nav>
   
 	  <nav class="sidebar">
 		<div class="menu_content">
 		  <ul class="menu_items">
-			<div class="menu_title menu_dahsboard"></div>
 			<li class="item">
-			  <div href="#" class="nav_link submenu_item">
-				<span class="navlink_icon">
+			  <div href="#" class="nav_link  submenu_item">
+				<span class="nav_link_icon">
 					<i class="fa-solid fa-rectangle-list"></i>
 				</span>
 				<span class="navlink">Мои задачи</span>
@@ -36,8 +32,15 @@
 			</li>
 			<li class="item">
 			  <div href="#" class="nav_link submenu_item">
-				<span class="navlink_icon">
-					<i class="fa-regular fa-rectangle-list"></i>
+				<span class="nav_link_icon">
+					<div class="squares">
+					<div class="square">
+						<i class="fas fa-square icon top-left"></i>
+						<i class="fas fa-square icon top-right"></i>
+						<i class="fas fa-square icon bottom-left"></i>
+						<i class="fas fa-square icon bottom-right"></i>
+					</div>
+				</div>
 				</span>
 				<span class="navlink">Все задачи</span>
 			  </div>
@@ -72,11 +75,11 @@
 		  <div class="bottom_content">
 			<div class="bottom expand_sidebar">
 			  <span> Зафиксировать</span>
-			  <i class='bx bx-log-in' ></i>
+			  <i class="fa-solid fa-chevron-right"></i>
 			</div>
 			<div class="bottom collapse_sidebar">
 			  <span> Скрыть</span>
-			  <i class='bx bx-log-out'></i>
+			  <i class="fa-solid fa-chevron-left"></i>
 			</div>
 		  </div>
 		</div>
@@ -232,6 +235,6 @@
 	  </section>
 
   </script><script  src='../js/fullpage.js'></script>
-</script><script  src='../js/script.js'></script>
+</script><script  src='../js/sidedbar.js'></script>
 </body>
 </html>
