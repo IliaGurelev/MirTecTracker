@@ -354,8 +354,8 @@ body.dark-theme {
 	.project-column{
 		margin-top: 1rem;
 	}
-	 .home-section{
-		text-align: center;
+	 .txt {
+		margin: auto;
 	}
 	.sidebar.open{
 		position: fixed; 

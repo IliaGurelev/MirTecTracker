@@ -6,7 +6,9 @@ const sidebarOpen = document.querySelector("#sidebarOpen");
 const sidebarClose = document.querySelector(".collapse_sidebar");
 const sidebarExpand = document.querySelector(".expand_sidebar");
 sidebarOpen.addEventListener("click", () => sidebar.classList.toggle("close"));
-
+document.addEventListener("DOMContentLoaded", function() {
+	sidebar.classList.add("close", "hoverable");
+  });
 sidebarClose.addEventListener("click", () => {
   sidebar.classList.add("close", "hoverable");
 });
