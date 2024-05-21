@@ -357,7 +357,7 @@ body.dark {
 #sidebarOpen {
   display: none;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   #sidebarOpen {
     font-size: 25px;
     display: block;
