@@ -36,6 +36,12 @@ body.dark {
   z-index: 1000;
   box-shadow: 0 0 2px var(--grey-color-light);
 }
+.text__down{
+	font-weight: 600;
+}
+.navlink{
+	font-weight: 600;
+}
 .logo_item {
   display: flex;
   align-items: center;
