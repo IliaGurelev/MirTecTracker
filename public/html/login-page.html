@@ -14,43 +14,33 @@
 </head>
 <body>
   <main class="login-page">
-    <section class="login-page__login-section login-section">
-      <section class="login-form">
-        <nav class="login-form__select-of-form select-of-form">
-          <ul class="select-of-form__list">
-            <li class="select-of-form__item">
-              <button class="select-of-form__button">Войти</button>
-            </li>
-            <li class="select-of-form__item">
-              <button class="select-of-form__button">Зарегистрироваться</button>
-            </li>
-          </ul>
-        </nav>
-        <form class="login-form__form" action="">
-          <ul class="login-form__list">
-            <li class="login-form__item">
-              <div class="login-form__block">
-                <label class="login-form__label" for="email" >Email</label>
-                <input class="login-form__input" type="email" id="email" placeholder="example@mail.com">
-              </div>
-            </li>
-            <li class="login-form__item">
-              <div class="login-form__block">
-                <label class="login-form__label" for="password">Пароль</label>
-                <input class="login-form__input" type="password" id="password" placeholder="********">
-              </div>
-            </li>
-          </ul>
-          <button class="login-form__button" type="submit">Войти</button>
-          <a class="login-form__link" href="#">Забыл пароль</a>
-        </form>
-      </section>
-      <div class="background-picture">
-        <div class="background-picture__wrap">
-          <img class="background-picture__img" src="../img/block3.png" alt="">
+    <section class="login-page__login-form login-form login-form--center-to-left">
+      <h2 class="login-form__title">Войдите в ваш аккаунт</h2>
+      <p class="login-form__subtitle login-form__subtitle--muted">Войдите в свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
+      <form class="login-form__form" action="">
+        <label class="login-form__label" for="email">Email</label>
+        <input class="login-form__input" type="email" id="email" placeholder="Введите вашу почту">
+
+        <label class="login-form__label" for="password">Пароль</label>
+        <input class="login-form__input" type="password" id="password" placeholder="Введите ваш пароль">
+        
+        <div class="login-form__wrap">
+          <input class="login-form__input-row" type="checkbox" name="" id="remember-me">
+          <label class="login-form__label-row login-form__label-row--muted" for="remember-me">Запомнить меня</label>
         </div>
-      </div>
+
+        <button class="login-form__btn" type="submit">Войти</button>
+      </form>
     </section>
+    <div class="login-page__switcher switcher">
+      <div class="switcher__content switcher__content--center-to-right">
+        <p class="switcher__title">У вас нету аккаунта?</p>
+        <p class="switcher__subtitle">
+          Давайте подготовим вас ко всему, чтобы вы могли начать создавать свой первый опыт работы на платформе.
+        </p>
+        <button class="switcher__btn">Зарегистрироваться</button>
+      </div>
+    </div>
   </main>
 </body>
 </html>

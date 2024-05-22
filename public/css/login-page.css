@@ -1,6 +1,7 @@
 :root {
   --main-font: "Raleway", sans-serif;
   --color-background: #f7f7f7;
+  --color-light-gray: #d6d6d6;
   --color-light: #cfeaff;
   --color-light-dark: #a5d8ff;
   --color-text-muted: #7fc7ff;
@@ -8,130 +9,136 @@
 }
 
 * {
+  font-family: 'Raleway', sans-serif;
   margin: 0;
   padding: 0;
 }
 
-.login-page {
-  display: flex;
+[class$="--muted"] {
+  color: gray;
 }
 
-.login-section {
-  width: 100%;
+[class$="--center-to-left"] {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  margin-right: -25%;
+  transform: translate(-50%, -50%);
+}
+
+[class$="--center-to-right"] {
+  position: absolute;
+  top: 50%;
+  right: 25%;
+  margin-right: -25%;
+  transform: translate(-50%, -50%);
 }
 
 .login-form {
-  position: relative;
-  width: 50%;
-  padding-top: 15%;
-  padding-bottom: 20%;
-  border-top-right-radius: 10%;
-  background-color: var(--color-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
 }
 
-.login-form::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, #389deb, #84c5f7);
-  z-index: -1;
+.login-form__title, .switcher__title {
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.login-form__subtitle, .switcher__subtitle {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .login-form__form {
   display: flex;
   flex-direction: column;
-  max-width: 350px;
-  padding: 40px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  border-radius: 20px;
-}
-
-.login-form__list {
-  list-style: none;
-}
-
-.login-form__block {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.login-form__block:last-child {
-  margin-bottom: 40px;
+  max-width: 400px;
+  width: 100%;
 }
 
 .login-form__label {
-  margin-bottom: 10px;
-  font-family: 'Raleway', sans-serif;
-  font-size: 21px;
-  font-weight: 600;
-  color: var(--color-text-important);
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 5px;
 }
 
-.login-form__input {
-  background-color: transparent;
-  font-size: 20px;
-  border: none;
-  border-bottom: 1px solid black;
+.login-form__input, .login-form__input-row {
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: var(--color-light-gray) 2px solid;
+  border-radius: 5px;
+}
+
+.login-form__input-row {
+  margin-bottom: 0;
+  margin-right: 10px;
 }
 
 .login-form__input:focus {
   outline: none;
-  border-bottom: 2px solid var(--color-text-muted) ;
+  border: var(--color-light-dark) 2px solid;
 }
 
-.login-form__button {
-  margin-bottom: 20px;
-  padding: 10px;
-  font-size: 25px;
+.login-form__label-row {
+  font-size: 16px;
+}
+
+
+.login-form__btn, .switcher__btn {
+  font-size: 20px;
   color: #ffffff;
+  padding: 10px;
   background-color: var(--color-text-important);
   border: none;
-  border-radius: 11px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.login-form__link {
-  font-family: 'Raleway', sans-serif;
-  text-decoration: none;
-  color: var(--color-text-muted);
-  text-align: center;
+.login-form__btn:hover {
+  background-color: #4eabf1;
 }
 
-.select-of-form {
-  background-color: #389deb;
+.login-form__wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.background-picture {
+.switcher {
   position: absolute;
   top: 0;
   right: 0;
   width: 50%;
   height: 100%;
-  border-bottom-left-radius: 10%;
-  background: linear-gradient(to top, #389deb, #84c5f7);
+  background-color: var(--color-text-important);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 20% 100%);
 }
 
-.background-picture__wrap {
-  position: relative;
+.switcher__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  max-width: 500px;
 }
 
-.background-picture__wrap::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-background);
-  z-index: -2;
+.switcher__subtitle {
+  margin-bottom: 25px;
 }
 
-.background-picture__img {
-  max-width: 800px;
-  padding: 80px;
-  border-radius: 50%;
+.switcher__btn {
+  border: 2px solid #ffffff;
+  padding-left: 15px;
+  padding-right: 15px;
+  transition: padding 0.3s;
+}
+
+.switcher__btn:hover {
+  padding-left: 20px;
+  padding-right: 20px;
 }
