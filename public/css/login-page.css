@@ -1,0 +1,137 @@
+:root {
+  --main-font: "Raleway", sans-serif;
+  --color-background: #f7f7f7;
+  --color-light: #cfeaff;
+  --color-light-dark: #a5d8ff;
+  --color-text-muted: #7fc7ff;
+  --color-text-important: #59b6ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.login-page {
+  display: flex;
+}
+
+.login-section {
+  width: 100%;
+}
+
+.login-form {
+  position: relative;
+  width: 50%;
+  padding-top: 15%;
+  padding-bottom: 20%;
+  border-top-right-radius: 10%;
+  background-color: var(--color-background);
+}
+
+.login-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #389deb, #84c5f7);
+  z-index: -1;
+}
+
+.login-form__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  padding: 40px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+
+.login-form__list {
+  list-style: none;
+}
+
+.login-form__block {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.login-form__block:last-child {
+  margin-bottom: 40px;
+}
+
+.login-form__label {
+  margin-bottom: 10px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--color-text-important);
+}
+
+.login-form__input {
+  background-color: transparent;
+  font-size: 20px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.login-form__input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--color-text-muted) ;
+}
+
+.login-form__button {
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 25px;
+  color: #ffffff;
+  background-color: var(--color-text-important);
+  border: none;
+  border-radius: 11px;
+}
+
+.login-form__link {
+  font-family: 'Raleway', sans-serif;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.select-of-form {
+  background-color: #389deb;
+}
+
+.background-picture {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  border-bottom-left-radius: 10%;
+  background: linear-gradient(to top, #389deb, #84c5f7);
+}
+
+.background-picture__wrap {
+  position: relative;
+}
+
+.background-picture__wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-background);
+  z-index: -2;
+}
+
+.background-picture__img {
+  max-width: 800px;
+  padding: 80px;
+  border-radius: 50%;
+}
