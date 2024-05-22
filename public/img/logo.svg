@@ -1,0 +1,11 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" nighteye="disabled">
+	<title>Новый проект</title>
+	<style>
+		.s0 { fill: #0e8bc2 } 
+		.s1 { fill: #0655a0 } 
+	</style>
+	<path id="Layer" class="s0" d="m371.1 456.9h117.5v-290.9l-0.6-63.9z"/>
+	<path id="Layer" class="s0" d="m175.4 166v290.9h117.6l-117-354.8z"/>
+	<path id="Layer" class="s1" d="m11 394.8l82.2 62.1v-413.9h-82.2z"/>
+	<path id="Layer" class="s0" d="m232.1 43l99 313.9h1.8l99-313.9z"/>
+</svg>
