@@ -132,12 +132,26 @@ body {
   margin-bottom: 0;
 }
 
-.login-form__wrap--column .login-form__input:last-child {
+.login-form__list .login-form__input {
   border-radius: 0;
 }
 
-.login-form__item:last-child .login-form__wrap--column .login-form__input {
+.login-form__item:first-child .login-form__input {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.login-form__item:last-child .login-form__input {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.login-form__item:last-child .login-form__input {
   border-left: none;
+}
+
+.login-form__item:last-child .login-form__input:focus {
+  border-left: 2px solid var(--color-text-muted);
 }
 
 .login-form__list {
