@@ -14,7 +14,7 @@
 </head>
 <body>
   <main class="login-page">
-    <section class="login-page__login-form login-form login-form--center-to-left">
+    <section id="login-form" class="login-page__login-form login-form --center-to-left">
       <h2 class="login-form__title">Войдите в ваш аккаунт</h2>
       <p class="login-form__subtitle login-form__subtitle--muted">Войдите в свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
       <form class="login-form__form" action="">
@@ -29,18 +29,61 @@
           <label class="login-form__label-row login-form__label-row--muted" for="remember-me">Запомнить меня</label>
         </div>
 
-        <button class="login-form__btn" type="submit">Войти</button>
+        <button class="login-form__btn" type="submit" id="login-btn">Войти</button>
       </form>
     </section>
+
+    <section id="reg-form" class="login-form login-page__login-form  --center-to-right --transparent">
+      <h2 class="login-form__title">Зарегистрируйте ваш аккаунт</h2>
+      <p class="login-form__subtitle login-form__subtitle--muted">Зарегистрируйте свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
+      <form class="login-form__form" action="">
+        <div class="login-form__wrap">
+          <ul class="login-form__list">
+            <li class="login-form__item">
+              <div class="login-form__wrap login-form__wrap--column">
+                <label class="login-form__label" for="remember-me">Имя</label>
+                <input class="login-form__input" type="text" name="" id="remember-me" placeholder="Ваше имя">
+              </div>
+            </li>
+            <li class="login-form__item">
+              <div class="login-form__wrap login-form__wrap--column">
+                <label class="login-form__label" for="remember-me">Фамилия</label>
+                <input class="login-form__input" type="text" name="" id="remember-me" placeholder="Ваша фамилия">
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <label class="login-form__label" for="email">Email</label>
+        <input class="login-form__input" type="email" id="email" placeholder="Введите вашу почту">
+
+        <label class="login-form__label" for="password">Пароль</label>
+        <input class="login-form__input" type="password" id="password" placeholder="Введите ваш пароль">
+
+        <label class="login-form__label" for="password">Повторите пароль</label>
+        <input class="login-form__input" type="password" id="password" placeholder="Введите ваш пароль">
+        
+        <div class="login-form__wrap">
+          <input class="login-form__input-row" type="checkbox" name="" id="accept-license">
+          <label class="login-form__label-row login-form__label-row--muted" for="accept-license">
+            Я принимаю <a href="">правила и условия Миртек Трекер</a></label>
+        </div>
+
+        <button class="login-form__btn" type="submit" id="reg-btn">Зарегистрироваться</button>
+      </form>
+    </section>
+
     <div class="login-page__switcher switcher">
-      <div class="switcher__content switcher__content--center-to-right">
+      <div class="switcher__content --center-to-right">
         <p class="switcher__title">У вас нету аккаунта?</p>
         <p class="switcher__subtitle">
           Давайте подготовим вас ко всему, чтобы вы могли начать создавать свой первый опыт работы на платформе.
         </p>
-        <button class="switcher__btn">Зарегистрироваться</button>
+        <button class="switcher__btn" id="switch-btn">Зарегистрироваться</button>
       </div>
     </div>
   </main>
+
+  <script src="../js/login-page.js"></script>
 </body>
 </html>
