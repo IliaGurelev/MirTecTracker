@@ -50,17 +50,19 @@ body {
   display: flex;
 }
 
+.main-header__link {
+  z-index: 2;
+}
+
 .main-header__logo {
   width: 50px;
   height: 50px;
   padding: 10px;
-  z-index: 2;
 }
 
 .main-header__logo .s0,
 .main-header__logo .s1 {
   fill: var(--color-text-important);
-  background: linear-gradient(to left, #ffffff);
 }
 
 .main-header__logo--white .s0,
