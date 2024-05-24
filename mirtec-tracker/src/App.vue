@@ -1,5 +1,5 @@
 <script setup>
-  import PersonalPage from './components/PersonalPage.vue';
+  import PersonalPage from './components/Personal/PersonalPage.vue';
 
 </script>
 
@@ -8,5 +8,5 @@
 </template>
 
 <style>
-@import './assets/style.css'
+  @import './assets/style.css';
 </style>
