@@ -9,7 +9,7 @@
 </script>
 
 <template>
-  <section class="user-page__user-tasks user-tasks">
+  <section class="user-tasks" :class="$attrs.class">
     <HelloUserText :nameUser="nameUser" />
     <div class="user-tasks__title">
       <h2 class="user-tasks__title-text">Мои задачи</h2>
@@ -24,10 +24,6 @@
     display: flex;
     flex-direction: column;
     max-width: 500px;
-  }
-
-  .user-page__user-tasks {
-    margin-right: 50px;
   }
 
   .user-tasks__welcome-text {

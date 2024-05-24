@@ -1,7 +1,10 @@
 <script setup>
-  import ProperityButton from '../UI/ProperityButton.vue'
-  import ProgressBar from '../UI/PogressBar.vue'
-  import WorkerList from './WorkerList.vue'
+  import ProperityButton from '../UI/ProperityButton.vue';
+  import ProgressBar from '../UI/PogressBar.vue';
+  import TaskTag from '../UI/TaskTag.vue';
+  import TaskStatus from '../UI/TaskStatus.vue';
+  import TaskData from '../UI/TaskData.vue';
+  import WorkerList from './WorkerList.vue';
 </script>
 
 <template>
@@ -9,26 +12,16 @@
     <div class="task-details__header-task">
       <h3 class="task-details__title">Верстка - главной страницы</h3>
       <div class="task-details__decorative-block">
-        <div class="task-details__tags task__tags">
-          <span class="task__tag task__tag--develop">Разработка</span>
-        </div>
+        <TaskTag :class="'task-details__tags'" />
         <ProperityButton />
       </div>
     </div>
     <p class="task-details__description">Создай полную верстку по макету главной страницы</p>
     <WorkerList :class="'task-details__workers-list'" />
     <ProgressBar :class="'task-details__progress-task'" />
-    <div class="task-details__task__stats task__stats">
-      <span>
-        <time datetime="2023-05-20T15:00:00">
-          <i class="fa-regular fa-calendar-days"></i> 20.05.2024
-        </time>
-      </span>
-      <div class="status__owners">
-        <span class="status__owner status--open">
-          <i class="fa-solid fa-circle-notch"></i> Открыт
-        </span>
-      </div>
+    <div class="task-details__task__stats">
+      <TaskData />
+      <TaskStatus />
     </div>
   </div>
 </template>
@@ -55,11 +48,6 @@
     justify-content: space-between;
   }
 
-  .task-details__tags {
-    margin-right: 25px;
-    cursor: pointer;
-  }
-
   .task-details__title {
     font-weight: 600;
     margin: 0;
@@ -83,5 +71,18 @@
 
   .task-details__progress-task {
     margin-bottom: 20px;
+  }
+
+  .task-details__task__stats {
+    cursor: default;
+    position: relative;
+    width: 100%;
+  }
+
+  .task-details__tags {
+    position: relative;
+    width: 100%;
+    margin-right: 25px;
+    cursor: pointer;
   }
 </style>
