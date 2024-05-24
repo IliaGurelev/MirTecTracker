@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   .worker-icon-wrapp {
     width: 30px;
     position: relative;
@@ -18,5 +18,13 @@
     border-radius: 50%;
     border: #ffffff 4px solid;
     cursor: pointer;
+  }
+
+  .diary-task__workers-list .workers-icon {
+    border-color: var(--color-background);
+  }
+
+  .diary-task--active .diary-task__workers-list .workers-icon {
+    border-color: var(--color-text-important);
   }
 </style>

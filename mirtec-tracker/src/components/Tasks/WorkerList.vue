@@ -1,5 +1,5 @@
 <script setup>
-import Worker from './Worker.vue';
+  import Worker from './Worker.vue';
 </script>
 
 <template>

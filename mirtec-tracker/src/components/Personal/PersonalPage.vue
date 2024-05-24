@@ -6,6 +6,7 @@
 <template>
   <main class="user-page">
     <PersonalTask :class="'user-page__user-tasks'" />
+    <PersonalDiary />
   </main>
 </template>
 
@@ -14,6 +15,7 @@
     font-family: var(--main-font);
     margin: 0;
     padding: 0;
+    list-style: none;
   }
 
   body {
