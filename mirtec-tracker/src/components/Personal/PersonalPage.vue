@@ -6,7 +6,6 @@
 <template>
   <main class="user-page">
     <PersonalTask />
-    <PersonalDiary />
   </main>
 </template>
 
