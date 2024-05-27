@@ -1,4 +1,6 @@
 <script setup>
+  import colorConst from '../../constants/color.js';
+
   const props = defineProps({
     briefcase: Object,
   })
@@ -8,16 +10,16 @@
 
   let colorClass;
   switch (color) {
-      case 'purple':
+      case colorConst.purple:
           colorClass = 'task__tag--purple';
           break;
-      case 'green':
+      case colorConst.green:
           colorClass = 'task__tag--green';
           break;
-      case 'blue':
+      case colorConst.blue:
           colorClass = 'task__tag--blue';
           break;
-      case 'orange':
+      case colorConst.orange:
           colorClass = 'task__tag--orange';
           break;
       default:

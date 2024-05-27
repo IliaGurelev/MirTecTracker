@@ -28,7 +28,7 @@
     <ProgressBar :class="'task-details__progress-task'" />
     <div class="task-details__task__stats">
       <TaskDate />
-      <TaskStatus />
+      <TaskStatus :taskStatus="task.status" />
     </div>
   </div>
 </template>

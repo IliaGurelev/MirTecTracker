@@ -3,6 +3,7 @@ const tasksData = [
     "id": 1,
     "name": "Верстка главной страницы",
     "description": "Создай полную верстку по макету главной страницы",
+    "status": "open",
     "briefcase": {
       name: "Разработка",
       color: "purple",
@@ -24,6 +25,7 @@ const tasksData = [
     "id": 2,
     "name": "Починить зум",
     "description": "На странице товара не работает зум",
+    "status": "work",
     "briefcase": {
       name: "Продажи",
       color: "green",
