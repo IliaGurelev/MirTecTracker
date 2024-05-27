@@ -1,11 +1,12 @@
 <template>
   <ul class="user-diary__list">
-    <li v-for="task in 2" :key="task" class="user-diary__item">
+    <li v-for="(task, index) in tasks" :key="task" class="user-diary__item">
       <div class="user-diary__radio-select-task-wrap">
-        <div class="user-diary__radio-select-task" :class="{'user-diary__radio-select-task--active': task === 1}"></div>
+        <div class="user-diary__radio-select-task" :class="{'user-diary__radio-select-task--active': index === 0}"></div>
       </div>
       <DiaryTask 
-        :isActive="task === 1"
+        :isActive="index === 0"
+        :task="task"
       />
     </li>
   </ul>
@@ -13,6 +14,10 @@
 
 <script setup>
   import DiaryTask from './DiaryTask.vue';
+
+  defineProps({
+    tasks: Array,
+  })
 </script>
 
 <style scoped>

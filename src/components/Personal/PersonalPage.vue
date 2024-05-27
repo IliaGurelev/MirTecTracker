@@ -7,6 +7,7 @@
     />
     <PersonalDiary
       :currentUser="currentUser"
+      :tasks="tasksDiary"
     />
   </main>
 </template>
@@ -18,6 +19,7 @@
   const props = defineProps({
     currentUser: Object,
     tasksData: Array,
+    tasksDiary: Array,
   })
 
   const currentUser = props.currentUser;
