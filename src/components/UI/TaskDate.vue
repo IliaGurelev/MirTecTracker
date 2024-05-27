@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <span class="task-data">
     <time datetime="2023-05-20T15:00:00">
@@ -8,6 +5,9 @@
     </time>
   </span>
 </template>
+
+<script setup>
+</script>
 
 <style scoped>
   .task-data {

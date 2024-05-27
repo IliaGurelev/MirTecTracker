@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <div :class="$attrs.class">
     <div class="progress-task__text-block">
@@ -10,6 +7,9 @@
     <progress class="progress-task__bar" id="progress-task" max="5" value="3"></progress>
   </div>
 </template>
+
+<script setup>
+</script>
 
 <style scoped>
   .progress-task__text-block {

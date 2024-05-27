@@ -1,7 +1,7 @@
 <template>
   <main class="user-page">
     <PersonalTasks 
-      :class="'user-page__user-tasks'"
+      class="user-page__user-tasks"
       :currentUser="currentUser"
       :tasksUser="tasks"
     />
@@ -26,20 +26,16 @@
   const tasks = props.tasksData;
 </script>
 
-<style>
-* {
-  font-family: var(--main-font);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-body {
-  background-color: var(--color-background);
-}
+<style scoped>
 
 .user-page__user-tasks {
   margin-right: 50px;
+}
+
+.user-page {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 50px;
 }
 
 /* АДАПТИВ */

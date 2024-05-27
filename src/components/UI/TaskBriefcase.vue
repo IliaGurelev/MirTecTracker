@@ -1,3 +1,9 @@
+<template>
+  <div class="task__tags" :class="$attrs.class">
+    <span class="task__tag" :class="colorClass">{{ briefcaseName }}</span>
+  </div>
+</template>
+
 <script setup>
   import colorConst from '../../constants/color.js';
 
@@ -27,12 +33,6 @@
           break;
   }
 </script>
-
-<template>
-  <div class="task__tags" :class="$attrs.class">
-    <span class="task__tag" :class="colorClass">{{ briefcaseName }}</span>
-  </div>
-</template>
 
 <style scoped>
   .task__tags {

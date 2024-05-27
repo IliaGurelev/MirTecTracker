@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <section class="user-diary__calendar calendar">
     <table class="calendar__table">
@@ -38,6 +35,9 @@
     </table>
   </section>
 </template>
+
+<script setup>
+</script>
 
 <style scoped>  
   .user-diary__calendar {

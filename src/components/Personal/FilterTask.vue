@@ -20,7 +20,7 @@
 <script source>
 </script>
 
-<style>
+<style scoped>
   .filter-task {
     margin-bottom: 15px;
   }
