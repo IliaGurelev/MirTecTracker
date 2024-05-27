@@ -24,6 +24,7 @@
   }
 
   .progress-task__value {
+    font-family: "Montserrat", sans-serif;
     font-size: 17px;
     font-weight: 600;
     color: var(--color-text-important);

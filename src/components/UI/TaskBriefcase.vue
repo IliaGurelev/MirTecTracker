@@ -4,11 +4,31 @@
   })
 
   const briefcaseName = props.briefcase.name;
+  const color = props.briefcase.color;
+
+  let colorClass;
+  switch (color) {
+      case 'purple':
+          colorClass = 'task__tag--purple';
+          break;
+      case 'green':
+          colorClass = 'task__tag--green';
+          break;
+      case 'blue':
+          colorClass = 'task__tag--blue';
+          break;
+      case 'orange':
+          colorClass = 'task__tag--orange';
+          break;
+      default:
+          colorClass = 'task__tag--blue';
+          break;
+  }
 </script>
 
 <template>
   <div class="task__tags" :class="$attrs.class">
-    <span class="task__tag task__tag--purple">{{ briefcaseName }}</span>
+    <span class="task__tag" :class="colorClass">{{ briefcaseName }}</span>
   </div>
 </template>
 
