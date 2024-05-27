@@ -30,6 +30,19 @@ const tasksDiary = [
       },
     ],
   },
+  {
+    "id": 3,
+    "name": "Сделать недельный отчет",
+    "description": "отчет по налоговой",
+    "time_start": "13:00",
+    "workers": [
+      {
+        "id": 2,
+        "name": "Bob",
+        "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
+      },
+    ],
+  },
 ]
 
 export default tasksDiary

@@ -11,7 +11,7 @@
     <WorkerList :class="'task-details__workers-list'" :workerList="task.workers" />
     <ProgressBar :class="'task-details__progress-task'" />
     <div class="task-details__task__stats">
-      <TaskDate />
+      <TaskDate :dateCreated="task.createdAt"/>
       <TaskStatus :taskStatus="task.status" />
     </div>
   </div>
@@ -20,9 +20,9 @@
 <script setup>
   import ProperityButton from '../UI/ProperityButton.vue';
   import ProgressBar from '../UI/ProgressBar.vue';
-  import TaskTag from '../UI/TaskBriefcase.vue';
-  import TaskStatus from '../UI/TaskStatus.vue';
-  import TaskDate from '../UI/TaskDate.vue';
+  import TaskTag from './TaskBriefcase.vue';
+  import TaskStatus from './TaskStatus.vue';
+  import TaskDate from './TaskDate.vue';
   import WorkerList from './WorkerList.vue';
 
   const props = defineProps({

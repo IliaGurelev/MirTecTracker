@@ -1,13 +1,13 @@
 <template>
   <div class="user-diary__diary-task diary-task" :class="{ 'diary-task--active': isActive}">
     <div class="diary-task__header">
-      <p class="diary-task__title">Собрание</p>
-      <time datetime="09:00">9:00</time>
+      <p class="diary-task__title">{{task.name}}</p>
+      <time datetime="09:00">{{task.time_start}}</time>
     </div>
     <div class="diary-task__main">
-      <p class="diary-task__description">Обсуждение с командой о задачах на сегодня</p>
+      <p class="diary-task__description">{{task.description}}</p>
       <div class="diary-task__content">
-        <WorkerList :class="'diary-task__workers-list'" />
+        <WorkerList class="diary-task__workers-list" :workerList="task.workers" />
         <button class="diary-task__button-complite">
           <svg class="button-complite__icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.008 512.008" style="enable-background:new 0 0 512.008 512.008;" xml:space="preserve">
             <g>
@@ -26,7 +26,10 @@
   import { ref, defineProps} from 'vue';
   import WorkerList from './WorkerList.vue';
   
-  defineProps(['isActive']);
+  defineProps({
+    isActive: Boolean,
+    task: Object,
+  });
 </script>
 
 <style scoped>

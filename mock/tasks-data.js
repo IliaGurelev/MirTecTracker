@@ -4,6 +4,7 @@ const tasksData = [
     "name": "Верстка главной страницы",
     "description": "Создай полную верстку по макету главной страницы",
     "status": "open",
+    "createdAt": "2024-05-05T15:00:00",
     "briefcase": {
       name: "Разработка",
       color: "purple",
@@ -26,6 +27,7 @@ const tasksData = [
     "name": "Починить зум",
     "description": "На странице товара не работает зум",
     "status": "work",
+    "createdAt": "2024-04-25T15:00:00",
     "briefcase": {
       name: "Продажи",
       color: "green",
@@ -53,6 +55,7 @@ const tasksData = [
     "name": "Вынести dashboard в компонент",
     "description": "",
     "status": "work",
+    "createdAt": "2024-05-20T15:00:00",
     "briefcase": {
       name: "Разработка",
       color: "purple",

@@ -1,15 +1,17 @@
 <template>
-  <ul class="user-diary__list">
-    <li v-for="(task, index) in tasks" :key="task" class="user-diary__item">
-      <div class="user-diary__radio-select-task-wrap">
-        <div class="user-diary__radio-select-task" :class="{'user-diary__radio-select-task--active': index === 0}"></div>
-      </div>
-      <DiaryTask 
-        :isActive="index === 0"
-        :task="task"
-      />
-    </li>
-  </ul>
+  <div class="user-diary">
+    <ul class="user-diary__list">
+      <li v-for="(task, index) in tasks" :key="task" class="user-diary__item">
+        <div class="user-diary__radio-select-task-wrap">
+          <div class="user-diary__radio-select-task" :class="{'user-diary__radio-select-task--active': index === 0}"></div>
+        </div>
+        <DiaryTask 
+          :isActive="index === 0"
+          :task="task"
+        />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
@@ -21,13 +23,16 @@
 </script>
 
 <style scoped>
+  .user-diary {
+    max-height: 380px;
+    overflow-y: auto;
+  }
+
   .user-diary__list {
     position: relative;
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 380px;
-    overflow-y: auto;
   }
 
   .user-diary__list::before {

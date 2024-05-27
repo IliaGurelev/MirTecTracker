@@ -1,23 +1,27 @@
 <template>
   <div class="user-tasks__filter-task filter-task">
     <ul class="filter-task__list">
-      <li class="filter-task__item filter-task__item--active">
-        <p class="filter-task__filter">Новые</p>
-      </li>
-      <li class="filter-task__item">
-        <p class="filter-task__filter">На сегодня</p>
-      </li>
-      <li class="filter-task__item">
-        <p class="filter-task__filter">Предстоящие</p>
-      </li>
-      <li class="filter-task__item">
-        <p class="filter-task__filter">Закрытые</p>
+      <li 
+        v-for="(filter, index) in filters" 
+        :key="index" 
+        :class="{'filter-task__item': true, 'filter-task__item--active': activeFilter === index}" 
+        @click="setActiveFilter(index)"
+      >
+        <p class="filter-task__filter">{{ filter }}</p>
       </li>
     </ul>
   </div>
 </template>
 
-<script source>
+<script setup>
+  import {ref} from 'vue';
+
+  const filters = ['Новые', 'На сегодня', 'Предстоящие', 'Закрытые'];
+  const activeFilter = ref(0);
+
+  const setActiveFilter = (index) => {
+    activeFilter.value = index;
+  };
 </script>
 
 <style scoped>
