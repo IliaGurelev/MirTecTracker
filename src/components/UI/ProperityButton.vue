@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <div class="task-details__properity-button properety-button">
     <div class="properety-button__element"></div>
@@ -8,6 +5,9 @@
     <div class="properety-button__element"></div>
   </div>
 </template>
+
+<script setup>
+</script>
 
 <style scoped>
   .properety-button {

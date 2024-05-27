@@ -17,7 +17,3 @@
   const tasks = tasksData;
   const taskDiary = tasksDiary;
 </script>
-
-<style>
-  @import './assets/style.css';
-</style>

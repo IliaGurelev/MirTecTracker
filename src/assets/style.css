@@ -3,6 +3,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 
+* {
+  font-family: var(--main-font);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  background-color: var(--color-background);
+}
+
 :root {
   --main-font: "Raleway", sans-serif;
   --color-background: #f7f7f7;
@@ -28,5 +39,22 @@
   --status-close:#e1f7e1;
   --status-close-text:#39b634;
   --light-grey:#c4cad3;
+}
 
+*::-webkit-scrollbar {
+    width: 8px;  /* Width of the scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;  /* Color of the track */
+  border-radius: 10px;  /* Round corners of the track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #969696;  /* Color of the thumb */
+  border-radius: 20px;  /* Round corners of the thumb */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #757575;  /* Color of the thumb when hovered */
 }
