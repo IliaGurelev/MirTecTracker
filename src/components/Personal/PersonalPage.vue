@@ -1,14 +1,28 @@
-<script setup>
-import PersonalDiary from './PersonalDiary.vue'
-import PersonalTask from './PersonalTask.vue'
-</script>
-
 <template>
   <main class="user-page">
-    <PersonalTask :class="'user-page__user-tasks'" />
-    <PersonalDiary />
+    <PersonalTasks 
+      :class="'user-page__user-tasks'"
+      :currentUser="currentUser"
+      :tasksUser="tasks"
+    />
+    <PersonalDiary
+      :currentUser="currentUser"
+    />
   </main>
 </template>
+
+<script setup>
+  import PersonalDiary from './PersonalDiary.vue'
+  import PersonalTasks from './PersonalTasks.vue'
+
+  const props = defineProps({
+    currentUser: Object,
+    tasksData: Array,
+  })
+
+  const currentUser = props.currentUser;
+  const tasks = props.tasksData;
+</script>
 
 <style>
 * {

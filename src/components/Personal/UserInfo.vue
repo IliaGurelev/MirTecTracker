@@ -1,12 +1,18 @@
-<script setup>
-</script>
-
 <template>
   <div class="user-block__user-info user-info">
-    <img class="user-info__user-icon" src="../../assets/user-icon-1.jpg" alt="">
-    <p class="user-info__user-name">Александр</p>
+    <img class="user-info__user-icon" :src="avatarUser" alt="">
+    <p class="user-info__user-name">{{ nameUser }}</p>
   </div>
 </template>
+
+<script setup>
+  const props = defineProps({
+    currentUser: Object,
+  });
+
+  const nameUser = props.currentUser.name;
+  const avatarUser = props.currentUser.avatar;
+</script>
 
 <style scoped>
   .user-info {

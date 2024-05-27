@@ -1,7 +1,3 @@
-<script setup>
-  import DiaryTask from './DiaryTask.vue';
-</script>
-
 <template>
   <ul class="user-diary__list">
     <li v-for="task in 2" :key="task" class="user-diary__item">
@@ -14,6 +10,10 @@
     </li>
   </ul>
 </template>
+
+<script setup>
+  import DiaryTask from './DiaryTask.vue';
+</script>
 
 <style scoped>
   .user-diary__list {

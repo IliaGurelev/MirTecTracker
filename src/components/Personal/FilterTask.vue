@@ -1,6 +1,3 @@
-<script source>
-</script>
-
 <template>
   <div class="user-tasks__filter-task filter-task">
     <ul class="filter-task__list">
@@ -19,6 +16,9 @@
     </ul>
   </div>
 </template>
+
+<script source>
+</script>
 
 <style>
   .filter-task {

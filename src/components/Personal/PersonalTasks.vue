@@ -1,3 +1,14 @@
+<template>
+  <section class="user-tasks" :class="$attrs.class">
+    <HelloUserText :nameUser="currentUser.name" />
+    <div class="user-tasks__title">
+      <h2 class="user-tasks__title-text">Мои задачи</h2>
+    </div>
+    <FilterTask />
+    <DetailTaskList :tasksList="tasksUser" />
+  </section>
+</template>
+
 <script setup>
   import { ref } from 'vue';
 
@@ -5,19 +16,11 @@
   import DetailTaskList from '../Tasks/DetailTaskList.vue'
   import HelloUserText from './HelloUserText.vue';
 
-  const nameUser = ref("Илья");
+  defineProps({
+    currentUser: Object,
+    tasksUser: Array,
+  })
 </script>
-
-<template>
-  <section class="user-tasks" :class="$attrs.class">
-    <HelloUserText :nameUser="nameUser" />
-    <div class="user-tasks__title">
-      <h2 class="user-tasks__title-text">Мои задачи</h2>
-    </div>
-    <FilterTask />
-    <DetailTaskList />
-  </section>
-</template>
 
 <style>
   .user-tasks {
