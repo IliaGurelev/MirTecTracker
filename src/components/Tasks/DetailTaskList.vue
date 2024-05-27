@@ -1,11 +1,3 @@
-<script setup>
-  import DetailTask from './DetailTask.vue';
-
-  defineProps({
-    tasksList: Array,
-  })
-</script>
-
 <template>
   <div class="user-tasks__tasks-list tasks-list">
     <ul class="tasks-list__list">
@@ -18,6 +10,14 @@
     </ul>
   </div>
 </template>
+
+<script setup>
+  import DetailTask from './DetailTask.vue';
+
+  defineProps({
+    tasksList: Array,
+  })
+</script>
 
 <style scoped>
   .tasks-list__list {

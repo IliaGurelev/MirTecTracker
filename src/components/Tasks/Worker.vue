@@ -1,3 +1,9 @@
+<template>
+  <div class="worker-icon-wrapp">
+    <img class="workers-icon" :src="workerAvatar" alt="">
+  </div>
+</template>
+
 <script setup>
   const props = defineProps({
     worker: Object,
@@ -5,12 +11,6 @@
 
   const workerAvatar = props.worker.avatar;
 </script>
-
-<template>
-  <div class="worker-icon-wrapp">
-    <img class="workers-icon" :src="workerAvatar" alt="">
-  </div>
-</template>
 
 <style scoped>
   .worker-icon-wrapp {

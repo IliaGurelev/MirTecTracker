@@ -1,15 +1,3 @@
-<script setup>
-  import PersonalDiary from './PersonalDiary.vue'
-  import PersonalTasks from './PersonalTasks.vue'
-
-  // Моковые данные
-  import usersData from '../../../mock/users-data';
-  import tasksData from '../../../mock/tasks-data';
-
-  const currentUser = usersData[1];
-  const tasks = tasksData;
-</script>
-
 <template>
   <main class="user-page">
     <PersonalTasks 
@@ -22,6 +10,19 @@
     />
   </main>
 </template>
+
+<script setup>
+  import PersonalDiary from './PersonalDiary.vue'
+  import PersonalTasks from './PersonalTasks.vue'
+
+  const props = defineProps({
+    currentUser: Object,
+    tasksData: Array,
+  })
+
+  const currentUser = props.currentUser;
+  const tasks = props.tasksData;
+</script>
 
 <style>
 * {

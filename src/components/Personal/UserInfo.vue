@@ -1,3 +1,10 @@
+<template>
+  <div class="user-block__user-info user-info">
+    <img class="user-info__user-icon" :src="avatarUser" alt="">
+    <p class="user-info__user-name">{{ nameUser }}</p>
+  </div>
+</template>
+
 <script setup>
   const props = defineProps({
     currentUser: Object,
@@ -6,13 +13,6 @@
   const nameUser = props.currentUser.name;
   const avatarUser = props.currentUser.avatar;
 </script>
-
-<template>
-  <div class="user-block__user-info user-info">
-    <img class="user-info__user-icon" :src="avatarUser" alt="">
-    <p class="user-info__user-name">{{ nameUser }}</p>
-  </div>
-</template>
 
 <style scoped>
   .user-info {

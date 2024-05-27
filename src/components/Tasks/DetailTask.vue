@@ -1,19 +1,3 @@
-<script setup>
-  import ProperityButton from '../UI/ProperityButton.vue';
-  import ProgressBar from '../UI/ProgressBar.vue';
-  import TaskTag from '../UI/TaskBriefcase.vue';
-  import TaskStatus from '../UI/TaskStatus.vue';
-  import TaskDate from '../UI/TaskDate.vue';
-  import WorkerList from './WorkerList.vue';
-
-  const props = defineProps({
-    task: Object
-  })
-
-  const taskName = props.task.name;
-  const taskDescription = props.task.description;
-</script>
-
 <template>
   <div class="tasks-list__task-details task-details">
     <div class="task-details__header-task">
@@ -32,6 +16,22 @@
     </div>
   </div>
 </template>
+
+<script setup>
+  import ProperityButton from '../UI/ProperityButton.vue';
+  import ProgressBar from '../UI/ProgressBar.vue';
+  import TaskTag from '../UI/TaskBriefcase.vue';
+  import TaskStatus from '../UI/TaskStatus.vue';
+  import TaskDate from '../UI/TaskDate.vue';
+  import WorkerList from './WorkerList.vue';
+
+  const props = defineProps({
+    task: Object
+  })
+
+  const taskName = props.task.name;
+  const taskDescription = props.task.description;
+</script>
 
 <style scoped>
   .task-details {

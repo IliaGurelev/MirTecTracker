@@ -1,10 +1,3 @@
-<script setup>
-  import { ref, defineProps} from 'vue';
-  import WorkerList from './WorkerList.vue';
-  
-  defineProps(['isActive']);
-</script>
-
 <template>
   <div class="user-diary__diary-task diary-task" :class="{ 'diary-task--active': isActive}">
     <div class="diary-task__header">
@@ -28,6 +21,13 @@
     </div>
   </div>
 </template>
+
+<script setup>
+  import { ref, defineProps} from 'vue';
+  import WorkerList from './WorkerList.vue';
+  
+  defineProps(['isActive']);
+</script>
 
 <style scoped>
   .diary-task {

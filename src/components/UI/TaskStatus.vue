@@ -1,3 +1,11 @@
+<template>
+  <div class="status__owners">
+    <span class="status__owner" :class="classStatus">
+      <i class="fa-solid" :class="iconStatus"></i> {{ nameStatus }}
+    </span>
+  </div>
+</template>
+
 <script setup>
   import statusTaskConst from '../../constants/status.js';
 
@@ -28,14 +36,6 @@
       break;
   }
 </script>
-
-<template>
-  <div class="status__owners">
-    <span class="status__owner" :class="classStatus">
-      <i class="fa-solid" :class="iconStatus"></i> {{ nameStatus }}
-    </span>
-  </div>
-</template>
 
 <style scoped>
   .status__owners {

@@ -1,3 +1,14 @@
+<template>
+  <section class="user-tasks" :class="$attrs.class">
+    <HelloUserText :nameUser="currentUser.name" />
+    <div class="user-tasks__title">
+      <h2 class="user-tasks__title-text">Мои задачи</h2>
+    </div>
+    <FilterTask />
+    <DetailTaskList :tasksList="tasksUser" />
+  </section>
+</template>
+
 <script setup>
   import { ref } from 'vue';
 
@@ -10,17 +21,6 @@
     tasksUser: Array,
   })
 </script>
-
-<template>
-  <section class="user-tasks" :class="$attrs.class">
-    <HelloUserText :nameUser="currentUser.name" />
-    <div class="user-tasks__title">
-      <h2 class="user-tasks__title-text">Мои задачи</h2>
-    </div>
-    <FilterTask />
-    <DetailTaskList :tasksList="tasksUser" />
-  </section>
-</template>
 
 <style>
   .user-tasks {

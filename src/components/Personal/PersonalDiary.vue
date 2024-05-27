@@ -1,14 +1,3 @@
-<script setup>
-  import UserInfo from './UserInfo.vue'
-  import Calendar from '../UI/Calendar.vue'
-  import CurentDate from '../UI/CurrentDate.vue'
-  import DiaryTaskList from '../Tasks/DiaryTaskList.vue'
-
-  defineProps({
-    currentUser: Object,
-  })
-</script>
-
 <template>
   <section class="user-page__user-section user-section">
     <section class="user-section__user-block user-block">
@@ -31,6 +20,17 @@
     </section>
   </section>
 </template>
+
+<script setup>
+  import UserInfo from './UserInfo.vue'
+  import Calendar from '../UI/Calendar.vue'
+  import CurentDate from '../UI/CurrentDate.vue'
+  import DiaryTaskList from '../Tasks/DiaryTaskList.vue'
+
+  defineProps({
+    currentUser: Object,
+  })
+</script>
 
 <style scoped>
 .user-section {

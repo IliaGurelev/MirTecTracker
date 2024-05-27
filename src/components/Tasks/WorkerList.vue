@@ -1,11 +1,3 @@
-<script setup>
-  import Worker from './Worker.vue';
-
-  defineProps({
-    workerList: Array,
-  })
-</script>
-
 <template>
   <ul class="workers-list" :class="$attrs.class">
       <li v-for="worker in workerList"
@@ -15,6 +7,14 @@
       </li>
   </ul>
 </template>
+
+<script setup>
+  import Worker from './Worker.vue';
+
+  defineProps({
+    workerList: Array,
+  })
+</script>
 
 <style scoped>
   .workers-list {
