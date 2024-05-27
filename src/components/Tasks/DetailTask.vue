@@ -1,26 +1,33 @@
 <script setup>
   import ProperityButton from '../UI/ProperityButton.vue';
-  import ProgressBar from '../UI/PogressBar.vue';
-  import TaskTag from '../UI/TaskTag.vue';
+  import ProgressBar from '../UI/ProgressBar.vue';
+  import TaskTag from '../UI/TaskBriefcase.vue';
   import TaskStatus from '../UI/TaskStatus.vue';
-  import TaskData from '../UI/TaskData.vue';
+  import TaskDate from '../UI/TaskDate.vue';
   import WorkerList from './WorkerList.vue';
+
+  const props = defineProps({
+    task: Object
+  })
+
+  const taskName = props.task.name;
+  const taskDescription = props.task.description;
 </script>
 
 <template>
   <div class="tasks-list__task-details task-details">
     <div class="task-details__header-task">
-      <h3 class="task-details__title">Верстка - главной страницы</h3>
+      <h3 class="task-details__title">{{ taskName }}</h3>
       <div class="task-details__decorative-block">
-        <TaskTag :class="'task-details__tags'" />
+        <TaskTag :class="'task-details__tags'" :briefcase="task.briefcase"/>
         <ProperityButton />
       </div>
     </div>
-    <p class="task-details__description">Создай полную верстку по макету главной страницы</p>
-    <WorkerList :class="'task-details__workers-list'" />
+    <p class="task-details__description">{{ taskDescription }}</p>
+    <WorkerList :class="'task-details__workers-list'" :workerList="task.workers" />
     <ProgressBar :class="'task-details__progress-task'" />
     <div class="task-details__task__stats">
-      <TaskData />
+      <TaskDate />
       <TaskStatus />
     </div>
   </div>

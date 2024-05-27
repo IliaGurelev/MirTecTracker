@@ -1,12 +1,25 @@
 <script setup>
-import PersonalDiary from './PersonalDiary.vue'
-import PersonalTask from './PersonalTask.vue'
+  import PersonalDiary from './PersonalDiary.vue'
+  import PersonalTasks from './PersonalTasks.vue'
+
+  // Моковые данные
+  import usersData from '../../../mock/users-data';
+  import tasksData from '../../../mock/tasks-data';
+
+  const currentUser = usersData[1];
+  const tasks = tasksData;
 </script>
 
 <template>
   <main class="user-page">
-    <PersonalTask :class="'user-page__user-tasks'" />
-    <PersonalDiary />
+    <PersonalTasks 
+      :class="'user-page__user-tasks'"
+      :currentUser="currentUser"
+      :tasksUser="tasks"
+    />
+    <PersonalDiary
+      :currentUser="currentUser"
+    />
   </main>
 </template>
 

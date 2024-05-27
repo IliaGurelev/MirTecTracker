@@ -1,9 +1,14 @@
 <script setup>
+  const props = defineProps({
+    worker: Object,
+  })
+
+  const workerAvatar = props.worker.avatar;
 </script>
 
 <template>
   <div class="worker-icon-wrapp">
-    <img class="workers-icon" src="../../assets/user-icon-1.jpg" alt="">
+    <img class="workers-icon" :src="workerAvatar" alt="">
   </div>
 </template>
 
