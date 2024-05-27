@@ -16,7 +16,7 @@
         </button>
       </div>
       <Calendar />
-      <DiaryTaskList />
+      <DiaryTaskList :tasks="tasks"/>
     </section>
   </section>
 </template>
@@ -29,6 +29,7 @@
 
   defineProps({
     currentUser: Object,
+    tasks: Array,
   })
 </script>
 
