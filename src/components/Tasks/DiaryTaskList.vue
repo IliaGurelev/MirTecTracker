@@ -26,6 +26,8 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    max-height: 380px;
+    overflow-y: auto;
   }
 
   .user-diary__list::before {

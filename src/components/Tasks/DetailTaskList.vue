@@ -23,8 +23,10 @@
   .tasks-list__list {
     text-decoration: none;
     list-style: none;
-    padding: 0;
+    padding: 12px;
     margin: 0;
+    max-height: 540px;
+    overflow-y: auto;
   }
 
   .tasks-list__item:not(:last-child) {
