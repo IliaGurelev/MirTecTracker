@@ -76,7 +76,7 @@
   transition: background-color 0.3s;
 }
 
-.user-diary .user-diary__add-task-button:hover {
+.user-diary .add-task-button:hover {
   cursor: pointer;
   background-color: rgb(71, 71, 71);
 }

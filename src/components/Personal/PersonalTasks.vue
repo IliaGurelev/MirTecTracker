@@ -1,10 +1,10 @@
 <template>
-  <section class="user-tasks">
-    <HelloUserText class="user__hello-text" :nameUser="currentUser.name" />
-    <div class="user-tasks-wrapper">
-      <h2 class="user-tasks-title">Мои задачи</h2>
+  <section class="tasks">
+    <WelcomeUser class="tasks__welcome" :nameUser="currentUser.name" />
+    <div class="tasks__header">
+      <h2 class="tasks__title">Мои задачи</h2>
     </div>
-    <FilterTask class="user__filter-tasks" />
+    <FilterTask class="tasks__filter" />
     <DetailTaskList :tasksList="tasksUser" />
   </section>
 </template>
@@ -12,7 +12,7 @@
 <script setup>
   import FilterTask from '@/components/Tasks/FilterTask.vue';
   import DetailTaskList from '@/components/Tasks/DetailTaskList.vue'
-  import HelloUserText from '@/components/Personal/HelloUserText.vue';
+  import WelcomeUser from '@/components/Personal/WelcomeUser.vue';
 
   defineProps({
     currentUser: {
@@ -27,7 +27,7 @@
 </script>
 
 <style scoped>
-  .user-tasks {
+  .tasks {
     display: flex;
     flex-direction: column;
     max-width: 500px;
@@ -41,7 +41,7 @@
     cursor: default;
   }
 
-  .user__hello-text {
+  .user__hello {
     padding-left: 15px;
   }
 
