@@ -1,6 +1,6 @@
 <template>
   <section class="tasks">
-    <WelcomeUser class="tasks__welcome" :nameUser="currentUser.name" />
+    <WelcomeUser class="tasks__welcome" :nameUser="props.currentUser.name" />
     <div class="tasks__header">
       <h2 class="tasks__title">Мои задачи</h2>
     </div>
@@ -14,7 +14,7 @@
   import DetailTaskList from '@/components/Tasks/DetailTaskList.vue'
   import WelcomeUser from '@/components/Personal/WelcomeUser.vue';
 
-  defineProps({
+  const props = defineProps({
     currentUser: {
       type: Object,
       required: true,
@@ -26,27 +26,31 @@
   })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .tasks {
     display: flex;
     flex-direction: column;
     max-width: 500px;
+
+    &__header {
+      margin-bottom: 15px;
+    }
+
+    &__title {
+      font-weight: 700;
+      font-size: 40px;
+      padding-left: 15px;
+      cursor: default;
+    }
+  
+    &__welcome {
+      padding-left: 15px;
+    }
+  
+    &__filter {
+      margin-bottom: 15px;
+      padding-left: 15px;
+    }
   }
 
-  .user-tasks-title {
-    font-weight: 700;
-    font-size: 40px;
-    padding: 0 0 0 15px;
-    margin: 0 0 15px 0;
-    cursor: default;
-  }
-
-  .user__hello {
-    padding-left: 15px;
-  }
-
-  .user__filter-tasks {
-    margin-bottom: 15px;
-    padding-left: 15px;
-  }
 </style>

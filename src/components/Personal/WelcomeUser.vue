@@ -1,6 +1,6 @@
 <template>
-  <div class="hello-text-wrap">
-    <h3 class="hello-text">Привет, {{ nameUser }}!</h3>
+  <div class="welcome">
+    <h3 class="welcome__text">Привет, {{ nameUser }}!</h3>
   </div>
 </template>
 
@@ -14,7 +14,7 @@
 </script>
 
 <style scoped>
-  .hello-text {
+  .welcome__text {
     padding: 0;
     margin: 0;
     font-weight: 400;

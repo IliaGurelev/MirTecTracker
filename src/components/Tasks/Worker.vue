@@ -1,6 +1,6 @@
 <template>
-  <div class="worker-icon-wrapp">
-    <img class="worker-icon" :src="worker.avatar" alt="">
+  <div class="worker">
+    <img class="worker__icon" :src="worker.avatar" alt="">
   </div>
 </template>
 
@@ -13,16 +13,16 @@
   })
 </script>
 
-<style scoped>
-  .worker-icon-wrapp {
+<style lang="scss" scoped>
+  .worker {
     width: 30px;
     position: relative;
-  }
 
-  .worker-icon {
-    width: 40px;
-    border-radius: 50%;
-    border: #ffffff 4px solid;
-    cursor: pointer;
+    &__icon {
+      width: 40px;
+      border-radius: 50%;
+      border: #ffffff 4px solid;
+      cursor: pointer;
+    }
   }
 </style>

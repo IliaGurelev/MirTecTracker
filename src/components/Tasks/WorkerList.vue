@@ -19,7 +19,7 @@
   })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .workers-list { 
     display: flex;
     flex-direction: row-reverse;

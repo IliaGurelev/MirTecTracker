@@ -1,25 +1,25 @@
 <template>
   <section class="calendar">
-    <table class="calendar-table">
-      <thead class="calendar-header">
+    <table class="calendar__table">
+      <thead class="calendar__header">
         <tr>
-          <th class="table-header" v-for="(day, index) in weekDays" :key="index">
+          <th class="calendar__table-header" v-for="(day, index) in weekDays" :key="index">
             {{ day }}
           </th>
         </tr>
       </thead>
-      <tbody class="calendar-body">
-        <tr class="table-row" v-for="(week, weekIndex) in calendarDays" :key="weekIndex">
+      <tbody class="calendar__body">
+        <tr class="calendar__table-row" v-for="(week, weekIndex) in calendarDays" :key="weekIndex">
           <td
             v-for="(day, index) in week"
             :key="index"
             class="table-data"
             :class="{
-              'table-data--active': isActiveDay(day.date),
-              'table-data--muted': day.isOtherMonth
+              'calendar__table-data--active': isActiveDay(day.date),
+              'calendar__table-data--muted': day.isOtherMonth
             }"
           >
-            <p @click="selectDay(day)">{{ day.date.getDate() }}</p>
+            <p class="calendar__day" @click="selectDay(day)">{{ day.date.getDate() }}</p>
           </td>
         </tr>
       </tbody>
@@ -70,61 +70,61 @@
   });
 </script>
 
-<style scoped>  
-  .calendar-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
+<style lang="scss" scoped>
+  .calendar {
+    &__table {
+      width: 100%;
+      border-collapse: collapse;
+      row-gap: 50px;
+    }
 
-  .table-header, .table-data {
-    text-align: center;
-    padding: 4px 8px 0 8px;
-  }
-  
-   .table-data {
-    cursor: default;
-  }
-  
-  .table-data p {
-    width: 20px;
-    margin: 0 auto;
-    font-weight: 600;
-    font-family: "Montserrat", sans-serif;
-    cursor: pointer;
-  }
+    &__table-header, &__table-row {
+      font-weight: 500;
+      text-align: center;
+      padding: 4px 8px 0 8px;
+      cursor: default;
+    }
 
-  .table-data p:hover {
-    background-color: #9c9c9c;
-    border-radius: 50px;
-  }
+    &__table-data {
+      &--active {
+        color: var(--color-text-important);
+        position: relative;
 
-  .table-row:last-child .table-data {
-    padding-top: 12px;
-  }
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 4px; 
+          height: 4px; 
+          background-color: var(--color-text-important); 
+          border-radius: 50%;
+        }
+      }
 
-  .table-header--active {
-    font-weight: 600;
-    color: var(--color-text-important);
-  }
+      &--muted {
+        color: var(--light-grey)
+      }
+    }
 
-  .table-data--active{
-    color: var(--color-text-important);
-    position: relative;
-  }
+    &__day {
+      width: 20px;
+      margin: 0 auto;
+      font-weight: 600;
+      font-family: "Montserrat", sans-serif;
+      cursor: pointer;
 
-  .table-data--active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px; 
-    height: 4px; 
-    background-color: var(--color-text-important); 
-    border-radius: 50%;
-  }
+      &:hover {
+        background-color: #9c9c9c;
+        border-radius: 50px;
+      }
+    }
 
-  .table-data--muted {
-    color: var(--light-grey)
+    &__table-row + &__table-row {
+      td {
+        padding-top: 10px;
+      }
+    }
   }
 </style>

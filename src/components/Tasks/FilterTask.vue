@@ -1,13 +1,13 @@
 <template>
-  <div class="filter-tasks">
-    <ul class="filter-list">
+  <div class="filter">
+    <ul class="filter__list">
       <li 
         v-for="(filter, index) in filters" 
         :key="index" 
-        :class="{'filter-item': true, 'filter-item--active': activeFilter === index}" 
+        :class="{'filter__item': true, 'filter__item--active': activeFilter === index}" 
         @click="setActiveFilter(index)"
       >
-        <p class="filter-element">{{ filter }}</p>
+        <p class="filter__element">{{ filter }}</p>
       </li>
     </ul>
   </div>
@@ -24,35 +24,30 @@
   };
 </script>
 
-<style scoped>
-  .filter-tasks {
-    overflow-x: auto;
-  }
+<style lang="scss" scoped>
+  .filter {
+    &__list {
+      display: flex;
+      font-weight: 600;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      column-gap: 20px
+    }
 
-  .filter-list {
-    display: flex;
-    font-weight: 600;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+    &__item {
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
 
-  .filter-item {
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-  }
+      &--active {
+        color: #59b6ff;
+      }
+    }
 
-  .filter-item:not(:last-child) {
-    margin-right: 20px;
-  }
-
-  .filter-item--active {
-    color: #59b6ff;
-  }
-
-  .filter-element {
-    margin: 0;
-    padding: 0;
+    &__element {
+      margin: 0;
+     padding: 0;
+    }
   }
 </style>

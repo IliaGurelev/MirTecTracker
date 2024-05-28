@@ -1,6 +1,6 @@
 <template>
-  <div class="briefcase-wrap">
-    <span class="briefcase" :class="colorClass">{{ briefcase.name }}</span>
+  <div class="briefcase">
+    <span class="briefcase__element" :class="colorClass">{{ briefcase.name }}</span>
   </div>
 </template>
 
@@ -17,37 +17,37 @@
   let colorClass = `briefcase--${color}`;
 </script>
 
-<style scoped>
-  .briefcase-wrap {
+<style lang="scss" scoped>
+  .briefcase {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
 
-  .briefcase {
-    border-radius: 100px;
-    padding: 2px 13px;
-    font-size: 12px;
-    font-weight: 700;
-  }
+    &__element {
+      border-radius: 100px;
+      padding: 2px 13px;
+      font-size: 12px;
+      font-weight: 700;
+    }
 
-  .briefcase--purple {
-    color: var(--tag-4-text);
-    background-color: var(--tag-4);
-  }
+    &--purple {
+      color: var(--tag-4-text);
+      background-color: var(--tag-4);
+    }
 
-  .briefcase--blue {
+    &--blue {
       color: var(--tag-3-text);
       background-color: var(--tag-3);
     }
 
-  .briefcase--green {
-    color: var(--tag-2-text);
-    background-color: var(--tag-2);
-  }
+    &--green {
+      color: var(--tag-2-text);
+      background-color: var(--tag-2);
+    }
 
-  .briefcase--orange {
-    color: var(--tag-5-text);
-    background-color: var(--tag-5);
+    &--orange {
+      color: var(--tag-5-text);
+      background-color: var(--tag-5);
+    }
   }
 </style>

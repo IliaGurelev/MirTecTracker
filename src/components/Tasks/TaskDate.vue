@@ -19,7 +19,7 @@
   const formateDate = formatDate(props.dateCreated);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .date {
     color: var(--light-grey);
     font-size: 12px;

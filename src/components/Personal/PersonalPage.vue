@@ -35,44 +35,43 @@
   const tasks = props.tasksData;
 </script>
 
-<style scoped>
-
-.user-page__tasks {
-  margin-right: 50px;
-}
-
-.user-page {
-  display: flex;
-  margin-top: 20px;
-  margin-left: 50px;
-}
-
-/* АДАПТИВ */
-
-@media (max-width: 750px) {
+<style lang="scss" scoped>
   .user-page {
-    flex-direction: column-reverse;
+    display: flex;
+    margin-top: 20px;
+    margin-left: 50px;
+
+    &__tasks {
+      margin-right: 50px;
+    }
   }
 
-  .user-page__user-section {
-    margin-bottom: 50px;
+  /* АДАПТИВ */
+
+  @media (max-width: 750px) {
+    .user-page {
+      flex-direction: column-reverse;
+    }
+
+    .user-page__user-section {
+      margin-bottom: 50px;
+    }
+
+    .user-page__user-tasks {
+      margin-right: 0;
+    }
   }
 
-  .user-page__user-tasks {
-    margin-right: 0;
+  @media (max-width: 600px) {
+    .user-page {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
   }
-}
 
-@media (max-width: 600px) {
-  .user-page {
-    margin-left: 10px;
-    margin-right: 10px;
+  @media (max-width: 427px) {
+    .filter-task__list {
+      flex-wrap: wrap;
+    }
   }
-}
-
-@media (max-width: 427px) {
-  .filter-task__list {
-    flex-wrap: wrap;
-  }
-}
 </style>

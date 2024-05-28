@@ -1,7 +1,7 @@
 <template>
-  <div class="status-owners">
-    <span class="status-owner" :class="classStatus">
-      <i class="fa-solid" :class="iconStatus"></i> {{ nameStatus }}
+  <div class="status">
+    <span class="status__text" :class="classStatus">
+      <i class="status__icon fa-solid" :class="iconStatus"></i> {{ nameStatus }}
     </span>
   </div>
 </template>
@@ -19,7 +19,7 @@
   const nameStatus = statusTaskConst[props.taskStatus];
 
   let iconStatus;
-  let classStatus = 'status';
+  let classStatus = 'status__icon';
   switch (props.taskStatus) {
     case 'open':
       iconStatus = 'fa-circle-notch';
@@ -40,33 +40,34 @@
   }
 </script>
 
-<style scoped>
-  .status-owners {
+<style lang="scss" scoped>
+  .status {
     position: absolute;
     right: 0;
     bottom: 0;
 
-  }
+    &__text {
+      border-radius: 100px;
+      padding: 2px 13px;
+      font-size: 12px;
+      font-weight: 700;
+    }
 
-  .status-owner{
-    border-radius: 100px;
-    padding: 2px 13px;
-    font-size: 12px;
-    font-weight: 700;
-  }
+    &__icon {
+      &--close {
+        color: var(--status-close-text);
+        background-color: var(--status-close);
+      }
 
-  .status--close {
-    color: var(--status-close-text);
-    background-color: var(--status-close);
-  }
+      &--open {
+        color: var(--status-open-text);
+        background-color: var(--status-open);
+      }
 
-  .status--open {
-    color: var(--status-open-text);
-    background-color: var(--status-open);
-  }
-
-  .status--work {
-    color: var(--status-inwork-text);
-    background-color: var(--status-inwork);
+      &--work {
+        color: var(--status-inwork-text);
+        background-color: var(--status-inwork);
+      }
+    }
   }
 </style>

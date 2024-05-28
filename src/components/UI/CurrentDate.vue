@@ -1,24 +1,24 @@
 <template>
-  <div class="current-date-wrap">
-    <p class="current-date">Сегодня</p>
-    <p class="current-date current-date--bold">Май <span class="number">20</span>, <span class="number">2024</span></p>
+  <div class="date">
+    <p class="date__text">Сегодня</p>
+    <p class="date__date date__date--bold">Май <span class="date__number">20</span>, <span class="date__number">2024</span></p>
   </div>
 </template>
 
 <script setup>
 </script>
 
-<style scoped>
-  .current-date {
+<style lang="scss" scoped>
+  .date {
     font-size: 16px;
-  }
-  
-  .current-date--bold {
-    font-weight: 600;
-    font-size: 20px;
-  }
 
-  .number {
-    font-family: "Montserrat", sans-serif;
+    &__date--bold {
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    &__number {
+      font-family: "Montserrat", sans-serif;
+    }
   }
 </style>

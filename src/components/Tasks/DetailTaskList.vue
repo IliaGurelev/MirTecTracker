@@ -1,7 +1,7 @@
 <template>
-  <div class="detail-task-list">
-    <ul class="task-list">
-      <li class="task-item"
+  <div class="task-list">
+    <ul class="task-list__list">
+      <li class="task-list__item"
           v-for="task in tasksList" 
           :key="task.id" 
       >
@@ -22,15 +22,18 @@
   })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .task-list {
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    padding: 12px;
-    max-height: 540px;
-    text-decoration: none;
-    list-style: none;
-    overflow-y: auto;
+    
+    &__list {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+      padding: 12px;
+      max-height: 540px;
+      text-decoration: none;
+      list-style: none;
+      overflow-y: auto;
+    }
   }
 </style>
