@@ -17,9 +17,18 @@
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
 
   const props = defineProps({
-    currentUser: Object,
-    tasksData: Array,
-    tasksDiary: Array,
+    currentUser: {
+      type: Object,
+      required: true,
+    },
+    tasksData: {
+      type: Array,
+      required: true,
+    },
+    tasksDiary: {
+      type: Array,
+      required: true,
+    },
   })
 
   const currentUser = props.currentUser;

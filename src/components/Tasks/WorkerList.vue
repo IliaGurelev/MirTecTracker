@@ -12,7 +12,10 @@
   import Worker from '@/components/Tasks/Worker.vue';
 
   defineProps({
-    workerList: Array,
+    workerList: {
+      type: Array,
+      required: true,
+    },
   })
 </script>
 

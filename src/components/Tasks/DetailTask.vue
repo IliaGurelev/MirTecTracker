@@ -1,13 +1,13 @@
 <template>
   <div class="detailed-task">
     <div class="header-task">
-      <h3 class="task-title">{{ taskName }}</h3>
+      <h3 class="task-title">{{ task.name }}</h3>
       <div class="task-wrapper">
         <TaskBriefcase class="task-briefcase" :briefcase="task.briefcase"/>
         <ProperityButton />
       </div>
     </div>
-    <p class="task-description">{{ taskDescription }}</p>
+    <p class="task-description">{{ task.description }}</p>
     <WorkerList class="task-workers-list" :workerList="task.workers" />
     <ProgressBar class="task-progress-bar" />
     <div class="task-status">
@@ -25,12 +25,12 @@
   import TaskDate from '@/components/Tasks/TaskDate.vue';
   import WorkerList from '@/components/Tasks/WorkerList.vue';
 
-  const props = defineProps({
-    task: Object
+  defineProps({
+    task: {
+      type: Object,
+      required: true,
+    }
   })
-
-  const taskName = props.task.name;
-  const taskDescription = props.task.description;
 </script>
 
 <style scoped>

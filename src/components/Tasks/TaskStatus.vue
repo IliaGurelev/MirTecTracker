@@ -10,7 +10,10 @@
   import statusTaskConst from '@/constants/status.js';
 
   const props = defineProps({
-    taskStatus: String,
+    taskStatus: {
+      type: String,
+      required: true,
+    },
   })
 
   const nameStatus = statusTaskConst[props.taskStatus];

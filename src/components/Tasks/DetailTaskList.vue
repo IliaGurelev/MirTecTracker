@@ -15,7 +15,10 @@
   import DetailTask from '@/components/Tasks/DetailTask.vue';
 
   defineProps({
-    tasksList: Array,
+    tasksList: {
+      type: Array,
+      required: true,
+    }
   })
 </script>
 

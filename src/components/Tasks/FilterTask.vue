@@ -27,6 +27,7 @@
 <style scoped>
   .filter-task {
     margin-bottom: 15px;
+    overflow-x: auto;
   }
 
   .filter-list {

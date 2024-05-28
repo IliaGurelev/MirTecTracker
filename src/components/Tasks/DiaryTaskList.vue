@@ -18,7 +18,10 @@
   import DiaryTask from '@/components/Tasks/DiaryTask.vue';
 
   defineProps({
-    tasks: Array,
+    tasks: {
+      type: Array,
+      required: true,
+    },
   })
 </script>
 

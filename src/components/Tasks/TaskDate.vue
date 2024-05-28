@@ -10,7 +10,10 @@
   import formatDate from '@/utils/fomrat-date';
 
   const props = defineProps({
-    dateCreated: String,
+    dateCreated: {
+      type: String,
+      required: true,
+    },
   })
 
   const formateDate = formatDate(props.dateCreated);

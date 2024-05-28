@@ -1,37 +1,20 @@
 <template>
   <div class="briefcase-wrap">
-    <span class="briefcase" :class="colorClass">{{ briefcaseName }}</span>
+    <span class="briefcase" :class="colorClass">{{ briefcase.name }}</span>
   </div>
 </template>
 
 <script setup>
-  import colorConst from '@/constants/color.js';
-
   const props = defineProps({
-    briefcase: Object,
+    briefcase: {
+      type: Object,
+      required: true,
+    },
   })
-
-  const briefcaseName = props.briefcase.name;
+  
   const color = props.briefcase.color;
 
-  let colorClass = 'briefcase';
-  switch (color) {
-      case colorConst.purple:
-          colorClass += '--purple';
-          break;
-      case colorConst.green:
-          colorClass += '--green';
-          break;
-      case colorConst.blue:
-          colorClass += '--blue';
-          break;
-      case colorConst.orange:
-          colorClass += '--orange';
-          break;
-      default:
-          colorClass += '--blue';
-          break;
-  }
+  let colorClass = `briefcase--${color}`;
 </script>
 
 <style scoped>

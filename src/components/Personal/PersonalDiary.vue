@@ -28,8 +28,14 @@
   import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
 
   defineProps({
-    currentUser: Object,
-    tasks: Array,
+    currentUser: {
+      type: Object,
+      required: true,
+    },
+    tasks: {
+      type: Array,
+      required: true,
+    },
   })
 </script>
 

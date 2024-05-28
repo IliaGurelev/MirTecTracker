@@ -1,11 +1,16 @@
 <template>
   <div class="hello-text-wrap">
-    <h3 class="hello-text">Привет, {{ userData.nameUser }}!</h3>
+    <h3 class="hello-text">Привет, {{ nameUser }}!</h3>
   </div>
 </template>
 
 <script setup>
-  const userData = defineProps(['nameUser'])
+  defineProps({
+    nameUser: {
+      type: String,
+      required: true
+    }
+  })
 </script>
 
 <style scoped>

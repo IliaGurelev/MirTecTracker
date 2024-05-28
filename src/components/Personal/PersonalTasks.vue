@@ -15,8 +15,14 @@
   import HelloUserText from '@/components/Personal/HelloUserText.vue';
 
   defineProps({
-    currentUser: Object,
-    tasksUser: Array,
+    currentUser: {
+      type: Object,
+      required: true,
+    },
+    tasksUser: {
+      type: Array,
+      required: true,
+    },
   })
 </script>
 

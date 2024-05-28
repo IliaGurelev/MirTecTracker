@@ -1,15 +1,16 @@
 <template>
   <div class="worker-icon-wrapp">
-    <img class="worker-icon" :src="workerAvatar" alt="">
+    <img class="worker-icon" :src="worker.avatar" alt="">
   </div>
 </template>
 
 <script setup>
-  const props = defineProps({
-    worker: Object,
+  defineProps({
+    worker: {
+      type: Object,
+      required: true,
+    },
   })
-
-  const workerAvatar = props.worker.avatar;
 </script>
 
 <style scoped>

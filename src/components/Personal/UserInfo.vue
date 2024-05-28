@@ -1,17 +1,17 @@
 <template>
   <div class="user-info">
-    <img class="user-icon" :src="avatarUser" alt="">
-    <p class="user-name">{{ nameUser }}</p>
+    <img class="user-icon" :src="currentUser.avatar" alt="">
+    <p class="user-name">{{ currentUser.name }}</p>
   </div>
 </template>
 
 <script setup>
-  const props = defineProps({
-    currentUser: Object,
+  defineProps({
+    currentUser: {
+      type: Object,
+      required: true,
+    },
   });
-
-  const nameUser = props.currentUser.name;
-  const avatarUser = props.currentUser.avatar;
 </script>
 
 <style scoped>
