@@ -26,7 +26,7 @@
       iconStatus = 'fa-circle-play';
       classStatus = 'status--work';
       break;
-    case 'cloe':
+    case 'close':
       iconStatus = 'fa-circle-check';
       classStatus = 'status--close';
       break;
