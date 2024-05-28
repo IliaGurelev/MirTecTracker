@@ -5,42 +5,41 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
 	<link rel="stylesheet" href="../css/hellopage.css">
-	<link rel="stylesheet" href="../css/scroll-menu.css">
 	<link rel="stylesheet" href=" https://use.fontawesome.com/releases/v6.5.2/css/all.css">
 	<title>Миртек Трекер: список дел для организации работы и жизни</title>
 </head>
 <body>
 	<header class="header">
-		<div class="logo_item">
+		<div class="logo__item">
 		  <img src="../img/logo.svg" alt=""></i>Миртек Трекер
 		</div>
 		<nav class='navigation-menu'>
 			<ul class='navigation-menulist'>
 				<div class="logo">
-					<div class="logo_item">
+					<div class="logo__item">
 					  <img src="../img/logo.svg" alt=""></i>Миртек Трекер
 					</div>
 					<button class="close"><i class="fa-solid fa-xmark"></i></button>
 				  </div>
 			  <li class='navigation-menuitem'>
-				<a href=''>Главная</a>
+				<a href='#top'>Главная</a>
 			  </li>
 			  <li class='navigation-menuitem'>
-				<a href=''>О трекере</a>
+				<a href='#abouts'>О трекере</a>
 			  </li>
 			  <li class='navigation-menuitem'>
-				<a href=''>Возможности</a>
+				<a href='#opportunities'>Возможности</a>
 			  </li>
 			  <li class='navigation-menuitem'>
-				<a href=''>Как начать</a>
+				<a href='#prem'>Преимущества</a>
 			  </li>
 			  <div class="visible-btn">
 				 <li class='navigation-menu__item'>
-				<a href=''class='login-btns'>Войти</a>
+				<a href=''class='button__login'>Войти</a>
 			  </li>
 			</div>
 			<div class="visible-btn">
-				<button class="register-btn">Регистрация</button>
+				<button class="button_registration">Регистрация</button>
 			</div>
 			</ul>
 		  </nav>
@@ -49,78 +48,252 @@
 			<div class="line"></div>
 		  </div>
 		  <div class='auth-buttons'>
-			<a href='' class='login-btn'>
+			<a href='' class='button__login'>
 			  Войти
 			</a>
-			<button class="register-btns">Регистрация</button>
+			<button class="button_registrations">Регистрация</button>
 		  </div>
 	  </header>
 	  <main id="#top">
 		
         <div class="home-page">
 			<div class="container">
-				<div class="title">
+				<div class="animation">
+				<div class="title__content-home-page">
 					<h1><span>Организуйте</span> работу и жизнь.</h1>
 					<p><span>Миртек Трекер</span> – список дел и таск-менеджер для ваших задач. Он поможет вам обрести концентрацию, организованность и покой.
 					</p>
-					<button class="start-work">Начать работу</button>
+					<button class="button__start-work">Начать работу</button>
 				</div>
-				<div class="photo-site">
-					<img src="../img/site.png" alt="">
+				<div class="image__home-page">
+					<img class="main-img" src="../img/site.png" alt="" >
+					<img class="mobile-img-for-ipad" src="../img/site5.png" alt="" >
+					<img class="mobile-img-for-mobile" src="../img/site6.png" alt="" >
 				</div>
 		</div>	
         </div>
-		<div class="voz-page">
+	</div>
+		<div class="about-the-program" id="abouts" >
+			<div class="container__about">
+					<div class="animation">
+				<h1>Коротко о <span>Миртек Трекер</span>:</h1>
+				<p>
+					<span>Миртек Трекер</span> - это ваш личный помощник для эффективного управления задачами любой сложности, так же это мощная онлайн-платформа для управления задачами, которая поможет вам организовать свою жизнь, повысить продуктивность и достичь поставленных целей.  </p>
+				</div>
+			</div>
+		</div>
+		<div class="opportunities-page" id="opportunities">
 			<div class="container">
-				<div class="title2">
+				<div class="animation">
+				<div class="title__opportunities">
 					<h1>Возможности</h1>
 				</div>
 				<div class="description">
-					<div class="descr-txt">
-						<p class="slog-description">Разгрузите свой ум</p>
-						<h1 class="title-description">Самый быстрый способ перенести задачи из головы</h1>
-						<p class="desc-description">Вы находитесь на встрече и вам дают задачу. Чтобы не держать её в голове просто добавьте задачу в трекер, чтобы не думать об этом во время работы.</p>
+					<div class="description__content">
+						<p class="description__slogan">Разгрузите свой ум</p>
+						<h1 class="description__title">Самый быстрый способ перенести задачи из головы</h1>
+						<p class="description__text">Вы находитесь на встрече и вам дают задачу. Чтобы не держать её в голове просто добавьте задачу в трекер, чтобы не думать об этом во время работы.</p>
 					</div>
-						<div class="container_image">
-							<div class="image-descript">
-								<img src="../img/site2.PNG" alt="">
-							</div>
+						<div class="image__descript">
+							<img src="../img/site2.PNG" alt="">
 					</div>
 				</div>
-				
+			</div>
+			<div class="animation">
 				<div class="description">
-					<div class="descr-txt">
-						<p class="slog-description">Фокусируйтесь на важном</p>
-						<h1 class="title-description">Обретите, наконец, кристальную ясность ума.</h1>
-						<p class="desc-description">Освободите свое время и энергию! Используйте функцию сортировки по портфелям и сделайте свою работу эффективнее!</p>
+					<div class="description__content">
+						<p class="description__slogan">Фокусируйтесь на важном</p>
+						<h1 class="description__title">Обретите, наконец, кристальную ясность ума.</h1>
+						<p class="description__text">Освободите свое время и энергию! Используйте функцию сортировки по портфелям и сделайте свою работу эффективнее!</p>
 					</div>
-					<div class="container_image">
-						<div class="image-descript">
+					<div class="image__descript">
 							<img src="../img/site4.PNG" alt="">
-						</div>
 					</div>
 				</div>
+				</div>
+				<div class="animation">
 				<div class="description">
-					<div class="descr-txt">
-						<p class="slog-description">Организуйте командную работу</p>
-						<h1 class="title-description">Когда все ваши задачи могут, наконец, сосуществовать.</h1>
-						<p class="desc-description">Дайте своей команде общее пространство для работы, чтобы оставаться в курсе всех дел – наряду с личными задачами и проектами, но отдельно от них.</p>
+					<div class="description__content">
+						<p class="description__slogan">Организуйте командную работу</p>
+						<h1 class="description__title">Когда все ваши задачи могут, наконец, сосуществовать.</h1>
+						<p class="description__text">Дайте своей команде общее пространство для работы, чтобы оставаться в курсе всех дел – наряду с личными задачами и проектами, но отдельно от них.</p>
 					</div>
-					<div class="container_image">
-						<div class="image-descript">
+					<div class="image__descript">
 							<img src="../img/site3.PNG" alt="">
-						</div>
 					</div>
+				</div>
+			</div>
 				</div>
 		</div>	
         </div>
-		<div class="card-page">
-		<div class="containerd">
-			<h1><span>Миртек Трекер</span>: Не просто трекер, а гарантия спокойствия. Отслеживайте каждый шаг, будьте на шаг впереди.</h1>
+
+		<div class="features" id="prem">
+			<div class="animation">
+			<h1><span>Миртек Трекер</span>: не просто трекер, а гарантия спокойствия. Отслеживайте каждый шаг, будьте на шаг впереди.</h1>
+			<t>Что делает <span>Миртек Трекер</span> особенным:</t>
+			<div class="timline">
+				<div class="container-text left-container">
+					<i class="fa-solid fa-wand-magic-sparkles"></i>
+					<div class="text-box__timeline">
+							<h2>Универсальность:</h2>
+							<p>Миртек Трекер подходит для всех сфер жизни - работа, учеба, личные дела. Отслеживайте проекты, планы,  встречи,  задания,  идеи - все в одном месте.</p>
+					</div>
+				</div>
+				<div class="container-text right-container">
+					<i class="fa-regular fa-object-group"></i>
+					<div class="text-box__timeline">
+							<h2>Интуитивный интерфейс:</h2>
+							<p>Простая и удобная система управления задачами, с которой легко разобраться даже новичкам.</p>
+					</div>
+				</div>
+				<div class="container-text left-container">
+					<i class="fa-solid fa-sliders"></i>
+					<div class="text-box__timeline">
+							<h2>Гибкость и настройка:</h2>
+							<p>Создавайте задачи,  группируйте их по категориям,  проектам,  приоритетам,  назначайте сроки.  Миртек Трекер легко адаптируется к вашим индивидуальным потребностям.</p>
+					</div>
+				</div>
+				<div class="container-text right-container">
+					<i class="fa-solid fa-wrench"></i>
+					<div class="text-box__timeline">
+							<h2>Мощные функции:</h2>
+							<p>Добавляйте заметки,  вложения,  списки дел,  назначайте ответственных,  отслеживайте прогресс.</p>
+					</div>
+				</div>
+				<div class="container-text left-container">
+					<i class="fa-solid fa-globe fa-fw"></i>
+					<div class="text-box__timeline">
+							<h2>Доступность 24/7:</h2>
+							<p>Работайте с задачами в любое время,  в любом месте,  с компьютера,  смартфона или планшета.</p>
+					</div>
+				</div>
+				<div class="container-text right-container">
+					<i class="fa-solid fa-user-group"></i>
+					<div class="text-box__timeline">
+							<h2>Совместная работа:</h2>
+							<p>Делитесь задачами с коллегами,  создавайте совместные проекты,  координируйте действия. Трекер позволяет совместную работу над одним проектом.</p>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="container-adv">
+			<div class="animation">
+			<h1>Преимущества использования <span>Миртек Трекер</span>:</h1>
+		<div class="row">
+			<div class="advantages">
+				<i class="fa-solid fa-thumbs-up"></i>
+				<h2>Повышение продуктивности</h2>
+				<p>Cконцентрируйтесь на самых важных задачах,  уменьшите стресс,  используйте время более эффективно.</p>
+			</div>
+			<div class="advantages">
+				<i class="fa-solid fa-map"></i>
+				<h2>Улучшение планирования</h2>
+				<p>Создавайте четкие планы,  не упускайте важные события,  контролируйте выполнение задач.</p>
+			</div>
+			<div class="advantages">
+				<i class="fa-solid fa-user-tie"></i>
+				<h2>Увеличение ответственности</h2>
+				<p>Фиксируйте задачи,  назначайте сроки,  отслеживайте прогресс,  увеличивайте свою ответственность за достижение целей.</p>
+			</div>
+			<div class="advantages">
+				<i class="fa-solid fa-users"></i>
+				<h2>Лучшая коммуникация</h2>
+				<p>Делитесь задачами,  отслеживайте прогресс совместных проектов,  улучшайте коммуникацию с коллегами.</p>
+			</div>
+		</div>
+	</div>
+		</div>
+		<div class="container-contact" id="contact">
+			<div class="phon">
+			<div class="container">
+			<div class="animation">
+			<main class="row-contact">
+				<section class="col left">				
+					<div class="contactTitle">
+						<h2>Как с нами связаться</h2>
+						<p>У вас возникли вопросы или проблемы о Миртек Трекер? Хотите узнать больше о наших функциях?  Ищете помощь с настройкой? Оставьте ваше сообщение, мы постараемся ответить вам в ближайшее время</p>
+					</div>					
+				</section>
+				<section class="col right">
+					<form class="messageForm">
+						
+						<div class="inputGroup halfWidth">
+							<input type="text" name="" required="required">
+							<label>Ваше имя    <i class="fa-solid fa-signature"></i></label>
+						</div>
+	
+						<div class="inputGroup halfWidth">
+							<input type="text" name="" required="required">
+							<label>Ваша почта <i class="fa-solid fa-envelope"></i></label>
+						</div>
+	
+						<div class="inputGroup fullWidth">
+							<input type="text" name="" required="required">
+							<label>Тема обращения <i class="fa-solid fa-pen-nib"></i></label>
+						</div>
+	
+						<div class="inputGroup fullWidth">
+							<textarea required="required"></textarea>
+							<label>Ваше сообщение <i class="fa-solid fa-pen-nib"></i></label>
+						</div>
+						<button class="tell-sms">Отправить сообщение</button>
+					</form>
+	
+				</section>
+	
+			</main>
+		</div>
+			</div>
+		</div>
+		</div>
+		<div class="slogan">
+			<div class="animation">
+			<div class="container_slogan">
+				<h1>Обретите спокойствие и ясность с помощью одного из самых популярных в мире приложений для повышения продуктивности</h1>
+				<button class="start-works">Начать работу</button>
+			</div>
+		</div>
+		</div>
+		<footer class="footer">
+			<div class="footer-top">
+			  <div class="container">
+				<div class="footer-brand-wrapper">
+					<div class="logo_items">
+						<img src="../img/logo.svg" alt="">
+						<a href="../html/hellopage.html">Миртек Трекер</a>
+					  </div>	
+				  <ul class="footer-list">
+					<li>
+					  <a href="" class="footer-link">Политика соглашения</a>
+					</li>
+		
+					<li>
+					  <a href="#" class="footer-link">Политика конфиденциальности</a>
+					</li>
+		
+					<li>
+					  <a href="#contact" class="footer-link">Обратная связь</a>
+					</li>
 			
-		</div>
-		</div>
+				  </ul>
+		
+				</div>
+			  </div>
+			</div>
+		
+			<div class="footer-bottom">
+			  <div class="container">
+				<p class="copyright">
+				  &copy; 2024 <a href="#">Миртек Трекер</a>. Все права защищены!
+				</p>
+		
+			  </div>
+			</div>
+		
+		  </footer>
+		
 	</main>
-	<script src="../js/nav.js"></script>
+	<script src="../js/hellopages.js"></script>
 </body>
 </html>

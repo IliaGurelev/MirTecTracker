@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
 	function handleDrop(e) {
 	  if (e.stopPropagation) {
-		e.stopPropagation();
+		e.stopPropagation(); 
 	  }
 	  
 	  if (dragSrcEl != this) {
@@ -63,9 +63,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	  item.addEventListener('dragend', handleDragEnd, false);
 	});
   });
-
-
-
-
-
-  
