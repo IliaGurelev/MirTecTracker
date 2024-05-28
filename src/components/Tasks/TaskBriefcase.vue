@@ -1,6 +1,6 @@
 <template>
   <div class="briefcase">
-    <span class="briefcase__element" :class="colorClass">{{ briefcase.name }}</span>
+    <span class="briefcase__element" :class="colorClass">{{ props.briefcase.name }}</span>
   </div>
 </template>
 

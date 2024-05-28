@@ -1,6 +1,6 @@
 <template>
-  <ul class="workers-list" :class="$attrs.class">
-      <li v-for="worker in workerList"
+  <ul class="workers-list">
+      <li v-for="worker in props.workerList"
           :key = "worker.id"
           class="list-item">
         <Worker :worker="worker"/>
@@ -11,7 +11,7 @@
 <script setup>
   import Worker from '@/components/Tasks/Worker.vue';
 
-  defineProps({
+  const props = defineProps({
     workerList: {
       type: Array,
       required: true,

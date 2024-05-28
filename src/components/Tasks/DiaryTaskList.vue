@@ -1,7 +1,7 @@
 <template>
   <div class="task-list">
     <ul class="task-list__list">
-      <li v-for="(task, index) in tasks" :key="task" class="task-list__item">
+      <li v-for="(task, index) in props.tasks" :key="task.id" class="task-list__item">
         <div class="task-list__mark-wrap">
           <div class="task-list__mark" :class="{'task-list__mark--active': index === 0}"></div>
         </div>
@@ -17,7 +17,7 @@
 <script setup>
   import DiaryTask from '@/components/Tasks/DiaryTask.vue';
 
-  defineProps({
+  const props = defineProps({
     tasks: {
       type: Array,
       required: true,

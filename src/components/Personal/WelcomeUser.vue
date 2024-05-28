@@ -1,11 +1,11 @@
 <template>
   <div class="welcome">
-    <h3 class="welcome__text">Привет, {{ nameUser }}!</h3>
+    <h3 class="welcome__text">Привет, {{ props.nameUser }}!</h3>
   </div>
 </template>
 
 <script setup>
-  defineProps({
+  const props = defineProps({
     nameUser: {
       type: String,
       required: true

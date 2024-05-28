@@ -4,7 +4,7 @@
     <div class="tasks__header">
       <h2 class="tasks__title">Мои задачи</h2>
     </div>
-    <FilterTask class="tasks__filter" />
+    <FilterTask :filters="filters" class="tasks__filter" />
     <DetailTaskList :tasksList="tasksUser" />
   </section>
 </template>
@@ -24,6 +24,8 @@
       required: true,
     },
   })
+
+  const filters = ['Новые', 'На сегодня', 'Предстоящие', 'Закрытые'];
 </script>
 
 <style lang="scss" scoped>

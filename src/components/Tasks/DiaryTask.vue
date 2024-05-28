@@ -1,13 +1,13 @@
 <template>
   <div class="task" :class="{ 'task--active': isActive}">
     <div class="task__header">
-      <p class="task__title">{{task.name}}</p>
-      <time datetime="09:00">{{task.time_start}}</time>
+      <p class="task__title">{{props.task.name}}</p>
+      <time datetime="09:00">{{props.task.time_start}}</time>
     </div>
     <div class="task__content">
-      <p class="task__description">{{task.description}}</p>
+      <p class="task__description">{{props.task.description}}</p>
       <div class="task__wrapper">
-        <WorkerList :workerList="task.workers" />
+        <WorkerList :workerList="props.task.workers" />
         <button class="task__button">
           <CompleteIcon />
         </button>
@@ -22,7 +22,7 @@
   import WorkerList from '@/components/Tasks/WorkerList.vue';
   import CompleteIcon from '@/assets/CompleteIcon.vue';
 
-  defineProps({
+  const props = defineProps({
     isActive: {
       type: Boolean,
       required: true,

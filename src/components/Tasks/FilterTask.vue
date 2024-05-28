@@ -2,7 +2,7 @@
   <div class="filter">
     <ul class="filter__list">
       <li 
-        v-for="(filter, index) in filters" 
+        v-for="(filter, index) in props.filters" 
         :key="index" 
         :class="{'filter__item': true, 'filter__item--active': activeFilter === index}" 
         @click="setActiveFilter(index)"
@@ -16,7 +16,13 @@
 <script setup>
   import {ref} from 'vue';
 
-  const filters = ['Новые', 'На сегодня', 'Предстоящие', 'Закрытые'];
+  const props = defineProps({
+    filters: {
+      type: Array,
+      required: true,
+    },
+  });
+
   const activeFilter = ref(0);
 
   const setActiveFilter = (index) => {

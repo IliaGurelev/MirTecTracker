@@ -1,18 +1,18 @@
 <template>
   <div class="task">
     <div class="task__header">
-      <h3 class="task__title">{{ task.name }}</h3>
+      <h3 class="task__title">{{ props.task.name }}</h3>
       <div class="task__wrapper">
-        <TaskBriefcase class="task__briefcase" :briefcase="task.briefcase"/>
+        <TaskBriefcase class="task__briefcase" :briefcase="props.task.briefcase"/>
         <ProperityButton />
       </div>
     </div>
-    <p class="task__description">{{ task.description }}</p>
-    <WorkerList class="task__workers-list" :workerList="task.workers" />
+    <p class="task__description">{{ props.task.description }}</p>
+    <WorkerList class="task__workers" :workerList="props.task.workers" />
     <ProgressBar class="task__progress-bar" />
     <div class="task__status">
-      <TaskDate :dateCreated="task.createdAt"/>
-      <TaskStatus :taskStatus="task.status" />
+      <TaskDate :dateCreated="props.task.createdAt"/>
+      <TaskStatus :taskStatus="props.task.status" />
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@
   import TaskDate from '@/components/Tasks/TaskDate.vue';
   import WorkerList from '@/components/Tasks/WorkerList.vue';
 
-  defineProps({
+  const props = defineProps({
     task: {
       type: Object,
       required: true,
@@ -68,7 +68,7 @@
       color: rgb(156, 156, 156);
     }
 
-    &__worker-list {
+    &__workers {
       margin-bottom: 20px;
     }
 

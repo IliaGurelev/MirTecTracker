@@ -2,7 +2,7 @@
   <div class="task-list">
     <ul class="task-list__list">
       <li class="task-list__item"
-          v-for="task in tasksList" 
+          v-for="task in props.tasksList" 
           :key="task.id" 
       >
         <DetailTask :task="task"/>
@@ -14,7 +14,7 @@
 <script setup>
   import DetailTask from '@/components/Tasks/DetailTask.vue';
 
-  defineProps({
+  const props = defineProps({
     tasksList: {
       type: Array,
       required: true,

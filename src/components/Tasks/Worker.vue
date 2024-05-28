@@ -1,11 +1,11 @@
 <template>
   <div class="worker">
-    <img class="worker__icon" :src="worker.avatar" alt="">
+    <img class="worker__icon" :src="props.worker.avatar" alt="">
   </div>
 </template>
 
 <script setup>
-  defineProps({
+  const props = defineProps({
     worker: {
       type: Object,
       required: true,
