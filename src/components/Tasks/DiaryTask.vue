@@ -24,7 +24,7 @@
 
 <script setup>
   import { ref, defineProps} from 'vue';
-  import WorkerList from './WorkerList.vue';
+  import WorkerList from '@/components/Tasks/WorkerList.vue';
   
   defineProps({
     isActive: Boolean,

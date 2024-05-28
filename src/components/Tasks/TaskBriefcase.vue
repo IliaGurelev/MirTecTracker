@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-  import colorConst from '../../constants/color.js';
+  import colorConst from '@/constants/color.js';
 
   const props = defineProps({
     briefcase: Object,

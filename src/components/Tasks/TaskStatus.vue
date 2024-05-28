@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-  import statusTaskConst from '../../constants/status.js';
+  import statusTaskConst from '@/constants/status.js';
 
   const props = defineProps({
     taskStatus: String,

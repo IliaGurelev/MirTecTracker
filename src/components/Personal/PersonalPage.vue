@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-  import PersonalDiary from './PersonalDiary.vue'
-  import PersonalTasks from './PersonalTasks.vue'
+  import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
+  import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
 
   const props = defineProps({
     currentUser: Object,

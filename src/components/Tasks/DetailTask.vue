@@ -3,7 +3,7 @@
     <div class="task-details__header-task">
       <h3 class="task-details__title">{{ taskName }}</h3>
       <div class="task-details__decorative-block">
-        <TaskTag :class="'task-details__tags'" :briefcase="task.briefcase"/>
+        <TaskBriefcase :class="'task-details__tags'" :briefcase="task.briefcase"/>
         <ProperityButton />
       </div>
     </div>
@@ -18,12 +18,12 @@
 </template>
 
 <script setup>
-  import ProperityButton from '../UI/ProperityButton.vue';
-  import ProgressBar from '../UI/ProgressBar.vue';
-  import TaskTag from './TaskBriefcase.vue';
-  import TaskStatus from './TaskStatus.vue';
-  import TaskDate from './TaskDate.vue';
-  import WorkerList from './WorkerList.vue';
+  import ProperityButton from '@/components/UI/ProperityButton.vue';
+  import ProgressBar from '@/components/UI/ProgressBar.vue';
+  import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+  import TaskStatus from '@/components/Tasks/TaskStatus.vue';
+  import TaskDate from '@/components/Tasks/TaskDate.vue';
+  import WorkerList from '@/components/Tasks/WorkerList.vue';
 
   const props = defineProps({
     task: Object

@@ -10,9 +10,9 @@
 </template>
 
 <script setup>
-  import FilterTask from './FilterTask.vue';
-  import DetailTaskList from '../Tasks/DetailTaskList.vue'
-  import HelloUserText from './HelloUserText.vue';
+  import FilterTask from '@/components/Tasks/FilterTask.vue';
+  import DetailTaskList from '@/components/Tasks/DetailTaskList.vue'
+  import HelloUserText from '@/components/Personal/HelloUserText.vue';
 
   defineProps({
     currentUser: Object,

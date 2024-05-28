@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-  import DiaryTask from './DiaryTask.vue';
+  import DiaryTask from '@/components/Tasks/DiaryTask.vue';
 
   defineProps({
     tasks: Array,

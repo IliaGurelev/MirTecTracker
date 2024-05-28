@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-  import DetailTask from './DetailTask.vue';
+  import DetailTask from '@/components/Tasks/DetailTask.vue';
 
   defineProps({
     tasksList: Array,

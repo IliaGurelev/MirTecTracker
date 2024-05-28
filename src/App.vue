@@ -7,11 +7,11 @@
 </template>
 
 <script setup>
-  import PersonalPage from './components/Personal/PersonalPage.vue';
+  import PersonalPage from '@/components/Personal/PersonalPage.vue';
    // Моковые данные
-  import usersData from '../mock/users-data';
-  import tasksData from '../mock/tasks-data';
-  import tasksDiary from '../mock/tasks-diary';
+  import usersData from '@/mock/users-data.js';
+  import tasksData from '@/mock/tasks-data.js';
+  import tasksDiary from '@/mock/tasks-diary.js';
 
   const currentUser = usersData[1];
   const tasks = tasksData;

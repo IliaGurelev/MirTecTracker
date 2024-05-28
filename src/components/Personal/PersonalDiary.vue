@@ -22,10 +22,10 @@
 </template>
 
 <script setup>
-  import UserInfo from './UserInfo.vue'
-  import Calendar from '../UI/Calendar.vue'
-  import CurentDate from '../UI/CurrentDate.vue'
-  import DiaryTaskList from '../Tasks/DiaryTaskList.vue'
+  import UserInfo from '@/components/Personal/UserInfo.vue'
+  import Calendar from '@/components/UI/Calendar.vue'
+  import CurentDate from '@/components/UI/CurrentDate.vue'
+  import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
 
   defineProps({
     currentUser: Object,

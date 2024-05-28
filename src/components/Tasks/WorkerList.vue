@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-  import Worker from './Worker.vue';
+  import Worker from '@/components/Tasks/Worker.vue';
 
   defineProps({
     workerList: Array,
