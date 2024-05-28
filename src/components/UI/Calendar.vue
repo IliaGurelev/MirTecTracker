@@ -18,9 +18,8 @@
               'calendar__td--active': isActiveDay(day.date),
               'calendar__td--muted': day.isOtherMonth
             }"
-            @click="selectDay(day)"
           >
-            <p>{{ day.date.getDate() }}</p>
+            <p @click="selectDay(day)">{{ day.date.getDate() }}</p>
           </td>
         </tr>
       </tbody>
