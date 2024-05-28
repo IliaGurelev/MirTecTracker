@@ -17,7 +17,6 @@
   .hello-text {
     padding: 0;
     margin: 0;
-    margin-bottom: 5px;
     font-weight: 400;
     color: #b8b8b8;
     cursor: default;

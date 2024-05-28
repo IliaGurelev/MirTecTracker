@@ -24,6 +24,5 @@
     border-radius: 50%;
     border: #ffffff 4px solid;
     cursor: pointer;
-    border-color: var(--color-background);
   }
 </style>

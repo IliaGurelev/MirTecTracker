@@ -8,8 +8,8 @@
       </div>
     </div>
     <p class="task-description">{{ task.description }}</p>
-    <WorkerList class="task-workers-list" :workerList="task.workers" />
-    <ProgressBar class="task-progress-bar" />
+    <WorkerList class="task__workers-list" :workerList="task.workers" />
+    <ProgressBar class="task__progress-bar" />
     <div class="task-status">
       <TaskDate :dateCreated="task.createdAt"/>
       <TaskStatus :taskStatus="task.status" />
@@ -69,24 +69,23 @@
     color: rgb(156, 156, 156);
   }
 
-  .task-workers-list {
+  .task__workers-list {
     margin-bottom: 20px;
   }
 
-  .task-progress-bar {
+  .task__progress-bar {
     margin-bottom: 20px;
   }
 
   .task-status {
     cursor: default;
     position: relative;
-    width: 100%;
   }
 
   .task-briefcase {
     position: relative;
-    width: 100%;
     margin-right: 25px;
+    margin-left: 7px;
     cursor: pointer;
   }
 </style>

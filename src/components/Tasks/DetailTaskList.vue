@@ -24,15 +24,13 @@
 
 <style scoped>
   .task-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding: 12px;
+    max-height: 540px;
     text-decoration: none;
     list-style: none;
-    padding: 12px;
-    margin: 0;
-    max-height: 540px;
     overflow-y: auto;
-  }
-
-  .task-item:not(:last-child) {
-    margin-bottom: 20px;
   }
 </style>

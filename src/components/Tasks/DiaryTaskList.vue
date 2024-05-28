@@ -27,15 +27,14 @@
 
 <style scoped>
   .user-diary {
-    max-height: 380px;
+    max-height: 440px;
     overflow-y: auto;
   }
 
   .user-diary-list {
     position: relative;
     list-style: none;
-    padding: 0 10px 0 0;
-    margin: 0;
+    padding-right: 15px;
   }
 
   .user-diary-list::before {

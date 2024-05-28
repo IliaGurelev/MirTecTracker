@@ -45,7 +45,11 @@
     background-color: var(--color-text-important);
   }
 
-  .diary-task--active .worker-icon {
+  :deep(.worker-icon) {
+    border-color: var(--color-background);
+  }
+
+  .diary-task--active :deep(.worker-icon) {
     border-color: var(--color-text-important);
   }
 

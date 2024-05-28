@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-task">
+  <div class="filter-tasks">
     <ul class="filter-list">
       <li 
         v-for="(filter, index) in filters" 
@@ -25,8 +25,7 @@
 </script>
 
 <style scoped>
-  .filter-task {
-    margin-bottom: 15px;
+  .filter-tasks {
     overflow-x: auto;
   }
 

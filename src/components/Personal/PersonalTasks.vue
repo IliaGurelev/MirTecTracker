@@ -1,10 +1,10 @@
 <template>
   <section class="user-tasks">
-    <HelloUserText :nameUser="currentUser.name" />
+    <HelloUserText class="user__hello-text" :nameUser="currentUser.name" />
     <div class="user-tasks-wrapper">
       <h2 class="user-tasks-title">Мои задачи</h2>
     </div>
-    <FilterTask />
+    <FilterTask class="user__filter-tasks" />
     <DetailTaskList :tasksList="tasksUser" />
   </section>
 </template>
@@ -34,11 +34,19 @@
   }
 
   .user-tasks-title {
-    padding: 0;
-    margin: 0;
     font-weight: 700;
     font-size: 40px;
-    margin-bottom: 15px;
+    padding: 0 0 0 15px;
+    margin: 0 0 15px 0;
     cursor: default;
+  }
+
+  .user__hello-text {
+    padding-left: 15px;
+  }
+
+  .user__filter-tasks {
+    margin-bottom: 15px;
+    padding-left: 15px;
   }
 </style>
