@@ -1,7 +1,7 @@
 <template>
-  <div class="user-tasks__tasks-list tasks-list">
-    <ul class="tasks-list__list">
-      <li class="tasks-list__item"
+  <div class="detail-task-list">
+    <ul class="task-list">
+      <li class="task-item"
           v-for="task in tasksList" 
           :key="task.id" 
       >
@@ -20,7 +20,7 @@
 </script>
 
 <style scoped>
-  .tasks-list__list {
+  .task-list {
     text-decoration: none;
     list-style: none;
     padding: 12px;
@@ -29,7 +29,7 @@
     overflow-y: auto;
   }
 
-  .tasks-list__item:not(:last-child) {
+  .task-item:not(:last-child) {
     margin-bottom: 20px;
   }
 </style>

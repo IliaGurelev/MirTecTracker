@@ -1,5 +1,5 @@
 <template>
-  <span class="task-data">
+  <span class="date">
     <time :datetime="dateCreated">
       <i class="fa-regular fa-calendar-days"></i> {{formateDate}}
     </time>
@@ -17,7 +17,7 @@
 </script>
 
 <style scoped>
-  .task-data {
+  .date {
     color: var(--light-grey);
     font-size: 12px;
     font-weight: 700;

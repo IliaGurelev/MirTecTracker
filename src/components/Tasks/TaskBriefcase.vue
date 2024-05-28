@@ -1,6 +1,6 @@
 <template>
-  <div class="task__tags">
-    <span class="task__tag" :class="colorClass">{{ briefcaseName }}</span>
+  <div class="briefcase-wrap">
+    <span class="briefcase" :class="colorClass">{{ briefcaseName }}</span>
   </div>
 </template>
 
@@ -14,57 +14,57 @@
   const briefcaseName = props.briefcase.name;
   const color = props.briefcase.color;
 
-  let colorClass;
+  let colorClass = 'briefcase';
   switch (color) {
       case colorConst.purple:
-          colorClass = 'task__tag--purple';
+          colorClass += '--purple';
           break;
       case colorConst.green:
-          colorClass = 'task__tag--green';
+          colorClass += '--green';
           break;
       case colorConst.blue:
-          colorClass = 'task__tag--blue';
+          colorClass += '--blue';
           break;
       case colorConst.orange:
-          colorClass = 'task__tag--orange';
+          colorClass += '--orange';
           break;
       default:
-          colorClass = 'task__tag--blue';
+          colorClass += '--blue';
           break;
   }
 </script>
 
 <style scoped>
-  .task__tags {
+  .briefcase-wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-left: 7px;
   }
 
-  .task__tag {
+  .briefcase {
     border-radius: 100px;
     padding: 2px 13px;
     font-size: 12px;
     font-weight: 700;
   }
 
-  .task__tag--purple {
+  .briefcase--purple {
     color: var(--tag-4-text);
     background-color: var(--tag-4);
   }
 
-  .task__tag--blue {
+  .briefcase--blue {
       color: var(--tag-3-text);
       background-color: var(--tag-3);
     }
 
-  .task__tag--green {
+  .briefcase--green {
     color: var(--tag-2-text);
     background-color: var(--tag-2);
   }
 
-  .task__tag--orange {
+  .briefcase--orange {
     color: var(--tag-5-text);
     background-color: var(--tag-5);
   }

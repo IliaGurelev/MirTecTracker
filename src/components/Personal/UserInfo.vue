@@ -1,7 +1,7 @@
 <template>
-  <div class="user-block__user-info user-info">
-    <img class="user-info__user-icon" :src="avatarUser" alt="">
-    <p class="user-info__user-name">{{ nameUser }}</p>
+  <div class="user-info">
+    <img class="user-icon" :src="avatarUser" alt="">
+    <p class="user-name">{{ nameUser }}</p>
   </div>
 </template>
 
@@ -21,13 +21,13 @@
     cursor: pointer;
   }
   
-  .user-info__user-icon {
+  .user-icon {
     width: 50px;
     border-radius: 50%;
     margin-right: 15px;
   }
 
-  .user-info__user-name {
+  .user-name {
     font-size: 20px;
     font-weight: 600;
   }

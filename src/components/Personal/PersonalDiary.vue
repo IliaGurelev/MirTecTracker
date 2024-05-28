@@ -1,21 +1,21 @@
 <template>
-  <section class="user-page__user-section user-section">
-    <section class="user-section__user-block user-block">
+  <section class="user-section">
+    <section class="user-block">
       <UserInfo 
         :currentUser="currentUser"
       />
-      <div class="user-block__settings">
+      <div class="settings">
         <i class="fa-solid fa-gear"></i>
       </div>
     </section>
-    <section class="user-page__user-diary user-diary">
+    <section class="user-diary">
       <div class="user-diary__header">
         <CurentDate />
-        <button class="user-diary__add-task-button">
+        <button class="add-task-button">
           <i class="fa-regular fa-plus"></i> Добавить задачу
         </button>
       </div>
-      <Calendar />
+      <Calendar class="user-diary__calendar" />
       <DiaryTaskList :tasks="tasks"/>
     </section>
   </section>
@@ -42,13 +42,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.user-section__user-block {
   margin-bottom: 30px;
 }
 
-.user-block__settings {
+.settings {
   cursor: pointer;
 }
 
@@ -62,7 +59,7 @@
   margin-bottom: 20px;
 }
 
-.user-diary__add-task-button {
+.add-task-button {
   font-weight: 600;
   color: #ffffff;
   background-color: black;
@@ -76,5 +73,9 @@
 .user-diary .user-diary__add-task-button:hover {
   cursor: pointer;
   background-color: rgb(71, 71, 71);
+}
+
+.user-diary__calendar {
+  margin-bottom: 20px;
 }
 </style>

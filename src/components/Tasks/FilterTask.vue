@@ -1,13 +1,13 @@
 <template>
-  <div class="user-tasks__filter-task filter-task">
-    <ul class="filter-task__list">
+  <div class="filter-task">
+    <ul class="filter-list">
       <li 
         v-for="(filter, index) in filters" 
         :key="index" 
-        :class="{'filter-task__item': true, 'filter-task__item--active': activeFilter === index}" 
+        :class="{'filter-item': true, 'filter-item--active': activeFilter === index}" 
         @click="setActiveFilter(index)"
       >
-        <p class="filter-task__filter">{{ filter }}</p>
+        <p class="filter-element">{{ filter }}</p>
       </li>
     </ul>
   </div>
@@ -29,7 +29,7 @@
     margin-bottom: 15px;
   }
 
-  .filter-task__list {
+  .filter-list {
     display: flex;
     font-weight: 600;
     list-style: none;
@@ -37,21 +37,21 @@
     padding: 0;
   }
 
-  .filter-task__item {
+  .filter-item {
     margin: 0;
     padding: 0;
     cursor: pointer;
   }
 
-  .filter-task__item:not(:last-child) {
+  .filter-item:not(:last-child) {
     margin-right: 20px;
   }
 
-  .filter-task__item--active {
+  .filter-item--active {
     color: #59b6ff;
   }
 
-  .filter-task__filter {
+  .filter-element {
     margin: 0;
     padding: 0;
   }

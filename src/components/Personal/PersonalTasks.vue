@@ -1,8 +1,8 @@
 <template>
   <section class="user-tasks">
     <HelloUserText :nameUser="currentUser.name" />
-    <div class="user-tasks__title-wrap">
-      <h2 class="user-tasks__title">Мои задачи</h2>
+    <div class="user-tasks-wrapper">
+      <h2 class="user-tasks-title">Мои задачи</h2>
     </div>
     <FilterTask />
     <DetailTaskList :tasksList="tasksUser" />
@@ -27,7 +27,7 @@
     max-width: 500px;
   }
 
-  .user-tasks__title {
+  .user-tasks-title {
     padding: 0;
     margin: 0;
     font-weight: 700;

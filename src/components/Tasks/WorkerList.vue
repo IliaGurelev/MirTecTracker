@@ -2,7 +2,7 @@
   <ul class="workers-list" :class="$attrs.class">
       <li v-for="worker in workerList"
           :key = "worker.id"
-          class="workers-list__item">
+          class="list-item">
         <Worker :worker="worker"/>
       </li>
   </ul>
@@ -17,7 +17,7 @@
 </script>
 
 <style scoped>
-  .workers-list {
+  .workers-list { 
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;

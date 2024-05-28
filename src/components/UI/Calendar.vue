@@ -1,22 +1,22 @@
 <template>
-  <section class="user-diary__calendar calendar">
-    <table class="calendar__table">
-      <thead class="calendar__head">
+  <section class="calendar">
+    <table class="calendar-table">
+      <thead class="calendar-header">
         <tr>
-          <th class="calendar__th" v-for="(day, index) in weekDays" :key="index">
+          <th class="table-header" v-for="(day, index) in weekDays" :key="index">
             {{ day }}
           </th>
         </tr>
       </thead>
-      <tbody class="calendar__tbody">
-        <tr class="calendar__tr" v-for="(week, weekIndex) in calendarDays" :key="weekIndex">
+      <tbody class="calendar-body">
+        <tr class="table-row" v-for="(week, weekIndex) in calendarDays" :key="weekIndex">
           <td
             v-for="(day, index) in week"
             :key="index"
-            class="calendar__td"
+            class="table-data"
             :class="{
-              'calendar__td--active': isActiveDay(day.date),
-              'calendar__td--muted': day.isOtherMonth
+              'table-data--active': isActiveDay(day.date),
+              'table-data--muted': day.isOtherMonth
             }"
           >
             <p @click="selectDay(day)">{{ day.date.getDate() }}</p>
@@ -71,21 +71,21 @@
 </script>
 
 <style scoped>  
-  .user-diary__calendar {
-    width: 100%;
-  }
-
-  .calendar__table {
+  .calendar-table {
     width: 100%;
     border-collapse: collapse;
   }
 
-  .calendar__th, .calendar__td {
+  .table-header, .table-data {
     text-align: center;
     padding: 4px 8px 0 8px;
   }
   
-  .calendar__td p {
+   .table-data {
+    cursor: default;
+  }
+  
+  .table-data p {
     width: 20px;
     margin: 0 auto;
     font-weight: 600;
@@ -93,31 +93,26 @@
     cursor: pointer;
   }
 
-  .calendar__td p:hover {
+  .table-data p:hover {
     background-color: #9c9c9c;
     border-radius: 50px;
   }
 
-  .calendar__th {
-    font-weight: 400;
-    cursor: default;
-  }
-
-  .calendar__tr:last-child .calendar__td {
+  .table-row:last-child .table-data {
     padding-top: 12px;
   }
 
-  .calendar__th--active {
+  .table-header--active {
     font-weight: 600;
     color: var(--color-text-important);
   }
 
-  .calendar__td--active{
+  .table-data--active{
     color: var(--color-text-important);
     position: relative;
   }
 
-  .calendar__td--active::after {
+  .table-data--active::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -129,11 +124,7 @@
     border-radius: 50%;
   }
 
-  .calendar__td--muted {
+  .table-data--muted {
     color: var(--light-grey)
-  }
-
-  .user-diary__calendar {
-    margin-bottom: 20px;
   }
 </style>

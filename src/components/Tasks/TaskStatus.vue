@@ -1,6 +1,6 @@
 <template>
-  <div class="status__owners">
-    <span class="status__owner" :class="classStatus">
+  <div class="status-owners">
+    <span class="status-owner" :class="classStatus">
       <i class="fa-solid" :class="iconStatus"></i> {{ nameStatus }}
     </span>
   </div>
@@ -16,36 +16,36 @@
   const nameStatus = statusTaskConst[props.taskStatus];
 
   let iconStatus;
-  let classStatus;
+  let classStatus = 'status';
   switch (props.taskStatus) {
     case 'open':
       iconStatus = 'fa-circle-notch';
-      classStatus = 'status--open';
+      classStatus += '--open';
       break;
     case 'work':
       iconStatus = 'fa-circle-play';
-      classStatus = 'status--work';
+      classStatus += '--work';
       break;
     case 'close':
       iconStatus = 'fa-circle-check';
-      classStatus = 'status--close';
+      classStatus += '--close';
       break;
     default:
       iconStatus = 'fa-circle-notch';
-      classStatus = 'status--open';
+      classStatus += '--open';
       break;
   }
 </script>
 
 <style scoped>
-  .status__owners {
+  .status-owners {
     position: absolute;
     right: 0;
     bottom: 0;
 
   }
 
-  .status__owner{
+  .status-owner{
     border-radius: 100px;
     padding: 2px 13px;
     font-size: 12px;

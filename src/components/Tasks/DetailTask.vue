@@ -1,16 +1,16 @@
 <template>
-  <div class="tasks-list__task-details task-details">
-    <div class="task-details__header-task">
-      <h3 class="task-details__title">{{ taskName }}</h3>
-      <div class="task-details__decorative-block">
-        <TaskBriefcase :class="'task-details__tags'" :briefcase="task.briefcase"/>
+  <div class="detailed-task">
+    <div class="header-task">
+      <h3 class="task-title">{{ taskName }}</h3>
+      <div class="task-wrapper">
+        <TaskBriefcase class="task-briefcase" :briefcase="task.briefcase"/>
         <ProperityButton />
       </div>
     </div>
-    <p class="task-details__description">{{ taskDescription }}</p>
-    <WorkerList :class="'task-details__workers-list'" :workerList="task.workers" />
-    <ProgressBar :class="'task-details__progress-task'" />
-    <div class="task-details__task__stats">
+    <p class="task-description">{{ taskDescription }}</p>
+    <WorkerList class="task-workers-list" :workerList="task.workers" />
+    <ProgressBar class="task-progress-bar" />
+    <div class="task-status">
       <TaskDate :dateCreated="task.createdAt"/>
       <TaskStatus :taskStatus="task.status" />
     </div>
@@ -34,7 +34,7 @@
 </script>
 
 <style scoped>
-  .task-details {
+  .detailed-task {
     background-color: #ffffff;
     box-shadow: 0px 0px 10px 5px rgba(43, 43, 43, 0.082);
     border-radius: 11px;
@@ -42,51 +42,48 @@
     position: relative;
   }
 
-  .task-details__header-task {
+  .header-task {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
   }
 
-  .task-details__decorative-block {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .task-details__title {
+  .task-title {
     font-weight: 600;
     margin: 0;
     padding: 0;
     cursor: pointer;
   }
 
-  .task-details__description {
-    margin-bottom: 20px;
-    cursor: pointer;
+  .task-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .task-details__description {
+  .task-description {
+    margin-bottom: 20px;
+    cursor: pointer;
     font-weight: 400;
     color: rgb(156, 156, 156);
   }
 
-  .task-details__workers-list {
+  .task-workers-list {
     margin-bottom: 20px;
   }
 
-  .task-details__progress-task {
+  .task-progress-bar {
     margin-bottom: 20px;
   }
 
-  .task-details__task__stats {
+  .task-status {
     cursor: default;
     position: relative;
     width: 100%;
   }
 
-  .task-details__tags {
+  .task-briefcase {
     position: relative;
     width: 100%;
     margin-right: 25px;

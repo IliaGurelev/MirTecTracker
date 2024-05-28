@@ -1,8 +1,8 @@
 <template>
-  <div class="task-details__properity-button properety-button">
-    <div class="properety-button__element"></div>
-    <div class="properety-button__element"></div>
-    <div class="properety-button__element"></div>
+  <div class="properety-button">
+    <div class="button-element"></div>
+    <div class="button-element"></div>
+    <div class="button-element"></div>
   </div>
 </template>
 
@@ -15,14 +15,14 @@
     cursor: pointer;
   }
 
-  .properety-button__element {
+  .button-element {
     width: 5px;
     height: 5px;
     border-radius: 50%;
     background-color: rgb(197, 197, 197);
   }
 
-  .properety-button__element:not(:last-child) {
+  .button-element:not(:last-child) {
     margin-right: 3px;
   }
 </style>

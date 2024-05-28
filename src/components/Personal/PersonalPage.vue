@@ -1,7 +1,7 @@
 <template>
   <main class="user-page">
     <PersonalTasks 
-      class="user-page__user-tasks"
+      class="user-page__tasks"
       :currentUser="currentUser"
       :tasksUser="tasks"
     />
@@ -28,7 +28,7 @@
 
 <style scoped>
 
-.user-page__user-tasks {
+.user-page__tasks {
   margin-right: 50px;
 }
 

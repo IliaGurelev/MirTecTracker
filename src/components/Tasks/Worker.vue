@@ -1,6 +1,6 @@
 <template>
   <div class="worker-icon-wrapp">
-    <img class="workers-icon" :src="workerAvatar" alt="">
+    <img class="worker-icon" :src="workerAvatar" alt="">
   </div>
 </template>
 
@@ -18,18 +18,11 @@
     position: relative;
   }
 
-  .workers-icon {
+  .worker-icon {
     width: 40px;
     border-radius: 50%;
     border: #ffffff 4px solid;
     cursor: pointer;
-  }
-
-  .diary-task__workers-list .workers-icon {
     border-color: var(--color-background);
-  }
-
-  .diary-task--active .diary-task__workers-list .workers-icon {
-    border-color: var(--color-text-important);
   }
 </style>

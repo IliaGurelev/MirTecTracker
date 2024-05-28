@@ -54,7 +54,7 @@ const tasksData = [
     "id": 3,
     "name": "Вынести dashboard в компонент",
     "description": "",
-    "status": "work",
+    "status": "close",
     "createdAt": "2024-05-20T15:00:00",
     "briefcase": {
       name: "Разработка",

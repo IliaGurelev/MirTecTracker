@@ -1,7 +1,7 @@
 <template>
-  <div class="user-diary__text-block">
-    <p class="user-diary__date">Май 20, 2024</p>
-    <p class="user-diary__title">Сегодня</p>
+  <div class="current-date-wrap">
+    <p class="current-date">Сегодня</p>
+    <p class="current-date current-date--bold">Май <span class="number">20</span>, <span class="number">2024</span></p>
   </div>
 </template>
 
@@ -9,8 +9,16 @@
 </script>
 
 <style scoped>
-  .user-diary__title {
+  .current-date {
+    font-size: 16px;
+  }
+  
+  .current-date--bold {
     font-weight: 600;
     font-size: 20px;
+  }
+
+  .number {
+    font-family: "Montserrat", sans-serif;
   }
 </style>

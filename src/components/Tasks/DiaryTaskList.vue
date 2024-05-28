@@ -1,9 +1,9 @@
 <template>
   <div class="user-diary">
-    <ul class="user-diary__list">
-      <li v-for="(task, index) in tasks" :key="task" class="user-diary__item">
-        <div class="user-diary__radio-select-task-wrap">
-          <div class="user-diary__radio-select-task" :class="{'user-diary__radio-select-task--active': index === 0}"></div>
+    <ul class="user-diary-list">
+      <li v-for="(task, index) in tasks" :key="task" class="list-item">
+        <div class="radio-select-task-wrap">
+          <div class="radio-select-task" :class="{'radio-select-task--active': index === 0}"></div>
         </div>
         <DiaryTask 
           :isActive="index === 0"
@@ -28,14 +28,14 @@
     overflow-y: auto;
   }
 
-  .user-diary__list {
+  .user-diary-list {
     position: relative;
     list-style: none;
-    padding: 0;
+    padding: 0 10px 0 0;
     margin: 0;
   }
 
-  .user-diary__list::before {
+  .user-diary-list::before {
     content: "";
     position: absolute;
     top: 0;
@@ -46,19 +46,19 @@
     background-color: var(--color-text-important);
   }
 
-  .user-diary__item {
+  .list-item {
     display: flex;
     justify-content: space-between;
   }
 
-  .user-diary__radio-select-task-wrap {
+  .radio-select-task-wrap {
     display: block;
     margin-right: 20px;
     width: 15px;
     height: 15px;
   }
 
-  .user-diary__radio-select-task{
+  .radio-select-task{
     position: relative;
     width: 15px;
     height: 15px;
@@ -67,7 +67,7 @@
     border: 2px solid var(--color-text-important);
   }
 
-  .user-diary__radio-select-task::before {
+  .radio-select-task::before {
     content: "";
     position: absolute;
     top: 0;
@@ -78,7 +78,7 @@
     border-radius: 50%;
   }
 
-  .user-diary__radio-select-task--active::after {
+  .radio-select-task--active::after {
     content: "";
     position: absolute;
     top: 0;
@@ -90,11 +90,11 @@
     transform: scale(-70%);
   }
 
-  .user-diary__radio-select-task-wrap:not(:has(.user-diary__radio-select-task--active)) {
+  .radio-select-task-wrap:not(:has(.radio-select-task--active)) {
     padding-top: 20px;
   }
 
-  .user-diary__radio-select-task:not(.user-diary__radio-select-task--active) {
+  .radio-select-task:not(.radio-select-task--active) {
     transform: scale(0.7);
   }
 </style>
