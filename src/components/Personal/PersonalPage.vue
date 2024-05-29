@@ -1,9 +1,9 @@
 <template>
   <main class="user-page">
     <PersonalTasks 
-      class="user-page__tasks"
       :currentUser="currentUser"
       :tasksUser="tasks"
+      class="user-page__tasks"
     />
     <PersonalDiary
       :currentUser="currentUser"

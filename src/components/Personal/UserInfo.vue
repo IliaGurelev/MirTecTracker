@@ -1,8 +1,8 @@
 <template>
   <div class="user">
     <img 
-      class="user__icon" 
       :src="props.currentUser.avatar" 
+      class="user__icon" 
       alt="Аватар пользователя"
     >
     <p class="user__name">{{ props.currentUser.name }}</p>

@@ -1,9 +1,9 @@
 <template>
   <div class="worker">
     <img 
-      class="worker__icon" 
       :src="props.worker.avatar" 
       :alt="worker.name"
+      class="worker__icon" 
     >
   </div>
 </template>

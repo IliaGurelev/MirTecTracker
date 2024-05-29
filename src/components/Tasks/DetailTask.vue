@@ -4,16 +4,16 @@
       <h3 class="task__title">{{ props.task.name }}</h3>
       <div class="task__wrapper">
         <TaskBriefcase 
-          class="task__briefcase" 
           :briefcase="props.task.briefcase"
+          class="task__briefcase" 
         />
         <ProperityButton />
       </div>
     </div>
     <p class="task__description">{{ props.task.description }}</p>
     <WorkerList 
-      class="task__workers" 
       :workerList="props.task.workers" 
+      class="task__workers" 
     />
     <ProgressBar class="task__progress-bar" />
     <div class="task__status">

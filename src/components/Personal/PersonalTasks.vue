@@ -1,8 +1,8 @@
 <template>
   <section class="tasks">
     <WelcomeUser 
-      class="tasks__welcome" 
       :nameUser="props.currentUser.name" 
+      class="tasks__welcome" 
     />
     <div class="tasks__header">
       <h2 class="tasks__title">Мои задачи</h2>

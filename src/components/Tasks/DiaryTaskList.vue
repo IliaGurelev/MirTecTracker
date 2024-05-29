@@ -8,8 +8,8 @@
       >
         <div class="task-list__mark-wrap">
           <div 
-            class="task-list__mark" 
             :class="{'task-list__mark--active': index === 0}"
+            class="task-list__mark" 
           >
           </div>
         </div>

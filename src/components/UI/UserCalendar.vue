@@ -4,9 +4,9 @@
       <thead class="calendar__header">
         <tr>
           <th 
-            class="calendar__table-header" 
             v-for="(day, index) in weekDays" 
             :key="index"
+            class="calendar__table-header" 
           >
             {{ day }}
           </th>
@@ -14,17 +14,17 @@
       </thead>
       <tbody class="calendar__body">
         <tr 
-          class="calendar__table-row" 
           v-for="(week, weekIndex) in calendarDays" 
           :key="weekIndex"
+          class="calendar__table-row" 
         >
           <td
             v-for="(day, index) in week"
             :key="index"
-            class="table-data"
             :class="{
               'calendar__table-data--active': isActiveDay(day.date),
               'calendar__table-data--muted': day.isOtherMonth}"
+            class="table-data"
           >
             <p 
               class="calendar__day" 

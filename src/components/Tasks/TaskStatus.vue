@@ -1,7 +1,14 @@
 <template>
   <div class="status">
-    <span class="status__text" :class="classStatus">
-      <i class="status__icon fa-solid" :class="iconStatus"></i> {{ nameStatus }}
+    <span 
+      :class="classStatus"
+      class="status__text" 
+    >
+      <i 
+        :class="iconStatus"
+        class="status__icon fa-solid" 
+      >
+      </i> {{ nameStatus }}
     </span>
   </div>
 </template>

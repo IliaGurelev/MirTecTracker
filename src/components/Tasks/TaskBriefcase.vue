@@ -1,8 +1,8 @@
 <template>
   <div class="briefcase">
     <span 
-      class="briefcase__element" 
       :class="colorClass"
+      class="briefcase__element" 
     >
       {{ props.briefcase.name }}
     </span>

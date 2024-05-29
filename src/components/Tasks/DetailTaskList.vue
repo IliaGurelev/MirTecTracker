@@ -1,9 +1,10 @@
 <template>
   <div class="task-list">
     <ul class="task-list__list">
-      <li class="task-list__item"
-          v-for="task in props.tasksList" 
-          :key="task.id" 
+      <li 
+        v-for="task in props.tasksList" 
+        :key="task.id" 
+        class="task-list__item"
       >
         <DetailTask :task="task"/>
       </li>
