@@ -1,6 +1,6 @@
 <script setup>
   import Sidebar from '../Sidebar/Sidebar.vue';
-  import Task from '../Tasks/Task.vue';
+  import Task from '../Tasks/ProjectTasks.vue';
   import ProgressBar from '../UI/Progressbar.vue';
   import DeleteTask from '../Tasks/DeleteTask.vue';
   import { ref } from 'vue'
@@ -34,17 +34,9 @@
 			<h1 class="txt">Дашборд со всеми задачами</h1>
 		<DeleteTask :items="items" :sort="true"></DeleteTask>
 			</div>			
-			<Task :items="items" :sort="true"></Task>
-			<div>
-    <TaskForm @addTask="addTask" />
-    <ul>
-      <li v-for="task in tasks" :key="task.name">
-        {{ task.name }} - {{ task.tag }} - {{ task.status }} - {{ task.date }}
-      </li>
-    </ul>
-  </div>
+			<!-- <Task :items="items" :sort="true"></Task> -->
+			<Task></Task>
 		</main>
-
 		<ProgressBar></ProgressBar>
 	</div>
 	</section>
@@ -52,25 +44,9 @@
 </template>
 
 <script >
-import { ref } from 'vue';
-import TaskForm from '../Tasks/AddTusk.vue';
 
-export default {
-  components: {
-    TaskForm
-  },
-  setup() {
-    const tasks = ref([]);
-
-    const addTask = (task) => {
-      tasks.value.push(task);
-    };
-
-    return { tasks, addTask };
-  }
-};
 </script>
-<style>
+<style scoped>
 
   * {
 	margin: 0;

@@ -7,7 +7,7 @@
 			<div class="footer-top">
 			  <div class="container">
 				<div class="footer-brand-wrapper">
-					<div class="logo__footer">
+					<div class="footer__logo">
 						<img src="../../assets/logo.svg" alt="">
 						<a href="./HelloPage.vue">Миртек Трекер</a>
 					  </div>	
@@ -40,7 +40,7 @@
 </template>
 
 <style>
-.logo__footer {
+.footer__logo {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -55,13 +55,13 @@
 	cursor: pointer;
 	transition: transform 0.5s;
   }
-  .logo__footer a{
+  .footer__logo a{
 	color: var(--color-text-important);
   }
-  .logo__footer:hover{
+  .footer__logo:hover{
 	transform: scale(1.05);
   }
-  .logo__footer img{
+  .footer__logo img{
 	width: 40px;
   object-fit: cover;
   }

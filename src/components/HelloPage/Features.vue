@@ -10,42 +10,42 @@
 			<div class="timeline">
 				<div class="container-text left-container">
 					<i class="fa-solid fa-wand-magic-sparkles"></i>
-					<div class="text-box__timeline">
+					<div class="timeline__text-box">
 							<h2>Универсальность:</h2>
 							<p>Миртек Трекер подходит для всех сфер жизни - работа, учеба, личные дела. Отслеживайте проекты, планы,  встречи,  задания,  идеи - все в одном месте.</p>
 					</div>
 				</div>
 				<div class="container-text right-container">
 					<i class="fa-regular fa-object-group"></i>
-					<div class="text-box__timeline">
+					<div class="timeline__text-box">
 							<h2>Интуитивный интерфейс:</h2>
 							<p>Простая и удобная система управления задачами, с которой легко разобраться даже новичкам.</p>
 					</div>
 				</div>
 				<div class="container-text left-container">
 					<i class="fa-solid fa-sliders"></i>
-					<div class="text-box__timeline">
+					<div class="timeline__text-box">
 							<h2>Гибкость и настройка:</h2>
 							<p>Создавайте задачи,  группируйте их по категориям,  проектам,  приоритетам,  назначайте сроки.  Миртек Трекер легко адаптируется к вашим индивидуальным потребностям.</p>
 					</div>
 				</div>
 				<div class="container-text right-container">
 					<i class="fa-solid fa-wrench"></i>
-					<div class="text-box__timeline">
+					<div class="timeline__text-box">
 							<h2>Мощные функции:</h2>
 							<p>Добавляйте заметки,  вложения,  списки дел,  назначайте ответственных,  отслеживайте прогресс.</p>
 					</div>
 				</div>
 				<div class="container-text left-container">
 					<i class="fa-solid fa-globe fa-fw"></i>
-					<div class="text-box__timeline">
+					<div class="timeline__text-box">
 							<h2>Доступность 24/7:</h2>
 							<p>Работайте с задачами в любое время,  в любом месте,  с компьютера,  смартфона или планшета.</p>
 					</div>
 				</div>
 				<div class="container-text right-container">
 					<i class="fa-solid fa-user-group"></i>
-					<div class="text-box__timeline">
+					<div class="timeline__text-box">
 							<h2>Совместная работа:</h2>
 							<p>Делитесь задачами с коллегами,  создавайте совместные проекты,  координируйте действия. Трекер позволяет совместную работу над одним проектом.</p>
 					</div>
@@ -129,7 +129,7 @@
 	}
 }
 
-.text-box__timeline{
+.timeline__text-box{
 	padding: 20px 30px;
 	background: var(--color-text-important);
 	position: relative;
@@ -137,10 +137,10 @@
 	font-size: 15px;
 	color:white;
 }
-.text-box__timeline h2{
+.timeline__text-box h2{
 	font-size: 25px;
 }
-.text-box__timeline p{
+.timeline__text-box p{
 	font-size: 18px;
 	font-weight: 600;
 }

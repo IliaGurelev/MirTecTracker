@@ -51,7 +51,7 @@ const onDrops = event => {
   
   </script>
   
-<style lang="scss">
+<style lang="scss" scoped>
 .button__delete {
   background-color: var(--c-border, var(--color-text-important));
   height: 50px;

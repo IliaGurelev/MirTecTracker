@@ -26,7 +26,7 @@
 		</aside>
 </template>
 
-<style>
+<style lang="scss" scoped>
 
 .task-details {
 	width: 24%;

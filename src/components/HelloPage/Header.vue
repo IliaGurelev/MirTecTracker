@@ -25,27 +25,27 @@
 
 <template>
 <header class="header">
-		<div class="logo__item">
+		<div class="header__logo">
 		  <img src="@/assets/logo.svg" alt="">Миртек Трекер
 		</div>
 		<nav class='navigation-menu'>
-			<ul class='navigation-menulist' :class="{ active: isNavActive }">
+			<ul class='text-box__navigation-menu__list' :class="{ active: isNavActive }">
 				<div class="logo">
-					<div class="logo__item">
+					<div class="header__logo">
 					  <img src="../img/logo.svg" alt="">Миртек Трекер
 					</div>
 					<button class="close" @click="closeNav"><i class="fa-solid fa-xmark"></i></button>
 				  </div>
-			  <li class='navigation-menuitem'>
+			  <li class='navigation-menu__item'>
 				<a href='#top'>Главная</a>
 			  </li>
-			  <li class='navigation-menuitem'>
+			  <li class='navigation-menu__item'>
 				<a href='#abouts'>О трекере</a>
 			  </li>
-			  <li class='navigation-menuitem'>
+			  <li class='navigation-menu__item'>
 				<a href='#opportunities'>Возможности</a>
 			  </li>
-			  <li class='navigation-menuitem'>
+			  <li class='navigation-menu__item'>
 				<a href='#prem'>Преимущества</a>
 			  </li>
 			  <div class="visible-btn">
@@ -73,7 +73,7 @@
 </template>
 
 <style lang="scss">
-.logo__item {
+.header__logo {
 	display: flex;
 	align-items: center;
 	column-gap: 10px;
@@ -236,7 +236,7 @@
 	  margin-top: 10px;
 	  display: flex;
 	}
-	.navigation-menuitem a::after{
+	.navigation-menu__item a::after{
 		content: '';
 		position: absolute;
 		left: 0;
@@ -253,26 +253,26 @@
 	.container{
 		max-width: 1200px;
 	}
-	.navigation-menuitem a:hover{
+	.navigation-menu__item a:hover{
 		transform: color 0.5s;
 		color: var(--color-text-important);
 	}
-	.navigation-menuitem a:hover:after{
+	.navigation-menu__item a:hover:after{
 		transform-origin: left;
 		width: 100%;
 		transform: scaleX(1);
 	}
 	  
-  .navigation-menulist .logo{
+  .text-box__navigation-menu__list .logo{
 	  display: none;
 	  align-items: center;
 	  justify-content: space-around;
 	  padding-top: 20px;
   }
-  .navigation-menulist .visible-btn{
+  .text-box__navigation-menu__list .visible-btn{
 	  display: none;
   }
-  .navigation-menulist .logo .close{
+  .text-box__navigation-menu__list .logo .close{
 	  background-color: transparent;
 	  color: var(--color-text-important);
 	  font-size: 30px;

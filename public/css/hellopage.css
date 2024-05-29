@@ -55,7 +55,7 @@ body{
     background-color: var(--bg);
 }
 
-.logo__item {
+.header__logo {
 	display: flex;
 	align-items: center;
 	column-gap: 10px;
@@ -691,7 +691,7 @@ textarea::-webkit-scrollbar-thumb{
 	border: 2px solid var(--color-text-important);
 	transform: scale(1.05);
 }
-.logo__footer {
+.footer__logo {
 	display: flex;
 	align-items: center;
 	column-gap: 10px;
@@ -705,13 +705,13 @@ textarea::-webkit-scrollbar-thumb{
 	cursor: pointer;
 	transition: transform 0.5s;
   }
-  .logo__footer a{
+  .footer__logo a{
 	color: var(--color-text-important);
   }
-  .logo__footer:hover{
+  .footer__logo:hover{
 	transform: scale(1.05);
   }
-  .logo__footer img{
+  .footer__logo img{
 	width: 40px;
   object-fit: cover;
   }
@@ -924,7 +924,7 @@ textarea::-webkit-scrollbar-thumb{
 	}
 }
 
-.text-box__timeline{
+.timeline__text-box{
 	padding: 20px 30px;
 	background: var(--color-text-important);
 	position: relative;
@@ -932,10 +932,10 @@ textarea::-webkit-scrollbar-thumb{
 	font-size: 15px;
 	color:white;
 }
-.text-box__timeline h2{
+.timeline__text-box h2{
 	font-size: 25px;
 }
-.text-box__timeline p{
+.timeline__text-box p{
 	font-size: 18px;
 	font-weight: 600;
 }
@@ -1001,7 +1001,7 @@ animation: moveline 6s linear forwards;
 		padding-right: 25px;
 		padding: 10px;
 	}
-	.text-box__timeline{
+	.timeline__text-box{
 		font-size: 13px;
 	}
 	.right-container{
@@ -1089,7 +1089,7 @@ animation: moveline 6s linear forwards;
 		font-size: 30px;
 		
 	}
-	.logo__footer{
+	.footer__logo{
 		max-width: 95%;
 		margin: auto;
 		margin-bottom: 2rem;
@@ -1116,10 +1116,10 @@ animation: moveline 6s linear forwards;
 	.button__start-works{
 		font-size: 18px;
 	}
-	.logo__item{
+	.header__logo{
 		font-size: 25px;
 	}
-	.logo__item img{
+	.header__logo img{
 		width: 30px;
 	}
 }
@@ -1199,7 +1199,7 @@ animation: moveline 6s linear forwards;
 		font-size: 30px;
 		
 	}
-	.logo__footer{
+	.footer__logo{
 		max-width: 54%;
 		margin: auto;
 		margin-bottom: 2rem;
@@ -1221,11 +1221,11 @@ animation: moveline 6s linear forwards;
 	.button__start-works {
 		font-size: 25px;
 	}
-	.logo__footer{
+	.footer__logo{
 		margin-left: 10px;
 		width: 40%;
 	}
-	.logo__footer a{
+	.footer__logo a{
 		font-size: 18px;
 	}
 	.footer-list a{
@@ -1315,7 +1315,7 @@ animation: moveline 6s linear forwards;
 	.container{
 		max-width: 100%;
 	}
-	.logo__footer{
+	.footer__logo{
 		width: 12%;
 	}
 	.container_slogan{
@@ -1358,10 +1358,10 @@ animation: moveline 6s linear forwards;
 	.header{
 		height: 100px;
 	}
-	.logo__item{
+	.header__logo{
 		font-size: 30px;
 	}
-	.logo__item img{
+	.header__logo img{
 	width: 40px;
 	}
 }
