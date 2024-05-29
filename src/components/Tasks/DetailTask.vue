@@ -3,12 +3,18 @@
     <div class="task__header">
       <h3 class="task__title">{{ props.task.name }}</h3>
       <div class="task__wrapper">
-        <TaskBriefcase class="task__briefcase" :briefcase="props.task.briefcase"/>
+        <TaskBriefcase 
+          class="task__briefcase" 
+          :briefcase="props.task.briefcase"
+        />
         <ProperityButton />
       </div>
     </div>
     <p class="task__description">{{ props.task.description }}</p>
-    <WorkerList class="task__workers" :workerList="props.task.workers" />
+    <WorkerList 
+      class="task__workers" 
+      :workerList="props.task.workers" 
+    />
     <ProgressBar class="task__progress-bar" />
     <div class="task__status">
       <TaskDate :dateCreated="props.task.createdAt"/>

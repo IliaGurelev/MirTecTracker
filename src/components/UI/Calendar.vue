@@ -3,23 +3,33 @@
     <table class="calendar__table">
       <thead class="calendar__header">
         <tr>
-          <th class="calendar__table-header" v-for="(day, index) in weekDays" :key="index">
+          <th 
+            class="calendar__table-header" 
+            v-for="(day, index) in weekDays" 
+            :key="index"
+          >
             {{ day }}
           </th>
         </tr>
       </thead>
       <tbody class="calendar__body">
-        <tr class="calendar__table-row" v-for="(week, weekIndex) in calendarDays" :key="weekIndex">
+        <tr 
+          class="calendar__table-row" 
+          v-for="(week, weekIndex) in calendarDays" 
+          :key="weekIndex"
+        >
           <td
             v-for="(day, index) in week"
             :key="index"
             class="table-data"
             :class="{
               'calendar__table-data--active': isActiveDay(day.date),
-              'calendar__table-data--muted': day.isOtherMonth
-            }"
+              'calendar__table-data--muted': day.isOtherMonth}"
           >
-            <p class="calendar__day" @click="selectDay(day)">{{ day.date.getDate() }}</p>
+            <p 
+              class="calendar__day" 
+              @click="selectDay(day)">{{ day.date.getDate() }}
+            </p>
           </td>
         </tr>
       </tbody>

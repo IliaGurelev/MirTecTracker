@@ -1,10 +1,16 @@
 <template>
   <section class="tasks">
-    <WelcomeUser class="tasks__welcome" :nameUser="props.currentUser.name" />
+    <WelcomeUser 
+      class="tasks__welcome" 
+      :nameUser="props.currentUser.name" 
+    />
     <div class="tasks__header">
       <h2 class="tasks__title">Мои задачи</h2>
     </div>
-    <FilterTask :filters="filters" class="tasks__filter" />
+    <FilterTask 
+      :filters="filters" 
+      class="tasks__filter" 
+    />
     <DetailTaskList :tasksList="tasksUser" />
   </section>
 </template>

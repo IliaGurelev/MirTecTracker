@@ -1,10 +1,19 @@
 <template>
   <div class="progress-bar">
     <div class="progress-bar__wrapper">
-      <label class="progress-bar__label" for="progress-task">Прогресс</label>
+      <label 
+        class="progress-bar__label" 
+        for="progress-task"
+      >Прогресс</label>
       <p class="progress-bar__value">3/5</p>
     </div>
-    <progress class="progress-bar__bar" id="progress-task" max="5" value="3"></progress>
+    <progress 
+      class="progress-bar__bar" 
+      id="progress-task" 
+      max="5" 
+      value="3"
+    >
+    </progress>
   </div>
 </template>
 

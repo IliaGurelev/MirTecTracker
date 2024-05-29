@@ -1,6 +1,10 @@
 <template>
   <div class="worker">
-    <img class="worker__icon" :src="props.worker.avatar" alt="">
+    <img 
+      class="worker__icon" 
+      :src="props.worker.avatar" 
+      :alt="worker.name"
+    >
   </div>
 </template>
 

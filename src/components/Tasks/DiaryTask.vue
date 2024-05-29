@@ -1,5 +1,8 @@
 <template>
-  <div class="task" :class="{ 'task--active': isActive}">
+  <div 
+    class="task" 
+    :class="{ 'task--active': isActive}"
+  >
     <div class="task__header">
       <p class="task__title">{{props.task.name}}</p>
       <time datetime="09:00">{{props.task.time_start}}</time>

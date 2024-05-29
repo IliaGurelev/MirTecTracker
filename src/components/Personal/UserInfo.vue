@@ -1,6 +1,10 @@
 <template>
   <div class="user">
-    <img class="user__icon" :src="props.currentUser.avatar" alt="">
+    <img 
+      class="user__icon" 
+      :src="props.currentUser.avatar" 
+      alt="Аватар пользователя"
+    >
     <p class="user__name">{{ props.currentUser.name }}</p>
   </div>
 </template>

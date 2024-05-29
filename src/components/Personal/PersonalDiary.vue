@@ -1,8 +1,7 @@
 <template>
   <section class="diary">
     <section class="diary__user">
-      <UserInfo 
-        :currentUser="props.currentUser"
+      <UserInfo :currentUser="props.currentUser"
       />
       <div class="diary__settings">
         <i class="fa-solid fa-gear"></i>

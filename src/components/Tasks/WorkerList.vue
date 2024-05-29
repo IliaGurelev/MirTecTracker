@@ -1,8 +1,10 @@
 <template>
   <ul class="workers-list">
-      <li v-for="worker in props.workerList"
-          :key = "worker.id"
-          class="list-item">
+      <li 
+        v-for="worker in props.workerList"
+        :key = "worker.id"
+        class="list-item"
+      >
         <Worker :worker="worker"/>
       </li>
   </ul>
