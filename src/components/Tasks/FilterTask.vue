@@ -34,6 +34,7 @@
   .filter {
     &__list {
       display: flex;
+      flex-wrap: wrap;
       font-weight: 600;
       list-style: none;
       margin: 0;

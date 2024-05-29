@@ -39,7 +39,7 @@
 
 <script setup>
   import { ref, computed } from 'vue';
-  import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addDays } from 'date-fns';
+  import {startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addDays } from 'date-fns';
 
   const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 

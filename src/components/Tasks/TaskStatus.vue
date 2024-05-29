@@ -1,11 +1,11 @@
 <template>
   <div class="status">
     <span 
-      :class="classStatus"
+      :class="statusInfo.classStatus"
       class="status__text" 
     >
       <i 
-        :class="iconStatus"
+        :class="statusInfo.iconStatus"
         class="status__icon fa-solid" 
       >
       </i> {{ nameStatus }}
@@ -14,6 +14,7 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
   import statusTaskConst from '@/constants/status.js';
 
   const props = defineProps({
@@ -25,9 +26,10 @@
 
   const nameStatus = statusTaskConst[props.taskStatus];
 
-  let iconStatus;
-  let classStatus = 'status__icon';
-  switch (props.taskStatus) {
+  const statusInfo = computed(() => {
+    let iconStatus;
+    let classStatus = 'status__icon';
+    switch (props.taskStatus) {
     case 'open':
       iconStatus = 'fa-circle-notch';
       classStatus += '--open';
@@ -44,7 +46,13 @@
       iconStatus = 'fa-circle-notch';
       classStatus += '--open';
       break;
-  }
+    }
+    
+    return {
+      classStatus : classStatus,
+      iconStatus: iconStatus,
+    };
+  });
 </script>
 
 <style lang="scss" scoped>

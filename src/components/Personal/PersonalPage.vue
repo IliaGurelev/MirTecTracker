@@ -43,35 +43,19 @@
 
     &__tasks {
       margin-right: 50px;
+
+      @media (max-width: 750px) {
+        margin-right: 0;
+      }
     }
-  }
 
-  /* АДАПТИВ */
-
-  @media (max-width: 750px) {
-    .user-page {
+    @media (max-width: 750px) {
       flex-direction: column-reverse;
     }
 
-    .user-page__user-section {
-      margin-bottom: 50px;
-    }
-
-    .user-page__user-tasks {
-      margin-right: 0;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .user-page {
+    @media (max-width: 600px) {
       margin-left: 10px;
       margin-right: 10px;
-    }
-  }
-
-  @media (max-width: 427px) {
-    .filter-task__list {
-      flex-wrap: wrap;
     }
   }
 </style>

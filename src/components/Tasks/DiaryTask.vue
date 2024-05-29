@@ -20,8 +20,6 @@
 </template>
 
 <script setup>
-  import { ref, defineProps} from 'vue';
-
   import WorkerList from '@/components/Tasks/WorkerList.vue';
   import CompleteIcon from '@/assets/CompleteIcon.vue';
 
