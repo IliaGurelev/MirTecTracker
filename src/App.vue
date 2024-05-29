@@ -1,6 +1,7 @@
 <script setup>
   import PersonalPage from './components/Personal/PersonalPage.vue';
   import FullDashboard from './components/Dashboard/FullDashboard.vue';
+  import HelloPage from './components/HelloPage/HelloPage.vue';
 </script>
 
 <template>

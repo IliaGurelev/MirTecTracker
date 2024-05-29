@@ -26,7 +26,7 @@
 		</aside>
 </template>
 
-<style scoped>
+<style>
 
 .task-details {
 	width: 24%;

@@ -54,6 +54,7 @@
 body{
     background-color: var(--bg);
 }
+
 .logo__item {
 	display: flex;
 	align-items: center;
@@ -173,7 +174,7 @@ body{
 	  margin: auto;
 	  font-size: 26px;
 	  color: white;
-	  border-radius: 15px;
+	  border-radius: 8px;
 	  background-color: var(--color-text-important);
 	  font-weight: 600;
 	  overflow: hidden;
@@ -195,7 +196,7 @@ body{
 	  margin-left: 10px;
 	  font-size: 26px;
 	  color: white;
-	  border-radius: 15px;
+	  border-radius: 8px;
 	  background-color: var(--color-text-important);
 	  font-weight: 600;
 	  overflow: hidden;
@@ -374,7 +375,7 @@ body{
   margin: 0 0px;
   font-size: 26px;
   color: white;
-  border-radius: 15px;
+  border-radius: 8px;
   background-color: var(--color-text-important);
   font-weight: 600;
   overflow: hidden;
@@ -480,16 +481,17 @@ body{
 }
 
 
-.container-adv{
+.container__advantages{
 	width: 100%;
 	height: auto;
 	padding: 0 8%;
 	margin-top: 2rem;
+	margin-bottom: 4rem;
 }
-.container-adv span{
+.container__advantages span{
 	color: var(--color-text-important);
 }
-.container-adv h1{
+.container__advantages h1{
 	text-align: center;	
 	margin-bottom: 60px;
 	font-weight: 600;
@@ -539,7 +541,7 @@ body{
 }
 
 
-.container-contact{
+.contact-us{
 	width: 100%;
 	min-height: 50vh;
 	display: flex;
@@ -548,7 +550,7 @@ body{
 	padding: 30px 8%;
 	background: url(../img/phon4.svg) no-repeat center center/cover;
 }
-.container-contact .row-contact{
+.contact-us .row-contact{
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
@@ -566,14 +568,14 @@ body{
 .row-contact section.right{
 	flex-basis: 60%;
 }
-section.left .contactTitle h2{
+section.left .description__contact-text h2{
 	position: relative;
 	font-size: 28px;
 	color: #000000;
 	display: inline-block;
 	margin-bottom: 25px;
 }
-section.left .contactTitle h2::before{
+section.left .description__contact-text h2::before{
 	content: '';
 	position: absolute;
 	width: 50%;
@@ -582,7 +584,7 @@ section.left .contactTitle h2::before{
 	top: 120%;
 	left: 0;
 }
-section.left .contactTitle h2::after{
+section.left .description__contact-text h2::after{
 	content: '';
 	position: absolute;
 	width: 25%;
@@ -591,7 +593,7 @@ section.left .contactTitle h2::after{
 	top: calc(120% - 1px);
 	left: 0;
 }
-section.left .contactTitle p{
+section.left .description__contact-text p{
 	font-size: 17px;
 	color: #000000;
 	letter-spacing: 1px;
@@ -602,7 +604,7 @@ section.left .contactTitle p{
 
 
 
-.row-contact section.right .messageForm{
+.row-contact section.right .form__message{
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
@@ -612,13 +614,13 @@ section.left .contactTitle p{
 	margin: 18px 0px;
 	position: relative;
 }
-.messageForm .halfWidth{
+.form__message .halfWidth{
 	flex-basis: 48%;
 }
-.messageForm .fullWidth{
+.form__message .fullWidth{
 	flex-basis: 100%;
 }
-.messageForm input, .messageForm textarea{
+.form__message input, .form__message textarea{
 	font-weight: 500;
 	width: 100%;
 	font-size: 18px;
@@ -630,7 +632,7 @@ section.left .contactTitle p{
 	border-radius: 8px;
 
 }
-.messageForm textarea{
+.form__message textarea{
 	resize: none;
 	height: 220px;
 	display: block;
@@ -668,13 +670,13 @@ textarea::-webkit-scrollbar-thumb{
 	font-size: 16px;
 }
 
-.tell-sms {
+.button__send-message {
 	cursor: pointer;
   position: relative;
   padding: 10px 24px;
   font-size: 15px;
   color: white;
-  border-radius: 15px;
+  border-radius: 8px;
   background-color: var(--color-text-important);
   font-weight: 600;
   overflow: hidden;
@@ -683,13 +685,13 @@ textarea::-webkit-scrollbar-thumb{
   -webkit-transition: background-color 0.2s linear, color 0.2s linear,color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
   transition: background-color 0.2s linear, color 0.2s linear, color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
   }
-.tell-sms:hover{
+.button__send-message:hover{
 	color:var(--color-text-important);
 	background-color: var(--bg);
 	border: 2px solid var(--color-text-important);
 	transform: scale(1.05);
 }
-.logo_items {
+.logo__footer {
 	display: flex;
 	align-items: center;
 	column-gap: 10px;
@@ -703,13 +705,13 @@ textarea::-webkit-scrollbar-thumb{
 	cursor: pointer;
 	transition: transform 0.5s;
   }
-  .logo_items a{
+  .logo__footer a{
 	color: var(--color-text-important);
   }
-  .logo_items:hover{
+  .logo__footer:hover{
 	transform: scale(1.05);
   }
-  .logo_items img{
+  .logo__footer img{
 	width: 40px;
   object-fit: cover;
   }
@@ -877,7 +879,7 @@ textarea::-webkit-scrollbar-thumb{
   .mobile-img {
 	display: none;
 }
-.timline{
+.timeline{
 	position: relative;
 	max-width: 1200px;
 	margin: 100px auto;
@@ -964,7 +966,7 @@ textarea::-webkit-scrollbar-thumb{
 .container-voz{
 	width: 1200px;
 }
-.timline::after{
+.timeline::after{
 content: "";
 position: absolute;
 width: 6px;
@@ -987,10 +989,10 @@ animation: moveline 6s linear forwards;
 }
 
 @media (max-width:600px){
-	.timline{
+	.timeline{
 		margin: 50px auto;
 	}
-	.timline::after{
+	.timeline::after{
 		left: 31px;
 	}
 	.container-text{
@@ -1077,7 +1079,7 @@ animation: moveline 6s linear forwards;
 	.features t{
 		font-size: 25px;
 	}
-	.container-contact {
+	.contact-us {
 		background: url(../img/phon7.svg) no-repeat center center/cover;
 	}
 	.container_slogan{
@@ -1087,7 +1089,7 @@ animation: moveline 6s linear forwards;
 		font-size: 30px;
 		
 	}
-	.logo_items{
+	.logo__footer{
 		max-width: 95%;
 		margin: auto;
 		margin-bottom: 2rem;
@@ -1102,10 +1104,10 @@ animation: moveline 6s linear forwards;
 		font-size: 20px;
 	}
 
-	.container-adv h1{
+	.container__advantages h1{
 		font-size: 35px;
 	}
-	.contactTitle{
+	.description__contact-text{
 		max-width: 80%;
 	}
 	.container_slogan h1{
@@ -1187,7 +1189,7 @@ animation: moveline 6s linear forwards;
 	.features h1{
 		font-size: 35px;
 	}
-	.container-contact {
+	.contact-us {
 		background: url(../img/phon7.svg) no-repeat center center/cover;
 	}
 	.container_slogan{
@@ -1197,7 +1199,7 @@ animation: moveline 6s linear forwards;
 		font-size: 30px;
 		
 	}
-	.logo_items{
+	.logo__footer{
 		max-width: 54%;
 		margin: auto;
 		margin-bottom: 2rem;
@@ -1219,11 +1221,11 @@ animation: moveline 6s linear forwards;
 	.button__start-works {
 		font-size: 25px;
 	}
-	.logo_items{
+	.logo__footer{
 		margin-left: 10px;
 		width: 40%;
 	}
-	.logo_items a{
+	.logo__footer a{
 		font-size: 18px;
 	}
 	.footer-list a{
@@ -1268,7 +1270,7 @@ animation: moveline 6s linear forwards;
 		max-width: 100%;
 	}
 
-	.container-contact {
+	.contact-us {
 		background: url(../img/phon6.svg) no-repeat center center/cover;
 	}
 	.home-page{
@@ -1304,7 +1306,7 @@ animation: moveline 6s linear forwards;
 	.slogan button{
 		font-size: 25px;
 	}
-	.container-contact {
+	.contact-us {
 		background: url(../img/phon5.svg) no-repeat center center/cover;
 	}
 }
@@ -1313,7 +1315,7 @@ animation: moveline 6s linear forwards;
 	.container{
 		max-width: 100%;
 	}
-	.logo_items{
+	.logo__footer{
 		width: 12%;
 	}
 	.container_slogan{
@@ -1328,7 +1330,7 @@ animation: moveline 6s linear forwards;
   .features h1{
 	width: 50%;
   }
-  .container-contact {
+  .contact-us {
 	margin:  auto;
 }
 
@@ -1347,7 +1349,7 @@ animation: moveline 6s linear forwards;
 }
 
 @media(max-width: 1100px){
-	.messageForm .halfWidth{
+	.form__message .halfWidth{
 		flex-basis: 100%;
 	}
 }
@@ -1364,7 +1366,7 @@ animation: moveline 6s linear forwards;
 	}
 }
 @media(max-width: 900px){
-	.container-contact .row-contact{
+	.contact-us .row-contact{
 		flex-wrap: wrap;
 	}
 	.row-contact section.left, .row-contact section.right{
@@ -1391,7 +1393,7 @@ animation: moveline 6s linear forwards;
 		  transition: 0.3s;
 		  z-index: 4;
 		  padding-top: 1rem;
-		  border-radius: 15px;
+		  border-radius: 8px;
 	  }
 	  .navigation-menulist li{
 		  width: 100%;
@@ -1454,7 +1456,7 @@ animation: moveline 6s linear forwards;
 		  transition: 0.3s;
 		  z-index: 4;
 		  padding-top: 1rem;
-		  border-radius: 15px;
+		  border-radius: 8px;
 	  }
 	  .navigation-menulist li{
 		  width: 100%;

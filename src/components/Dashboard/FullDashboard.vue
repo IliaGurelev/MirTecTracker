@@ -1,10 +1,27 @@
 <script setup>
   import Sidebar from '../Sidebar/Sidebar.vue';
-  import Tаsk from '../Tasks/Task.vue';
+  import Task from '../Tasks/Task.vue';
   import ProgressBar from '../UI/Progressbar.vue';
+  import DeleteTask from '../Tasks/DeleteTask.vue';
+  import { ref } from 'vue'
+  const items = ref([
+  { id: 0, title: 'Сделать верстку главной страницы Трекера', tag:'Разработка',data:'20.05.2024',status:'Открыт', list: 1 },
+  { id: 1, title: 'Верстка - личная страница', tag:'Разработка',data:'20.05.2024',status:'В работе', list: 2 },
+  { id: 2, title: 'Анализ рекламы и прихода', tag:'Маркетинг',data:'20.05.2024',status:'В работе', list: 2 },
+  { id: 3, title: 'Пропиарить Трекер', tag:'Маркетинг',data:'20.05.2024',status:'Открыт', list: 1 },
+  { id: 4, title: 'Продать подписку Трекера', tag:'Маркетинг',data:'20.05.2024',status:'Открыт', list: 1 },
+  { id: 5, title: 'Зарисовать новый дизайн', tag:'Разработка',data:'20.05.2024',status:'В работе', list: 2 },
+  { id: 6, title: 'Анализ рекламы и прихода', tag:'Разработка',data:'20.05.2024',status:'Открыт', list: 1 },
+  { id: 7, title: 'Верстка - общей доски', tag:'Разработка',data:'20.05.2024',status:'В работе', list: 2 },
+  { id: 8, title: 'Придумать контент для продвижения Трекера', tag:'Маркетинг',data:'20.05.2024',status:'В работе', list: 2 },
+  { id: 9, title: 'Расчёт зарплаты сотрудникам', tag:'Финансы',data:'20.05.2024',status:'Закрыт', list: 3 },
+  { id: 10, title: 'Придумать новую пиар-акцию', tag:'Маркетинг',data:'20.05.2024',status:'Закрыт', list: 3 },
+  { id: 11, title: 'Отчёт по продажам подписки', tag:'Финансы',data:'20.05.2024',status:'Закрыт', list: 3 }
+])
 </script>
 
 <template>
+	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
 <body id="main">
 <Sidebar>
 
@@ -15,13 +32,19 @@
 		<main class='project'>
 			<div class='project-info'>
 			<h1 class="txt">Дашборд со всеми задачами</h1>
-			</div>
-			<div class='project-tasks'>
-				<Tаsk :class="'project-column'">
-			</Tаsk>
-			</div>
-	
+		<DeleteTask :items="items" :sort="true"></DeleteTask>
+			</div>			
+			<Task :items="items" :sort="true"></Task>
+			<div>
+    <TaskForm @addTask="addTask" />
+    <ul>
+      <li v-for="task in tasks" :key="task.name">
+        {{ task.name }} - {{ task.tag }} - {{ task.status }} - {{ task.date }}
+      </li>
+    </ul>
+  </div>
 		</main>
+
 		<ProgressBar></ProgressBar>
 	</div>
 	</section>
@@ -29,7 +52,23 @@
 </template>
 
 <script >
+import { ref } from 'vue';
+import TaskForm from '../Tasks/AddTusk.vue';
 
+export default {
+  components: {
+    TaskForm
+  },
+  setup() {
+    const tasks = ref([]);
+
+    const addTask = (task) => {
+      tasks.value.push(task);
+    };
+
+    return { tasks, addTask };
+  }
+};
 </script>
 <style>
 
@@ -62,19 +101,19 @@
 	display: inline-block;
   }
   .project-info {
+	position: sticky;
+	top: 52px;
 	padding: 2rem 0;
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
+	z-index: 100;
+	height: 120px;
+	background-color: var(--bg);
   }
 
-  .project-tasks {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	width: 100%;
-	grid-column-gap: 1.5rem;
-  }
+  
   .project-column{
 	background: #e6e6e670;
 	padding: 5px 10px;
@@ -98,7 +137,6 @@
 	cursor: pointer;
   }
 
-  
   @media only screen and (max-width: 1300px) {
 	.project {
 	  max-width: 100%;
