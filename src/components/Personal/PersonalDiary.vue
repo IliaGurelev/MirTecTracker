@@ -14,7 +14,7 @@
           <i class="fa-regular fa-plus"></i> Добавить задачу
         </button>
       </div>
-      <Calendar class="diary__calendar" />
+      <UserCalendar class="diary__calendar" />
       <DiaryTaskList :tasks="props.tasks"/>
     </section>
   </section>
@@ -22,7 +22,7 @@
 
 <script setup>
   import UserInfo from '@/components/Personal/UserInfo.vue'
-  import Calendar from '@/components/UI/Calendar.vue'
+  import UserCalendar from '@/components/UI/UserCalendar.vue'
   import CurentDate from '@/components/UI/CurrentDate.vue'
   import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
 
