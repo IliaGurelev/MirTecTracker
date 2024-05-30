@@ -1,73 +1,82 @@
-<script setup>
-import UserInfo from './UserInfo.vue'
-import Calendar from '../UI/Calendar.vue'
-import CurentDate from '../UI/CurrentDate.vue'
-import DiaryTaskList from '../Tasks/DiaryTaskList.vue'
-</script>
-
 <template>
-  <section class="user-page__user-section user-section">
-    <section class="user-section__user-block user-block">
-      <UserInfo />
-      <div class="user-block__settings">
+  <section class="diary">
+    <section class="diary__user">
+      <UserInfo :currentUser="props.currentUser"
+      />
+      <div class="diary__settings">
         <i class="fa-solid fa-gear"></i>
       </div>
     </section>
-    <section class="user-page__user-diary user-diary">
-      <div class="user-diary__header">
+    <section class="diary__tasks">
+      <div class="diary__header">
         <CurentDate />
-        <button class="user-diary__add-task-button">
+        <button class="diary__button">
           <i class="fa-regular fa-plus"></i> Добавить задачу
         </button>
       </div>
-      <Calendar />
-      <DiaryTaskList />
+      <UserCalendar class="diary__calendar" />
+      <DiaryTaskList :tasks="props.tasks"/>
     </section>
   </section>
 </template>
 
-<style scoped>
-.user-section {
-  max-width: 500px;
-}
+<script setup>
+  import UserInfo from '@/components/Personal/UserInfo.vue'
+  import UserCalendar from '@/components/UI/UserCalendar.vue'
+  import CurentDate from '@/components/UI/CurrentDate.vue'
+  import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
 
-.user-block {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  const props = defineProps({
+    currentUser: {
+      type: Object,
+      required: true,
+    },
+    tasks: {
+      type: Array,
+      required: true,
+    },
+  })
+</script>
 
-.user-section__user-block {
-  margin-bottom: 30px;
-}
+<style lang="scss" scoped>
+  .diary {
+    max-width: 500px;
 
-.user-block__settings {
-  cursor: pointer;
-}
+    &__user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
 
-.user-diary {
-  width: 100%;
-}
+    &__settings {
+      cursor: pointer;
+    }
 
-.user-diary__header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
 
-.user-diary__add-task-button {
-  font-weight: 600;
-  color: #ffffff;
-  background-color: black;
-  border: none;
-  border-radius: 10px;
-  padding: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+    &__button {
+      font-weight: 600;
+      color: #ffffff;
+      background-color: black;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-.user-diary .user-diary__add-task-button:hover {
-  cursor: pointer;
-  background-color: rgb(71, 71, 71);
-}
+    &__button:hover {
+      cursor: pointer;
+      background-color: rgb(71, 71, 71);
+    }
+
+    &__calendar {
+      margin-bottom: 20px;
+    }
+  }
 </style>

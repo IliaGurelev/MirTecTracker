@@ -1,57 +1,65 @@
-<script setup>
-import PersonalDiary from './PersonalDiary.vue'
-import PersonalTask from './PersonalTask.vue'
-</script>
-
 <template>
   <main class="user-page">
-    <PersonalTask :class="'user-page__user-tasks'" />
-    <PersonalDiary />
+    <PersonalTasks 
+      :currentUser="props.currentUser"
+      :tasksUser="tasks"
+      class="user-page__tasks"
+    />
+    <PersonalDiary
+      :currentUser="props.currentUser"
+      :tasks="diary"
+    />
   </main>
 </template>
 
-<style>
-* {
-  font-family: var(--main-font);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+<script setup>
+  import { computed, onMounted } from 'vue';
+  import { store } from '@/store.js';
+  import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
+  import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
 
-body {
-  background-color: var(--color-background);
-}
+  const props = defineProps({
+    currentUser: {
+      type: Object,
+      required: true,
+    },
+  });
 
-.user-page__user-tasks {
-  margin-right: 50px;
-}
+  const tasks = computed(() => {
+    return store.tasks;
+  })
 
-/* АДАПТИВ */
+  const diary = computed(() => {
+    return store.diary;
+  })
 
-@media (max-width: 750px) {
+  onMounted(() => {
+    store.fetchTasks();
+    store.fetchDiary();
+  }) 
+</script>
+
+<style lang="scss" scoped>
   .user-page {
-    flex-direction: column-reverse;
-  }
+    display: flex;
+    margin-top: 20px;
+    margin-left: 50px;
 
-  .user-page__user-section {
-    margin-bottom: 50px;
-  }
+    &__tasks {
+      margin-right: 50px;
 
-  .user-page__user-tasks {
-    margin-right: 0;
-  }
-}
+      @media (max-width: 750px) {
+        margin-right: 0;
+      }
+    }
 
-@media (max-width: 600px) {
-  .user-page {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
+    @media (max-width: 750px) {
+      flex-direction: column-reverse;
+    }
 
-@media (max-width: 427px) {
-  .filter-task__list {
-    flex-wrap: wrap;
+    @media (max-width: 600px) {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
   }
-}
 </style>

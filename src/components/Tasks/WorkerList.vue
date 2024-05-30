@@ -1,20 +1,28 @@
-<script setup>
-  import Worker from './Worker.vue';
-</script>
-
 <template>
-  <ul class="workers-list" :class="$attrs.class">
+  <ul class="workers-list">
       <li 
-          v-for="worker in 3"
-          :key = "worker"
-          class="workers-list__item">
-        <Worker />
+        v-for="worker in props.workerList"
+        :key = "worker.id"
+        class="list-item"
+      >
+        <Worker :worker="worker"/>
       </li>
   </ul>
 </template>
 
-<style scoped>
-  .workers-list {
+<script setup>
+  import Worker from '@/components/Tasks/Worker.vue';
+
+  const props = defineProps({
+    workerList: {
+      type: Array,
+      required: true,
+    },
+  })
+</script>
+
+<style lang="scss" scoped>
+  .workers-list { 
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;

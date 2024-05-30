@@ -1,30 +1,40 @@
-<script setup>
-  import DetailTask from './DetailTask.vue';
-</script>
-
 <template>
-  <div class="user-tasks__tasks-list tasks-list">
-    <ul class="tasks-list__list">
+  <div class="task-list">
+    <ul class="task-list__list">
       <li 
-        class="tasks-list__item"
-        v-for="task in 2" 
-        :key="task" 
+        v-for="task in props.tasksList" 
+        :key="task.id" 
+        class="task-list__item"
       >
-        <DetailTask />
+        <DetailTask :task="task"/>
       </li>
     </ul>
   </div>
 </template>
 
-<style scoped>
-  .tasks-list__list {
-    text-decoration: none;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+<script setup>
+  import DetailTask from '@/components/Tasks/DetailTask.vue';
 
-  .tasks-list__item:not(:last-child) {
-    margin-bottom: 20px;
+  const props = defineProps({
+    tasksList: {
+      type: Array,
+      required: true,
+    }
+  })
+</script>
+
+<style lang="scss" scoped>
+  .task-list {
+    
+    &__list {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+      padding: 12px;
+      max-height: 540px;
+      text-decoration: none;
+      list-style: none;
+      overflow-y: auto;
+    }
   }
 </style>

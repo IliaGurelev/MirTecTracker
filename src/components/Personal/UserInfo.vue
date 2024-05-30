@@ -1,28 +1,38 @@
-<script setup>
-</script>
-
 <template>
-  <div class="user-block__user-info user-info">
-    <img class="user-info__user-icon" src="../../assets/user-icon-1.jpg" alt="">
-    <p class="user-info__user-name">Александр</p>
+  <div class="user">
+    <img 
+      :src="props.currentUser.avatar" 
+      class="user__icon" 
+      alt="Аватар пользователя"
+    >
+    <p class="user__name">{{ props.currentUser.name }}</p>
   </div>
 </template>
 
-<style scoped>
-  .user-info {
+<script setup>
+  const props = defineProps({
+    currentUser: {
+      type: Object,
+      required: true,
+    },
+  });
+</script>
+
+<style lang="scss" scoped>
+  .user {
     display: flex;
     align-items: center;
     cursor: pointer;
-  }
-  
-  .user-info__user-icon {
-    width: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-  }
 
-  .user-info__user-name {
-    font-size: 20px;
-    font-weight: 600;
+    &__icon {
+      width: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    &__name {
+      font-size: 20px;
+      font-weight: 600; 
+    }
   }
 </style>
