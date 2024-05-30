@@ -1,17 +1,17 @@
 const usersData = [
   {
     "id": 1,
-    "name": "Alice",
-    "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+    "nameUser": "Alice",
+    "avatar": ""
   },
   {
     "id": 2,
-    "name": "Bob",
+    "nameUser": "Bob",
     "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
   },
   {
     "id": 3,
-    "name": "Charlie",
+    "nameUser": "Charlie",
     "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
   }
 ]

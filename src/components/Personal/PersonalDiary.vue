@@ -1,7 +1,9 @@
 <template>
   <section class="diary">
     <section class="diary__user">
-      <UserInfo :currentUser="props.currentUser"
+      <UserInfo 
+        :avatarUser="props.currentUser.avatar"
+        :nameUser="props.currentUser.nameUser"
       />
       <div class="diary__settings">
         <i class="fa-solid fa-gear"></i>
@@ -9,18 +11,25 @@
     </section>
     <section class="diary__tasks">
       <div class="diary__header">
-        <CurentDate />
+        <CurentDate :currentDate="activeDate" />
         <button class="diary__button">
           <i class="fa-regular fa-plus"></i> Добавить задачу
         </button>
       </div>
-      <UserCalendar class="diary__calendar" />
-      <DiaryTaskList :tasks="props.tasks"/>
+      <UserCalendar 
+        :currentDate="activeDate"
+        :setDate="setCurrentDate"
+        class="diary__calendar" 
+      />
+      <DiaryTaskList :tasks="tasksForDay"/>
     </section>
   </section>
 </template>
 
 <script setup>
+  import { ref, computed } from 'vue' 
+  import { isSameDay } from 'date-fns'
+  import taskFilter from '@/utils/task-filter'
   import UserInfo from '@/components/Personal/UserInfo.vue'
   import UserCalendar from '@/components/UI/UserCalendar.vue'
   import CurentDate from '@/components/UI/CurrentDate.vue'
@@ -36,11 +45,24 @@
       required: true,
     },
   })
+
+  const activeDate = ref(new Date());
+
+  const tasksForDay = computed(() => {
+    return taskFilter('today', props.tasks, activeDate.value);
+  });
+
+  const setCurrentDate = (date) => {
+    activeDate.value = date;
+  }
 </script>
 
 <style lang="scss" scoped>
   .diary {
+    display: flex;
+    flex-direction: column;
     max-width: 500px;
+    width: 100%;
 
     &__user {
       display: flex;

@@ -5,7 +5,7 @@
   >
     <div class="task__header">
       <p class="task__title">{{props.task.name}}</p>
-      <time datetime="09:00">{{props.task.time_start}}</time>
+      <time datetime="09:00">{{props.task.timeStart}}</time>
     </div>
     <div class="task__content">
       <p class="task__description">{{props.task.description}}</p>

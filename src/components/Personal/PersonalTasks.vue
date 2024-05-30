@@ -1,7 +1,7 @@
 <template>
   <section class="tasks">
     <WelcomeUser 
-      :nameUser="props.currentUser.name" 
+      :nameUser="props.currentUser.nameUser" 
       class="tasks__welcome" 
     />
     <div class="tasks__header">
@@ -70,6 +70,7 @@
     display: flex;
     flex-direction: column;
     max-width: 500px;
+    width: 100%;
 
     &__header {
       margin-bottom: 15px;

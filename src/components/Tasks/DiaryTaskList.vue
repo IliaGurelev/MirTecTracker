@@ -1,5 +1,11 @@
 <template>
   <div class="task-list">
+    <div
+      v-if="props.tasks.length === 0"
+      class="task-list__message"
+    >
+      <p class="task-list__text">На этот день ничего не запланировано</p>
+    </div>
     <ul class="task-list__list">
       <li 
         v-for="(task, index) in props.tasks" 
@@ -37,6 +43,16 @@
   .task-list {
     max-height: 440px;
     overflow-y: auto;
+
+    &__message {
+      font-weight: 600;
+      text-align: center;
+      color: #ffffff;
+      background-color: var(--color-text-important);
+      box-shadow: 0px 0px 10px 5px rgba(43, 43, 43, 0.082);
+      border-radius: 11px;
+      padding: 20px;
+    }
 
     &__list {
       position: relative;

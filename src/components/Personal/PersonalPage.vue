@@ -8,6 +8,7 @@
     <PersonalDiary
       :currentUser="props.currentUser"
       :tasks="diary"
+      class="user-page__diary"
     />
   </main>
 </template>
@@ -45,6 +46,15 @@
     margin-top: 20px;
     margin-left: 50px;
 
+    @media (max-width: 750px) {
+      flex-direction: column-reverse;
+    }
+
+    @media (max-width: 600px) {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
     &__tasks {
       margin-right: 50px;
 
@@ -53,13 +63,10 @@
       }
     }
 
-    @media (max-width: 750px) {
-      flex-direction: column-reverse;
-    }
-
-    @media (max-width: 600px) {
-      margin-left: 10px;
-      margin-right: 10px;
+     &__diary {
+      @media (max-width: 750px) {
+        margin-bottom: 20px;
+      }
     }
   }
 </style>
