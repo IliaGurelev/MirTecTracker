@@ -13,12 +13,14 @@
   })
 </script>
 
-<style scoped>
-  .welcome__text {
-    padding: 0;
-    margin: 0;
-    font-weight: 400;
-    color: #b8b8b8;
-    cursor: default;
+<style lang="scss" scoped>
+  .welcome {
+    &__text {
+      padding: 0;
+      margin: 0;
+      font-weight: 400;
+      color: #b8b8b8;
+      cursor: default;
+    }
   }
 </style>

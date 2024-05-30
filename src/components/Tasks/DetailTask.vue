@@ -17,7 +17,7 @@
     />
     <ProgressBar class="task__progress-bar" />
     <div class="task__status">
-      <TaskDate :dateCreated="props.task.createdAt"/>
+      <TaskDate :dateCreated="props.task.dueDate"/>
       <TaskStatus :taskStatus="props.task.status" />
     </div>
   </div>

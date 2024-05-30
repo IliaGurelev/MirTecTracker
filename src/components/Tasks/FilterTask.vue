@@ -2,12 +2,12 @@
   <div class="filter">
     <ul class="filter__list">
       <li 
-        v-for="(filter, index) in props.filters" 
-        :key="index" 
-        :class="{'filter__item': true, 'filter__item--active': activeFilter === index}" 
-        @click="setActiveFilter(index)"
+        v-for="(filter,) in props.filters" 
+        :key="filter.value" 
+        :class="{'filter__item': true, 'filter__item--active': props.currentFilter === filter.value}" 
+        @click="clickFilter(filter.value)"
       >
-        <p class="filter__element">{{ filter }}</p>
+        <p class="filter__element">{{ filter.name }}</p>
       </li>
     </ul>
   </div>
@@ -18,16 +18,19 @@
 
   const props = defineProps({
     filters: {
-      type: Array,
+      type: Object,
+      required: true,
+    },
+    currentFilter: {
+      type: String,
+      required: true,
+    },
+    clickFilter: {
+      type: Function,
       required: true,
     },
   });
 
-  const activeFilter = ref(0);
-
-  const setActiveFilter = (index) => {
-    activeFilter.value = index;
-  };
 </script>
 
 <style lang="scss" scoped>

@@ -8,14 +8,18 @@
       <h2 class="tasks__title">Мои задачи</h2>
     </div>
     <FilterTask 
-      :filters="filters" 
+      :filters="filters"
+      :currentFilter="currentFilter"
+      :clickFilter="setFilter"
       class="tasks__filter" 
     />
-    <DetailTaskList :tasksList="tasksUser" />
+    <DetailTaskList :tasksList="filteredTasks" />
   </section>
 </template>
 
 <script setup>
+  import { computed, ref } from 'vue';
+  import taskFilter from '@/utils/task-filter';
   import FilterTask from '@/components/Tasks/FilterTask.vue';
   import DetailTaskList from '@/components/Tasks/DetailTaskList.vue'
   import WelcomeUser from '@/components/Personal/WelcomeUser.vue';
@@ -29,9 +33,36 @@
       type: Array,
       required: true,
     },
-  })
+  });
 
-  const filters = ['Новые', 'На сегодня', 'Предстоящие', 'Закрытые'];
+  const filters = [
+    {
+      name: 'Новые',
+      value: 'new',
+    },
+    {
+      name: 'На сегодня',
+      value: 'today',
+    },
+    {
+      name: 'Предстоящие',
+      value: 'upcoming',
+    },
+    {
+      name: 'Закрытые',
+      value: 'closed',
+    }
+  ];
+
+  const currentFilter = ref('new');
+
+  const setFilter = (filter) => {
+    currentFilter.value = filter;
+  }
+
+  const filteredTasks = computed(() => {
+    return taskFilter(currentFilter.value, props.tasksUser);
+  });
 </script>
 
 <style lang="scss" scoped>

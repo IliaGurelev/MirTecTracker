@@ -1,18 +1,20 @@
 <template>
   <main class="user-page">
     <PersonalTasks 
-      :currentUser="currentUser"
+      :currentUser="props.currentUser"
       :tasksUser="tasks"
       class="user-page__tasks"
     />
     <PersonalDiary
-      :currentUser="currentUser"
-      :tasks="tasksDiary"
+      :currentUser="props.currentUser"
+      :tasks="diary"
     />
   </main>
 </template>
 
 <script setup>
+  import { computed, onMounted } from 'vue';
+  import { store } from '@/store.js';
   import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
 
@@ -21,18 +23,20 @@
       type: Object,
       required: true,
     },
-    tasksData: {
-      type: Array,
-      required: true,
-    },
-    tasksDiary: {
-      type: Array,
-      required: true,
-    },
+  });
+
+  const tasks = computed(() => {
+    return store.tasks;
   })
 
-  const currentUser = props.currentUser;
-  const tasks = props.tasksData;
+  const diary = computed(() => {
+    return store.diary;
+  })
+
+  onMounted(() => {
+    store.fetchTasks();
+    store.fetchDiary();
+  }) 
 </script>
 
 <style lang="scss" scoped>

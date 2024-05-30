@@ -1,19 +1,19 @@
 <template>
   <PersonalPage 
     :currentUser="currentUser"
-    :tasksData="tasks"
-    :tasksDiary="taskDiary"
   />
 </template>
 
 <script setup>
+  import { computed, onMounted } from 'vue';
+  import { store } from '@/store.js'
   import PersonalPage from '@/components/Personal/PersonalPage.vue';
-   // Моковые данные
-  import usersData from '@/mock/users-data.js';
-  import tasksData from '@/mock/tasks-data.js';
-  import tasksDiary from '@/mock/tasks-diary.js';
 
-  const currentUser = usersData[1];
-  const tasks = tasksData;
-  const taskDiary = tasksDiary;
+  const currentUser = computed(() => {
+    return store.currentUser;
+  });
+
+  onMounted(() => {
+    store.loginCurrentUser(0);
+  });
 </script>
