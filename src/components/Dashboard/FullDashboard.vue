@@ -1,6 +1,6 @@
 <script setup>
   import Sidebar from '../Sidebar/Sidebar.vue';
-  import Task from '../Tasks/ProjectTasks.vue';
+  import Task from '../Tasks/Tasks.vue';
   import ProgressBar from '../UI/Progressbar.vue';
   import DeleteTask from '../Tasks/DeleteTask.vue';
   import { ref } from 'vue'
@@ -35,7 +35,7 @@
 		<DeleteTask :items="items" :sort="true"></DeleteTask>
 			</div>			
 			<!-- <Task :items="items" :sort="true"></Task> -->
-			<Task></Task>
+			<Task :items="items" :sort="true"></Task>
 		</main>
 		<ProgressBar></ProgressBar>
 	</div>
@@ -198,5 +198,21 @@
 	}
   }
 
+  @media(max-width: 800px) {
+	  #sidebarOpen {
+		font-size: 25px;
+		display: block;
+		margin-right: 10px;
+		cursor: pointer;
+		color: var(--grey-color);
+	  }
+	  .sidebar.close {
+		left: -100%;
+	  }
+	  
+	  .sidebar.close .bottom_content {
+		left: -100%;
+	  }
+	}
 
 </style>

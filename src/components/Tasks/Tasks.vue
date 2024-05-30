@@ -1,17 +1,21 @@
 <template>
 	<div class="project-tasks">
 	  <div
-	  class='project-column'
-		@drop="onDrop($event, 1)"
-		@dragenter.prevent
-		@dragover.prevent
+		v-for="(column, index) in columns"
+		:key="index"
+		class='project-column'
+		:class="{ 'on-over': overColumn === index }"
+		@drop="onDrop($event, column.list)"
+		@dragenter.prevent="onEnterColumn(index)"
+		@dragover.prevent="onOverColumn(index)"
+		@dragleave.prevent="onLeaveColumn(index)"
 	  >
-				  <div class='project-column-heading'>
-				  <h2 class='project-column-heading__title'>Открыт</h2>
-				  </div>				
+		<div class='project-column-heading'>
+		  <h2 class='project-column-heading__title'>{{ column.title }}</h2>
+		</div>
 		<div
 		  class="task"
-		  v-for="item in getList(1)"
+		  v-for="item in getList(column.list)"
 		  :key="item.id"
 		  draggable="true"
 		  @dragstart="startDrag($event, item)"
@@ -20,77 +24,22 @@
 		  @dragleave.prevent="onLeave($event)"
 		  @dragenter.prevent
 		>
-		<div class='task__tags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
-			<p>{{item.title }}</p>
-				<div class='task__stats'>
-				<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{item.data }}</time></span>
-				<div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> {{item.status  = "Открыт"}}</span>
-				</div>
+		  <div class='tasktags'><span class='tasktag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
+		  <p>{{item.title }}</p>
+		  <div class='task__stats'>
+			<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{item.data }}</time></span>
+			<div class='statusowners'>
+			  <span class='statusowner status--inwork'><i class='fa-regular fa-circle-play'></i> {{item.status}}</span>
 			</div>
-		</div>
-	  </div>
-	  <div
-	  class='project-column'
-		@drop="onDrop($event, 2)"
-		@dragenter.prevent
-		@dragover.prevent
-	  >
-	  <div class='project-column-heading'>
-				  <h2 class='project-column-heading__title'>В работе</h2>
-				  </div>
-		<div
-		  class="task"
-		  v-for="item in getList(2)"
-		  :key="item.id"
-		  draggable="true"
-		  @dragstart="startDrag($event, item)"
-		  @drop="onDropSort($event, item)"
-		  @dragover.prevent="onOver($event)"
-		  @dragleave.prevent="onLeave($event)"
-		  @dragenter.prevent
-		>
-		<div class='task__tags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
-					  <p>{{item.title }}</p>
-					  <div class='task__stats'>
-					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{item.data }}</time></span>
-					  <div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> {{item.status = "В работе"}}</span></div>
-					  </div>
-		</div>
-	  </div>
-	  <div
-	  class='project-column'
-		@drop="onDrop($event, 3)"
-		@dragenter.prevent
-		@dragover.prevent
-	  >
-	  <div class='project-column-heading'>
-				  <h2 class='project-column-heading__title'>Закрыт</h2>
-				  </div>
-		<div
-		  class="task"
-		  v-for="item in getList(3)"
-		  :key="item.id"
-		  draggable="true"
-		  @dragstart="startDrag($event, item)"
-		  @drop="onDropSort($event, item)"
-		  @dragover.prevent="onOver($event)"
-		  @dragleave.prevent="onLeave($event)"
-		  @dragenter.prevent
-		>
-		<div class='task__tags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
-					  <p>{{item.title }}</p>
-					  <div class='task__stats'>
-					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{item.data }}</time></span>
-					  <div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> {{item.status  = "Закрыт"}}</span></div>
-					  </div>
+		  </div>
 		</div>
 	  </div>
 	</div>
-	
   </template>
   
   <script setup>
-	import {ref } from 'vue'
+  import { ref } from 'vue'
+  
   const { items, sort } = defineProps({
 	items: {
 	  type: Array,
@@ -100,10 +49,15 @@
 	  type: Boolean,
 	  default: false
 	},
-  })
+  });
   
-  const getList = list => (items ? items.filter(item => item.list == list) : [])
+  const columns = [
+	{ title: 'Открыт', list: 1 },
+	{ title: 'В работе', list: 2 },
+	{ title: 'Закрыт', list: 3 },
+  ];
   
+  const getList = list => (items ? items.filter(item => item.list == list) : []);
   
   const getItemById = event => {
 	const itemId = event.dataTransfer.getData('itemId')
@@ -136,23 +90,33 @@
   }
   
   const getStyle = (tag) => {
+	
+	if (tag === 'Разработка') {
   
-  if (tag === 'Разработка') {
+  return { backgroundColor: '#f2dcf5', color: '#a734ba' }
+
+} else if (tag === 'Маркетинг') {
+  return { backgroundColor: '#ceecfd', color: '#2d86ba' }
+} else if (tag === 'Финансы') {
+  return { backgroundColor: '#fde3ce', color: '#ba662e' }
+}else if (tag === 'Продажи') {
+  return { backgroundColor: '#d6ede2', color: '#13854e' }
+}
+
+}
+  const overColumn = ref(null);
   
-	return { backgroundColor: '#f2dcf5', color: '#a734ba' }
+  const onEnterColumn = (index) => {
+	overColumn.value = index;
+  };
   
-  } else if (tag === 'Маркетинг') {
-	return { backgroundColor: '#ceecfd', color: '#2d86ba' }
-  } else if (tag === 'Финансы') {
-	return { backgroundColor: '#fde3ce', color: '#ba662e' }
-  }else if (tag === 'Продажи') {
-	return { backgroundColor: '#d6ede2', color: '#13854e' }
-  }
+  const onOverColumn = (index) => {
+	overColumn.value = index;
+  };
   
-  }
-  
- 
-  
+  const onLeaveColumn = () => {
+	overColumn.value = null;
+  };
   
   </script>
   
