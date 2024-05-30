@@ -1,17 +1,21 @@
 <template>
 	<div class="project-tasks">
 	  <div
-	  class='project-column'
-		@drop="onDrop($event, 1)"
-		@dragenter.prevent
-		@dragover.prevent
+	  v-for="column in columns"
+      :key="column.title" 
+      class='project-column'
+      :class="{ 'on-over': overColumn === column.title }" 
+      @drop="onDrop($event, column.list)"
+      @dragenter.prevent="onEnterColumn(column.title)" 
+      @dragover.prevent="onOverColumn(column.title)" 
+      @dragleave.prevent="onLeaveColumn(column.title)"
 	  >
-				  <div class='project-column-heading'>
-				  <h2 class='project-column-heading__title'>Открыт</h2>
-				  </div>				
+		<div class='project-column-heading'>
+		  <h2 class='project-column-heading__title'>{{ column.title }}</h2>
+		</div>
 		<div
 		  class="task"
-		  v-for="item in getList(1)"
+		  v-for="item in getList(column.list)"
 		  :key="item.id"
 		  draggable="true"
 		  @dragstart="startDrag($event, item)"
@@ -20,77 +24,34 @@
 		  @dragleave.prevent="onLeave($event)"
 		  @dragenter.prevent
 		>
-		<div class='task__tags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
-			<p>{{item.title }}</p>
-				<div class='task__stats'>
-				<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{item.data }}</time></span>
-				<div class='status__owners'><span class='status__owner status--open'><i class='fa-solid fa-circle-notch'></i> {{item.status  = "Открыт"}}</span>
-				</div>
+		  <div class='tasktags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
+		  <p>{{item.name }}</p>
+		  <div class='task__stats'>
+			<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{formatDate(item.createdAt)}}</time></span>
+			<div class='status__owners'>
+			  <span 
+				class="status__owner"
+				v-for="(status, statusIndex) in column.statuses"
+				:key="statusIndex"
+				:class="`status--${status.class}`"
+				v-if="item.list === column.list"
+			  >
+				<i :class="`fa-regular ${status.icon}`"></i> {{item.status = status.text}}
+			  </span>
 			</div>
-		</div>
-	  </div>
-	  <div
-	  class='project-column'
-		@drop="onDrop($event, 2)"
-		@dragenter.prevent
-		@dragover.prevent
-	  >
-	  <div class='project-column-heading'>
-				  <h2 class='project-column-heading__title'>В работе</h2>
-				  </div>
-		<div
-		  class="task"
-		  v-for="item in getList(2)"
-		  :key="item.id"
-		  draggable="true"
-		  @dragstart="startDrag($event, item)"
-		  @drop="onDropSort($event, item)"
-		  @dragover.prevent="onOver($event)"
-		  @dragleave.prevent="onLeave($event)"
-		  @dragenter.prevent
-		>
-		<div class='task__tags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
-					  <p>{{item.title }}</p>
-					  <div class='task__stats'>
-					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{item.data }}</time></span>
-					  <div class='status__owners'><span class='status__owner status--inwork'><i class='fa-regular fa-circle-play'></i> {{item.status = "В работе"}}</span></div>
-					  </div>
-		</div>
-	  </div>
-	  <div
-	  class='project-column'
-		@drop="onDrop($event, 3)"
-		@dragenter.prevent
-		@dragover.prevent
-	  >
-	  <div class='project-column-heading'>
-				  <h2 class='project-column-heading__title'>Закрыт</h2>
-				  </div>
-		<div
-		  class="task"
-		  v-for="item in getList(3)"
-		  :key="item.id"
-		  draggable="true"
-		  @dragstart="startDrag($event, item)"
-		  @drop="onDropSort($event, item)"
-		  @dragover.prevent="onOver($event)"
-		  @dragleave.prevent="onLeave($event)"
-		  @dragenter.prevent
-		>
-		<div class='task__tags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
-					  <p>{{item.title }}</p>
-					  <div class='task__stats'>
-					  <span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{item.data }}</time></span>
-					  <div class='status__owners'><span class='status__owner status--close'><i class='fa-regular fa-circle-check'></i> {{item.status  = "Закрыт"}}</span></div>
-					  </div>
+		  </div>
 		</div>
 	  </div>
 	</div>
-	
+
   </template>
   
   <script setup>
-	import {ref } from 'vue'
+    // import ProgressBars from '№/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
+  import TaskStatus from "@/components/Tasks/TaskStatus.vue"
+  import formatDate from "@/utils/fomrat-date.js"
+  import { ref,computed } from 'vue'
+  
   const { items, sort } = defineProps({
 	items: {
 	  type: Array,
@@ -100,10 +61,37 @@
 	  type: Boolean,
 	  default: false
 	},
-  })
-  
-  const getList = list => (items ? items.filter(item => item.list == list) : [])
-  
+  });
+   
+
+
+  const columns = [
+  { 
+    title: 'Открыт', 
+    list: 1, 
+    statuses: [
+      { text: "Открыт", icon: "fa-solid fa-circle-notch", class: "open" }
+    ]
+  },
+  { 
+    title: 'В работе', 
+    list: 2, 
+    statuses: [
+      { text: "В работе", icon: "fa-circle-play", class: "inwork" } 
+    ]
+  },
+  { 
+    title: 'Закрыт', 
+    list: 3, 
+    statuses: [
+      { text: "Закрыт", icon: "fa-circle-check", class: "close" } 
+    ]
+  },
+];
+
+
+
+const getList = list => (items ? items.filter(item => item.list == list) : []);
   
   const getItemById = event => {
 	const itemId = event.dataTransfer.getData('itemId')
@@ -136,24 +124,22 @@
   }
   
   const getStyle = (tag) => {
+	
+	if (tag === 'Разработка') {
   
-  if (tag === 'Разработка') {
-  
-	return { backgroundColor: '#f2dcf5', color: '#a734ba' }
-  
-  } else if (tag === 'Маркетинг') {
-	return { backgroundColor: '#ceecfd', color: '#2d86ba' }
-  } else if (tag === 'Финансы') {
-	return { backgroundColor: '#fde3ce', color: '#ba662e' }
-  }else if (tag === 'Продажи') {
-	return { backgroundColor: '#d6ede2', color: '#13854e' }
-  }
-  
-  }
-  
- 
-  
-  
+  return { backgroundColor: '#f2dcf5', color: '#a734ba' }
+
+} else if (tag === 'Маркетинг') {
+  return { backgroundColor: '#ceecfd', color: '#2d86ba' }
+} else if (tag === 'Финансы') {
+  return { backgroundColor: '#fde3ce', color: '#ba662e' }
+}else if (tag === 'Продажи') {
+  return { backgroundColor: '#d6ede2', color: '#13854e' }
+}
+
+}
+
+
   </script>
   
   <style  lang="scss" scoped>

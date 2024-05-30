@@ -1,23 +1,113 @@
 <script setup>
   import Sidebar from '../Sidebar/Sidebar.vue';
-  import Task from '../Tasks/Tasks.vue';
-  import ProgressBar from '../UI/Progressbar.vue';
+  import Task from '../Tasks/Task.vue';
   import DeleteTask from '../Tasks/DeleteTask.vue';
   import { ref } from 'vue'
   const items = ref([
-  { id: 0, title: 'Сделать верстку главной страницы Трекера', tag:'Разработка',data:'20.05.2024',status:'Открыт', list: 1 },
-  { id: 1, title: 'Верстка - личная страница', tag:'Разработка',data:'20.05.2024',status:'В работе', list: 2 },
-  { id: 2, title: 'Анализ рекламы и прихода', tag:'Маркетинг',data:'20.05.2024',status:'В работе', list: 2 },
-  { id: 3, title: 'Пропиарить Трекер', tag:'Маркетинг',data:'20.05.2024',status:'Открыт', list: 1 },
-  { id: 4, title: 'Продать подписку Трекера', tag:'Маркетинг',data:'20.05.2024',status:'Открыт', list: 1 },
-  { id: 5, title: 'Зарисовать новый дизайн', tag:'Разработка',data:'20.05.2024',status:'В работе', list: 2 },
-  { id: 6, title: 'Анализ рекламы и прихода', tag:'Разработка',data:'20.05.2024',status:'Открыт', list: 1 },
-  { id: 7, title: 'Верстка - общей доски', tag:'Разработка',data:'20.05.2024',status:'В работе', list: 2 },
-  { id: 8, title: 'Придумать контент для продвижения Трекера', tag:'Маркетинг',data:'20.05.2024',status:'В работе', list: 2 },
-  { id: 9, title: 'Расчёт зарплаты сотрудникам', tag:'Финансы',data:'20.05.2024',status:'Закрыт', list: 3 },
-  { id: 10, title: 'Придумать новую пиар-акцию', tag:'Маркетинг',data:'20.05.2024',status:'Закрыт', list: 3 },
-  { id: 11, title: 'Отчёт по продажам подписки', tag:'Финансы',data:'20.05.2024',status:'Закрыт', list: 3 }
+  { id: 1, name: 'Верстка главной страницы', description: 'Создание полнуой верстки по макету главной страницы',
+  status:'open',tag:'Разработка',createdAt: '2024-05-20T15:00:00',
+    dueDate: '2024-06-05T15:00:00',  workers: [
+      {
+        "id": 1,
+        "name": "Alice",
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Bob",
+        "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
+      },
+    ], list:1},
+	{ id: 2, name: 'Починить зум', description: 'На странице товара не работает зум',
+  status:'work',tag:'Разработка',createdAt: '2024-04-25T15:00:00',
+    dueDate: '2024-07-05T15:00:00',  workers: [
+	{
+        "id": 1,
+        "name": "Alice",
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Bob",
+        "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Charlie",
+        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
+      }
+    ], list:2},
+  { id: 3, name: 'Создать дизайн робота', description: 'Нужен дизайн главного босса для игры в виде робота',
+  status:'open',tag:'Разработка',createdAt: '2024-05-20T15:00:00',
+    dueDate: '2024-05-30T17:00:00',  workers: [
+	{
+        "id": 1,
+        "name": "Alice",
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Charlie",
+        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
+      }
+    ]},
+	{ id: 3, name: 'Создать дизайн робота', description: 'Нужен дизайн главного босса для игры в виде робота',
+  status:'work',tag:'Разработка',createdAt: '2024-05-30T17:00:00',
+    dueDate: '2024-05-30T17:00:00',  workers: [
+	{
+        "id": 1,
+        "name": "Alice",
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Charlie",
+        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
+      }
+    ], list:2},
+	{ id: 4, name: 'Пропиарить Трекер', description: 'Пропиарить в соц сетях Трекер',
+  status:'work',tag:'Маркетинг',createdAt: '2024-05-30T15:00:00',
+    dueDate: '2024-05-30T17:00:00',  workers: [
+	{
+        "id": 1,
+        "name": "Alice",
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Charlie",
+        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
+      }
+    ], list:2},
+	{ id: 5, name: 'Продать подписку Трекера', description: 'Выполнить запрос по продажам',
+  status:'open',tag:'Продажи',createdAt: '2024-05-30T17:00:00',
+    dueDate: '2024-05-30T17:00:00',  workers: [
+	{
+        "id": 1,
+        "name": "Alice",
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Charlie",
+        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
+      }
+    ], list:1},
+	{ id: 6, name: 'Расчёт зарплаты сотрудникам', description: 'Подсчитать зарплата сотруднков компании',
+  status:'close',tag:'Продажи',createdAt: '2024-05-30T17:00:00',
+    dueDate: '2024-05-30T17:00:00',  workers: [
+	{
+        "id": 1,
+        "name": "Alice",
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Charlie",
+        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
+      }], list:3}
 ])
+
 </script>
 
 <template>
@@ -37,7 +127,6 @@
 			<!-- <Task :items="items" :sort="true"></Task> -->
 			<Task :items="items" :sort="true"></Task>
 		</main>
-		<ProgressBar></ProgressBar>
 	</div>
 	</section>
 </body>
