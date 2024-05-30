@@ -27,7 +27,10 @@
             :key="index"
             :class="{
               'calendar__table-data--active': isActiveDay(day.date),
-              'calendar__table-data--muted': day.isOtherMonth}"
+              'calendar__table-data--muted': day.isOtherMonth,
+              'calendar__table-data--today': isSameDay(day.date, new Date()),
+              'calendar__table-data--planned': day.isPlanned,
+              }"
             class="table-data"
           >
             <p 
@@ -49,7 +52,7 @@
 
 <script setup>
   import { ref, computed } from 'vue';
-  import {startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addDays, addWeeks } from 'date-fns';
+  import {startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addDays, addWeeks, isEqual } from 'date-fns';
 
   const props = defineProps({
     currentDate: {
@@ -59,6 +62,10 @@
     setDate: {
       type: Function,
       required: true,
+    },
+    plannedDates: {
+      type: Array,
+      required: true,
     }
   })
 
@@ -66,7 +73,6 @@
 
   const activeDate = computed(() => props.currentDate);
   const currentMounth = computed(() => props.currentDate.getMonth());
- 
   const currentDate = ref(new Date());
 
   const isActiveDay = (date) => {
@@ -93,7 +99,8 @@
     for (let i = 0; i < days.length; i += 7) {
       weeks.push(days.slice(i, i + 7).map(date => ({
         date,
-        isOtherMonth: date.getMonth() !== currentMounth.value
+        isOtherMonth: date.getMonth() !== currentMounth.value,
+        isPlanned: props.plannedDates.some(plannedDate => isSameDay(plannedDate, date))
       })));
     }
     return weeks;
@@ -139,6 +146,14 @@
 
       &--muted {
         color: var(--light-grey)
+      }
+
+      &--today {
+        color: var(--color-text-important);
+      }
+
+      &--planned {
+        text-decoration: underline;
       }
     }
 

@@ -19,6 +19,7 @@
       <UserCalendar 
         :currentDate="activeDate"
         :setDate="setCurrentDate"
+        :plannedDates="planedDates"
         class="diary__calendar" 
       />
       <DiaryTaskList :tasks="tasksForDay"/>
@@ -28,7 +29,6 @@
 
 <script setup>
   import { ref, computed } from 'vue' 
-  import { isSameDay } from 'date-fns'
   import taskFilter from '@/utils/task-filter'
   import UserInfo from '@/components/Personal/UserInfo.vue'
   import UserCalendar from '@/components/UI/UserCalendar.vue'
@@ -51,6 +51,10 @@
   const tasksForDay = computed(() => {
     return taskFilter('today', props.tasks, activeDate.value);
   });
+
+  const planedDates = computed(() => {
+    return props.tasks.map(task => task.dueDate);
+  })
 
   const setCurrentDate = (date) => {
     activeDate.value = date;

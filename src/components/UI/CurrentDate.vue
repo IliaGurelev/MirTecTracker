@@ -16,7 +16,7 @@
       type: Date,
       required: false,
       default: new Date(),
-    }
+    },
   })
 
   const currentDay = computed(() => {
