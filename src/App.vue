@@ -1,18 +1,16 @@
 <template>
   <PersonalPage 
-    :currentUser="currentUser"
+    :currentUser="store.currentUser"
   />
 </template>
 
 <script setup>
   import { computed, onMounted } from 'vue';
-  import { store } from '@/store.js'
+  import { useMainStore } from '@/store.js'
   import PersonalPage from '@/components/Personal/PersonalPage.vue';
 
-  const currentUser = computed(() => {
-    return store.currentUser;
-  });
-
+  const store = useMainStore();
+  
   onMounted(() => {
     store.loginCurrentUser(0);
   });

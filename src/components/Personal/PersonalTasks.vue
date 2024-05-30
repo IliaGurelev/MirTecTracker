@@ -1,7 +1,7 @@
 <template>
   <section class="tasks">
     <WelcomeUser 
-      :nameUser="props.currentUser.nameUser" 
+      :nameUser="nameUser" 
       class="tasks__welcome" 
     />
     <div class="tasks__header">
@@ -33,6 +33,8 @@
       required: true,
     },
   });
+
+  const nameUser = props.currentUser.nameUser;
 
   const filters = [
     {

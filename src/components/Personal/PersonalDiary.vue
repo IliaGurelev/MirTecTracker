@@ -12,9 +12,20 @@
     <section class="diary__tasks">
       <div class="diary__header">
         <CurentDate :currentDate="activeDate" />
-        <button class="diary__button">
-          <i class="fa-regular fa-plus"></i> Добавить задачу
-        </button>
+        <div class="diary__wrapper">
+          <button 
+            @click="setActivePopup"
+            class="diary__button"
+          >
+            <i class="fa-regular fa-plus"></i> Добавить задачу
+          </button>
+          <DiaryTaskAddPopup 
+            v-if="isActivePopup"
+            :defaultDate="formatDate(activeDate)"
+            :defaulTime="activeDate"
+            class="diary__popup-add-task" 
+          />
+        </div>
       </div>
       <UserCalendar 
         :currentDate="activeDate"
@@ -30,6 +41,7 @@
 <script setup>
   import { ref, computed } from 'vue' 
   import taskFilter from '@/utils/task-filter'
+  import formatDate from '@/utils/fomrat-date'
   import UserInfo from '@/components/Personal/UserInfo.vue'
   import UserCalendar from '@/components/UI/UserCalendar.vue'
   import CurentDate from '@/components/UI/CurrentDate.vue'
@@ -49,6 +61,8 @@
 
   const activeDate = ref(new Date());
 
+  const isActivePopup = ref(false);
+
   const tasksForDay = computed(() => {
     return taskFilter('today', props.tasks, activeDate.value);
   });
@@ -59,6 +73,10 @@
 
   const setCurrentDate = (date) => {
     activeDate.value = date;
+  }
+
+  const setActivePopup = () => {
+    isActivePopup.value = !isActivePopup.value;
   }
 </script>
 
@@ -104,6 +122,17 @@
 
     &__calendar {
       margin-bottom: 20px;
+    }
+    
+    &__wrapper {
+      position: relative;
+    }
+
+    &__popup-add-task {
+      position: absolute;
+      top: 115%;
+      right: 0;
+      z-index: 1;
     }
   }
 </style>

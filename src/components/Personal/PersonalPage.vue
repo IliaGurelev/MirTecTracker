@@ -14,8 +14,8 @@
 </template>
 
 <script setup>
-  import { onMounted } from 'vue';
-  import { store } from '@/store.js';
+  import { onMounted, computed } from 'vue';
+  import { useMainStore } from '@/store.js';
   import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
 
@@ -25,6 +25,8 @@
       required: true,
     },
   });
+
+  const store = useMainStore();
 
   onMounted(() => {
     store.fetchTasks();
