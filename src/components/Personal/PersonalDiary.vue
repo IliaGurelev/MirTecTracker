@@ -34,6 +34,7 @@
   import UserCalendar from '@/components/UI/UserCalendar.vue'
   import CurentDate from '@/components/UI/CurrentDate.vue'
   import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
+  import DiaryTaskAddPopup from '@/components/Tasks/DiaryTaskAddPopup.vue';
 
   const props = defineProps({
     currentUser: {

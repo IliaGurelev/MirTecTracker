@@ -10,7 +10,6 @@
     <div class="task__content">
       <p class="task__description">{{props.task.description}}</p>
       <div class="task__wrapper">
-        <WorkerList :workerList="props.task.workers" />
         <button class="task__button">
           <CompleteIcon />
         </button>
@@ -20,7 +19,6 @@
 </template>
 
 <script setup>
-  import WorkerList from '@/components/Tasks/WorkerList.vue';
   import CompleteIcon from '@/assets/CompleteIcon.vue';
 
   const props = defineProps({
