@@ -8,7 +8,7 @@
     </div>
     <ul class="task-list__list">
       <li 
-        v-for="(task, index) in props.tasks" 
+        v-for="(task, index) in filteredTasks" 
         :key="task.id" 
         class="task-list__item"
       >
@@ -29,7 +29,9 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
   import DiaryTask from '@/components/Tasks/DiaryTask.vue';
+  import taskFilter from '@/utils/task-filter';
 
   const props = defineProps({
     tasks: {
@@ -37,6 +39,8 @@
       required: true,
     },
   })
+
+  const filteredTasks = computed(() => taskFilter('asc-diary', props.tasks));
 </script>
 
 <style lang="scss" scoped>

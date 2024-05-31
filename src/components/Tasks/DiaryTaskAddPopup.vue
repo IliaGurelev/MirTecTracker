@@ -33,6 +33,8 @@
 
 <script setup>
   import { ref } from 'vue';
+  import { format } from 'date-fns';
+  import parseTime from '@/utils/parse-time';
   import { useMainStore } from '@/store.js';
 
   const props = defineProps({
@@ -41,19 +43,15 @@
       required: false,
       default: "",
     },
-    defaultTime: {
-       type: String,
-       required: false,
-       default: "",
-    },
   })
 
   const store = useMainStore();
 
   const nameTask = defineModel("nameTask");
   const descriptionTask = defineModel("descriptionTask");
-  const timeTask = defineModel("timeTask");
   const dateTask = defineModel("dateTask");
+  dateTask.value = format(props.defaultDate, 'yyyy-MM-dd');
+  const timeTask = defineModel("timeTask");
 
   const addDiaryTask = () => {
     store.addDiaryTask({

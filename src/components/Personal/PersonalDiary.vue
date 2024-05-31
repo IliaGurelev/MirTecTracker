@@ -21,8 +21,7 @@
           </button>
           <DiaryTaskAddPopup 
             v-if="isActivePopup"
-            :defaultDate="formatDate(activeDate)"
-            :defaulTime="activeDate"
+            :defaultDate="activeDate"
             class="diary__popup-add-task" 
           />
         </div>
