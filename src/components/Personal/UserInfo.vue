@@ -1,20 +1,31 @@
 <template>
   <div class="user">
+    <UserIcon 
+      v-if="props.avatarUser === '' "
+      class="user__icon"
+    />
     <img 
-      :src="props.currentUser.avatar" 
+      v-else
+      :src="props.avatarUser" 
       class="user__icon" 
       alt="Аватар пользователя"
-    >
-    <p class="user__name">{{ props.currentUser.name }}</p>
+    />
+    <p class="user__name">{{ props.nameUser }}</p>
   </div>
 </template>
 
 <script setup>
+  import UserIcon from '@/assets/UserIcon.vue';
+
   const props = defineProps({
-    currentUser: {
-      type: Object,
+    avatarUser: {
+      type: String,
       required: true,
     },
+    nameUser: {
+      type: String,
+      required: true,
+    }
   });
 </script>
 

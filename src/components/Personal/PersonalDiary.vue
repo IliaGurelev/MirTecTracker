@@ -1,7 +1,9 @@
 <template>
   <section class="diary">
     <section class="diary__user">
-      <UserInfo :currentUser="props.currentUser"
+      <UserInfo 
+        :avatarUser="props.currentUser.avatar"
+        :nameUser="props.currentUser.nameUser"
       />
       <div class="diary__settings">
         <i class="fa-solid fa-gear"></i>
@@ -9,22 +11,40 @@
     </section>
     <section class="diary__tasks">
       <div class="diary__header">
-        <CurentDate />
-        <button class="diary__button">
-          <i class="fa-regular fa-plus"></i> Добавить задачу
-        </button>
+        <CurentDate :currentDate="activeDate" />
+        <div class="diary__wrapper">
+          <button 
+            @click="setActivePopup"
+            class="diary__button"
+          >
+            <i class="fa-regular fa-plus"></i> Добавить задачу
+          </button>
+          <DiaryTaskAddPopup 
+            v-if="isActivePopup"
+            :defaultDate="activeDate"
+            class="diary__popup-add-task" 
+          />
+        </div>
       </div>
-      <UserCalendar class="diary__calendar" />
-      <DiaryTaskList :tasks="props.tasks"/>
+      <UserCalendar 
+        :currentDate="activeDate"
+        :setDate="setCurrentDate"
+        :plannedDates="planedDates"
+        class="diary__calendar" 
+      />
+      <DiaryTaskList :tasks="tasksForDay"/>
     </section>
   </section>
 </template>
 
 <script setup>
+  import { ref, computed } from 'vue' 
+  import taskFilter from '@/utils/task-filter'
   import UserInfo from '@/components/Personal/UserInfo.vue'
   import UserCalendar from '@/components/UI/UserCalendar.vue'
   import CurentDate from '@/components/UI/CurrentDate.vue'
   import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
+  import DiaryTaskAddPopup from '@/components/Tasks/DiaryTaskAddPopup.vue';
 
   const props = defineProps({
     currentUser: {
@@ -36,11 +56,34 @@
       required: true,
     },
   })
+
+  const activeDate = ref(new Date());
+
+  const isActivePopup = ref(false);
+
+  const tasksForDay = computed(() => {
+    return taskFilter('today', props.tasks, activeDate.value);
+  });
+
+  const planedDates = computed(() => {
+    return props.tasks.map(task => task.dueDate);
+  })
+
+  const setCurrentDate = (date) => {
+    activeDate.value = date;
+  }
+
+  const setActivePopup = () => {
+    isActivePopup.value = !isActivePopup.value;
+  }
 </script>
 
 <style lang="scss" scoped>
   .diary {
+    display: flex;
+    flex-direction: column;
     max-width: 500px;
+    width: 100%;
 
     &__user {
       display: flex;
@@ -77,6 +120,17 @@
 
     &__calendar {
       margin-bottom: 20px;
+    }
+    
+    &__wrapper {
+      position: relative;
+    }
+
+    &__popup-add-task {
+      position: absolute;
+      top: 115%;
+      right: 0;
+      z-index: 1;
     }
   }
 </style>

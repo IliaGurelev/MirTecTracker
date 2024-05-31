@@ -1,7 +1,7 @@
 <template>
   <section class="tasks">
     <WelcomeUser 
-      :nameUser="props.currentUser.name" 
+      :nameUser="nameUser" 
       class="tasks__welcome" 
     />
     <div class="tasks__header">
@@ -10,7 +10,8 @@
     <FilterTask 
       :filters="filters"
       :currentFilter="currentFilter"
-      :clickFilter="setFilter"
+      @clickFilter="setFilter"
+      v-model:currentFilter="currentFilter"
       class="tasks__filter" 
     />
     <DetailTaskList :tasksList="filteredTasks" />
@@ -35,6 +36,8 @@
     },
   });
 
+  const nameUser = props.currentUser.nameUser;
+
   const filters = [
     {
       name: 'Новые',
@@ -56,13 +59,13 @@
 
   const currentFilter = ref('new');
 
-  const setFilter = (filter) => {
-    currentFilter.value = filter;
-  }
-
   const filteredTasks = computed(() => {
     return taskFilter(currentFilter.value, props.tasksUser);
   });
+
+  const setFilter = (filter) => {
+    currentFilter.value = filter;
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -70,6 +73,7 @@
     display: flex;
     flex-direction: column;
     max-width: 500px;
+    width: 100%;
 
     &__header {
       margin-bottom: 15px;

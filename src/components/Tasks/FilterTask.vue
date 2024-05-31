@@ -2,10 +2,12 @@
   <div class="filter">
     <ul class="filter__list">
       <li 
-        v-for="(filter,) in props.filters" 
-        :key="filter.value" 
-        :class="{'filter__item': true, 'filter__item--active': props.currentFilter === filter.value}" 
-        @click="clickFilter(filter.value)"
+        v-for="(filter) in props.filters" 
+        :key="filter.value"
+        class="filter__item" 
+        :class="{ 
+          'filter__item--active': isActive(filter.value)}" 
+        @click="$emit('clickFilter', filter.value)"
       >
         <p class="filter__element">{{ filter.name }}</p>
       </li>
@@ -14,23 +16,20 @@
 </template>
 
 <script setup>
-  import {ref} from 'vue';
-
   const props = defineProps({
     filters: {
       type: Object,
       required: true,
     },
     currentFilter: {
-      type: String,
+      type: Object,
       required: true,
-    },
-    clickFilter: {
-      type: Function,
-      required: true,
-    },
+    }
   });
 
+  const isActive = (filter) => {
+    return props.currentFilter === filter
+  } 
 </script>
 
 <style lang="scss" scoped>
