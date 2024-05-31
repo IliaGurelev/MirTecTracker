@@ -23,7 +23,6 @@
 		  @dragover.prevent="onOver($event)"
 		  @dragleave.prevent="onLeave($event)"
 		  @dragenter.prevent
-		  @click="selectedTask = item; toggleSidebar()"
 		>
 		  <div class='tasktags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
 		  <p>{{item.name }}</p>
@@ -43,22 +42,14 @@
 		  </div>
 		</div>
 	  </div>
-
+	  <SidebarInfo  v-if="sidebarOpen" :task="selectedTask" @close="toggleSidebar"/>
   </div>
-  <aside class="task-detailss" v-if="sidebarOpen" @click="toggleSidebar">
-	  <div class="sidebar-content">
-		<h3>{{ selectedTask.name }}</h3>
-		<p>{{ selectedTask.description }}</p>
-		<p>Тип: {{ selectedTask.tag }}</p>
-		<p>Дата начала: {{formatDate(selectedTask.createdAt)}}</p>
-		<p>Дедлайн: {{formatDate(selectedTask.dueDate)}}</p>
-	  </div>
-	</aside>
+ 
   </template>
   
   <script setup>
     // import ProgressBars from '№/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
-	
+	 import SidebarInfo from '@/components/Tasks/SideBarInfo/SideBarInfo.vue'; 
   import TaskStatus from "@/components/Tasks/TaskStatus.vue"
   import formatDate from "@/utils/fomrat-date.js"
   import { ref,computed,inject  } from 'vue'
@@ -72,6 +63,10 @@
 	  type: Boolean,
 	  default: false
 	},
+	columns: {
+    type: Array,
+    required: true
+  }
   });
 
 

@@ -5,98 +5,7 @@
  import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
  import SidebarInfo from '@/components/Tasks/SideBarInfo/SideBarInfo.vue'; 
   import { ref } from 'vue'
-  const items = ref([
-  { id: 1, name: 'Верстка главной страницы', description: 'Создание полной верстки по макету главной страницы',
-  status:'open',tag:'Разработка',createdAt: '2024-05-20T15:00:00',
-    dueDate: '2024-06-05T15:00:00',  workers: [
-      {
-        "id": 1,
-        "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
-      },
-      {
-        "id": 2,
-        "name": "Bob",
-        "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
-      },
-    ], },
-	{ id: 2, name: 'Починить зум', description: 'На странице товара не работает зум',
-  status:'work',tag:'Разработка',createdAt: '2024-04-25T15:00:00',
-    dueDate: '2024-07-05T15:00:00',  workers: [
-	{
-        "id": 1,
-        "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
-      },
-      {
-        "id": 2,
-        "name": "Bob",
-        "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
-      },
-      {
-        "id": 3,
-        "name": "Charlie",
-        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
-      }
-    ], },
-  { id: 3, name: 'Создать дизайн робота', description: 'Нужен дизайн главного босса для игры в виде робота',
-  status:'open',tag:'Разработка',createdAt: '2024-05-20T15:00:00',
-    dueDate: '2024-05-30T17:00:00',  workers: [
-	{
-        "id": 1,
-        "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
-      },
-      {
-        "id": 3,
-        "name": "Charlie",
-        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
-      }
-    ]},
-	{ id: 4, name: 'Пропиарить Трекер', description: 'Пропиарить в соц сетях Трекер',
-  status:'work',tag:'Маркетинг',createdAt: '2024-05-30T15:00:00',
-    dueDate: '2024-05-30T17:00:00',  workers: [
-	{
-        "id": 1,
-        "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
-      },
-      {
-        "id": 3,
-        "name": "Charlie",
-        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
-      }
-    ], },
-	{ id: 5, name: 'Продать подписку Трекера', description: 'Выполнить запрос по продажам',
-  status:'open',tag:'Продажи',createdAt: '2024-05-30T17:00:00',
-    dueDate: '2024-05-30T17:00:00',  workers: [
-	{
-        "id": 1,
-        "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
-      },
-      {
-        "id": 3,
-        "name": "Charlie",
-        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
-      }
-    ], },
-	{ id: 6, name: 'Расчёт зарплаты сотрудникам', description: 'Подсчитать зарплата сотруднков компании',
-  status:'close',tag:'Финансы',createdAt: '2024-05-30T17:00:00',
-    dueDate: '2024-05-30T17:00:00',  workers: [
-	{
-        "id": 1,
-        "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
-      },
-      {
-        "id": 3,
-        "name": "Charlie",
-        "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
-      }], }
-])
-
- 
+  
 
 </script>
 
@@ -114,7 +23,7 @@
 			<h1 class="txt">Дашборд со всеми задачами</h1>
 		<DeleteTask :items="items" :sort="true"></DeleteTask>
 			</div>			
-			<Task :items="items" :sort="true" ></Task>
+			<Task :items="items" :sort="true"></Task>
 		</main>
 		<ProgressBars :items="items"/>
 	</div>

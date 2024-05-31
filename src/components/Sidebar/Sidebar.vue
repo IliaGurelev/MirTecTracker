@@ -4,7 +4,7 @@
 
 	<nav class="navbar">
 			<div class="logo_item">
-				<i class="fa-solid fa-bars" id="sidebarOpen" ></i>
+				<i class="fa-solid fa-bars" id="sidebarOpen" @click="expandSidebar"></i>
 				  <img src="../../assets/logo.svg" alt="">Миртек Трекер
 			</div>
 		</nav>
