@@ -33,7 +33,10 @@
         :plannedDates="planedDates"
         class="diary__calendar" 
       />
-      <DiaryTaskList :tasks="tasksForDay"/>
+      <DiaryTaskList 
+        :tasks="tasksForDay"
+        @click-complite="removeTask"
+      />
     </section>
   </section>
 </template>
@@ -82,7 +85,12 @@
   }
 
   const addToDiary = (task) => {
+    setActivePopup();
     store.addDiaryTask(task);
+  }
+
+  const removeTask = (id) => {
+    store.removeDiaryTaskById(id);
   }
 </script>
 

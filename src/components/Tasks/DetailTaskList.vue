@@ -14,7 +14,9 @@
         :key="task.id" 
         class="task-list__item"
       >
-        <DetailTask :task="task"/>
+        <DetailTask 
+          :task="task"
+        />
       </li>
     </ul>
   </div>

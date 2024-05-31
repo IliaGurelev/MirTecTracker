@@ -25,7 +25,7 @@ export const useMainStore = defineStore('main', {
       this.diary.push(task);
     },
     removeDiaryTaskById(id) {
-      this.diary.filter((task) => task.id !== id)
+      this.diary = this.diary.filter((task) => task.id !== id)
     }
   },
 });

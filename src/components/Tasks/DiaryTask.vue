@@ -10,7 +10,7 @@
     <div class="task__content">
       <p class="task__description">{{props.task.description}}</p>
       <div class="task__wrapper">
-        <button class="task__button">
+        <button @click="$emit('click-complite', task.id)" class="task__button">
           <CompleteIcon />
         </button>
       </div>

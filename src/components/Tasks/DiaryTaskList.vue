@@ -22,6 +22,7 @@
         <DiaryTask 
           :isActive="index === 0"
           :task="task"
+          @click-complite="$emit('click-complite', task.id)" 
         />
       </li>
     </ul>
