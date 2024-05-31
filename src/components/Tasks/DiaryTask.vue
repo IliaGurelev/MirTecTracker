@@ -5,13 +5,12 @@
   >
     <div class="task__header">
       <p class="task__title">{{props.task.name}}</p>
-      <time datetime="09:00">{{props.task.time_start}}</time>
+      <time datetime="09:00">{{props.task.timeStart}}</time>
     </div>
     <div class="task__content">
       <p class="task__description">{{props.task.description}}</p>
       <div class="task__wrapper">
-        <WorkerList :workerList="props.task.workers" />
-        <button class="task__button">
+        <button @click="$emit('click-complite', task.id)" class="task__button">
           <CompleteIcon />
         </button>
       </div>
@@ -20,7 +19,6 @@
 </template>
 
 <script setup>
-  import WorkerList from '@/components/Tasks/WorkerList.vue';
   import CompleteIcon from '@/assets/CompleteIcon.vue';
 
   const props = defineProps({

@@ -1,5 +1,9 @@
 <template>
   <section class="calendar">
+    <i 
+      @click="shiftMonth(-1)"
+      class="calendar__button fa-solid fa-angles-left"
+    ></i>
     <table class="calendar__table">
       <thead class="calendar__header">
         <tr>
@@ -23,39 +27,65 @@
             :key="index"
             :class="{
               'calendar__table-data--active': isActiveDay(day.date),
-              'calendar__table-data--muted': day.isOtherMonth}"
+              'calendar__table-data--muted': day.isOtherMonth,
+              'calendar__table-data--today': isToday(day.date),
+              'calendar__table-data--planned': day.isPlanned,
+              }"
             class="table-data"
           >
             <p 
               class="calendar__day" 
-              @click="selectDay(day)">{{ day.date.getDate() }}
+              @click="setDate(day.date)"
+            >
+              {{ day.date.getDate() }}
             </p>
           </td>
         </tr>
       </tbody>
     </table>
+    <i 
+      @click="shiftMonth(1)"
+      class="calendar__button fa-solid fa-angles-right"
+    ></i>
   </section>
 </template>
 
 <script setup>
   import { ref, computed } from 'vue';
-  import {startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addDays } from 'date-fns';
+  import {startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addDays, addWeeks, isEqual } from 'date-fns';
+
+  const props = defineProps({
+    currentDate: {
+      type: Date,
+      required: true,
+    },
+    setDate: {
+      type: Function,
+      required: true,
+    },
+    plannedDates: {
+      type: Array,
+      required: true,
+    }
+  })
 
   const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
-  const activeDate = ref(new Date());
+  const activeDate = computed(() => props.currentDate);
+  const currentMounth = computed(() => props.currentDate.getMonth());
   const currentDate = ref(new Date());
-  const currentMounth = ref(new Date().getMonth());
 
   const isActiveDay = (date) => {
     return isSameDay(activeDate.value, date);
   };
+  
+  const isToday = (date) => {
+    return isSameDay(date, new Date());
+  }
 
-  function selectDay(day) {
-    if(day.isOtherMonth) {
-      currentMounth.value = day.date.getMonth();  
-    }
-    activeDate.value = day.date;
+  const shiftMonth = (step) => {
+    currentDate.value = addWeeks(currentDate.value, step);
+    props.setDate(startOfWeek(currentDate.value, {weekStartsOn: 1}))
   }
 
   const calendarDays = computed(() => {
@@ -73,7 +103,8 @@
     for (let i = 0; i < days.length; i += 7) {
       weeks.push(days.slice(i, i + 7).map(date => ({
         date,
-        isOtherMonth: date.getMonth() !== currentMounth.value
+        isOtherMonth: date.getMonth() !== currentMounth.value,
+        isPlanned: props.plannedDates.some(plannedDate => isSameDay(plannedDate, date))
       })));
     }
     return weeks;
@@ -82,6 +113,9 @@
 
 <style lang="scss" scoped>
   .calendar {
+    display: flex;
+    align-items: center;
+
     &__table {
       width: 100%;
       border-collapse: collapse;
@@ -96,6 +130,7 @@
     }
 
     &__table-data {
+
       &--active {
         color: var(--color-text-important);
         position: relative;
@@ -116,6 +151,14 @@
       &--muted {
         color: var(--light-grey)
       }
+
+      &--today {
+        color: var(--color-text-important);
+      }
+
+      &--planned {
+        text-decoration: underline;
+      }
     }
 
     &__day {
@@ -124,6 +167,7 @@
       font-weight: 600;
       font-family: "Montserrat", sans-serif;
       cursor: pointer;
+      user-select: none;
 
       &:hover {
         background-color: #9c9c9c;
@@ -135,6 +179,11 @@
       td {
         padding-top: 10px;
       }
+    }
+
+    &__button {
+      color: #808080;
+      cursor: pointer;
     }
   }
 </style>
