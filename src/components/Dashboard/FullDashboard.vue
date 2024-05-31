@@ -34,7 +34,7 @@
 
 	const store = useMainStore();
 
-  const {tasks} = storeToRefs(store);
+  const { tasks } = storeToRefs(store);
 
   onMounted(() => {
     store.fetchTasks();

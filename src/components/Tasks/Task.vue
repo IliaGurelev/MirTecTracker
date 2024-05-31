@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<div class="project-tasks">
 	  <div
 	  	v-for="column in columns"
@@ -6,16 +6,13 @@
       class='project-column'
       :class="{ 'on-over': undefined === column.globaltype }" 
       @drop="onDrop($event, column.globaltype)"
-      @dragenter.prevent="onEnterColumn(column.globaltype)" 
-      @dragover.prevent="onOverColumn(column.globaltype)" 
-      @dragleave.prevent="onLeaveColumn(column.globaltype)"
 	  >
 		<div class='project-column-heading'>
 		  <h2 class='project-column-heading__title'>{{ column.title }}</h2>
 		</div>
 		<div
 		  class="task"
-		  v-for="(item) in getList(column.globaltype).value"
+		  v-for="(item) in tasksByStatus(column.globaltype)"
 		  :key="item.id"
 		  draggable="true"
 		  @dragstart="startDrag($event, item)"
@@ -79,39 +76,44 @@
 		sidebarOpen.value = !sidebarOpen.value
 	}
   
-  const columns = [
-  { 
-		globaltype: 'open',
-    title: 'Открыт', 
-    list: 1, 
-    statuses: [
-      { text: "Открыт", icon: "fa-solid fa-circle-notch", class: "open" }
-    ]
-  },
-  { 
-		globaltype: 'work',
-			title: 'В работе', 
-			list: 2, 
+  const columns = computed(() => {
+		return [{ 
+			globaltype: 'open',
+			title: 'Открыт', 
+			list: 1, 
 			statuses: [
-				{ text: "В работе", icon: "fa-circle-play", class: "inwork" } 
+				{ text: "Открыт", icon: "fa-solid fa-circle-notch", class: "open" }
 			]
-  },
-  { 
-		globaltype: 'close',
-			title: 'Закрыт', 
-			list: 3, 
-			statuses: [
-				{ text: "Закрыт", icon: "fa-circle-check", class: "close" } 
-			]
-  }]
+		},
+		{ 
+			globaltype: 'work',
+				title: 'В работе', 
+				list: 2, 
+				statuses: [
+					{ text: "В работе", icon: "fa-circle-play", class: "inwork" } 
+				],
+		},
+		{ 
+			globaltype: 'close',
+				title: 'Закрыт', 
+				list: 3, 
+				statuses: [
+					{ text: "Закрыт", icon: "fa-circle-check", class: "close" } 
+				],
+		}]
+	})
 	
+	const tasksByStatus = (globaltype) => {
+		return computed(() => items.value.filter(item => item.status === globaltype));
+	};
+
 	const getList = (status) => {
-		return computed(() => items.filter(item => item.status === status)); 
+		return items.filter(item => item.status === status); 
 	};
   
   const getItemById = event => {
-	const itemId = event.dataTransfer.getData('itemId')
-	const item = items.find(item => item.id == itemId)
+		const itemId = event.dataTransfer.getData('itemId')
+		const item = items.find(item => item.id == itemId)
 		return { item, itemId }
   }
   
@@ -135,7 +137,7 @@
   }
   
   const onDrop = (event, status) => {
-	const { item } = getItemById(event)
+		const { item } = getItemById(event)
 		item.status = status
   }
   
