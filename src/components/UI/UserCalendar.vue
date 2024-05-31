@@ -28,7 +28,7 @@
             :class="{
               'calendar__table-data--active': isActiveDay(day.date),
               'calendar__table-data--muted': day.isOtherMonth,
-              'calendar__table-data--today': isSameDay(day.date, new Date()),
+              'calendar__table-data--today': isToday(day.date),
               'calendar__table-data--planned': day.isPlanned,
               }"
             class="table-data"
@@ -78,6 +78,10 @@
   const isActiveDay = (date) => {
     return isSameDay(activeDate.value, date);
   };
+  
+  const isToday = (date) => {
+    return isSameDay(date, new Date());
+  }
 
   const shiftMonth = (step) => {
     currentDate.value = addWeeks(currentDate.value, step);

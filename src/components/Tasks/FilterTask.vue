@@ -7,7 +7,7 @@
         class="filter__item" 
         :class="{ 
           'filter__item--active': isActive(filter.value)}" 
-        @click="setCurrentFilter(filter.value)"
+        @click="$emit('clickFilter', filter.value)"
       >
         <p class="filter__element">{{ filter.name }}</p>
       </li>
@@ -21,24 +21,15 @@
       type: Object,
       required: true,
     },
-  });
-
-  const currentFilter = defineModel(
-    'currentFilter',
-    {
-      type: String,
-      required: true ,
+    currentFilter: {
+      type: Object,
+      required: true,
     }
-  );
+  });
 
   const isActive = (filter) => {
     return props.currentFilter === filter
-  }
-  
-  const setCurrentFilter = (filter) => {
-    currentFilter.value = filter
-  }
-  
+  } 
 </script>
 
 <style lang="scss" scoped>

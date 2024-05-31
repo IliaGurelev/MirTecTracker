@@ -9,6 +9,8 @@
     </div>
     <FilterTask 
       :filters="filters"
+      :currentFilter="currentFilter"
+      @clickFilter="setFilter"
       v-model:currentFilter="currentFilter"
       class="tasks__filter" 
     />
@@ -60,6 +62,10 @@
   const filteredTasks = computed(() => {
     return taskFilter(currentFilter.value, props.tasksUser);
   });
+
+  const setFilter = (filter) => {
+    currentFilter.value = filter;
+  }
 </script>
 
 <style lang="scss" scoped>
