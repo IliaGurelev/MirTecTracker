@@ -1,41 +1,48 @@
 <template>
   <section class="popup">
-    <input 
-      v-model="nameTask"
-      class="popup__input" 
-      type="text"
-      placeholder="Название" 
-      required
-    />
-    <textarea 
-      v-model="descriptionTask"
-      class="popup__textarea" 
-      placeholder="Описание"
-    ></textarea>
-    <div class="popup__wrapper">
+    <form 
+      class="popup__form" 
+      action="" 
+      @submit.prevent="$emit('submitForm', dataTask)"
+    >
       <input 
-        v-model="timeTask"
-        class="popup__input popup__input--pointer" 
-        type="time" 
-      >
-      <input 
-        v-model="dateTask"
-        class="popup__input popup__input--pointer"
-        type="date" 
-      >
-      <button 
-        @click="addDiaryTask()"
-        class="popup__button" 
-      >Добавить</button>
-    </div>
+        v-model="nameTask"
+        class="popup__input" 
+        type="text"
+        placeholder="Название" 
+        required
+      />
+      <textarea 
+        v-model="descriptionTask"
+        class="popup__textarea" 
+        placeholder="Описание"
+      ></textarea>
+      <div class="popup__wrapper">
+        <input 
+          v-model="timeTask"
+          class="popup__input popup__input--pointer" 
+          type="time" 
+          required
+        >
+        <input 
+          v-model="dateTask"
+          class="popup__input popup__input--pointer"
+          type="date" 
+          required
+        >
+        <input 
+          class="popup__button"
+          value="Добавить"
+          type="submit"
+        >
+      </div>
+    </form>
   </section>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { computed } from 'vue';
   import { format } from 'date-fns';
-  import parseTime from '@/utils/parse-time';
-  import { useMainStore } from '@/store.js';
 
   const props = defineProps({
     defaultDate: {
@@ -45,36 +52,37 @@
     },
   })
 
-  const store = useMainStore();
-
   const nameTask = defineModel("nameTask");
   const descriptionTask = defineModel("descriptionTask");
   const dateTask = defineModel("dateTask");
   dateTask.value = format(props.defaultDate, 'yyyy-MM-dd');
   const timeTask = defineModel("timeTask");
 
-  const addDiaryTask = () => {
-    store.addDiaryTask({
+  const dataTask = computed(() => {
+    return {
       id: 4,
       name: nameTask.value,
       description: descriptionTask.value,
       timeStart: timeTask.value,
       dueDate: dateTask.value,
-    })
-  }
+    }
+  })
 </script>
 
 <style lang="scss" scoped>
   .popup {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    background-color: var(--color-light-dark);
-    padding: 10px;
-    border-radius: 11px;
-    max-width: 400px;
-    box-shadow: 0px 0px 10px rgba(43, 43, 43, 0.322);
     animation: spawnFromTop 0.5s forwards;
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      background-color: var(--color-light-dark);
+      padding: 10px;
+      border-radius: 11px;
+      max-width: 400px;
+      box-shadow: 0px 0px 10px rgba(43, 43, 43, 0.322);
+    }
 
     &__input, &__textarea {
       border: none;

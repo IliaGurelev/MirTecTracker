@@ -22,6 +22,7 @@
           <DiaryTaskAddPopup 
             v-if="isActivePopup"
             :defaultDate="activeDate"
+            @submitForm="addToDiary"
             class="diary__popup-add-task" 
           />
         </div>
@@ -38,7 +39,8 @@
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue' 
+  import { ref, computed } from 'vue'
+  import { useMainStore } from '@/store'
   import taskFilter from '@/utils/task-filter'
   import UserInfo from '@/components/Personal/UserInfo.vue'
   import UserCalendar from '@/components/UI/UserCalendar.vue'
@@ -56,6 +58,8 @@
       required: true,
     },
   })
+
+  const store = useMainStore();
 
   const activeDate = ref(new Date());
 
@@ -75,6 +79,10 @@
 
   const setActivePopup = () => {
     isActivePopup.value = !isActivePopup.value;
+  }
+
+  const addToDiary = (task) => {
+    store.addDiaryTask(task);
   }
 </script>
 

@@ -22,8 +22,10 @@ export const useMainStore = defineStore('main', {
       this.currentUser = usersData[id];
     },
     addDiaryTask(task) {
-      console.log("Добавлена задача", task);
       this.diary.push(task);
     },
+    removeDiaryTaskById(id) {
+      this.diary.filter((task) => task.id !== id)
+    }
   },
 });

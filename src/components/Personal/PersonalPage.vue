@@ -2,12 +2,12 @@
   <main class="user-page">
     <PersonalTasks 
       :currentUser="props.currentUser"
-      :tasksUser="store.tasks"
+      :tasksUser="tasks"
       class="user-page__tasks"
     />
     <PersonalDiary
       :currentUser="props.currentUser"
-      :tasks="store.diary"
+      :tasks="diary"
       class="user-page__diary"
     />
   </main>
@@ -16,6 +16,7 @@
 <script setup>
   import { onMounted, computed } from 'vue';
   import { useMainStore } from '@/store.js';
+  import { storeToRefs } from 'pinia';
   import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
 
@@ -27,6 +28,8 @@
   });
 
   const store = useMainStore();
+
+  const {diary, tasks} = storeToRefs(store);
 
   onMounted(() => {
     store.fetchTasks();
