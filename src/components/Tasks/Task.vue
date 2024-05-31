@@ -1,10 +1,10 @@
 <template>
 	<div class="project-tasks">
 	  <div
-	  v-for="column in columns"
+	  	v-for="column in columns"
       :key="column.globaltype" 
       class='project-column'
-      :class="{ 'on-over': overColumn === column.globaltype }" 
+      :class="{ 'on-over': undefined === column.globaltype }" 
       @drop="onDrop($event, column.globaltype)"
       @dragenter.prevent="onEnterColumn(column.globaltype)" 
       @dragover.prevent="onOverColumn(column.globaltype)" 
@@ -15,7 +15,7 @@
 		</div>
 		<div
 		  class="task"
-		  v-for="item in getList(column.globaltype)"
+		  v-for="(item) in getList(column.globaltype).value"
 		  :key="item.id"
 		  draggable="true"
 		  @dragstart="startDrag($event, item)"
@@ -25,21 +25,20 @@
 		  @dragenter.prevent
 		  @click="selectedTask = item; toggleSidebar()"
 		>
-		  <div class='tasktags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
 		  <p>{{item.name }}</p>
 		  <div class='task__stats'>
-			<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{formatDate(item.createdAt)}}</time></span>
-			<div class='status__owners'>
-			  <span 
-				class="status__owner"
-				v-for="(status, statusIndex) in column.statuses"
-				:key="statusIndex"
-				:class="`status--${status.class}`"
-				v-if="item.status === column.globaltype"
-			  >
-				<i :class="`fa-regular ${status.icon}`"></i> {{status.text}}
-			  </span>
-			</div>
+				<span><time datetime='2023-05-20T15:00:00'><i class='fa-regular fa-calendar-days'></i> {{formatDate(item.createdAt)}}</time></span>
+					<div class='status__owners'>
+					<span 
+						class="status__owner"
+						v-for="(status, statusIndex) in column.statuses"
+						:key="statusIndex"
+						:class="`status--${status.class}`"
+						v-if="item.status === column.globaltype"
+					>
+						<i :class="`fa-regular ${status.icon}`"></i> {{status.text}}
+					</span>
+				</div> 
 		  </div>
 		</div>
 	  </div>
@@ -54,14 +53,12 @@
 		<p>Дедлайн: {{formatDate(selectedTask.dueDate)}}</p>
 	  </div>
 	</aside>
-  </template>
+</template>
   
-  <script setup>
-    // import ProgressBars from '№/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
-	
+<script setup>
+  import { ref, computed, inject  } from 'vue'
   import TaskStatus from "@/components/Tasks/TaskStatus.vue"
   import formatDate from "@/utils/fomrat-date.js"
-  import { ref,computed,inject  } from 'vue'
   
   const { items, sort } = defineProps({
 	items: {
@@ -76,15 +73,15 @@
 
 
   const selectedTask = ref(null)
-const sidebarOpen = ref(false)
+	const sidebarOpen = ref(false)
 
-const toggleSidebar = () => {
-  sidebarOpen.value = !sidebarOpen.value
-}
+	const toggleSidebar = () => {
+		sidebarOpen.value = !sidebarOpen.value
+	}
   
   const columns = [
   { 
-	globaltype: 'open',
+		globaltype: 'open',
     title: 'Открыт', 
     list: 1, 
     statuses: [
@@ -92,35 +89,30 @@ const toggleSidebar = () => {
     ]
   },
   { 
-	globaltype: 'work',
-    title: 'В работе', 
-    list: 2, 
-    statuses: [
-      { text: "В работе", icon: "fa-circle-play", class: "inwork" } 
-    ]
+		globaltype: 'work',
+			title: 'В работе', 
+			list: 2, 
+			statuses: [
+				{ text: "В работе", icon: "fa-circle-play", class: "inwork" } 
+			]
   },
   { 
-	globaltype: 'close',
-    title: 'Закрыт', 
-    list: 3, 
-    statuses: [
-      { text: "Закрыт", icon: "fa-circle-check", class: "close" } 
-    ]
-  },
-];
-
-
-
-
-
-    
-
-const getList = status => (items ? items.filter(item => item.status == status) : []);
+		globaltype: 'close',
+			title: 'Закрыт', 
+			list: 3, 
+			statuses: [
+				{ text: "Закрыт", icon: "fa-circle-check", class: "close" } 
+			]
+  }]
+	
+	const getList = (status) => {
+		return computed(() => items.filter(item => item.status === status)); 
+	};
   
   const getItemById = event => {
 	const itemId = event.dataTransfer.getData('itemId')
 	const item = items.find(item => item.id == itemId)
-	return { item, itemId }
+		return { item, itemId }
   }
   
   const onOver = event => (sort ? event.target.classList.add('on-over') : '')
@@ -132,42 +124,35 @@ const getList = status => (items ? items.filter(item => item.status == status) :
 	const { item, itemId } = getItemById(event)
 	const itemPosition = items.findIndex(item => item.id == itemId)
 	const droppedItemPosition = items.findIndex(item => item.id == droppedItem.id)
-	items.splice(itemPosition, 1)
-	items.splice(droppedItemPosition, 0, item)
+		items.splice(itemPosition, 1)
+		items.splice(droppedItemPosition, 0, item)
   }
   
   const startDrag = (event, item) => {
-	event.dataTransfer.dropEffect = 'move'
-	event.dataTransfer.effectAllowed = 'move'
-	event.dataTransfer.setData('itemId', item.id)
+		event.dataTransfer.dropEffect = 'move'
+		event.dataTransfer.effectAllowed = 'move'
+		event.dataTransfer.setData('itemId', item.id)
   }
   
   const onDrop = (event, status) => {
 	const { item } = getItemById(event)
-	item.status = status
+		item.status = status
   }
   
   const getStyle = (tag) => {
-	
-	if (tag === 'Разработка') {
+		if (tag === 'Разработка') {
+			return { backgroundColor: '#f2dcf5', color: '#a734ba' }
+		} else if (tag === 'Маркетинг') {
+			return { backgroundColor: '#ceecfd', color: '#2d86ba' }
+		} else if (tag === 'Финансы') {
+			return { backgroundColor: '#fde3ce', color: '#ba662e' }
+		}else if (tag === 'Продажи') {
+			return { backgroundColor: '#d6ede2', color: '#13854e' }
+		}
+	}
+</script>
   
-  return { backgroundColor: '#f2dcf5', color: '#a734ba' }
-
-} else if (tag === 'Маркетинг') {
-  return { backgroundColor: '#ceecfd', color: '#2d86ba' }
-} else if (tag === 'Финансы') {
-  return { backgroundColor: '#fde3ce', color: '#ba662e' }
-}else if (tag === 'Продажи') {
-  return { backgroundColor: '#d6ede2', color: '#13854e' }
-}
-
-}
-
-
-
-  </script>
-  
-  <style  lang="scss" scoped>
+<style  lang="scss" scoped>
  .task-detailss {
     position: fixed;
     top: 20px;
@@ -409,5 +394,5 @@ const getList = status => (items ? items.filter(item => item.status == status) :
   .on-over {
 	border-color: var(--tag-3-text);
   }
-  </style>
+</style>
   
