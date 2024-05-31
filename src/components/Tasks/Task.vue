@@ -2,20 +2,20 @@
 	<div class="project-tasks">
 	  <div
 	  v-for="column in columns"
-      :key="column.title" 
+      :key="column.globaltype" 
       class='project-column'
-      :class="{ 'on-over': overColumn === column.title }" 
-      @drop="onDrop($event, column.list)"
-      @dragenter.prevent="onEnterColumn(column.title)" 
-      @dragover.prevent="onOverColumn(column.title)" 
-      @dragleave.prevent="onLeaveColumn(column.title)"
+      :class="{ 'on-over': overColumn === column.globaltype }" 
+      @drop="onDrop($event, column.globaltype)"
+      @dragenter.prevent="onEnterColumn(column.globaltype)" 
+      @dragover.prevent="onOverColumn(column.globaltype)" 
+      @dragleave.prevent="onLeaveColumn(column.globaltype)"
 	  >
 		<div class='project-column-heading'>
 		  <h2 class='project-column-heading__title'>{{ column.title }}</h2>
 		</div>
 		<div
 		  class="task"
-		  v-for="item in getList(column.list)"
+		  v-for="item in getList(column.globaltype)"
 		  :key="item.id"
 		  draggable="true"
 		  @dragstart="startDrag($event, item)"
@@ -23,6 +23,7 @@
 		  @dragover.prevent="onOver($event)"
 		  @dragleave.prevent="onLeave($event)"
 		  @dragenter.prevent
+		  @click="selectedTask = item; toggleSidebar()"
 		>
 		  <div class='tasktags'><span class='task__tag task__tag--green' :style="getStyle(item.tag)">{{item.tag}}</span></div>
 		  <p>{{item.name }}</p>
@@ -34,23 +35,33 @@
 				v-for="(status, statusIndex) in column.statuses"
 				:key="statusIndex"
 				:class="`status--${status.class}`"
-				v-if="item.list === column.list"
+				v-if="item.status === column.globaltype"
 			  >
-				<i :class="`fa-regular ${status.icon}`"></i> {{item.status = status.text}}
+				<i :class="`fa-regular ${status.icon}`"></i> {{status.text}}
 			  </span>
 			</div>
 		  </div>
 		</div>
 	  </div>
-	</div>
 
+  </div>
+  <aside class="task-detailss" v-if="sidebarOpen" @click="toggleSidebar">
+	  <div class="sidebar-content">
+		<h3>{{ selectedTask.name }}</h3>
+		<p>{{ selectedTask.description }}</p>
+		<p>Тип: {{ selectedTask.tag }}</p>
+		<p>Дата начала: {{formatDate(selectedTask.createdAt)}}</p>
+		<p>Дедлайн: {{formatDate(selectedTask.dueDate)}}</p>
+	  </div>
+	</aside>
   </template>
   
   <script setup>
     // import ProgressBars from '№/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
+	
   import TaskStatus from "@/components/Tasks/TaskStatus.vue"
   import formatDate from "@/utils/fomrat-date.js"
-  import { ref,computed } from 'vue'
+  import { ref,computed,inject  } from 'vue'
   
   const { items, sort } = defineProps({
 	items: {
@@ -62,11 +73,18 @@
 	  default: false
 	},
   });
-   
 
 
+  const selectedTask = ref(null)
+const sidebarOpen = ref(false)
+
+const toggleSidebar = () => {
+  sidebarOpen.value = !sidebarOpen.value
+}
+  
   const columns = [
   { 
+	globaltype: 'open',
     title: 'Открыт', 
     list: 1, 
     statuses: [
@@ -74,6 +92,7 @@
     ]
   },
   { 
+	globaltype: 'work',
     title: 'В работе', 
     list: 2, 
     statuses: [
@@ -81,6 +100,7 @@
     ]
   },
   { 
+	globaltype: 'close',
     title: 'Закрыт', 
     list: 3, 
     statuses: [
@@ -91,7 +111,11 @@
 
 
 
-const getList = list => (items ? items.filter(item => item.list == list) : []);
+
+
+    
+
+const getList = status => (items ? items.filter(item => item.status == status) : []);
   
   const getItemById = event => {
 	const itemId = event.dataTransfer.getData('itemId')
@@ -118,9 +142,9 @@ const getList = list => (items ? items.filter(item => item.list == list) : []);
 	event.dataTransfer.setData('itemId', item.id)
   }
   
-  const onDrop = (event, list) => {
+  const onDrop = (event, status) => {
 	const { item } = getItemById(event)
-	item.list = list
+	item.status = status
   }
   
   const getStyle = (tag) => {
@@ -140,10 +164,29 @@ const getList = list => (items ? items.filter(item => item.list == list) : []);
 }
 
 
+
   </script>
   
   <style  lang="scss" scoped>
+ .task-detailss {
+    position: fixed;
+    top: 20px;
+	margin-top: 1rem;
+	width: 27.6%;
+	border-left: 1px solid #d9e0e9;
+	display: inline-block;
+	flex-direction: column;
+	height: 100vh;
+	vertical-align: top;
+	padding: 3rem 2rem;
+	right: 0;
+	background-color: var(--bg);
+	z-index: 10;
+  }
 
+  .sidebar.open {
+    transform: translateX(0);
+  }
 	.project-tasks {
 	  display: grid;
 	  grid-template-columns: repeat(3, 1fr);
