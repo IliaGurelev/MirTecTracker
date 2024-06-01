@@ -96,7 +96,7 @@ const tasksData = [
       {
         "id": 1,
         "name": "Alice",
-        "avatar": ""
+        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
       },
       {
         "id": 3,

@@ -16,7 +16,7 @@
 </template>
 <script setup>
 	import {ref } from 'vue'
-  const { items, sort } = defineProps({
+	const props = defineProps({
 	items: {
 	  type: Array,
 	  required: true
@@ -24,10 +24,11 @@
 	sort: {
 	  type: Boolean,
 	  default: false
-	},
-  })
+	}
+  });
+  
 
-  const getList = list => (items ? items.filter(item => item.list == list) : [])
+  const getList = status => props.items ? props.items.filter(item => item.status == status) : [];
   
   const overTrash = ref(false)
 
@@ -42,8 +43,8 @@ const startDrags = (event, item) => {
 const onDrops = event => {
   overTrash.value = false
   const itemId = event.dataTransfer.getData('itemId')
-  const itemPosition = items.findIndex(item => item.id == itemId)
-  items.splice(itemPosition, 1)
+  const itemPosition = props.items.findIndex(item => item.id == itemId)
+  props.items.splice(itemPosition, 1)
 }
 
   

@@ -4,7 +4,10 @@
 		 @dragstart="startDrag($event, item)"
 		 @drop="onDropSort($event, item)"
 		 @dragover.prevent="onOver($event)"
-		 @dragleave.prevent="onLeave($event)">
+		 @dragleave.prevent="onLeave($event)"
+		 @dragenter.prevent
+		 @click="selectTask(item)"
+		 @click.stop="openSidebar(item)">
 		 
 	  <div class='tasktags'>
 		<span class='task__tag task__tag--green' :style="getStyle(item.briefcase.name)">{{ item.briefcase.name }}</span>
@@ -27,12 +30,28 @@
 		</div>
 	  </div>
 	</div>
+	<SidebarInfo :task="selectedTask" :isOpen="sidebarOpen" @close="closeSidebar"/>
   </template>
   
   <script setup>
   import { ref, defineProps, defineEmits } from 'vue';
   import formatDate from "@/utils/fomrat-date.js";
+  import SidebarInfo from '@/components/Tasks/SideBarInfo/SideBarInfo.vue';
+  const selectedTask = ref(null);
+const sidebarOpen = ref(false);
 
+const toggleSidebar = () => {
+  sidebarOpen.value = !sidebarOpen.value;
+};
+
+const closeSidebar = () => {
+  sidebarOpen.value = false;
+};
+
+const openSidebar = (task) => {
+  selectedTask.value = task;
+  sidebarOpen.value = true;
+};
   const props = defineProps({
 	item: Object,
 	statuses: Array,
@@ -101,6 +120,9 @@
 	 z-index: 10;
    }
  
+   .sidebar.open {
+	 transform: translateX(0);
+   }
 	 .project-tasks {
 	   display: grid;
 	   grid-template-columns: repeat(3, 1fr);

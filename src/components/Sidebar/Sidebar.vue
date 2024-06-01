@@ -4,7 +4,7 @@
 
 	<nav class="navbar">
 			<div class="logo_item">
-				<i class="fa-solid fa-bars" id="sidebarOpen" ></i>
+				<i class="fa-solid fa-bars" id="sidebarOpen" @click="toggleSidebar" ></i>
 				  <img src="../../assets/logo.svg" alt="">Миртек Трекер
 			</div>
 		</nav>
@@ -98,7 +98,10 @@
 		  window.removeEventListener('resize', handleResize);
 		});
 	
-	
+		const toggleSidebar = () => {
+		isHoverable.value = true;
+		isSidebarClose.value = !isSidebarClose.value; // Инвертируем текущее состояние сайдбара
+		};
 	
 		const closeSidebar = () => {
 			isHoverable.value = true;

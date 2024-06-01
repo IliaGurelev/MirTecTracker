@@ -17,7 +17,7 @@ import { defineProps, computed } from 'vue';
 
 const props = defineProps({
   items: {
-    type: Array,
+    type: Object,
     required: true
   },
   colors: {
@@ -41,20 +41,20 @@ const props = defineProps({
 });
 
 const progressBarsData = computed(() => {
-  const uniqueTags = new Set(props.items.map(item => item.tag));
+  const uniqueTags = new Set(props.items.map(item => item.briefcase.name));
   const data = [];
 
-  uniqueTags.forEach(tag => {
-    const totalTasks = props.items.filter(item => item.tag === tag).length;
-    const completedTasks = props.items.filter(item => item.tag === tag && item.status === "close" ).length;
+  uniqueTags.forEach(name => {
+    const totalTasks = props.items.filter(item => item.briefcase.name === name).length;
+    const completedTasks = props.items.filter(item => item.briefcase.name === name && item.status === "close" ).length;
     const progress = (completedTasks / totalTasks) * 100;
 
     data.push({
-      label: tag,
+      label: name,
       progress,
-      color: props.colors[tag] || "#9E9E9E", 
-	  bcolor: props.backcolor[tag] || "#9E9E9E", 
-      openCount: props.items.filter(item => item.tag === tag && item.status === "open" ||  item.tag === tag &&   item.status === "work" ||  item.tag === tag && item.status === "close").length,
+      color: props.colors[name] || "#9E9E9E", 
+	  bcolor: props.backcolor[name] || "#9E9E9E", 
+      openCount: props.items.filter(item => item.briefcase.name === name && item.status === "open" ||  item.briefcase.name === name &&   item.status === "work" ||  item.briefcase.name=== name && item.status === "close").length,
       completedCount: completedTasks
     });
   });

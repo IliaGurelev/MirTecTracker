@@ -11,10 +11,7 @@
 					<h1 class="txt">Дашборд со всеми задачами</h1>
 					<DeleteTask :items="tasks" :sort="true"></DeleteTask>
 				</div>			
-				<Task 
-					:items="tasks" 
-					:sort="true" 
-				/>
+				<ProjectTask :items="tasks" :sort="true" />
 			</main>
 			<ProgressBars :items="tasks"/>
 		</div>
@@ -27,18 +24,17 @@
 	import { useMainStore } from '@/store';
 	import { storeToRefs } from 'pinia';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
-  import Task from '@/components/Tasks/Task.vue';
-  import DeleteTask from '@/components/Tasks/DeleteTask.vue';
+	import ProjectTask from '@/components/Tasks/ProjectTask.vue'
+  	import DeleteTask from '@/components/Tasks/DeleteTask.vue';
 	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
-	import SidebarInfo from '@/components/Tasks/SideBarInfo/SideBarInfo.vue'; 
 
 	const store = useMainStore();
 
-  const {tasks} = storeToRefs(store);
-
-  onMounted(() => {
-    store.fetchTasks();
+	const {tasks} = storeToRefs(store);
+	onMounted(() => {
+		store.fetchTasks();
   }) 	
+  
 </script>
 
 <style scoped>
