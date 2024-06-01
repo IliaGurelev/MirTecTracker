@@ -1,39 +1,41 @@
-<script setup>
-  import Sidebar from '@/components/Sidebar/Sidebar.vue';
-  import Task from '@/components/Tasks/Task.vue';
-  import DeleteTask from '@/components/Tasks/DeleteTask.vue';
- import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
- import SidebarInfo from '@/components/Tasks/SideBarInfo/SideBarInfo.vue'; 
-  import { ref } from 'vue'
-  
-
-</script>
-
 <template>
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
-<body id="main">
-<Sidebar>
-
-</Sidebar>
-<section class="home-section">
-		<div class="text">Миртек Трекер</div>
-		<div class='app'>
-		<main class='project'>
-			<div class='project-info'>
-			<h1 class="txt">Дашборд со всеми задачами</h1>
-		<DeleteTask :items="items" :sort="true"></DeleteTask>
-			</div>			
-			<Task :items="items" :sort="true"></Task>
-		</main>
-		<ProgressBars :items="items"/>
-	</div>
-	</section>
-</body>
+	<body id="main">
+	<Sidebar>
+	</Sidebar>
+	<section class="home-section">
+			<div class="text">Миртек Трекер</div>
+			<div class='app'>
+			<main class='project'>
+				<div class='project-info'>
+					<h1 class="txt">Дашборд со всеми задачами</h1>
+					<DeleteTask :items="tasks" :sort="true"></DeleteTask>
+				</div>			
+				<ProjectTask :items="tasks" :sort="true" />
+			</main>
+			<ProgressBars :items="tasks"/>
+		</div>
+		</section>
+	</body>
 </template>
 
-<script >
+<script setup>
+	import { onMounted } from 'vue';
+	import { useMainStore } from '@/store';
+	import { storeToRefs } from 'pinia';
+	import Sidebar from '@/components/Sidebar/Sidebar.vue';
+	import ProjectTask from '@/components/Tasks/ProjectTask.vue'
+  	import DeleteTask from '@/components/Tasks/DeleteTask.vue';
+	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
+	const store = useMainStore();
 
+  const {tasks} = storeToRefs(store);
+  onMounted(() => {
+    store.fetchTasks();
+  }) 	
+  
 </script>
+
 <style scoped>
 
   * {
