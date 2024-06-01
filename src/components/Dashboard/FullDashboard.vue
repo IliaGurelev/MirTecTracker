@@ -30,9 +30,10 @@
 
 	const store = useMainStore();
 
-	const {tasks} = storeToRefs(store);
-	onMounted(() => {
-		store.fetchTasks();
+  const { tasks } = storeToRefs(store);
+
+  onMounted(() => {
+    store.fetchTasks();
   }) 	
   
 </script>
