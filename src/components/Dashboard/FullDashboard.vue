@@ -13,7 +13,7 @@
 				</div>			
 				<ProjectTask :items="tasks" :sort="true" />
 			</main>
-			<ProgressBars :items="tasks"/>
+			<ProgressBars :items="tasks"  :sort="true"/>
 		</div>
 		</section>
 	</body>

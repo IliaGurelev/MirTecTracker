@@ -44,15 +44,15 @@
   };
   
   const onDrop = (event, status) => {
-	const { item } = getItemById(event);
-	item.status = status;
-  };
+	const { item } = getItemById(event)
+	item.status = status
+  }
   
   const getItemById = event => {
-	const itemId = event.dataTransfer.getData('itemId');
-	const item = props.items.find(item => item.id == itemId);
-	return { item, itemId };
-  };
+	const itemId = event.dataTransfer.getData('itemId')
+	const item = props.items.find(item => item.id == itemId)
+	return { item, itemId }
+  }
   </script>
   
   <style scoped>
