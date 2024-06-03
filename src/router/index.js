@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Sidebar from '@/components/Sidebar/Sidebar.vue';
 import Dashboard from '@/views/FullDashboard.vue';
 import PersonalPage from '@/views/PersonalPage.vue';
 import HelloPage from '@/views/HelloPage.vue';
+import BriefcasePage from '@/views/BriefcasePage.vue';
 
 const routes = [
   {
@@ -19,6 +19,11 @@ const routes = [
     path: '/user',
     name: 'Personal',
     component: PersonalPage
+  },
+  {
+    path: '/briefcase',
+    name: 'Briefcase',
+    component: BriefcasePage
   },
 ];
 

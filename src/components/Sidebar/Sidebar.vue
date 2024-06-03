@@ -42,12 +42,16 @@
 						</RouterLink>
 					</li>
 					<li class="item_btn">
+						<RouterLink 
+							:to="{name: 'Briefcase'}"
+						>
 						<div href="#" class="menu_link submenu_item">
 							<span class="menu_titles">
 								<i class="fa-solid fa-suitcase"></i>
 							</span>
 							<span class="navlink">Портфели</span>
 						</div>
+						</RouterLink>
 					</li>
 			  </ul>
 				<div class="bottom_content">
