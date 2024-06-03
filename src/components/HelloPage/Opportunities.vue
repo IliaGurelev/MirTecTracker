@@ -103,7 +103,7 @@
 	margin: auto;
 	z-index: 3;
 	padding: 18px 20px;
-	filter: drop-shadow(10px 10px 10px #0059ff1c);
+	filter: drop-shadow(10px 10px 10px #0000001c);
 }
 
 </style>
