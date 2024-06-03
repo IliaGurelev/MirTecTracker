@@ -50,32 +50,20 @@
 	color: var(--color-text-important);
 }
 
- .home-page a{
-    display: flex;
-    align-items: center;
-    background: #000;
-    width: 200px;
-    padding: 8px;
-    border-radius: 60px;
-}
 
- .home-page a i{
-    background-color: #fff;
-    font-size: 24px;
-    border-radius: 50%;
-    padding: 8px;
-}
 
  .home-page a span{
     color: #fff;
     margin-left: 10px;
 }
 .image__home-page{
+	margin-top: 1rem;
 	width: 100%;
 	background: url(@/assets/phon.svg) no-repeat center center/cover;
 	border-bottom: 1px solid #aaaaaa ;
 }
  .home-page img{
+
 	margin-bottom: -4.9px;
     width: 80%;
 	border-radius: 8px 8px 0 0 ;
@@ -99,7 +87,6 @@
     cursor: pointer;
     position: relative;
     padding: 10px 24px;
-    margin: 0 0px;
     font-size: 26px;
     color: white;
     border-radius: 8px;

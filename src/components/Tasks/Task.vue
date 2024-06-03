@@ -36,7 +36,7 @@
   
   <script setup>
   import { ref, computed } from 'vue';
-  import formatDate from "@/utils/fomrat-date.js";
+  import formatDate from "@/utils/format-date.js";
   
   const props = defineProps({
 	item: Object,
