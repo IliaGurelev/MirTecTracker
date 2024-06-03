@@ -4,7 +4,6 @@
     <PersonalTasks 
       :currentUser="currentUser"
       :tasksUser="tasks"
-      class="user-page__tasks"
     />
     <PersonalDiary
       :currentUser="currentUser"
@@ -37,11 +36,8 @@
   .user-page {
     display: flex;
     margin-top: 80px;
-    margin-left: 120px;
-
-    &__tasks {
-      margin-right: 50px;
-    }
+    margin-left: 90px;
+    column-gap: 50px;
 
     @media (max-width: 600px) {
       margin-left: 10px;
@@ -50,10 +46,6 @@
 
     @media (max-width: 750px) {
       flex-direction: column-reverse;
-
-      &__tasks {
-        margin-right: 0;
-      } 
 
       &__diary {
         margin-bottom: 20px;
