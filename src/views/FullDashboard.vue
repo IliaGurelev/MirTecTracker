@@ -1,8 +1,7 @@
 <template>
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
 	<body id="main">
-	<Sidebar>
-	</Sidebar>
+	<Sidebar/>
 	<section class="home-section">
 			<div class="text">Миртек Трекер</div>
 			<div class='app'>
@@ -30,7 +29,7 @@
 	import { storeToRefs } from 'pinia';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
 	import ProjectTask from '@/components/Tasks/ProjectTask.vue'
-  	import DeleteTask from '@/components/Tasks/DeleteTask.vue';
+  import DeleteTask from '@/components/Tasks/DeleteTask.vue';
 	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
 
 	const store = useMainStore();
