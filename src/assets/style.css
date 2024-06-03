@@ -21,7 +21,10 @@ body {
   --color-light-dark: #a5d8ff;
   --color-text-muted: #7fc7ff;
   --color-text-important: #59b6ff;
-
+  --header:#f7f7f7;
+  --text:#2e2e2f;
+  --white:#ffffff;
+  --light-grey:#c4cad3;
   --tag-1:#ceecfd;
   --tag-1-text:#2e87ba;
   --tag-2:#d6ede2;
@@ -39,6 +42,14 @@ body {
   --status-close:#e1f7e1;
   --status-close-text:#39b634;
   --light-grey:#c4cad3;
+
+  --bg:#f7f7f7;
+  --text:#2e2e2f;
+  --white-color: #f7f7f7;
+	--blue-color: #59b6ff;
+	--grey-color: #000000;
+	--grey-color-light: #aaa;
+
 }
 
 *::-webkit-scrollbar {

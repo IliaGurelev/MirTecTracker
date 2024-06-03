@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-  import formatDate from '@/utils/fomrat-date';
+  import formatDate from '@/utils/format-date';
 
   const props = defineProps({
     dateCreated: {

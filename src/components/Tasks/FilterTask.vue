@@ -22,7 +22,7 @@
       required: true,
     },
     currentFilter: {
-      type: Object,
+      type: String,
       required: true,
     }
   });

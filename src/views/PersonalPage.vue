@@ -1,12 +1,13 @@
-<template>
+  <template>
   <main class="user-page">
+    <Sidebar/>
     <PersonalTasks 
-      :currentUser="props.currentUser"
+      :currentUser="currentUser"
       :tasksUser="tasks"
       class="user-page__tasks"
     />
     <PersonalDiary
-      :currentUser="props.currentUser"
+      :currentUser="currentUser"
       :tasks="diary"
       class="user-page__diary"
     />
@@ -17,31 +18,26 @@
   import { onMounted, computed } from 'vue';
   import { useMainStore } from '@/store.js';
   import { storeToRefs } from 'pinia';
+  import Sidebar from '@/components/Sidebar/Sidebar.vue';
   import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
 
-  const props = defineProps({
-    currentUser: {
-      type: Object,
-      required: true,
-    },
-  });
-
   const store = useMainStore();
 
-  const {diary, tasks} = storeToRefs(store);
+  const {diary, tasks, currentUser} = storeToRefs(store);
 
   onMounted(() => {
     store.fetchTasks();
     store.fetchDiary();
+    store.loginCurrentUser(0);
   }) 
 </script>
 
 <style lang="scss" scoped>
   .user-page {
     display: flex;
-    margin-top: 20px;
-    margin-left: 50px;
+    margin-top: 80px;
+    margin-left: 120px;
 
     &__tasks {
       margin-right: 50px;
