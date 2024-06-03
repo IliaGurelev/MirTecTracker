@@ -9,17 +9,22 @@
 			<main class='project'>
 				<div class='project-info'>
 					<h1 class="txt">Дашборд со всеми задачами</h1>
+					<AddTaskButton />
 					<DeleteTask :items="tasks" :sort="true"></DeleteTask>
-				</div>			
+			
+				</div>	
+
 				<ProjectTask :items="tasks" :sort="true" />
 			</main>
 			<ProgressBars :items="tasks"  :sort="true"/>
+		
 		</div>
 		</section>
 	</body>
 </template>
 
 <script setup>
+ 	import AddTaskButton from '@/components/Tasks/AddTask.vue';
 	import { onMounted } from 'vue';
 	import { useMainStore } from '@/store';
 	import { storeToRefs } from 'pinia';
@@ -35,7 +40,8 @@
   onMounted(() => {
     store.fetchTasks();
   }) 	
-  
+
+ 
 </script>
 
 <style scoped>
@@ -138,6 +144,8 @@
 	.project-tasks {
 	  grid-template-columns: 1fr 1fr;
 	}
+
+
   }
   .home-section{
 	position: relative;

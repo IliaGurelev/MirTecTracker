@@ -21,10 +21,10 @@ const tasksData = [
         "name": "Bob",
         "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
       },
-    ],
+    ],stroke : 1,
   },
   {
-    "id": 2,
+    "id": 4,
     "name": "Починить зум",
     "description": "На странице товара не работает зум",
     "status": "work",
@@ -50,7 +50,7 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],
+    ],stroke : 4,
   },
   {
     "id": 3,
@@ -79,10 +79,10 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],
+    ],stroke : 3,
   },
   {
-    "id": 4,
+    "id": 2,
     "name": "Создать дизайн робота",
     "description": "Нужен дизайн главного босса для игры в виде робота",
     "status": "work",
@@ -103,7 +103,7 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],
+    ],stroke : 2,
   },
 ]
 

@@ -7,6 +7,7 @@
 		 @dragleave.prevent="onLeaveColumn(column.globaltype)">
 	  <div class='project-column-heading'>
 		<h2 class='project-column-heading__title'>{{ column.title }}</h2>
+		<span  class="kanban__move-icon"> Количество задач: {{ getCount(column) }}</span>
 	  </div>
 	  <Task v-for="item in getList(column.globaltype)"
 			:key="item.id"
@@ -14,22 +15,47 @@
 			:statuses="column.statuses"
 			:globaltype="column.globaltype"
 			:sort="sort"/>
+	  <div class="kanban__move-icon">
+		<span>{{ dropText }}</span>
+	  </div>
 	</div>
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import Task from '@/components/Tasks/Task.vue';
-
+  
   const props = defineProps({
 	column: Object,
 	items: Array,
 	sort: Boolean,
+	colWidth: [Number, String],
+	colMinWidth: [Number, String],
+	colMaxWidth: [Number, String],
+	dropText: {
+	  type: String,
+	  default: "Пернесите сюда задачу",
+	},
+	dropIcon: {
+	  type: String,
+	  default: "copy",
+	},
+	noBorder: Boolean,
+	colBgColor: String,
+	countText: {
+	  type: String,
+	  default: "items",
+	},
+	columnCount: Array,
+	innerColCount: {
+	  type: Boolean,
+	  default: false,
+	},
   });
   
   const overColumn = ref(null);
   
-  const getList = status => props.items ? props.items.filter(item => item.status == status) : [];
+  const getList = status => props.items ? props.items.filter(item => item.status === status) : [];
   
   const onEnterColumn = (columnType) => {
 	overColumn.value = columnType;
@@ -44,36 +70,59 @@
   };
   
   const onDrop = (event, status) => {
-	const { item } = getItemById(event)
-	item.status = status
-  }
+	const { item } = getItemById(event);
+	item.status = status;
+  };
   
-  const getItemById = event => {
-	const itemId = event.dataTransfer.getData('itemId')
-	const item = props.items.find(item => item.id == itemId)
-	return { item, itemId }
-  }
+  const getItemById = (event) => {
+	const itemId = event.dataTransfer.getData('itemId');
+	const item = props.items.find(item => item.id == itemId);
+	return { item, itemId };
+  };
+  
+  const getCount = (column) => {
+	if (props.columnCount && props.columnCount.length > 0) {
+	  return props.columnCount.find(item => item.id === column.id)?.value || 0;
+	} else {
+	  return getList(column.globaltype).length;
+	}
+  };
   </script>
   
   <style scoped>
-.project-column{
-	  background: #e6e6e670;
-	  padding: 5px 10px;
-	  border-radius: 8px;
-	  
-	}
-	.project-column-heading {
-	  margin-bottom: 1rem;
-	  display: flex;
-	  align-items: center;
-	  justify-content: space-between;
-	}
-	.project-column-heading__title {
-	  font-size: 20px;
-	}
-	 
-	.on-over {
+  .project-column {
+	background: #e6e6e670;
+	padding: 5px 10px;
+	border-radius: 8px;
+  }
+  
+  .project-column-heading {
+	margin-bottom: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+  }
+  
+  .project-column-heading__title {
+	font-size: 20px;
+  }
+  
+  .on-over {
 	border-color: var(--tag-3-text);
+  }
+  
+  .kanban__move-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	font-size: 0.9rem;
+	color: #b0b0b0;
+	user-select: none;
+  }
+  
+  .kanban__move-icon span {
+	margin-left: 10px;
   }
   </style>
   
