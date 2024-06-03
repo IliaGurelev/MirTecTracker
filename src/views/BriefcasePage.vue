@@ -21,7 +21,7 @@
 	import { onMounted } from 'vue';
 	import { useMainStore } from '@/store';
 	import BriefcaseCard from '@/components/Briefcase/BriefcaseCard.vue';
-import { storeToRefs } from 'pinia';
+	import { storeToRefs } from 'pinia';
 
 	const store = useMainStore();
 
