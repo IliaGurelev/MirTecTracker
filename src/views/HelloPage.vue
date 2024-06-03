@@ -28,15 +28,15 @@
 
 <template>
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
-<Header></Header>
-<StartSection></StartSection>
-<AboutTheProgram></AboutTheProgram>
-<Opportunities></Opportunities>
-<Features></Features>
-<Advetages></Advetages>
-<ContactUs></ContactUs>
-<Slogan></Slogan>
-<Footer></Footer>
+	<Header></Header>
+	<StartSection></StartSection>
+	<AboutTheProgram></AboutTheProgram>
+	<Opportunities></Opportunities>
+	<Features></Features>
+	<Advetages></Advetages>
+	<ContactUs></ContactUs>
+	<Slogan></Slogan>
+	<Footer></Footer>
 </template>
 
 <style lang="scss">

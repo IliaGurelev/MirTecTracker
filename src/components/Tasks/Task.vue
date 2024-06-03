@@ -31,7 +31,7 @@
   
   <script setup>
   import { ref, defineProps, defineEmits } from 'vue';
-  import formatDate from "@/utils/fomrat-date.js";
+  import formatDate from "@/utils/format-date.js";
 
   const props = defineProps({
 	item: Object,
@@ -43,40 +43,40 @@
   const emits = defineEmits(['select-task']);
   
   const startDrag = (event, item) => {
-	event.dataTransfer.dropEffect = 'move';
-	event.dataTransfer.effectAllowed = 'move';
-	event.dataTransfer.setData('itemId', item.id);
+		event.dataTransfer.dropEffect = 'move';
+		event.dataTransfer.effectAllowed = 'move';
+		event.dataTransfer.setData('itemId', item.id);
   };
   
   const onDropSort = (event, droppedItem) => {
-	if (!props.sort) return;
-	onLeave(event);
-	const { item, itemId } = getItemById(event);
-	const itemPosition = props.items.findIndex(item => item.id == itemId);
-	const droppedItemPosition = props.items.findIndex(item => item.id == droppedItem.id);
-	props.items.splice(itemPosition, 1);
-	props.items.splice(droppedItemPosition, 0, item);
+		if (!props.sort) return;
+		onLeave(event);
+		const { item, itemId } = getItemById(event);
+		const itemPosition = props.items.findIndex(item => item.id == itemId);
+		const droppedItemPosition = props.items.findIndex(item => item.id == droppedItem.id);
+		props.items.splice(itemPosition, 1);
+		props.items.splice(droppedItemPosition, 0, item);
   };
   
   const onOver = event => (props.sort ? event.target.classList.add('on-over') : '');
   const onLeave = event => (props.sort ? event.target.classList.remove('on-over') : '');
   
   const getStyle = (tag) => {
-	if (tag === 'Разработка') {
-	  return { backgroundColor: '#f2dcf5', color: '#a734ba' };
-	} else if (tag === 'Маркетинг') {
-	  return { backgroundColor: '#ceecfd', color: '#2d86ba' };
-	} else if (tag === 'Финансы') {
-	  return { backgroundColor: '#fde3ce', color: '#ba662e' };
-	} else if (tag === 'Продажи') {
-	  return { backgroundColor: '#d6ede2', color: '#13854e' };
-	}
+		if (tag === 'Разработка') {
+			return { backgroundColor: '#f2dcf5', color: '#a734ba' };
+		} else if (tag === 'Маркетинг') {
+			return { backgroundColor: '#ceecfd', color: '#2d86ba' };
+		} else if (tag === 'Финансы') {
+			return { backgroundColor: '#fde3ce', color: '#ba662e' };
+		} else if (tag === 'Продажи') {
+			return { backgroundColor: '#d6ede2', color: '#13854e' };
+		}
   };
   
   const getItemById = event => {
-	const itemId = event.dataTransfer.getData('itemId');
-	const item = props.items.find(item => item.id == itemId);
-	return { item, itemId };
+		const itemId = event.dataTransfer.getData('itemId');
+		const item = props.items.find(item => item.id == itemId);
+		return { item, itemId };
   };
   
   const selectTask = (task) => {

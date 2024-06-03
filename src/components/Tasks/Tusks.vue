@@ -35,7 +35,7 @@
   
   <script setup>
   import { ref, defineProps, defineEmits } from 'vue';
-  import formatDate from "@/utils/fomrat-date.js";
+  import formatDate from "@/utils/format-date.js";
   import SidebarInfo from '@/components/Tasks/SideBarInfo/SideBarInfo.vue';
   const selectedTask = ref(null);
 const sidebarOpen = ref(false);

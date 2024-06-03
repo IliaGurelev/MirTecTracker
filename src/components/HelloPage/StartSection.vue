@@ -4,21 +4,21 @@
 <template>
 
 <div class="home-page">
-			<div class="container">
-				<div class="animation">
-				<div class="title__content-home-page">
-					<h1><span>Организуйте</span> работу и жизнь.</h1>
-					<p><span>Миртек Трекер</span> – список дел и таск-менеджер для ваших задач. Он поможет вам обрести концентрацию, организованность и покой.
-					</p>
-					<button class="button__start-work">Начать работу</button>
-				</div>
-				<div class="image__home-page">
-					<img class="main-img" src="../../assets/site.png" alt="" >
-					<img class="mobile-img-for-ipad" src="../../assets/site5.png" alt="" >
-					<img class="mobile-img-for-mobile" src="../../assets/site6.png" alt="" >
-				</div>
-		</div>	
+    <div class="container">
+        <div class="animation">
+        <div class="title__content-home-page">
+            <h1><span>Организуйте</span> работу и жизнь.</h1>
+            <p><span>Миртек Трекер</span> – список дел и таск-менеджер для ваших задач. Он поможет вам обрести концентрацию, организованность и покой.
+            </p>
+            <RouterLink to="/user" class="button__start-work">Начать работу</RouterLink>
         </div>
+        <div class="image__home-page">
+            <img class="main-img" src="../../assets/site.png" alt="" >
+            <img class="mobile-img-for-ipad" src="../../assets/site5.png" alt="" >
+            <img class="mobile-img-for-mobile" src="../../assets/site6.png" alt="" >
+        </div>
+    </div>	
+    </div>
 	</div>
 </template>
 
@@ -96,21 +96,20 @@
 }
 
 .button__start-work {
-	
-	cursor: pointer;
-  position: relative;
-  padding: 10px 24px;
-  margin: 0 0px;
-  font-size: 26px;
-  color: white;
-  border-radius: 8px;
-  background-color: var(--color-text-important);
-  font-weight: 600;
-  overflow: hidden;
-  margin-bottom: 1rem;
-  border: 2px solid var(--color-text-important);
-  -webkit-transition: background-color 0.2s linear, color 0.2s linear,color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
-  transition: background-color 0.2s linear, color 0.2s linear, color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
+    cursor: pointer;
+    position: relative;
+    padding: 10px 24px;
+    margin: 0 0px;
+    font-size: 26px;
+    color: white;
+    border-radius: 8px;
+    background-color: var(--color-text-important);
+    font-weight: 600;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 2px solid var(--color-text-important);
+    -webkit-transition: background-color 0.2s linear, color 0.2s linear,color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
+    transition: background-color 0.2s linear, color 0.2s linear, color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
   }
 .button__start-work:hover{
 	color:var(--color-text-important);

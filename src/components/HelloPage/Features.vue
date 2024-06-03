@@ -6,7 +6,7 @@
 <div class="features" id="prem">
 			<div class="animation">
 			<h1><span>Миртек Трекер</span>: не просто трекер, а гарантия спокойствия. Отслеживайте каждый шаг, будьте на шаг впереди.</h1>
-			<t>Что делает <span>Миртек Трекер</span> особенным:</t>
+			<p class="features__subtitle">Что делает <span>Миртек Трекер</span> особенным:</p>
 			<div class="timeline">
 				<div class="container-text left-container">
 					<i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -73,7 +73,9 @@
 		font-weight: 700;
 		margin-bottom: 2rem;
 }
-.features t{
+
+
+.features__subtitle{
 	margin: auto;
 	height: 100%;
 	width: 65%;
@@ -82,6 +84,7 @@
 	font-weight: 600;
 	margin-bottom: 2rem;
 }
+
 .features span{
 	color:var(--color-text-important);
 }

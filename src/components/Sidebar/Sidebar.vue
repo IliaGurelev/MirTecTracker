@@ -1,7 +1,4 @@
-
-
 <template>
-
 	<nav class="navbar">
 			<div class="logo_item">
 				<i class="fa-solid fa-bars" id="sidebarOpen" @click="toggleSidebar" ></i>
@@ -13,131 +10,122 @@
 		  @mouseleave="handleSidebarMouseLeave">
 			<div class="menu_content">
 			  <ul class="menu_items">
-				<li class="item">
-				  <div href="#" class="nav_link  submenu_item">
-					<span class="nav_link_icon">
-						<i class="fa-solid fa-rectangle-list" ></i>
-					</span>
-					<span class="navlink">Мои задачи</span>
-				  </div>
-				 
-				</li>
-				<li class="item">
-				  <div href="#" class="nav_link submenu_item">
-					<span class="nav_link_icon">
-						<div class="squares">
-						<div class="square">
-							<i class="fas fa-square icon top-left"></i>
-							<i class="fas fa-square icon top-right"></i>
-							<i class="fas fa-square icon bottom-left"></i>
-							<i class="fas fa-square icon bottom-right"></i>
-						</div>
-					</div>
-					</span>
-					<span class="navlink">Все задачи</span>
-				  </div>
-				</li>
-			  </ul>
-	  
-			  <ul class="menu_items">
-				<div class="menu_btns">
+					<li class="item">
+						<RouterLink 
+							:to="{name: 'Personal'}"
+						>
+							<div href="#" class="nav_link  submenu_item">
+							<span class="nav_link_icon">
+								<i class="fa-solid fa-rectangle-list" ></i>
+							</span>
+							<span class="navlink">Мои задачи</span>
+							</div>
+						</RouterLink>
+					</li>
+					<li class="item">
+						<RouterLink 
+							:to="{name: 'Dashboard'}"
+						>
+							<div href="#" class="nav_link submenu_item">
+							<span class="nav_link_icon">
+								<div class="squares">
+								<div class="square">
+									<i class="fas fa-square icon top-left"></i>
+									<i class="fas fa-square icon top-right"></i>
+									<i class="fas fa-square icon bottom-left"></i>
+									<i class="fas fa-square icon bottom-right"></i>
+								</div>
+							</div>
+							</span>
+								<span class="navlink">Все задачи</span>
+							</div>
+						</RouterLink>
+					</li>
 					<li class="item_btn">
 						<div href="#" class="menu_link submenu_item">
-						  <span class="menu_titles">
-							<i class="fa-regular fa-address-card"></i>
-						  </span>
-						  <span class="navlink"> Личный кабинет</span>
+							<span class="menu_titles">
+								<i class="fa-solid fa-suitcase"></i>
+							</span>
+							<span class="navlink">Портфели</span>
 						</div>
 					</li>
-					<li class="item_btn">
-					<div href="#" class="menu_link submenu_item">
-						<span class="menu_titles">
-							<i class="fa-solid fa-suitcase"></i>
-						</span>
-						<span class="navlink">Портфели</span>
+			  </ul>
+				<div class="bottom_content">
+					<div class="bottom expand_sidebar" @click="expandSidebar">
+						<span class="text__down"> Зафиксировать</span>
+						<i class="fa-solid fa-chevron-right"></i>
 					</div>
-					</li>
-	
-				</div>			
-			</ul>
-	
-			<div class="bottom_content">
-				<div class="bottom expand_sidebar" @click="expandSidebar">
-				  <span class="text__down"> Зафиксировать</span>
-				  <i class="fa-solid fa-chevron-right"></i>
+					<div class="bottom collapse_sidebar" @click="closeSidebar">
+						<span class="text__down"> Скрыть</span>
+						<i class="fa-solid fa-chevron-left"></i>
+					</div>
 				</div>
-				<div class="bottom collapse_sidebar" @click="closeSidebar">
-				  <span class="text__down"> Скрыть</span>
-				  <i class="fa-solid fa-chevron-left"></i>
-				</div>
-			  </div>
 			</div>
 		</nav>
 		<div>
 	
 	</div>
-	</template>
-	<script setup>
+</template>
+<script setup>
 	import { ref, onMounted, onBeforeUnmount } from 'vue';
 	
+	const isSidebarClose = ref(true);
+	const isHoverable = ref(true);
+	const submenuItems = ref([]);
 	
-		const isSidebarClose = ref(true);
-		const isHoverable = ref(true);
-		const submenuItems = ref([]);
-	 
-		 onMounted(() => {
-		  submenuItems.value = document.querySelectorAll('.submenu_item');
-		  if (window.innerWidth < 768) {
-			isSidebarClose.value = true;
-		  }
-		  window.addEventListener('resize', handleResize);
-		});
-	
-	
-		onBeforeUnmount(() => {
-		  window.removeEventListener('resize', handleResize);
-		});
-	
-		const toggleSidebar = () => {
+		onMounted(() => {
+		submenuItems.value = document.querySelectorAll('.submenu_item');
+		if (window.innerWidth < 768) {
+		isSidebarClose.value = true;
+		}
+		window.addEventListener('resize', handleResize);
+	});
+
+
+	onBeforeUnmount(() => {
+		window.removeEventListener('resize', handleResize);
+	});
+
+	const toggleSidebar = () => {
+	isHoverable.value = true;
+	isSidebarClose.value = !isSidebarClose.value; // Инвертируем текущее состояние сайдбара
+	};
+
+	const closeSidebar = () => {
 		isHoverable.value = true;
-		isSidebarClose.value = !isSidebarClose.value; // Инвертируем текущее состояние сайдбара
-		};
-	
-		const closeSidebar = () => {
-			isHoverable.value = true;
-		  isSidebarClose.value = true;
-		};
-	
-		const expandSidebar = () => {
-		  isSidebarClose.value = false;
-		  isHoverable.value = false;
-		};
-	
-		const handleSidebarMouseEnter = () => {
-		  if (isHoverable.value) {
-			isSidebarClose.value = false;
-		  }
-		};
-	
-		const handleSidebarMouseLeave = () => {
-		  if (isHoverable.value) {
-			isSidebarClose.value = true;
-		  }
-		};
-	
-	
-		const handleResize = () => {
-		  if (window.innerWidth < 768) {
-			isSidebarClose.value = true;
-		  } else {
-			isSidebarClose.value = false;
-		  }
-		};
+		isSidebarClose.value = true;
+	};
+
+	const expandSidebar = () => {
+		isSidebarClose.value = false;
+		isHoverable.value = false;
+	};
+
+	const handleSidebarMouseEnter = () => {
+		if (isHoverable.value) {
+		isSidebarClose.value = false;
+		}
+	};
+
+	const handleSidebarMouseLeave = () => {
+		if (isHoverable.value) {
+		isSidebarClose.value = true;
+		}
+	};
+
+
+	const handleResize = () => {
+		if (window.innerWidth < 768) {
+		isSidebarClose.value = true;
+		} else {
+		isSidebarClose.value = false;
+		}
+	};
 	
 	
-	</script>
+</script>
 	
-	<style>
+<style>
 	
 	
 	.navbar {
@@ -502,4 +490,4 @@
 	  }
 	}
 	
-	</style>
+</style>
