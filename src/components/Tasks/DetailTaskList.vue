@@ -1,14 +1,13 @@
 <template>
   <div class="task-list">
-    <div
-      v-if="props.tasksList.length === 0"
-      class="task-list__message"
-    >
-      <p class="task-list__text">Задач нету, скорее добавьте 
-        <a class="task-list__link" href="#dashbord">здесь</a>
-      </p>
-    </div>
     <ul class="task-list__list">
+      <li v-if="props.tasksList.length === 0">
+        <div class="task-list__message">
+          <p class="task-list__text">Задач нету, скорее добавьте 
+            <a class="task-list__link" href="#dashbord">здесь</a>
+          </p>
+        </div>
+      </li>
       <li 
         v-for="task in props.tasksList" 
         :key="task.id" 

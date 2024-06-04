@@ -3,23 +3,10 @@
   <main class="briefcase">
 		<h2 class="briefcase__title">Ваши портфели</h2>
 		<section class="briefcase__section">
-			<ul class="briefcase__list">
-				<li>
-					<BriefcaseAddCard />
-				</li>
-				<li 
-					class="briefcase__item" 
-					v-for="briefcase in briefcases"
-					:key="briefcase.id"
-				>
-					<a class="briefcase__link" href="#">
-						<BriefcaseCard 
-							@click.stop="clickBriefcase(briefcase)"
-							:briefcase="briefcase" 
-						/>
-					</a>
-				</li>
-			</ul>
+			<BriefcaseCardList
+			 :briefcases="briefcases"
+			 @clickCard="clickBriefcase"
+			/>
 		</section>
 	</main>
 		<SidebarForContent
@@ -47,7 +34,7 @@
 	import { useMainStore } from '@/store';
 	import { clickOutside as vClickOutside } from "v-click-outside-vue3"
 
-	import BriefcaseCard from '@/components/Briefcase/BriefcaseCard.vue';
+	import BriefcaseCardList from '@/components/Briefcase/BriefcaseCardList.vue';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
 	import SidebarForContent from '@/components/Sidebar/SidebarForContent.vue';
 	import ProgressBar from '@/components/UI/ProgressBar.vue';
@@ -64,7 +51,6 @@
 	const currentBriefcase = ref({});
 
 	const clickBriefcase = (briefcase) => {
-		
 		store.fetchTasks();
 		taskByBriefcase.value = tasks.value.filter((task) => task.briefcase.name === briefcase.name)
 		
@@ -81,7 +67,7 @@
 
 	const hideSideBarOnEsc = (event) => {
 		if(event.key === 'Escape') {
-			isActiveSideBar.value = false;
+			switchShowSideBar(false);
 		}
 	}
 
