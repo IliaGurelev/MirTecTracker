@@ -2,7 +2,6 @@
 </script>
 
 <template>
-
 <div class="home-page">
     <div class="container">
         <div class="animation">

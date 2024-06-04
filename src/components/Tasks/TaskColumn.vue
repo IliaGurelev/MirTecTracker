@@ -6,8 +6,7 @@
 		 @dragover.prevent="onOverColumn(column.globaltype)"
 		 @dragleave.prevent="onLeaveColumn(column.globaltype)">
 	  <div class='project-column-heading'>
-		<h2 class='project-column-heading__title'>{{ column.title }}</h2>
-		<span  class="kanban__move-icon"> Количество задач: {{ getCount(column) }}</span>
+		<h2 class='project-column-heading__title'>{{ column.title }}<span  class="kanban__move-icon">{{ getCount(column) }}</span></h2>
 	  </div>
 	  <Task v-for="item in getList(column.globaltype)"
 			:key="item.id"
@@ -15,7 +14,7 @@
 			:statuses="column.statuses"
 			:globaltype="column.globaltype"
 			:sort="sort"/>
-	  <div class="kanban__move-icon">
+	  <div class="kanban__descriprion">
 		<span>{{ dropText }}</span>
 	  </div>
 	</div>
@@ -24,7 +23,8 @@
   <script setup>
   import { ref, computed } from 'vue';
   import Task from '@/components/Tasks/Task.vue';
-  
+  import AddTaskButton from '@/components/Tasks/AddTask.vue';
+
   const props = defineProps({
 	column: Object,
 	items: Array,
@@ -112,11 +112,13 @@
   }
   
   .kanban__move-icon {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 1rem;
-	font-size: 0.9rem;
+	padding: 1rem;	font-size: 20px;
+	color: #b0b0b0;
+	user-select: none;
+  }
+  .kanban__descriprion {
+	text-align: center;
+	padding: 1rem;	font-size: 1rem;
 	color: #b0b0b0;
 	user-select: none;
   }

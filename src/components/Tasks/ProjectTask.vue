@@ -1,19 +1,23 @@
 <template>
+	
 	<div class="project-tasks">
-
+	
 	  <TaskColumn
+	  
 		v-for="column in columns"
 		:key="column.globaltype"
 		:column="column"
 		:items="items"
 		:sort="sort"
-	  />
+	  />	<TaskSearch :tasks="displayedTasks" @select-task="selectTask" />
 	</div>
   </template>  
   
   <script setup>
-  import { ref, defineProps } from 'vue';
+  import { ref, defineProps,computed } from 'vue';
   import TaskColumn from '@/components/Tasks/TaskColumn.vue';
+  import TaskSearch from '@/components/Tasks/SearchTask.vue';
+
 
   const props = defineProps({
 	items: {
@@ -52,10 +56,18 @@
 	  ]
 	}
   ];
-
-  
-
+  const searchQuery = ref('');
+  const displayedTasks = computed(() => {
+  if (!searchQuery.value) {
+    return props.items;
+  }
+  const filtered = props.items.filter(item =>
+    item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+  return filtered.length > 0 ? filtered : props.items;
+});
 </script>
+
   
   <style lang="scss" scoped>
   .fade-enter-active, .fade-leave-active {

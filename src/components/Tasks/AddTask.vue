@@ -1,6 +1,6 @@
 <template>
 	<div class="add-task-container">
-	  <button @click="toggleForm">Add Task</button>
+	  <button @click="toggleForm"><i class="fa-solid fa-plus"></i> Добавить задачу</button>
 	  <transition name="slide-fade">
 		<div v-if="showAddTaskForm" class="add-task-form" @click.stop>
 		  <input type="text" v-model="newTaskName" placeholder="Task name" />
@@ -67,7 +67,9 @@
   };
   </script>
   
-  <style scoped>
+  <style lang = "scss" scoped>
+
+
   .slide-fade-enter-active, .slide-fade-leave-active {
 	transition: all 0.5s ease;
   }

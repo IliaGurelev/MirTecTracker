@@ -1,6 +1,5 @@
 <template>
 	<div 
-	
 	  :key="item.id"
 	  class="task"
 	  :draggable="true"
@@ -12,7 +11,9 @@
 	  <div class='tasktags'>
 		<span class='task__tag task__tag--green' :style="getStyle(item.briefcase.name)">{{ item.briefcase.name }}</span>
 	  </div>
+	  <DeleteTaskButton :taskId="item.id" />
 	  <p>{{ item.name }}</p>
+	  
 	  <div class='task__stats'>
 		<span>
 		  <time :datetime="item.createdAt">
@@ -37,9 +38,11 @@
   <script setup>
   import { ref, computed } from 'vue';
   import formatDate from "@/utils/format-date.js";
+  import DeleteTaskButton from "@/components/Tasks/DeleteTask.vue";
   
   const props = defineProps({
 	item: Object,
+	items: Array,
 	statuses: Array,
 	globaltype: String,
 	sort: Boolean,
@@ -58,48 +61,56 @@
   });
   
   const startDrag = (event, item) => {
-		event.dataTransfer.dropEffect = 'move';
-		event.dataTransfer.effectAllowed = 'move';
-		event.dataTransfer.setData('itemId', item.id);
+	event.dataTransfer.dropEffect = 'move';
+	event.dataTransfer.effectAllowed = 'move';
+	event.dataTransfer.setData('itemId', item.id);
   };
   
   const onDropSort = (event, droppedItem) => {
-		if (!props.sort) return;
-		onLeave(event);
-		const { item, itemId } = getItemById(event);
-		const itemPosition = props.items.findIndex(item => item.id == itemId);
-		const droppedItemPosition = props.items.findIndex(item => item.id == droppedItem.id);
-		props.items.splice(itemPosition, 1);
-		props.items.splice(droppedItemPosition, 0, item);
+	if (!props.sort) return;
+	onLeave(event);
+	const { item, itemId } = getItemById(event);
+	const itemPosition = props.items.findIndex(item => item.id == itemId);
+	const droppedItemPosition = props.items.findIndex(item => item.id == droppedItem.id);
+	props.items.splice(itemPosition, 1);
+	props.items.splice(droppedItemPosition, 0, item);
   };
   
   const onOver = event => (props.sort ? event.target.classList.add('on-over') : '');
   const onLeave = event => (props.sort ? event.target.classList.remove('on-over') : '');
   
   const getStyle = (tag) => {
-		if (tag === 'Разработка') {
-			return { backgroundColor: '#f2dcf5', color: '#a734ba' };
-		} else if (tag === 'Маркетинг') {
-			return { backgroundColor: '#ceecfd', color: '#2d86ba' };
-		} else if (tag === 'Финансы') {
-			return { backgroundColor: '#fde3ce', color: '#ba662e' };
-		} else if (tag === 'Продажи') {
-			return { backgroundColor: '#d6ede2', color: '#13854e' };
-		}
+	if (tag === 'Разработка') {
+	  return { backgroundColor: '#f2dcf5', color: '#a734ba' };
+	} else if (tag === 'Маркетинг') {
+	  return { backgroundColor: '#ceecfd', color: '#2d86ba' };
+	} else if (tag === 'Финансы') {
+	  return { backgroundColor: '#fde3ce', color: '#ba662e' };
+	} else if (tag === 'Продажи') {
+	  return { backgroundColor: '#d6ede2', color: '#13854e' };
+	}
   };
   
   const getItemById = event => {
-		const itemId = event.dataTransfer.getData('itemId');
-		const item = props.items.find(item => item.id == itemId);
-		return { item, itemId };
+	const itemId = event.dataTransfer.getData('itemId');
+	const item = props.items.findIndex(item => item.id == itemId);
+	return { item, itemId };
   };
   
   const selectTask = (task) => {
 	emit('select-task', task);
   };
+  
+ 
   </script>
   
   <style scoped>
+  .tasktags{
+	display: inline-block
+  }
+  .tasktags DeleteTaskButton{
+	text-align: center;
+  }
   .task {
 	cursor: grab;
 	background-color: var(--white);

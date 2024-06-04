@@ -6,6 +6,7 @@ import tasksData from '@/mock/tasks-data.js';
 import tasksDiary from '@/mock/tasks-diary.js';
 import briefcaseData from '@/mock/briefcase-data';
 
+
 export const useMainStore = defineStore('main', {
   state: () => ({
     tasks: [],
@@ -31,6 +32,13 @@ export const useMainStore = defineStore('main', {
     },
     removeDiaryTaskById(id) {
       this.diary = this.diary.filter((task) => task.id !== id)
-    }
+    },
+	deleteTask(taskId) {
+		const index = this.tasks.findIndex(task => task.id === taskId);
+		if (index !== -1) {
+		  this.tasks.splice(index, 1);
+		}
+		console.log(taskId)
+	  }
   },
 });

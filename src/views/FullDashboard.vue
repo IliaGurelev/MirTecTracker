@@ -8,9 +8,8 @@
 			<main class='project'>
 				<div class='project-info'>
 					<h1 class="txt">Дашборд со всеми задачами</h1>
+					<SearchTask :tasks="displayedTasks" @select-task="selectTask" />
 					<AddTaskButton />
-					<DeleteTask :items="tasks" :sort="true"></DeleteTask>
-			
 				</div>	
 
 				<ProjectTask :items="tasks" :sort="true" />
@@ -29,7 +28,7 @@
 	import { storeToRefs } from 'pinia';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
 	import ProjectTask from '@/components/Tasks/ProjectTask.vue'
-  import DeleteTask from '@/components/Tasks/DeleteTask.vue';
+	import SearchTask from '@/components/Tasks/SearchTask.vue'
 	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
 
 	const store = useMainStore();
