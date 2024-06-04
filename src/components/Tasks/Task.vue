@@ -7,6 +7,7 @@
 	  @drop="onDropSort($event, item)"
 	  @dragover.prevent="onOver($event)"
 	  @dragleave.prevent="onLeave($event)"
+	  @click="selectTask(task)"
 	>
 	  <div class='tasktags'>
 		<span class='task__tag task__tag--green' :style="getStyle(item.briefcase.name)">{{ item.briefcase.name }}</span>
@@ -33,6 +34,7 @@
 		</div>
 	  </div>
 	</div>
+	<SidebarInfo :isOpen="isSidebarOpen" @close-sidebar="closeSidebar" :selected-task="selectedTask" />
   </template>
   
   <script setup>
@@ -76,6 +78,8 @@
 	props.items.splice(droppedItemPosition, 0, item);
   };
   
+
+
   const onOver = event => (props.sort ? event.target.classList.add('on-over') : '');
   const onLeave = event => (props.sort ? event.target.classList.remove('on-over') : '');
   

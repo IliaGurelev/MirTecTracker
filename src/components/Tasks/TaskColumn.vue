@@ -89,7 +89,7 @@
   };
   </script>
   
-  <style scoped>
+  <style lang="scss" scoped>
   .project-column {
 	background: #e6e6e670;
 	padding: 5px 10px;
@@ -126,5 +126,6 @@
   .kanban__move-icon span {
 	margin-left: 10px;
   }
+  
   </style>
   

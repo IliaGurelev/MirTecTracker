@@ -1,24 +1,21 @@
 <template>
 	
 	<div class="project-tasks">
-	
+
 	  <TaskColumn
-	  
 		v-for="column in columns"
 		:key="column.globaltype"
 		:column="column"
 		:items="items"
 		:sort="sort"
-	  />	<TaskSearch :tasks="displayedTasks" @select-task="selectTask" />
+	  />	
 	</div>
   </template>  
   
   <script setup>
   import { ref, defineProps,computed } from 'vue';
   import TaskColumn from '@/components/Tasks/TaskColumn.vue';
-  import TaskSearch from '@/components/Tasks/SearchTask.vue';
-
-
+  
   const props = defineProps({
 	items: {
 	  type: Array,

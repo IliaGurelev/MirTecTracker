@@ -8,14 +8,11 @@
 			<main class='project'>
 				<div class='project-info'>
 					<h1 class="txt">Дашборд со всеми задачами</h1>
-					<SearchTask :tasks="displayedTasks" @select-task="selectTask" />
 					<AddTaskButton />
 				</div>	
-
-				<ProjectTask :items="tasks" :sort="true" />
+				<TaskSearch :columns="columns" :items="tasks" :sort="sort"/>
 			</main>
 			<ProgressBars :items="tasks"  :sort="true"/>
-		
 		</div>
 		</section>
 	</body>
@@ -30,6 +27,7 @@
 	import ProjectTask from '@/components/Tasks/ProjectTask.vue'
 	import SearchTask from '@/components/Tasks/SearchTask.vue'
 	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
+	import TaskSearch from '@/components/Tasks/SearchTask.vue';
 
 	const store = useMainStore();
 
@@ -39,10 +37,10 @@
     store.fetchTasks();
   }) 	
 
- 
+
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   * {
 	margin: 0;
