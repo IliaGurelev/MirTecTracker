@@ -1,4 +1,5 @@
 <template>
+	<Sidebar />
   <main class="portfolio">
 		<h2 class="portfolio__title">Ваши портфели</h2>
 		<section class="portfolio__section">
@@ -19,9 +20,10 @@
 
 <script setup>
 	import { onMounted } from 'vue';
+	import { storeToRefs } from 'pinia';
 	import { useMainStore } from '@/store';
 	import BriefcaseCard from '@/components/Briefcase/BriefcaseCard.vue';
-	import { storeToRefs } from 'pinia';
+	import Sidebar from '@/components/Sidebar/Sidebar.vue';
 
 	const store = useMainStore();
 
@@ -34,12 +36,14 @@
 
 <style lang="scss" scoped>
 	.portfolio {
-		margin-left: 20px;
-		margin-top: 10px;
+		margin-left: 90px;
+		margin-top: 80px;
 
 		&__title {
 			margin-bottom: 20px;
-			font-weight: 400;
+			font-weight: 700;
+			font-size: 30px;
+			color: #2e2e2f;
 			cursor: default;
 		}
 
