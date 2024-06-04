@@ -14,17 +14,19 @@
 			class="briefcase__sidebar"
 			v-click-outside="() => switchShowSideBar(false)"
 		>
-			<div class="briefcase__wrapper">
-				<TaskBriefcase 
-					class="briefcase__tag-briefcase" 
-					:briefcase="currentBriefcase" 
+			<section class="briefcase__task">
+				<div class="briefcase__wrapper">
+					<TaskBriefcase 
+						class="briefcase__tag-briefcase" 
+						:briefcase="currentBriefcase" 
+					/>
+					<ProgressBar class="briefcase__progress" />
+				</div>
+				<DetailTaskList
+					class="briefcase__task-list"
+					:tasksList="taskByBriefcase"
 				/>
-				<ProgressBar class="briefcase__progress" />
-			</div>
-			<DetailTaskList
-				class="briefcase__task-list"
-				:tasksList="taskByBriefcase"
-			/>
+			</section>
 		</SidebarForContent>
 </template>
 
@@ -50,7 +52,7 @@
 	const taskByBriefcase = ref([]);
 	const currentBriefcase = ref({});
 
-	const clickBriefcase = (briefcase) => {
+	const clickBriefcase = (briefcase = [], type) => {
 		store.fetchTasks();
 		taskByBriefcase.value = tasks.value.filter((task) => task.briefcase.name === briefcase.name)
 		

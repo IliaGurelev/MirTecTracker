@@ -8,12 +8,10 @@
       v-for="briefcase in briefcases"
       :key="briefcase.id"
     >
-      <a class="briefcase__link" href="#">
-        <BriefcaseCard 
-          @click.stop="$emit('clickCard', briefcase)"
-          :briefcase="briefcase" 
-        />
-      </a>
+      <BriefcaseCard 
+        @click.stop="$emit('clickCard', briefcase)"
+        :briefcase="briefcase" 
+      />
     </li>
   </ul>
 </template>
