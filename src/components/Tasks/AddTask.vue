@@ -3,21 +3,21 @@
 	  <button @click="toggleForm"><i class="fa-solid fa-plus"></i> Добавить задачу</button>
 	  <transition name="slide-fade">
 		<div v-if="showAddTaskForm" class="add-task-form" @click.stop>
-		  <input type="text" v-model="newTaskName" placeholder="Task name" />
-		  <textarea v-model="newTaskDescription" placeholder="Task description"></textarea>
+		  <input type="text" v-model="newTaskName" placeholder="Задача" />
+		  <textarea v-model="newTaskDescription" placeholder="Описание задачи"></textarea>
 		  <select v-model="newTaskStatus">
 			<option value="open">Открыт</option>
 			<option value="work">В работе</option>
 			<option value="close">Закрыт</option>
 		  </select>
-		  <input type="date" v-model="newTaskDeadline" placeholder="Deadline" />
+		  <input type="date" v-model="newTaskDeadline" placeholder="Делайн" />
 		  <select v-model="newTaskBriefcase.name">
 			<option value="Разработка">Разработка</option>
 			<option value="Маркетинг">Маркетинг</option>
 			<option value="Продажи">Продажи</option>
 			<option value="Финансы">Финансы</option>
 		  </select>
-		  <button @click="addTask">Create Task</button>
+		  <button @click="addTask">Создать задачу</button>
 		</div>
 	  </transition>
 	</div>
@@ -32,8 +32,8 @@
   const newTaskStatus = ref('open');
   const newTaskDeadline = ref('');
   const newTaskBriefcase = ref({
-	name: 'Разработка', // Default to first option
-	color: '#FFFFFF' // Default color
+	name: 'Разработка', 
+	color: '#FFFFFF'
   });
   const showAddTaskForm = ref(false);
   
@@ -62,7 +62,7 @@
 	  newTaskBriefcase.value = { name: 'Разработка', color: '#FFFFFF' };
 	  showAddTaskForm.value = false;
 	} else {
-	  alert('Task name cannot be empty!');
+	  alert('Вы оставили пустое поле!');
 	}
   };
   </script>
