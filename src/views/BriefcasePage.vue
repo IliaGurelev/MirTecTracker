@@ -1,42 +1,100 @@
 <template>
 	<Sidebar />
-  <main class="portfolio">
-		<h2 class="portfolio__title">Ваши портфели</h2>
-		<section class="portfolio__section">
-			<ul class="portfolio__list">
+  <main class="briefcase">
+		<h2 class="briefcase__title">Ваши портфели</h2>
+		<section class="briefcase__section">
+			<ul class="briefcase__list">
+				<li>
+					<BriefcaseAddCard />
+				</li>
 				<li 
-					class="portfolio__item" 
+					class="briefcase__item" 
 					v-for="briefcase in briefcases"
 					:key="briefcase.id"
 				>
-					<a class="portfolio__link" href="#">
-						<BriefcaseCard :briefcase="briefcase" />
+					<a class="briefcase__link" href="#">
+						<BriefcaseCard 
+							@click.stop="clickBriefcase(briefcase)"
+							:briefcase="briefcase" 
+						/>
 					</a>
 				</li>
 			</ul>
 		</section>
 	</main>
+		<SidebarForContent
+			v-if="isActiveSideBar"
+			class="briefcase__sidebar"
+			v-click-outside="() => switchShowSideBar(false)"
+		>
+			<div class="briefcase__wrapper">
+				<TaskBriefcase 
+					class="briefcase__tag-briefcase" 
+					:briefcase="currentBriefcase" 
+				/>
+				<ProgressBar class="briefcase__progress" />
+			</div>
+			<DetailTaskList
+				class="briefcase__task-list"
+				:tasksList="taskByBriefcase"
+			/>
+		</SidebarForContent>
 </template>
 
 <script setup>
-	import { onMounted } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import { storeToRefs } from 'pinia';
 	import { useMainStore } from '@/store';
+	import { clickOutside as vClickOutside } from "v-click-outside-vue3"
+
 	import BriefcaseCard from '@/components/Briefcase/BriefcaseCard.vue';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
+	import SidebarForContent from '@/components/Sidebar/SidebarForContent.vue';
+	import ProgressBar from '@/components/UI/ProgressBar.vue';
+	import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+	import BriefcaseAddCard from '@/components/Briefcase/BriefcaseAddCard.vue';
+	import DetailTaskList from '@/components/Tasks/DetailTaskList.vue';
 
 	const store = useMainStore();
 
-	const {briefcases} = storeToRefs(store);
+	const {briefcases, tasks} = storeToRefs(store);
+
+	const isActiveSideBar = ref(false)
+	const taskByBriefcase = ref([]);
+	const currentBriefcase = ref({});
+
+	const clickBriefcase = (briefcase) => {
+		
+		store.fetchTasks();
+		taskByBriefcase.value = tasks.value.filter((task) => task.briefcase.name === briefcase.name)
+		
+		currentBriefcase.value = briefcase;
+
+		if(!isActiveSideBar.value) {
+			switchShowSideBar(true);
+		}
+	}
+
+	const switchShowSideBar = (state) => {
+		isActiveSideBar.value = state;
+	}
+
+	const hideSideBarOnEsc = (event) => {
+		if(event.key === 'Escape') {
+			isActiveSideBar.value = false;
+		}
+	}
 
 	onMounted(() => {
 		store.fetchBriefcase();
+		store.fetchTasks();
+		document.addEventListener('keydown', hideSideBarOnEsc)
 	})
 </script>
 
 <style lang="scss" scoped>
-	.portfolio {
-		margin-left: 90px;
+	.briefcase {
+		margin-left: 110px;
 		margin-top: 80px;
 
 		&__title {
@@ -56,6 +114,44 @@
 
 		&__link {
 			text-decoration: none;
+		}
+
+		&__sidebar {
+			overflow-y: auto;
+			padding: 80px 10px 10px 10px;
+			box-shadow: 0px 0px 8px 5px rgba(43, 43, 43, 0.034);
+			width: 100%;
+			max-width: 500px;
+		}
+
+		&__wrapper {
+			display: flex;
+			justify-content: space-between;
+			column-gap: 10px;
+			background-color: #ffffff;
+			box-shadow: 0px 0px 10px 5px rgba(43, 43, 43, 0.082);
+			border-radius: 11px;
+			padding: 20px;
+		}
+
+		&__tag-briefcase {
+			margin: 0;
+
+			:deep(.briefcase__element) {
+				padding: 9px 20px;
+				font-size: 20px;
+			}
+		}
+
+		&__progress {
+			width: 100%;
+		}
+
+		&__task-list {
+			:deep(.task-list__list) {
+				height: 100%;
+				max-height: 100%;
+			}
 		}
 	}
 </style>

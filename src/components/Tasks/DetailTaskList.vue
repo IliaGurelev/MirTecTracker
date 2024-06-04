@@ -16,6 +16,7 @@
       >
         <DetailTask 
           :task="task"
+          class="task-list__task"
         />
       </li>
     </ul>
@@ -57,6 +58,11 @@
       text-decoration: none;
       list-style: none;
       overflow-y: auto;
+    }
+
+    &__task {
+      max-width: 490px;
+      width: 100%;
     }
   }
 </style>

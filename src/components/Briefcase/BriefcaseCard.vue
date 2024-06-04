@@ -1,5 +1,5 @@
 <template>
-  <section 
+  <section
     class="portfolio-card"
     :class="'portfolio-card--' + props.briefcase.color + '-color'"
   >
