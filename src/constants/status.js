@@ -3,5 +3,4 @@ const statusTaskConst = {
   work: 'В работе',
   close: 'Закрыт',
 }
-
 export default statusTaskConst;

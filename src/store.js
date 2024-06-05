@@ -24,15 +24,18 @@ export const useMainStore = defineStore('main', {
     fetchBriefcase() {
       this.briefcases = briefcaseData;
     },
+
     loginCurrentUser(id) {
       this.currentUser = usersData[id];
     },
+
     addDiaryTask(task) {
       this.diary.push(task);
     },
     removeDiaryTaskById(id) {
       this.diary = this.diary.filter((task) => task.id !== id)
     },
+
 	addTask(task) {
 		this.tasks.push({ ...task, id: Date.now() });
 	  },
@@ -43,5 +46,10 @@ export const useMainStore = defineStore('main', {
 		}
 		console.log(taskId)
 	  }
+
+    addBriefcase(briefcase) {
+      this.briefcases.push(briefcase);
+    }
+
   },
 });

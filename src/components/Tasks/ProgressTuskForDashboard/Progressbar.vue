@@ -1,4 +1,4 @@
-<template>
+  <template>
 <aside class='task-details'>
 	<h2>Статус задач по портфелям</h2>
     <div v-for="(barData, index) in progressBarsData" :key="index" class="tag-progress">
@@ -53,7 +53,7 @@ const progressBarsData = computed(() => {
       label: name,
       progress,
       color: props.colors[name] || "#9E9E9E", 
-	  bcolor: props.backcolor[name] || "#9E9E9E", 
+	    bcolor: props.backcolor[name] || "#9E9E9E", 
       openCount: props.items.filter(item => item.briefcase.name === name && item.status === "open" ||  item.briefcase.name === name &&   item.status === "work" ||  item.briefcase.name=== name && item.status === "close").length,
       completedCount: completedTasks
     });
