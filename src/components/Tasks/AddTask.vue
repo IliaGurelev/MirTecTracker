@@ -2,26 +2,26 @@
 	<div>
 	  <button @click="openForm" v-if="!isFormOpen">Добавить задачу</button>
 	  <transition name="fade">
-		<div v-if="isFormOpen" class="overlay" @click.self="closeForm">
+		<div v-if="isFormOpen" class="overlay" v-click-outside="closeForm" @click.self="closeForm">
 		  <form class="form-container" @submit.prevent="addTask">
 			<button type="button" class="close-button" @click="closeForm">✖</button>
-			<div class ="form-container__item">
+			<div class="form-container__item">
 			  <label for="name">Имя задачи:</label>
 			  <input id="name" v-model="newTask.name" required />
 			</div>
-			<div class ="form-container__item">
+			<div class="form-container__item">
 			  <label for="description">Описание задачи:</label>
-			  <input id="description" v-model="newTask.description" required style="resize: none;"></input>
+			  <input id="description" v-model="newTask.description" required style="resize: none;" />
 			</div>
-			<div class ="form-container__item">
+			<div class="form-container__item">
 			  <label for="createdAt">Дата создания:</label>
 			  <input id="createdAt" type="date" v-model="newTask.createdAt" required disabled />
 			</div>
-			<div class ="form-container__item">
+			<div class="form-container__item">
 			  <label for="dueDate">Дедлайн:</label>
 			  <input id="dueDate" type="date" v-model="newTask.dueDate" required />
 			</div>
-			<div class ="form-container__item">
+			<div class="form-container__item">
 			  <label for="briefcaseName">Название задачи:</label>
 			  <select v-model="newTask.briefcase.name">
 				<option disabled value="">Выберите проект</option>
@@ -32,7 +32,7 @@
 			  </select>
 			  <input v-if="newTask.briefcase.name === 'custom'" v-model="customBriefcaseName" placeholder="Введите название проекта" />
 			</div>
-			<div class ="form-container__item">
+			<div class="form-container__item">
 			  <label>Цвет задачи:</label>
 			  <div class="color-picker">
 				<label class="color-option purple">
@@ -61,7 +61,7 @@
   </template>
   
   <script setup>
-  import { ref, watch, onMounted } from 'vue';
+  import { ref, watch, onMounted, onUnmounted } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
   
@@ -70,6 +70,11 @@
   
   onMounted(() => {
 	store.fetchBriefcase();
+	document.addEventListener('keydown', handleEsc);
+  });
+  
+  onUnmounted(() => {
+	document.removeEventListener('keydown', handleEsc);
   });
   
   const getTodayDate = () => {
@@ -80,12 +85,12 @@
   const newTask = ref({
 	name: '',
 	description: '',
-	status: 'open', 
+	status: 'open',
 	createdAt: getTodayDate(),
 	dueDate: '',
 	briefcase: {
 	  name: '',
-	  color: 'purple', 
+	  color: 'purple',
 	},
   });
   
@@ -98,6 +103,12 @@
   
   const closeForm = () => {
 	isFormOpen.value = false;
+  };
+  
+  const handleEsc = (event) => {
+	if (event.key === 'Escape' && isFormOpen.value) {
+	  closeForm();
+	}
   };
   
   watch(newTask.value.briefcase, (newVal) => {
@@ -115,7 +126,6 @@
   
 	console.log('New Task:', newTask.value);
   
-
 	newTask.value = {
 	  name: '',
 	  description: '',
@@ -146,15 +156,12 @@
 	background-color: #0056b3;
   }
   
-  input{
+  input {
 	border-radius: 8px;
 	padding: 5px;
 	width: 70%;
-	
   }
-
-
-
+  
   .overlay {
 	position: fixed;
 	top: 0;
@@ -178,14 +185,16 @@
 	transform: translateY(0);
 	opacity: 1;
   }
- .form-container__item{
-	position:relative;
+  
+  .form-container__item {
+	position: relative;
 	display: flex;
-  	flex-direction: row;
+	flex-direction: row;
 	justify-content: space-between;
-	align-items:center;
+	align-items: center;
 	margin: 10px;
-	}
+  }
+  
   .close-button {
 	position: absolute;
 	top: 10px;
@@ -196,11 +205,13 @@
 	cursor: pointer;
   }
   
-  .fade-enter-active, .fade-leave-active {
+  .fade-enter-active,
+  .fade-leave-active {
 	transition: opacity 0.3s ease, transform 0.3s ease;
   }
   
-  .fade-enter-from, .fade-leave-to {
+  .fade-enter-from,
+  .fade-leave-to {
 	opacity: 0;
 	transform: translateY(-20px);
   }
@@ -249,3 +260,4 @@
 	border: 2px solid #000;
   }
   </style>
+  
