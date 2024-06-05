@@ -521,7 +521,7 @@ body{
 		  display:flex;
 	  
 	  }
-	  .navigation-menu .navigation-menulist{
+	  .navigation-menu .text-box__navigation-menu__list{
 		  position: fixed;
 		  right: -100%;
 		  top: 0;
@@ -537,27 +537,27 @@ body{
 		  padding-top: 1rem;
 		  border-radius: 8px;
 	  }
-	  .navigation-menulist li{
+	  .text-box__navigation-menu__list li{
 		  width: 100%;
 		  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
 		  padding: 0px 25px 20px 20px;
 	  }
-	  .navigation-menulist .home{
+	  .text-box__navigation-menu__list .home{
 		  margin-top: 1rem;
 		  border-top: 1px solid hsla(0, 0%, 100%, 0.1);
 		  padding-top: 15px;
 	  }
-	  .navigation-menulist .btn{
+	  .text-box__navigation-menu__list .btn{
 		  margin: 20px 20px;
 	  }
-	  .navigation-menulist.active{
+	  .text-box__navigation-menu__list.active{
 		  right: 0;
 	  }
-	  .navigation-menulist.active .logo{
+	  .text-box__navigation-menu__list.active .logo{
 		  display: flex;
 		  width: inherit;
 	  }
-	  .navigation-menulist.active .visible-btn{
+	  .text-box__navigation-menu__list.active .visible-btn{
 		  display: flex;
 		  width: inherit;
 	  }
@@ -584,7 +584,7 @@ body{
 	  .minimenu{
 		  display:flex;  
 	  }
-	  .navigation-menu .navigation-menulist{
+	  .navigation-menu .text-box__navigation-menu__list{
 		  position: fixed;
 		  right: -100%;
 		  top: 0;
@@ -600,27 +600,27 @@ body{
 		  padding-top: 1rem;
 		  border-radius: 8px;
 	  }
-	  .navigation-menulist li{
+	  .text-box__navigation-menu__list li{
 		  width: 100%;
 		  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
 		  padding: 0px 25px 20px 20px;
 	  }
-	  .navigation-menulist .home{
+	  .text-box__navigation-menu__list .home{
 		  margin-top: 1rem;
 		  border-top: 1px solid hsla(0, 0%, 100%, 0.1);
 		  padding-top: 15px;
 	  }
-	  .navigation-menulist .btn{
+	  .text-box__navigation-menu__list .btn{
 		  margin: 20px 20px;
 	  }
-	  .navigation-menulist.active{
+	  .text-box__navigation-menu__list.active{
 		  right: 0;
 	  }
-	  .navigation-menulist.active .logo{
+	  .text-box__navigation-menu__list.active .logo{
 		  display: flex;
 		  width: inherit;
 	  }
-	  .navigation-menulist.active .visible-btn{
+	  .text-box__navigation-menu__list.active .visible-btn{
 		  display: flex;
 		  width: inherit;
 	  }
