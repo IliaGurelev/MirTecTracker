@@ -6,7 +6,11 @@
 			<BriefcaseCardList
 			 :briefcases="briefcases"
 			 @clickCard="clickBriefcase"
-			/>
+			>	
+				<BriefcaseAddCard
+					@submitForm="addBriefcase"
+				/>
+			</BriefcaseCardList>
 		</section>
 	</main>
 		<SidebarForContent
@@ -41,8 +45,8 @@
 	import SidebarForContent from '@/components/Sidebar/SidebarForContent.vue';
 	import ProgressBar from '@/components/UI/ProgressBar.vue';
 	import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
-	import BriefcaseAddCard from '@/components/Briefcase/BriefcaseAddCard.vue';
 	import DetailTaskList from '@/components/Tasks/DetailTaskList.vue';
+	import BriefcaseAddCard from '@/components/Briefcase/BriefcaseAddCard.vue';
 
 	const store = useMainStore();
 
@@ -71,6 +75,10 @@
 		if(event.key === 'Escape') {
 			switchShowSideBar(false);
 		}
+	}
+
+	const addBriefcase = (briefcase) => {
+		store.addBriefcase(briefcase);
 	}
 
 	onMounted(() => {

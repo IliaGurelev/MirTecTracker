@@ -34,5 +34,9 @@ export const useMainStore = defineStore('main', {
     removeDiaryTaskById(id) {
       this.diary = this.diary.filter((task) => task.id !== id)
     },
+
+    addBriefcase(briefcase) {
+      this.briefcases.push(briefcase);
+    }
   },
 });

@@ -1,12 +1,9 @@
 <template>
   <div class="selector" @click.stop="toggleDropdown">
-    <div 
-      v-if="!dropdownVisible"
-      class="selector__option"
-    >
-      <div class="selector__circle" :class="'selector__circle--' + selectedColor"></div>
+    <div class="selector__option">
+      <div  v-if="!dropdownVisible" class="selector__circle" :class="'selector__circle--' + selectedColor"></div>
     </div>
-    <ul v-else-if="dropdownVisible" class="selector__options">
+    <ul v-if="dropdownVisible" class="selector__options">
       <li 
         v-for="color in colors" 
         :key="color" 
@@ -41,6 +38,7 @@
   .selector {
     position: relative;
     width: 25px;
+    height: 25px;
     border-radius: 4px;
     cursor: pointer;
     user-select: none;

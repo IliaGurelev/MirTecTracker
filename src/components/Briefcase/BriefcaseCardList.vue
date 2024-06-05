@@ -1,7 +1,7 @@
 <template>
   <ul class="briefcase__list">
     <li>
-      <BriefcaseAddCard />
+      <slot></slot>
     </li>
     <li 
       class="briefcase__item" 
@@ -18,7 +18,6 @@
 
 <script setup>
   import BriefcaseCard from './BriefcaseCard.vue';
-  import BriefcaseAddCard from './BriefcaseAddCard.vue';
 
   const props = defineProps({
     briefcases: {

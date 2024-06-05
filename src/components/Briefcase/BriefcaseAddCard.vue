@@ -6,22 +6,44 @@
   >
     <i class="add-card__icon fa-solid fa-plus"></i>
   </div>
-  <section
-    v-else-if="isAcive"
-    class="briefcase-card"
-    :class="'briefcase-card--' + currentColor"
-  >
-    <input type="text" class="briefcase-card__name" placeholder="Название" />
-    <ColorPicker class="briefcase-card__color" @clickColor="switchColor"/>
-  </section>
+  <form v-else-if="isAcive" action="" @submit.prevent="switchIsActive(), $emit('submitForm', briefcaseData)">
+    <section
+      class="briefcase"
+      :class="'briefcase--' + currentColor"
+    >
+      <input 
+        type="text" 
+        class="briefcase__name" 
+        placeholder="Название"
+        required
+        v-model="nameBriefcase"
+      />
+      <div class="briefcase__wrapper">
+        <ColorPicker 
+          class="briefcase__color" 
+          @clickColor="switchColor"
+        />
+        <button 
+          type="submit" 
+          class="briefcase__button"
+        >
+          <CompleteIcon class="briefcase__button-icon" />
+        </button>
+      </div>
+    </section>
+  </form>
 </template>
 
 <script setup>
-  import {ref} from 'vue';
+  import {ref, computed} from 'vue';
   import ColorPicker from '@/components/UI/ColorPicker.vue';
+  import CompleteIcon from '@/assets/CompleteIcon.vue';
 
   const isAcive = ref(false);
   const currentColor = ref('blue');
+  const nameBriefcase = defineModel();
+
+  const briefcaseData = computed(() => {return{name: nameBriefcase.value, color: currentColor.value}})
 
   const switchIsActive = () => {
     isAcive.value = !isAcive.value;
@@ -55,7 +77,7 @@
     }
   }
 
-  .briefcase-card {
+  .briefcase {
 		position: relative;
 		display: flex;
     flex-direction: column;
@@ -95,11 +117,27 @@
       filter: opacity(15%);
     }
 
+    &__wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    &__button {
+      background-color: #fffcfc8e;
+      border: none;
+      border-radius: 10px;
+      padding: 5px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
     &--blue {
       background: linear-gradient(to bottom, var(--tag-1), var(--tag-1-light-dark));
 
-      .briefcase-card__name  {
+      .briefcase__name, .briefcase__button-icon  {
         color: var(--tag-1-text);
+        fill: var(--tag-1-text);
       }
     }
 
@@ -107,24 +145,27 @@
     &--green {
       background: linear-gradient(to bottom, var(--tag-2), var(--tag-2-light-dark));
 
-      .briefcase-card__name  {
+      .briefcase__name, .briefcase__button-icon  {
         color: var(--tag-2-text);
+        fill: var(--tag-2-text);
       }
     }
 
     &--purple {
       background: linear-gradient(to bottom, var(--tag-4), var(--tag-4-light-dark));
 
-      .briefcase-card__name  {
+      .briefcase__name, .briefcase__button-icon  {
         color: var(--tag-4-text);
+        fill: var(--tag-4-text);
       }
     }
 
     &--orange {
 		  background: linear-gradient(to bottom, var(--tag-5), var(--tag-5-light-dark));
 
-      .briefcase-card__name  {
+      .briefcase__name, .briefcase__button-icon  {
         color: var(--tag-5-text);
+        fill: var(--tag-5-text);
       }
     }
   }

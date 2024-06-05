@@ -4,7 +4,7 @@
       <li v-if="props.tasksList.length === 0">
         <div class="task-list__message">
           <p class="task-list__text">Задач нету, скорее добавьте 
-            <a class="task-list__link" href="#dashbord">здесь</a>
+            <RouterLink class="task-list__link" :to="{name: 'Dashboard'}">здесь</RouterLink>
           </p>
         </div>
       </li>
