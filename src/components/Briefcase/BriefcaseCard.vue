@@ -4,7 +4,7 @@
     :class="'portfolio-card--' + props.briefcase.color + '-color'"
   >
     <p class="portfolio-card__name">{{ props.briefcase.name }}</p>
-    <BriefcaseIcon />
+    <BriefcaseIcon :class="`portfolio-card__icon--${props.briefcase.color}`" />
   </section>
 </template>
 
@@ -47,7 +47,6 @@
       position: absolute;
       right: -20px;
       width: 200px;
-      fill: var(--tag-3-text);
       filter: opacity(15%);
     }
 
@@ -58,10 +57,6 @@
       .portfolio-card__name  {
         color: var(--tag-1-text);
       }
-
-      .portfolio-card__icon {
-        fill: var(--tag-1-text);
-      }
     }
 
     /* второй цвет карточки */
@@ -71,10 +66,6 @@
       .portfolio-card__name  {
         color: var(--tag-2-text);
       }
-
-      .portfolio-card__icon {
-        fill: var(--tag-2-text);
-      }
     }
 
     &--purple-color {
@@ -83,10 +74,6 @@
       .portfolio-card__name  {
         color: var(--tag-4-text);
       }
-
-      .portfolio-card__icon {
-        fill: var(--tag-4-text);
-      }
     }
 
     &--orange-color {
@@ -94,10 +81,6 @@
 
       .portfolio-card__name  {
         color: var(--tag-5-text);
-      }
-
-      .portfolio-card__icon {
-        fill: var(--tag-5-text);
       }
     }
 	}
