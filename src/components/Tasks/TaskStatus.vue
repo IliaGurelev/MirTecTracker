@@ -46,7 +46,7 @@
       iconStatus = 'fa-circle-notch';
       classStatus += '--open';
       break;
-    }
+    } 
     
     return {
       classStatus : classStatus,

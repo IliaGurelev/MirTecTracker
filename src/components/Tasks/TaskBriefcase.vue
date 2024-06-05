@@ -10,16 +10,16 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
+
   const props = defineProps({
     briefcase: {
       type: Object,
       required: true,
     },
   })
-  
-  const color = props.briefcase.color;
 
-  let colorClass = `briefcase--${color}`;
+  let colorClass = computed(() => `briefcase--${props.briefcase.color}`);
 </script>
 
 <style lang="scss" scoped>
