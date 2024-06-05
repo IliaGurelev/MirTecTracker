@@ -104,7 +104,7 @@ const tasksData = [
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
     ],stroke : 2,
-  },
+  }
 ]
 
 export default tasksData

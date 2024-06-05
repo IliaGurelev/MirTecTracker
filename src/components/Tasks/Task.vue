@@ -1,4 +1,5 @@
 <template>
+		<Sidebar :task="selectedTask" :isOpen="isSidebarOpen" @close="closeSidebar" />
 	<div 
 	  :key="item.id"
 	  class="task"
@@ -7,10 +8,10 @@
 	  @drop="onDropSort($event, item)"
 	  @dragover.prevent="onOver($event)"
 	  @dragleave.prevent="onLeave($event)"
-	  @click="selectTask(task)"
+	  @click="selectTask(item)"
 	>
 	  <div class='tasktags'>
-		<span class='task__tag task__tag--green' :style="getStyle(item.briefcase.name)">{{ item.briefcase.name }}</span>
+		<span class='task__tag' ><TaskBriefcase  :briefcase="props.item.briefcase"  class="task__briefcase"/></span>
 	  </div>
 	  <DeleteTaskButton :taskId="item.id" />
 	  <p>{{ item.name }}</p>
@@ -18,30 +19,24 @@
 	  <div class='task__stats'>
 		<span>
 		  <time :datetime="item.createdAt">
-			<i class='fa-regular fa-calendar-days'></i> {{ formatDate(item.createdAt) }}
+			<i class='fa-regular fa-calendar-days'></i> {{ formatDate(item.dueDate) }}
 		  </time>
 		</span>
 		<div class='status__owners'>
-		  <span
-			class="status__owner"
-			v-for="(status, statusIndex) in statuses"
-			:key="statusIndex"
-			:class="`status--${status.class}`"
-			v-if="item.status === globaltype"
-		  >
-			<i :class="`fa-regular ${status.icon}`"></i> {{ status.text }}
-		  </span>
+		  <TaskStatus :taskStatus="item.status"/>
 		</div>
 	  </div>
 	</div>
-	<SidebarInfo :isOpen="isSidebarOpen" @close-sidebar="closeSidebar" :selected-task="selectedTask" />
   </template>
   
   <script setup>
   import { ref, computed } from 'vue';
   import formatDate from "@/utils/format-date.js";
   import DeleteTaskButton from "@/components/Tasks/DeleteTask.vue";
-  
+  import Sidebar from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
+  import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+  import TaskStatus from '@/components/Tasks/TaskStatus.vue';
+
   const props = defineProps({
 	item: Object,
 	items: Array,
@@ -49,19 +44,7 @@
 	globaltype: String,
 	sort: Boolean,
   });
-  
-  const searchQuery = ref('');
-  
-  const displayedTasks = computed(() => {
-	if (!searchQuery.value) {
-	  return props.items;
-	}
-	const filtered = props.items.filter(item =>
-	  item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-	);
-	return filtered.length > 0 ? filtered : props.items;
-  });
-  
+ 
   const startDrag = (event, item) => {
 	event.dataTransfer.dropEffect = 'move';
 	event.dataTransfer.effectAllowed = 'move';
@@ -78,34 +61,32 @@
 	props.items.splice(droppedItemPosition, 0, item);
   };
   
+  const isSidebarOpen = ref(false);
+const selectedTask = ref(null);
+
+const selectTask = (item) => {
+  if (selectedTask.value === item && isSidebarOpen.value) {
+    isSidebarOpen.value = false;
+  } else {
+    selectedTask.value = item;
+    isSidebarOpen.value = true;
+  }
+};
+
+const closeSidebar = () => {
+  isSidebarOpen.value = false;
+};
 
 
   const onOver = event => (props.sort ? event.target.classList.add('on-over') : '');
   const onLeave = event => (props.sort ? event.target.classList.remove('on-over') : '');
   
-  const getStyle = (tag) => {
-	if (tag === 'Разработка') {
-	  return { backgroundColor: '#f2dcf5', color: '#a734ba' };
-	} else if (tag === 'Маркетинг') {
-	  return { backgroundColor: '#ceecfd', color: '#2d86ba' };
-	} else if (tag === 'Финансы') {
-	  return { backgroundColor: '#fde3ce', color: '#ba662e' };
-	} else if (tag === 'Продажи') {
-	  return { backgroundColor: '#d6ede2', color: '#13854e' };
-	}
-  };
   
   const getItemById = event => {
 	const itemId = event.dataTransfer.getData('itemId');
 	const item = props.items.findIndex(item => item.id == itemId);
 	return { item, itemId };
   };
-  
-  const selectTask = (task) => {
-	emit('select-task', task);
-  };
-  
- 
   </script>
   
   <style scoped>
@@ -136,8 +117,10 @@
 	font-weight: 500;
   }
   .task__tag {
+	position:relative;
+	display: flex;
+	justify-content: space-between;
 	border-radius: 100px;
-	padding: 2px 13px;
 	font-size: 12px;
 	font-weight: 700;
   }
@@ -189,7 +172,9 @@
 	font-weight: 700;
   }
   .status__owners {
-	position: absolute;
+	position:relative;
+	display: flex;
+	justify-content: space-between;
 	right: 0;
 	bottom: 0;
   }

@@ -3,41 +3,69 @@
 	<body id="main">
 	<Sidebar/>
 	<section class="home-section">
-			<div class="text">Миртек Трекер</div>
-			<div class='app'>
+		<div class="text">Миртек Трекер</div>
+		<div class='app'>
 			<main class='project'>
+				
 				<div class='project-info'>
 					<h1 class="txt">Дашборд со всеми задачами</h1>
+					<div class="search-task">		
+						<input type="text" v-model="searchQuery" placeholder="Поиск задач">
+						<div class="search-task__icon">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</div>						
+					</div>
 					<AddTaskButton />
 				</div>	
-				<TaskSearch :columns="columns" :items="tasks" :sort="sort"/>
+				<div v-if="searchQuery.trim() === ''">
+					<ProjectTask :items="tasks" :sort="sort"  />
+				</div>
+				<div v-else-if="foundTasks.length > 0">
+					<ProjectTask :items="foundTasks" :sort="sort"   />
+				</div>
+				<div v-else>
+					<div class="not-found">
+						<img src="../assets/notfound.svg" alt="">
+						<p class="not-found__title">Задачи не найдены</p>
+					</div>
+				</div>
 			</main>
-			<ProgressBars :items="tasks"  :sort="true"/>
+			<SidebarInfo :task="selectedTask" :isOpen="isSidebarOpen" />
+			<ProgressBars :items="tasks" :sort="true"/>
 		</div>
-		</section>
+	</section>
 	</body>
 </template>
 
 <script setup>
- 	import AddTaskButton from '@/components/Tasks/AddTask.vue';
+	import { ref, computed } from 'vue';
+	import AddTaskButton from '@/components/Tasks/AddTask.vue';
 	import { onMounted } from 'vue';
 	import { useMainStore } from '@/store';
 	import { storeToRefs } from 'pinia';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
-	import ProjectTask from '@/components/Tasks/ProjectTask.vue'
-	import SearchTask from '@/components/Tasks/SearchTask.vue'
-	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue'; 
-	import TaskSearch from '@/components/Tasks/SearchTask.vue';
+	import ProjectTask from '@/components/Tasks/ProjectTask.vue';
+	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue';
+	import SidebarInfo from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
 
 	const store = useMainStore();
+	const { tasks } = storeToRefs(store);
 
-  const { tasks } = storeToRefs(store);
+	onMounted(() => {
+		store.fetchTasks();
+	});
 
-  onMounted(() => {
-    store.fetchTasks();
-  }) 	
+	const searchQuery = ref('');
 
+	const foundTasks = computed(() => {
+		const query = searchQuery.value.trim().toLowerCase();
+		if (!query) return tasks.value;
 
+		return tasks.value.filter(item => item.name.toLowerCase().includes(query));
+	});
+
+	const selectedTask = ref(null); 
+const isSidebarOpen = ref(false);
 </script>
 
 <style lang="scss" scoped>
@@ -64,6 +92,45 @@
 	font-size: 30px;
   }
   
+  .search-task{
+	width: 100%;
+	right: 0;
+	background: #e6e6e670;
+	position: relative;
+  margin: 0 auto;
+  border-radius: 20px;
+  }
+
+  .search-task input{
+	width: 100%;
+  height: 42px;
+  padding-left: 10px;
+  border: 2px solid #dddddd;
+  border-radius: 20px;
+  outline: none;
+  background: var(--bg);
+  color: #000000;
+  }
+
+  .search-task__icon{
+  position: absolute; 
+  top: 0;
+  right: 0px;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  border: none;
+  background: var(--bg);
+  border-top: 2px solid #dddddd;
+  border-right: 2px solid #dddddd;
+  border-bottom: 2px solid #dddddd;
+  border-radius: 0 20px 20px 0;
+  cursor:auto;
+  }
+  .search-task__icon i{
+	margin:10px;
+	color:#dddddd;;
+}
   .project {
 	padding: 2rem;
 	max-width: 75%;
@@ -73,14 +140,16 @@
   .project-info {
 	position: sticky;
 	top: 52px;
-	padding: 2rem 0;
-	display: flex;
+	padding: 2rem;
+	display: grid;
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
 	z-index: 100;
-	height: 120px;
+	height: 60%;
 	background-color: var(--bg);
+	grid-template-columns: 50% 25% 20%;
+	grid-column-gap: 1.5rem;
   }
 
   
@@ -106,7 +175,22 @@
 	border: 0;
 	cursor: pointer;
   }
-
+  .not-found{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+	height: auto;
+  }
+  .not-found__title{
+	margin-top: 2rem;
+	font-size: 20px;
+	font-weight: 600; 
+  }
+  .not-found img{
+	width: 30%;
+  }
   @media only screen and (max-width: 1300px) {
 
 
@@ -131,6 +215,10 @@
 	}
   }
   @media only screen and (max-width: 1000px) {
+
+	.not-found img{
+	width: 50%;
+  }
 	.task-details{
 		height: auto;
 	}
@@ -153,7 +241,11 @@
 	width: 91%;
   }
   @media only screen and (max-width: 800px) {
-	
+	.project-info{
+		text-align: center;
+		grid-template-columns: 100% ;
+		grid-gap: 1.5rem;
+	}
 	.home-section{
 		width: 100%;
 	}

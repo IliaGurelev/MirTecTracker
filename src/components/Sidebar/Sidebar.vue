@@ -129,7 +129,7 @@
 	
 </script>
 	
-<style>
+<style lang="scss" scoped>
 	
 	
 	.navbar {
@@ -144,6 +144,8 @@
 	  padding: 15px 30px;
 	  z-index: 1000;
 	  box-shadow: 0 0 2px var(--grey-color-light);
+	  border-bottom: 1px solid var(--grey-color-light);
+	  border-bottom: 1px solid #d9e0e9;
 	}
 	.text__down{
 		font-weight: 600;
@@ -189,7 +191,7 @@
 	  box-shadow: 0 0 1px var(--grey-color-light);
 	  transition: all 0.1s ease;
 	  scrollbar-width: none;
-	  
+	  border-right: 1px solid #d9e0e9;
 	}
 	.sidebar.load{
 		padding: 60px 0;
@@ -431,6 +433,8 @@
 	  padding: 15px 15px 15px 52px;
 	}
 	.bottom_content {
+	  border-top: 1px solid #d9e0e9;
+	  border-right: 1px solid #d9e0e9;
 	  position: fixed;
 	  bottom: 60px;
 	  left: 0;
