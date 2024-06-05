@@ -45,8 +45,7 @@ export const useMainStore = defineStore('main', {
 		  this.tasks.splice(index, 1);
 		}
 		console.log(taskId)
-	  }
-
+	  },
     addBriefcase(briefcase) {
       this.briefcases.push(briefcase);
     }
