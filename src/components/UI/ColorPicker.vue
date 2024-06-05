@@ -1,11 +1,11 @@
 <template>
-  <div class="custom-select">
-    <div class="selected-option" @click="toggleDropdown">
-      <div v-if="selectedColor" :style="{ backgroundColor: selectedColor }" class="color-circle"></div>
+  <div class="selector" @click.stop="toggleDropdown">
+    <div class="selector__option">
+      <div :style="{ backgroundColor: selectedColor }" class="selector__circle"></div>
     </div>
-    <ul v-if="dropdownVisible" class="options">
-      <li v-for="color in colors" :key="color.value" @click="selectColor(color.value)">
-        <div :style="{ backgroundColor: color.value }" class="color-circle"></div>
+    <ul v-if="dropdownVisible" class="selector__options">
+      <li v-for="color in colors" :key="color" @click.stop="selectColor(color)">
+        <div :style="{ backgroundColor: color }" class="selector__circle"></div>
       </li>
     </ul>
   </div>
@@ -13,15 +13,19 @@
 
 <script setup>
   import { ref } from 'vue'
+  import colorConst from '@/constants/color';
 
-  const colors = [
-    { value: 'red' },
-    { value: 'green' },
-    { value: 'blue' },
-    { value: 'yellow' },
-  ]
+  const colors = colorConst
 
-  const selectedColor = ref(null)
+  // const colors = [
+  //   { value: 'red' },
+  //   { value: 'green' },
+  //   { value: 'blue' },
+  //   { value: 'yellow' },
+  // ]
+
+
+  const selectedColor = ref('red')
   const dropdownVisible = ref(false)
 
   const toggleDropdown = () => {
@@ -35,7 +39,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .custom-select {
+  .selector {
     position: relative;
     width: 50px;
     border-radius: 4px;
@@ -44,43 +48,43 @@
     background: white;
     border-radius: 4px;
     padding: 10px;
-  }
 
-  .selected-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    &__option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  .options {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-    top: 0;
-    left: 0;
-    width: 300%;
-    border-top: none;
-    background: white;
-    border-radius: 4px;
-    list-style: none;
-    padding: 10px;
-    margin: 0;
-  }
+    &__options {
+       position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      top: 0;
+      left: 0;
+      width: 300%;
+      border-top: none;
+      background: white;
+      border-radius: 4px;
+      list-style: none;
+      padding: 10px;
+      margin: 0;
 
-  .options li {
-    cursor: pointer;
-  }
+      li {
+        cursor: pointer;
+      }
 
-  .options li:hover {
-    background-color: #f0f0f0;
-  }
+      li:hover {
+        background-color: #f0f0f0;
+      }
+    }
 
-  .color-circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    &__circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
   }
 </style>

@@ -79,36 +79,4 @@
       filter: opacity(15%);
     }
   }
-
-
-   .color-select {
-      width: 50px;
-      height: 30px;
-    }
-    .color-select option {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 30px;
-    }
-    .color-select option::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-        margin-right: 5px;
-    }
-    .color-select option[value="purple"]::before {
-      background-color: purple;
-    }
-    .color-select option[value="green"]::before {
-      background-color: green;
-    }
-    .color-select option[value="blue"]::before {
-      background-color: blue;
-    }
-    .color-select option[value="orange"]::before {
-      background-color: orange;
-    }
 </style>
