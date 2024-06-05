@@ -94,8 +94,8 @@
 
     &__mark {
       position: relative;
-      width: 15px;
-      height: 15px;
+      width: 19px;
+      height: 19px;
       background-color: var(--color-text-important);
       border-radius: 50%;
       border: 2px solid var(--color-text-important);
