@@ -1,20 +1,35 @@
 <template>
-  <div class="add-card">
+  <div 
+    v-if="!isAcive" 
+    @click="switchIsActive"
+    class="add-card"
+  >
     <i class="add-card__icon fa-solid fa-plus"></i>
   </div>
   <section
-    class="portfolio-card"
-    :class="'portfolio-card--color'"
+    v-else-if="isAcive"
+    class="briefcase-card"
+    :class="'briefcase-card--' + currentColor"
   >
-    <input type="text" class="portfolio-card__name" placeholder="Название" />
-    <ColorPicker class="add-card__color" />
+    <input type="text" class="briefcase-card__name" placeholder="Название" />
+    <ColorPicker class="briefcase-card__color" @clickColor="switchColor"/>
   </section>
 </template>
 
 <script setup>
-  import colorConst from '@/constants/color';
-  import BriefcaseIcon from '@/assets/BriefcaseIcon.vue';
+  import {ref} from 'vue';
   import ColorPicker from '@/components/UI/ColorPicker.vue';
+
+  const isAcive = ref(false);
+  const currentColor = ref('blue');
+
+  const switchIsActive = () => {
+    isAcive.value = !isAcive.value;
+  }
+
+  const switchColor = (color) => {
+    currentColor.value = color
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -40,11 +55,11 @@
     }
   }
 
-  .portfolio-card {
+  .briefcase-card {
 		position: relative;
 		display: flex;
-		align-items: center;
-    column-gap: 10px;
+    flex-direction: column;
+    gap: 10px;
 		width: 300px;
 		height: 100px;
 		padding: 10px;
@@ -56,8 +71,9 @@
     &__name {
       font-size: 25px;
       font-weight: 500;
-      color: var(--tag-3-text);
-      background-color: #ffffff;
+      color: #FFFFFF; 
+      background-color: transparent;
+      border-bottom: 1px solid #8f8f8f96;
       border-radius: 8px;
       padding: 5px;
       z-index: 1;
@@ -77,6 +93,39 @@
       width: 200px;
       fill: var(--tag-3-text);
       filter: opacity(15%);
+    }
+
+    &--blue {
+      background: linear-gradient(to bottom, var(--tag-1), var(--tag-1-light-dark));
+
+      .briefcase-card__name  {
+        color: var(--tag-1-text);
+      }
+    }
+
+    /* второй цвет карточки */
+    &--green {
+      background: linear-gradient(to bottom, var(--tag-2), var(--tag-2-light-dark));
+
+      .briefcase-card__name  {
+        color: var(--tag-2-text);
+      }
+    }
+
+    &--purple {
+      background: linear-gradient(to bottom, var(--tag-4), var(--tag-4-light-dark));
+
+      .briefcase-card__name  {
+        color: var(--tag-4-text);
+      }
+    }
+
+    &--orange {
+		  background: linear-gradient(to bottom, var(--tag-5), var(--tag-5-light-dark));
+
+      .briefcase-card__name  {
+        color: var(--tag-5-text);
+      }
     }
   }
 </style>
