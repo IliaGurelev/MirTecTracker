@@ -1,28 +1,3 @@
-<script setup>
- import { ref, onMounted } from 'vue';
-    const isNavActive = ref(false);
-    const elements = ref([]);
-
-    const toggleNav = () => {
-      isNavActive.value = !isNavActive.value;
-    };
-
-    const closeNav = () => {
-      isNavActive.value = false;
-    };
-
-	onMounted(() => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-          }
-        });
-      });
-    });
-	
-</script>
-
 <template>
 <header class="header">
 		<div class="header__logo">
@@ -49,13 +24,15 @@
 				<a href='#prem'>Преимущества</a>
 			  </li>
 			  <div class="visible-btn">
-				 <li class='navigation-menu__item'>
-				<a href='../html/login-page.html' class='button__login'>Войти</a>
+				<li class='navigation-menu__item'>
+					<RouterLink :to="{name: 'Dashboard'}" class='button__login'>Войти</RouterLink>
 			  </li>
 			</div>
 			<div class="visible-btn">
-				<a href=""><button  class="button_registration">Регистрация</button></a>
-			</div>
+				<RouterLink :to="{name: 'Dashboard'}" class='button__login button_registration'>
+					Регистрация
+				</RouterLink>
+				</div>
 			</ul>
 		  </nav>
 		  <div class="minimenu" @click="toggleNav">
@@ -64,13 +41,38 @@
 			<div class="line"></div>
 		  </div>
 		  <div class='auth-buttons'>
-			<a href='' class='button__login' >
-			  Войти
-			</a>
-			<button class="button_registrations">Регистрация</button>
+			<RouterLink :to="{name: 'Login'}" class='button__login'>Войти</RouterLink>
+			<RouterLink :to="{name: 'Login'}" class='button_registration'>
+					Регистрация
+				</RouterLink>
 		  </div>
 	  </header>
 </template>
+
+<script setup>
+ import { ref, onMounted } from 'vue';
+    const isNavActive = ref(false);
+    const elements = ref([]);
+
+    const toggleNav = () => {
+      isNavActive.value = !isNavActive.value;
+    };
+
+    const closeNav = () => {
+      isNavActive.value = false;
+    };
+
+	onMounted(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      });
+    });
+	
+</script>
 
 <style lang="scss">
 .header__logo {

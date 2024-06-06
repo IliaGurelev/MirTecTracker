@@ -18,6 +18,13 @@
 			class="briefcase__sidebar"
 			v-click-outside="() => switchShowSideBar(false)"
 		>
+			<div class="briefcase__properity">
+				<i class="fa-solid fa-trash-can"></i>
+				<div class="briefcase__properity-wrapper">
+					<i class="fa-solid fa-pencil"></i>
+					<i @click="switchShowSideBar(false)" class="fa-solid fa-xmark"></i>
+				</div>
+			</div>
 			<section class="briefcase__task">
 				<div class="briefcase__wrapper">
 					<TaskBriefcase 
@@ -101,11 +108,40 @@
 			cursor: default;
 		}
 
+		&__properity {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 5px;
+			font-size: 25px;
+			text-align: right;
+			background-color: #ffffff;
+			box-shadow: 0px 0px 10px 5px rgba(43, 43, 43, 0.082);
+			border-radius: 11px;
+			padding: 20px;
+
+			i {
+				cursor: pointer;
+			}
+
+			&-wrapper {
+				display: flex;
+				column-gap: 15px;
+			}
+		}
+
 		&__list {
 			display: flex;
 			gap: 30px;
 			flex-wrap: wrap;
 			list-style: none;
+
+			@media (max-width: 519px) {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
 		}
 
 		&__link {
@@ -113,6 +149,9 @@
 		}
 
 		&__sidebar {
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
 			overflow-y: auto;
 			padding: 80px 10px 10px 10px;
 			box-shadow: 0px 0px 8px 5px rgba(43, 43, 43, 0.034);
@@ -148,6 +187,14 @@
 				height: 100%;
 				max-height: 100%;
 			}
+		}
+
+		@media (max-width: 519px) {
+			width: 100%;
+			margin-left: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 	}
 </style>
