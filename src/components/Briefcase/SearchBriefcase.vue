@@ -33,15 +33,17 @@
   const query = ref('');
 
   const filteredItems = computed(() => {
-      if (!query.value) {
-          return [];
-      }
-      return props.briefcases.filter(briefcase => briefcase.name.toLowerCase().includes(query.value.toLowerCase()));
+    if (!query.value) {
+      return props.briefcases;
+    }
+    return props.briefcases.filter(briefcase => briefcase.name.toLowerCase().includes(query.value.toLowerCase()));
   });
 </script>
 
 <style lang="scss" scoped>
   .search {
+    position: relative;
+
     &__input {
       padding: 5px;
       border-top-left-radius: 5px;
@@ -53,8 +55,14 @@
     }
 
     &__list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
       display: flex;
       flex-direction: column;
+      height: 90px;
+      overflow-y: auto;
       row-gap: 5px;
       padding: 10px;
       background-color: #ffffff;

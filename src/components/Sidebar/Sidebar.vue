@@ -2,7 +2,9 @@
 	<nav class="navbar">
 			<div class="logo_item">
 				<i class="fa-solid fa-bars" id="sidebarOpen" @click="toggleSidebar" ></i>
-				  <img src="../../assets/logo.svg" alt="">Миртек Трекер
+				<RouterLink class="logo_item" to="/">
+					<img src="../../assets/logo.svg" alt="">Миртек Трекер
+				</RouterLink>
 			</div>
 		</nav>
 		<nav class="sidebar"  :class="{ close: isSidebarClose, hoverable: isHoverable }"
