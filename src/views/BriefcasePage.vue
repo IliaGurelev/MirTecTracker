@@ -10,9 +10,6 @@
 				<BriefcaseAddCard
 					@submitForm="addBriefcase"
 				/>
-				<SearchBriefcase 
-					
-				/>
 			</BriefcaseCardList>
 		</section>
 	</main>
@@ -50,7 +47,6 @@
 	import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
 	import DetailTaskList from '@/components/Tasks/DetailTaskList.vue';
 	import BriefcaseAddCard from '@/components/Briefcase/BriefcaseAddCard.vue';
-	import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue';
 
 	const store = useMainStore();
 
