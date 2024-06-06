@@ -4,7 +4,7 @@
 	  <transition name="fade">
 		<div v-if="isFormOpen" class="overlay" v-click-outside="closeForm" @click.self="closeForm">
 		  <form class="form-container" @submit.prevent="addTask">
-			<button type="button" class="close-button" @click="closeForm">✖</button>
+			<div class="close-button" @click="closeForm">✖</div>
 			<div class="form-container__item">
 			  <label for="name">Имя задачи:</label>
 			  <input id="name" v-model="newTask.name" required />
@@ -32,27 +32,7 @@
 			  </select>
 			  <input v-if="newTask.briefcase.name === 'custom'" v-model="customBriefcaseName" placeholder="Введите название проекта" />
 			</div>
-			<div class="form-container__item">
-			  <label>Цвет задачи:</label>
-			  <div class="color-picker">
-				<label class="color-option purple">
-				  <input type="radio" v-model="newTask.briefcase.color" value="purple" />
-				  <span></span>
-				</label>
-				<label class="color-option blue">
-				  <input type="radio" v-model="newTask.briefcase.color" value="blue" />
-				  <span></span>
-				</label>
-				<label class="color-option green">
-				  <input type="radio" v-model="newTask.briefcase.color" value="green" />
-				  <span></span>
-				</label>
-				<label class="color-option orange">
-				  <input type="radio" v-model="newTask.briefcase.color" value="orange" />
-				  <span></span>
-				</label>
-			  </div>
-			</div>
+			
 			<button type="submit">Добавить задачу</button>
 		  </form>
 		</div>
@@ -90,7 +70,6 @@
 	dueDate: '',
 	briefcase: {
 	  name: '',
-	  color: 'purple',
 	},
   });
   
@@ -134,7 +113,6 @@
 	  dueDate: '',
 	  briefcase: {
 		name: '',
-		color: 'purple',
 	  },
 	};
 	customBriefcaseName.value = '';
@@ -142,26 +120,38 @@
   };
   </script>
   
-  <style scoped>
+  <style lang="scss" scoped>
+  
   button {
+    position:relative;
 	padding: 0.5rem 1rem;
-	background-color: #007bff;
-	color: #fff;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
+    color: #707070;
+    border-radius: 8px;
+    background-color: var(--bg);
+    font-weight: 600;
+    overflow: hidden;
+    border: 2px solid #c9c9c9;
+    -webkit-transition: background-color 0.2s linear, color 0.2s linear,color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
+    transition: background-color 0.2s linear, color 0.2s linear, color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
+	z-index: 100;
   }
-  
-  button:hover {
-	background-color: #0056b3;
-  }
-  
+button:hover{
+	color: rgb(58, 58, 58);
+	background-color: #e4e4e4;
+	border: 2px solid #e4e4e4;
+	transform: scale(1.05);
+}
   input {
 	border-radius: 8px;
 	padding: 5px;
 	width: 70%;
+	border: 2px solid #c9c9c9;
   }
   
+  label {
+	font-weight: 500;
+  }
+
   .overlay {
 	position: fixed;
 	top: 0;
@@ -196,13 +186,17 @@
   }
   
   .close-button {
-	position: absolute;
-	top: 10px;
-	right: 10px;
+	display:flex;
+	position: relative;
+	top: 8px;
+	float: right;
 	background: none;
 	border: none;
 	font-size: 1.5rem;
 	cursor: pointer;
+	color: #c9c9c9;
+	margin-left: 10px;
+	margin-bottom: 10px;
   }
   
   .fade-enter-active,
@@ -258,6 +252,21 @@
   
   .color-option input[type="radio"]:checked + span {
 	border: 2px solid #000;
+  }
+
+  @media only screen and (max-width: 800px) {
+	.form-container__item {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	margin: 5px;
+  }
+  
+  label {
+	margin: 15px;
+  }
   }
   </style>
   
