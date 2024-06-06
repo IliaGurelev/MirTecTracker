@@ -18,8 +18,12 @@
 			class="briefcase__sidebar"
 			v-click-outside="() => switchShowSideBar(false)"
 		>
-			<div @click="switchShowSideBar(false)" class="briefcase__close">
-				<i class="fa-solid fa-xmark"></i>
+			<div class="briefcase__properity">
+				<i class="fa-solid fa-trash-can"></i>
+				<div class="briefcase__properity-wrapper">
+					<i class="fa-solid fa-pencil"></i>
+					<i @click="switchShowSideBar(false)" class="fa-solid fa-xmark"></i>
+				</div>
 			</div>
 			<section class="briefcase__task">
 				<div class="briefcase__wrapper">
@@ -104,12 +108,26 @@
 			cursor: default;
 		}
 
-		&__close {
+		&__properity {
+			display: flex;
 			align-items: center;
+			justify-content: space-between;
 			padding: 5px;
 			font-size: 25px;
 			text-align: right;
-			cursor: pointer;
+			background-color: #ffffff;
+			box-shadow: 0px 0px 10px 5px rgba(43, 43, 43, 0.082);
+			border-radius: 11px;
+			padding: 20px;
+
+			i {
+				cursor: pointer;
+			}
+
+			&-wrapper {
+				display: flex;
+				column-gap: 15px;
+			}
 		}
 
 		&__list {
@@ -131,6 +149,9 @@
 		}
 
 		&__sidebar {
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
 			overflow-y: auto;
 			padding: 80px 10px 10px 10px;
 			box-shadow: 0px 0px 8px 5px rgba(43, 43, 43, 0.034);
