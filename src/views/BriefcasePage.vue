@@ -11,7 +11,7 @@
 					@submitForm="addBriefcase"
 				/>
 				<SearchBriefcase 
-					:briefcases="briefcases"
+					
 				/>
 			</BriefcaseCardList>
 		</section>
