@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import removeById from '@/utils/remove-element.js';
+import replaceItemById from '@/utils/replace-element';
 
 // Моковые данные
 import usersData from '@/mock/users-data.js';
@@ -32,11 +34,17 @@ export const useMainStore = defineStore('main', {
       this.diary.push(task);
     },
     removeDiaryTaskById(id) {
-      this.diary = this.diary.filter((task) => task.id !== id)
+      removeById(this.diary, id);
     },
 
     addBriefcase(briefcase) {
       this.briefcases.push(briefcase);
+    },
+    editBriefcase(briefcase) {
+      replaceItemById(this.briefcases, briefcase)
+    },
+    removeBriefcase(id) {
+      removeById(this.briefcases, id);
     }
   },
 });
