@@ -22,17 +22,12 @@
 			  <input id="dueDate" type="date" v-model="newTask.dueDate" required />
 			</div>
 			<div class="form-container__item">
-			  <label for="briefcaseName">Название задачи:</label>
-			  <select v-model="newTask.briefcase.name">
-				<option disabled value="">Выберите проект</option>
-				<option v-for="briefcases in briefcases" :key="briefcases.id" :value="briefcases.name">
-				  {{ briefcases.name }}
-				</option>
-				<option value="custom">Другое...</option>
-			  </select>
-			  <input v-if="newTask.briefcase.name === 'custom'" v-model="customBriefcaseName" placeholder="Введите название проекта" />
+			  <label for="briefcaseName">Портфель:</label>
+			  <SearchBriefcase :briefcases="briefcases" v-model:query="newTask.briefcase.name" />
 			</div>
-			
+			<div class="form-container__item" v-if="newTask.briefcase.name === 'custom'">
+			  <input v-model="customBriefcaseName" placeholder="Введите название проекта" />
+			</div>
 			<button type="submit">Добавить задачу</button>
 		  </form>
 		</div>
@@ -44,6 +39,7 @@
   import { ref, watch, onMounted, onUnmounted } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
+  import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue';
   
   const store = useMainStore();
   const { briefcases } = storeToRefs(store);
@@ -121,26 +117,25 @@
   </script>
   
   <style lang="scss" scoped>
-  
   button {
-    position:relative;
+	position: relative;
 	padding: 0.5rem 1rem;
-    color: #707070;
-    border-radius: 8px;
-    background-color: var(--bg);
-    font-weight: 600;
-    overflow: hidden;
-    border: 2px solid #c9c9c9;
-    -webkit-transition: background-color 0.2s linear, color 0.2s linear,color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
-    transition: background-color 0.2s linear, color 0.2s linear, color 0.2s linear, color 0.2s linear , border 0.2s linear, color 0.2s linear,transform 0.5s;
-	z-index: 100;
+	color: #707070;
+	border-radius: 8px;
+	background-color: var(--bg);
+	font-weight: 600;
+	overflow: hidden;
+	border: 2px solid #c9c9c9;
+	transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
   }
-button:hover{
+  
+  button:hover {
 	color: rgb(58, 58, 58);
 	background-color: #e4e4e4;
 	border: 2px solid #e4e4e4;
 	transform: scale(1.05);
-}
+  }
+  
   input {
 	border-radius: 8px;
 	padding: 5px;
@@ -151,7 +146,7 @@ button:hover{
   label {
 	font-weight: 500;
   }
-
+  
   .overlay {
 	position: fixed;
 	top: 0;
@@ -186,17 +181,19 @@ button:hover{
   }
   
   .close-button {
-	display:flex;
-	position: relative;
+	padding: 0;
 	top: 8px;
 	float: right;
-	background: none;
-	border: none;
 	font-size: 1.5rem;
 	cursor: pointer;
 	color: #c9c9c9;
 	margin-left: 10px;
 	margin-bottom: 10px;
+	transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
+  }
+
+  .close-button:hover {
+	color: #a3a3a3;
   }
   
   .fade-enter-active,
@@ -253,20 +250,20 @@ button:hover{
   .color-option input[type="radio"]:checked + span {
 	border: 2px solid #000;
   }
-
+  
   @media only screen and (max-width: 800px) {
 	.form-container__item {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	margin: 5px;
-  }
+	  position: relative;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  align-items: center;
+	  margin: 5px;
+	}
   
-  label {
-	margin: 15px;
-  }
+	label {
+	  margin: 15px;
+	}
   }
   </style>
   
