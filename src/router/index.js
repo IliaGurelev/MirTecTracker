@@ -3,6 +3,7 @@ import Dashboard from '@/views/FullDashboard.vue';
 import PersonalPage from '@/views/PersonalPage.vue';
 import HelloPage from '@/views/HelloPage.vue';
 import BriefcasePage from '@/views/BriefcasePage.vue';
+import LoginPage from '@/views/LoginPage.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/briefcase',
     name: 'Briefcase',
     component: BriefcasePage
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage
   },
 ];
 

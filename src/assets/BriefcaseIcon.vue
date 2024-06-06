@@ -19,5 +19,21 @@
 </script>
 
 <style lang="scss" scoped>
+  .portfolio-card__icon {
+    &--blue {
+      fill: var(--tag-1-text);
+    }
 
+    &--green {
+      fill: var(--tag-2-text);
+    }
+    
+    &--purple {
+      fill: var(--tag-4-text);
+    }
+    
+    &--orange {
+      fill: var(--tag-5-text);
+    }
+  }
 </style>

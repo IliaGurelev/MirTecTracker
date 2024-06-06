@@ -6,7 +6,7 @@
   >
     <i class="add-card__icon fa-solid fa-plus"></i>
   </div>
-  <form v-else-if="isAcive" action="" @submit.prevent="switchIsActive(), $emit('submitForm', briefcaseData)">
+  <form v-else-if="isAcive" action="" @submit.prevent="$emit('submitForm', briefcaseData), switchIsActive()">
     <section
       class="briefcase"
       :class="'briefcase--' + currentColor"
@@ -47,6 +47,8 @@
 
   const switchIsActive = () => {
     isAcive.value = !isAcive.value;
+    nameBriefcase.value = '';
+    currentColor.value = 'blue';
   }
 
   const switchColor = (color) => {
