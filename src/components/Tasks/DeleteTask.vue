@@ -26,10 +26,11 @@
 	font-size: 17px;
 	cursor: pointer;
 	float: right;
+	transition: color 0.2s linear;
   }
   
   .delete-button:hover {
-	color: var(--color-text-important);
+	color: var( --text);
   }
   </style>
   

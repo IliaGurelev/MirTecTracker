@@ -241,6 +241,11 @@ const isSidebarOpen = ref(false);
 	width: 91%;
   }
   @media only screen and (max-width: 800px) {
+	.form-container{
+		display: flex;
+	flex-direction: column;
+	align-items: center;
+	}
 	.project-info{
 		text-align: center;
 		grid-template-columns: 100% ;

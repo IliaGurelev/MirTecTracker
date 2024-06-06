@@ -11,7 +11,6 @@
 	</div>
   </aside>
 </template>
-
 <script setup>
 import { defineProps, computed } from 'vue';
 
