@@ -157,10 +157,7 @@
 			box-shadow: 0px 0px 8px 5px rgba(43, 43, 43, 0.034);
 			width: 100%;
 			max-width: 500px;
-<<<<<<< HEAD
 			z-index: 3;
-=======
->>>>>>> parent of 6e60808 (лимит символов)
 		}
 
 		&__wrapper {
