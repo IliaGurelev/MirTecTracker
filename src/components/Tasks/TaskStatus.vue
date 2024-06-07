@@ -6,7 +6,7 @@
     >
       <i 
         :class="statusInfo.iconStatus"
-        class="status__icon fa-solid" 
+        class="status__icon fa-regular" 
       >
       </i> {{ nameStatus }}
     </span>
@@ -31,7 +31,7 @@
     let classStatus = 'status__icon';
     switch (props.taskStatus) {
     case 'open':
-      iconStatus = 'fa-circle-notch';
+      iconStatus = 'fa-circle-question';
       classStatus += '--open';
       break;
     case 'work':
