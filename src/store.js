@@ -49,7 +49,12 @@ export const useMainStore = defineStore('main', {
   
     addBriefcase(briefcase) {
       this.briefcases.push(briefcase);
+    },
+    editBriefcase(briefcase) {
+      replaceItemById(this.briefcases, briefcase)
+    },
+    removeBriefcase(id) {
+      removeById(this.briefcases, id);
     }
-
   },
 });
