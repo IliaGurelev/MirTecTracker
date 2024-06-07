@@ -39,7 +39,7 @@
 	<Footer></Footer>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 * {
   margin: 0;
   padding: 0;

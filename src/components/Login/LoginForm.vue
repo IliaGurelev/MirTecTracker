@@ -3,11 +3,14 @@
     <h2 class="login-form__title">Войдите в ваш аккаунт</h2>
     <p class="login-form__subtitle login-form__subtitle--muted">Войдите в свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
     <form class="login-form__form" action="">
-      <label class="login-form__label" for="email">Email</label>
-      <input class="login-form__input" type="email" id="email" placeholder="Введите вашу почту">
-
-      <label class="login-form__label" for="password">Пароль</label>
-      <input class="login-form__input" type="password" id="password" placeholder="Введите ваш пароль">
+      <div class="login-form__wrap login-form__wrap--column">
+        <label class="login-form__label" for="email">Email</label>
+        <input class="login-form__input" type="email" id="email" placeholder="Введите вашу почту" required>  
+      </div>
+      <div class="login-form__wrap login-form__wrap--column">
+        <label class="login-form__label" for="password">Пароль</label>
+        <input class="login-form__input" type="password" id="password" placeholder="Введите ваш пароль" required>
+      </div>
       
       <div class="login-form__wrap">
         <input class="login-form__input-row" type="checkbox" name="" id="remember-me">
@@ -48,6 +51,7 @@
       flex-direction: column;
       max-width: 400px;
       width: 100%;
+      row-gap: 10px;
     }
 
     &__label {
@@ -72,24 +76,11 @@
         border: var(--color-light-dark) 2px solid;
       }
 
-      &:first-child {
-        border-radius: 0;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-      }
-
-      &:last-child {
-        border-radius: 0;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-      }
-
       &-row {
         font-size: 16px;
-        margin-bottom: 20px;
-        padding: 10px;
         border: var(--color-light-gray) 2px solid;
         border-radius: 5px;
+        padding: 10px;
         margin-bottom: 0;
         margin-right: 10px;
       }
@@ -111,11 +102,9 @@
 
     &__wrap {
       display: flex;
-      align-items: center;
 
       &--column {
-        align-items: flex-start;
-        margin-bottom: 0;
+        flex-direction: column;
       }
     }
 
@@ -124,17 +113,4 @@
       list-style: none;
     }
   }
-
-  // .login-form__item:last-child .login-form__input {
-  //   border-top-right-radius: 5px;
-  //   border-bottom-right-radius: 5px;
-  // }
-
-  // .login-form__item:last-child .login-form__input {
-  //   border-left: none;
-  // }
-
-  // .login-form__item:last-child .login-form__input:focus {
-  //   border-left: 2px solid var(--color-text-muted);
-  // }
 </style>
