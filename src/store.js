@@ -46,7 +46,7 @@ export const useMainStore = defineStore('main', {
 		}
 		console.log(taskId)
 	  },
-   dashboard-component-state
+  
     addBriefcase(briefcase) {
       this.briefcases.push(briefcase);
     }
