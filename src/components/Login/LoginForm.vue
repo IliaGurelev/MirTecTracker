@@ -151,4 +151,8 @@
       list-style: none;
     }
   }
+
+  input[type="checkbox" i] {
+    width: 15px;
+  }
 </style>

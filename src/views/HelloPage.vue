@@ -39,24 +39,23 @@
 	<Footer></Footer>
 </template>
 
-<style lang="scss" scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Raleway", sans-serif;
-}
+<style lang="scss" scoped> 
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: "Raleway", sans-serif;
+	}
 
-a{
-    text-decoration: none;
-    color: #000;
-}
+	a{
+		text-decoration: none;
+		color: #000;
+	}
 
 
-body{
+	body{
     background-color: var(--bg);
-
-}
+	}
 
   li { list-style: none; }
 
@@ -73,9 +72,9 @@ body{
   }
   
   input {
-	font: inherit;
-	width: 100%;
-	border: none;
+		font: inherit;
+		width: 100%;
+		border: none;
   }
   
   select,
@@ -561,7 +560,7 @@ body{
 		  display: flex;
 		  width: inherit;
 	  }
-	  .auth-buttons{
+	  :deep(.auth-buttons) {
 		  display: none;
 	  }
 	  
