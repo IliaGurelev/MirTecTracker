@@ -13,16 +13,32 @@
 			</BriefcaseCardList>
 		</section>
 	</main>
-		<BriefcaseSideBar
+		<SidebarForContent
 			v-if="isActiveSideBar"
-			v-click-outside="() => switchShowSideBar(false)"
-			:briefcase="currentBriefcase"
-			:taskByBriefcase="taskByBriefcase"
-			@closeClick="switchShowSideBar(false)"
-			@removeClick="removeBriefcase(currentBriefcase.id), switchShowSideBar(false)"
-			@editBriefcase="editBriefcase"
 			class="briefcase__sidebar"
-		/>
+			v-click-outside="() => switchShowSideBar(false)"
+		>
+			<div class="briefcase__properity">
+				<i class="fa-solid fa-trash-can"></i>
+				<div class="briefcase__properity-wrapper">
+					<i class="fa-solid fa-pencil"></i>
+					<i @click="switchShowSideBar(false)" class="fa-solid fa-xmark"></i>
+				</div>
+			</div>
+			<section class="briefcase__task">
+				<div class="briefcase__wrapper">
+					<TaskBriefcase 
+						class="briefcase__tag-briefcase" 
+						:briefcase="currentBriefcase" 
+					/>
+					<ProgressBar class="briefcase__progress" />
+				</div>
+				<DetailTaskList
+					class="briefcase__task-list"
+					:tasksList="taskByBriefcase"
+				/>
+			</section>
+		</SidebarForContent>
 </template>
 
 <script setup>
@@ -33,8 +49,11 @@
 
 	import BriefcaseCardList from '@/components/Briefcase/BriefcaseCardList.vue';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
+	import SidebarForContent from '@/components/Sidebar/SidebarForContent.vue';
+	import ProgressBar from '@/components/UI/ProgressBar.vue';
+	import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+	import DetailTaskList from '@/components/Tasks/DetailTaskList.vue';
 	import BriefcaseAddCard from '@/components/Briefcase/BriefcaseAddCard.vue';
-	import BriefcaseSideBar from '@/components/Briefcase/BriefcaseSideBar.vue';
 
 	const store = useMainStore();
 
@@ -69,14 +88,6 @@
 		store.addBriefcase(briefcase);
 	}
 
-	const editBriefcase = (briefcase) => {
-		store.editBriefcase(briefcase);
-	}
-
-	const removeBriefcase = (id) => {
-		store.removeBriefcase(id);
-	}
-
 	onMounted(() => {
 		store.fetchBriefcase();
 		store.fetchTasks();
@@ -95,6 +106,28 @@
 			font-size: 30px;
 			color: #2e2e2f;
 			cursor: default;
+		}
+
+		&__properity {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 5px;
+			font-size: 25px;
+			text-align: right;
+			background-color: #ffffff;
+			box-shadow: 0px 0px 10px 5px rgba(43, 43, 43, 0.082);
+			border-radius: 11px;
+			padding: 20px;
+
+			i {
+				cursor: pointer;
+			}
+
+			&-wrapper {
+				display: flex;
+				column-gap: 15px;
+			}
 		}
 
 		&__list {
@@ -124,7 +157,10 @@
 			box-shadow: 0px 0px 8px 5px rgba(43, 43, 43, 0.034);
 			width: 100%;
 			max-width: 500px;
+<<<<<<< HEAD
 			z-index: 3;
+=======
+>>>>>>> parent of 6e60808 (лимит символов)
 		}
 
 		&__wrapper {
