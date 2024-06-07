@@ -15,6 +15,8 @@
               :idInput="'reg-name'"
               :labelInput="'Имя'"
               :placeholderInput="'Ваше имя'"
+              :warningMessage="'Имя должно содержать минимум 2 буквы'"
+              :isValid="validName"
             />
           </li>
           <li class="login-form__item">
@@ -23,6 +25,8 @@
               :idInput="'reg-surname'"
               :labelInput="'Фамилия'"
               :placeholderInput="'Ваша фамилия'"
+              :warningMessage="'Фамилия должна содержать минимум 2 буквы'"
+              :isValid="validSurname"
             />
           </li>
         </ul>
@@ -33,6 +37,8 @@
         :labelInput="'Почта'"
         :placeholderInput="'Ваша почта'"
         :typeInput="'email'"
+        :warningMessage="'Введите валидный email'"
+        :isValid="validEmail"
       />
       <LoginInput 
         v-model="passwordUser"
@@ -40,6 +46,8 @@
         :labelInput="'Пароль'"
         :placeholderInput="'Ваш Пароль'"
         :typeInput="'password'"
+        :warningMessage="'Пароль должен содержать минимум 8 символов'"
+        :isValid="validPassword"
       />
       <LoginInput 
         v-model="repeatedPassword"
@@ -47,6 +55,8 @@
         :labelInput="'Повторите пароль'"
         :placeholderInput="'Повторите ваш пароль'"
         :typeInput="'password'"
+        :warningMessage="'Пароль не совпадает'"
+        :isValid="validRepeatedPassword"
       />
       
       <div class="login-form__wrap">
@@ -89,18 +99,32 @@
       mail: mailUser.value,
       password: passwordUser.value
     }
-  }) 
+  })
+
+  const validName = computed(() => {
+    return checkValidName(nameUser.value);
+  })
+
+  const validSurname = computed(() => {
+    return checkValidName(surnameUser.value);
+  })
+
+  const validEmail = computed(() => {
+    return checkValidMail(mailUser.value);
+  })
+
+  const validPassword = computed(() => {
+    return checkValidPassword(passwordUser.value)
+  })
+
+  const validRepeatedPassword = computed(() => {
+    return checkValidPassword(passwordUser.value, repeatedPassword.value)
+  })
 
   const isCorrect = computed(() => {
-    if(
-      checkValidName(nameUser.value) && checkValidName(surnameUser.value) &&
-      checkValidPassword(passwordUser.value, repeatedPassword.value) &&
-      checkValidMail(mailUser.value)
-    ){
-      return true;
-    }
-    return false;
+    return validName.value && validSurname.value && validEmail.value && validPassword.value && validRepeatedPassword.value
   });
+
 </script>
 
 <style lang="scss" scoped>

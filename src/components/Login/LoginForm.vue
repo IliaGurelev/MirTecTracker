@@ -3,27 +3,60 @@
     <h2 class="login-form__title">Войдите в ваш аккаунт</h2>
     <p class="login-form__subtitle login-form__subtitle--muted">Войдите в свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
     <form class="login-form__form" action="">
-      <div class="login-form__wrap login-form__wrap--column">
-        <label class="login-form__label" for="email">Email</label>
-        <input class="login-form__input" type="email" id="email" placeholder="Введите вашу почту" required>  
-      </div>
-      <div class="login-form__wrap login-form__wrap--column">
-        <label class="login-form__label" for="password">Пароль</label>
-        <input class="login-form__input" type="password" id="password" placeholder="Введите ваш пароль" required>
-      </div>
-      
+      <LoginInput 
+        v-model="mailUser"
+        :idInput="'login-mail'"
+        :labelInput="'Почта'"
+        :placeholderInput="'Ваша почта'"
+        :typeInput="'email'"
+        :warningMessage="'Введите валидный email'"
+        :isValid="validEmail"
+      />
+      <LoginInput 
+        v-model="passwordUser"
+        :idInput="'login-password'"
+        :labelInput="'Пароль'"
+        :placeholderInput="'Ваш Пароль'"
+        :typeInput="'password'"
+        :warningMessage="'Пароль должен содержать минимум 8 символов'"
+        :isValid="validPassword"
+      />
       <div class="login-form__wrap">
         <input class="login-form__input-row" type="checkbox" name="" id="remember-me">
         <label class="login-form__label-row login-form__label-row--muted" for="remember-me">Запомнить меня</label>
       </div>
 
-      <button class="login-form__btn" type="submit" id="login-btn">Войти</button>
+      <button
+        :disabled="!isCorrect"
+        class="login-form__btn" 
+        type="submit" 
+        id="login-btn"
+      >
+        Войти
+      </button>
     </form>
   </section>
 </template>
 
 <script setup>
+  import { ref, computed } from 'vue';
+  import { checkValidMail, checkValidPassword } from '@/utils/check-valid';
+  import LoginInput from '@/components/Login/LoginInput.vue';
 
+  const mailUser = ref('');
+  const passwordUser = ref('');
+
+  const validEmail = computed(() => {
+    return checkValidMail(mailUser.value);
+  })
+
+  const validPassword = computed(() => {
+    return checkValidPassword(passwordUser.value)
+  })
+
+  const isCorrect = computed(() => {
+    return validEmail.value && validPassword.value 
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -97,6 +130,11 @@
 
       &:hover {
         background-color: #4eabf1;
+      }
+
+      &:disabled {
+        background-color: #b6b6b6;
+        cursor: not-allowed;
       }
     }
 
