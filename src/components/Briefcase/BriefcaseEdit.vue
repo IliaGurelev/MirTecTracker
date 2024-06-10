@@ -90,6 +90,10 @@
 		}
 
     &__color-picker {
+      :deep(.selector__options) {
+        right: 0;
+      }
+
 			@media (max-width: 415px) {
 				:deep(.selector__options) {
 					width: auto;

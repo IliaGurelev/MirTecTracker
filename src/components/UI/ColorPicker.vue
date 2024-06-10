@@ -64,7 +64,6 @@
       flex-wrap: wrap;
       gap: 5px;
       top: 0;
-      left: 0;
       width: 550%;
       border-top: none;
       background: rgba(255, 255, 255, 0.1);
@@ -80,7 +79,7 @@
       }
 
       li:hover {
-        background-color: #f0f0f0;
+        filter: brightness(80%);
       }
     }
 
