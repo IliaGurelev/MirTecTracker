@@ -1,109 +1,218 @@
 <template>
-  <div class="search">
-    <input 
-      type="text" 
-      v-model="query" 
-      placeholder="Найти..." 
-      class="search__input"
-      :class="{'--smouth-bottom': query.length === 0}"
-      @focus="switchFocus(true)"
-      @blur="switchFocus(false)"
-    >
-    <ul v-if="isFocus" class="search__list --smouth-bottom">
-        <li v-if="availableBriefcase">
-          <p class="search__text">У вас нет порфелей добавте их <RouterLink :to="{name: 'Briefcase'}" class="search__link">здесь</RouterLink></p> 
-        </li>
-        <li v-for="item in filteredItems" :key="item.id" class="search__item">
-          <BriefcaseIcon 
-          class="search__briefcase-icon" 
-          :class="`portfolio-card__icon--${item.color}`"
-          />
-          {{ item.name }}
-        </li>
-    </ul>
-  </div>
-</template>
-
-<script setup>
-  import {ref, computed} from 'vue';
+	<div class="search">
+	  <div class="search__input-container" @click="toggleFocus">
+		<transition name="slide-icon">
+		  <div 
+			v-if="selectedBriefcase && query.length > 0" 
+			class="search__icon-wrapper"
+			:class="{ 'search__icon-wrapper--active': isFocus || selectedBriefcase }"
+		  >
+			<BriefcaseIcon
+			  class="search__briefcase-icon"
+			  :class="`portfolio-card__icon--${selectedBriefcase.color}`"
+			/>
+		  </div>
+		  <div 
+			v-else-if="!filteredItems.length && query.length > 0"
+			class="search__icon-wrapper"
+			:class="{ 'search__icon-wrapper--active': isFocus }"
+		  >
+			😓
+		  </div>
+		  <div
+			v-else
+			class="search__icon-wrapper"
+			:class="{ 'search__icon-wrapper--active': isFocus }"
+		  >
+			<i class="fa-solid fa-magnifying-glass"></i> 
+		  </div>
+		</transition>
+		<input
+		  type="text"
+		  v-model="query"
+		  placeholder="Поиск..."
+		  class="search__input"
+		  :class="{'--smouth-bottom': query.length === 0}"
+		  @input="handleInput"
+		/>
+	  </div>
+	  <transition name="slide">
+		<ul v-show="isFocus" class="search__list --smouth-bottom" @click.stop>
+		  <li v-if="!filteredItems.length">
+			<p class="search__text">
+			  Портфели не найдены
+			</p>
+		  </li>
+		  <li v-if="availableBriefcase && filteredItems.length === 0">
+			<p class="search__text">
+			  У вас нет портфелей, добавьте их
+			  <RouterLink :to="{name: 'Briefcase'}" class="search__link">здесь</RouterLink>
+			</p>
+		  </li>
+		  <li
+			v-for="item in filteredItems"
+			:key="item.id"
+			class="search__item"
+			@mousedown.prevent="selectBriefcase(item)"
+		  >
+			<BriefcaseIcon
+			  class="search__briefcase-icon"
+			  :class="`portfolio-card__icon--${item.color}`"
+			/>
+			{{ item.name }}
+		  </li>
+		</ul>
+	  </transition>
+	</div>
+  </template>
+  
+  <script setup>
+  import { ref, computed, defineEmits, defineExpose, watchEffect } from 'vue';
   import BriefcaseIcon from '@/assets/BriefcaseIcon.vue';
-
+  
   const props = defineProps({
-    briefcases: {
-      type: Array,
-      required: false,
-      default: [],
-    }
-  })
-
+	briefcases: {
+	  type: Array,
+	  required: false,
+	  default: () => [],
+	},
+  });
+  
+  const emit = defineEmits(['update:query', 'select']);
+  
   const query = ref('');
+  const selectedBriefcase = ref(null);
   const isFocus = ref(false);
   const availableBriefcase = computed(() => props.briefcases.length === 0);
-
+  
   const filteredItems = computed(() => {
-    if (!isFocus.value && !query.value) {
-      return [];
-    }
-    return props.briefcases.filter(briefcase => briefcase.name.toLowerCase().includes(query.value.toLowerCase()));
+	if (!isFocus.value) {
+	  return props.briefcases;
+	}
+	return props.briefcases.filter((briefcase) =>
+	  briefcase.name.toLowerCase().includes(query.value.toLowerCase())
+	);
   });
-
-  const switchFocus = (state) => {
-    isFocus.value = state
-  }
-</script>
-
-<style lang="scss" scoped>
+  
+  const toggleFocus = () => {
+	isFocus.value = !isFocus.value;
+  };
+  
+  const handleInput = () => {
+	emit('update:query', query.value);
+	if (!query.value) {
+	  isFocus.value = true;
+	}
+  };
+  
+  const selectBriefcase = (item) => {
+	query.value = item.name;
+	selectedBriefcase.value = item;
+	emit('update:query', query.value);
+	emit('select', item);
+	isFocus.value = false;
+  };
+  
+  watchEffect(() => {
+	const closeOnClickOutside = (event) => {
+	  if (!event.target.closest('.search__input-container')) {
+		isFocus.value = false;
+	  }
+	};
+	document.addEventListener('click', closeOnClickOutside);
+	return () => document.removeEventListener('click', closeOnClickOutside);
+  });
+  
+  defineExpose({ selectedBriefcase });
+  </script>
+  
+  <style lang="scss" scoped>
   .search {
-    position: relative;
-    z-index: 2;
-
-    &__input {
-      padding: 5px;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    &__list {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      max-height: 90px;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      row-gap: 5px;
-      padding: 10px;
-      background-color: #ffffff;
-    }
-
-    &__item {
-      display: flex;
-      align-items: center;
-      column-gap: 10px;
-      cursor: pointer;
-    }
-
-    &__text {
-      font-size: 14px;
-    }
-
-    &__link {
-      color: var(--color-text-important)
-    }
-
-    &__briefcase-icon {
-      width: 20px;
-    }
-
+	border-radius: 8px;
+	padding: 0 5px;
+	border: 2px solid #c9c9c9;
+	position: relative;
+	z-index: 2;
   }
-
+  
+  .search__input {
+	padding: 5px 5px 5px 40px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	&:focus {
+	  outline: none;
+	}
+  }
+  
+  .search__list {
+	position: absolute;
+	top: calc(100% + 5px);
+	left: 0;
+	width: 100%;
+	max-height: 90px;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	row-gap: 5px;
+	padding: 10px;
+	background-color: #ffffff;
+  }
+  
+  .search__item {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+	cursor: pointer;
+  }
+  
+  .search__text {
+	font-size: 14px;
+  }
+  
+  .search__link {
+	color: var(--color-text-important);
+  }
+  
+  .search__briefcase-icon {
+	width: 25px;
+	padding: 3px;
+  }
+  
+  .search__input-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+  }
+  
+  .search__icon-wrapper {
+	position: absolute;
+	left: 10px;
+	display: flex;
+	align-items: center;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+	opacity: 0;
+	transform: translateX(-20px);
+  }
+  
+  .search__icon-wrapper--active {
+	color: #c9c9c9;
+	opacity: 1;
+	transform: translateX(0);
+  }
+  
   .--smouth-bottom {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
   }
+  
+  .slide-icon-enter-active,
+  .slide-icon-leave-active {
+	transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .slide-icon-enter-from,
+.slide-icon-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}
 </style>

@@ -13,7 +13,7 @@
 		</div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container_slogan{
 	width: 100%;
 	padding: 100px 50px;

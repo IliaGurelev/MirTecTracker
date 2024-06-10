@@ -3,7 +3,7 @@
 
 <template>
 <div class="home-page">
-    <div class="container">
+    <div class="home-page__container">
         <div class="animation">
         <div class="title__content-home-page">
             <h1><span>Организуйте</span> работу и жизнь.</h1>
@@ -21,7 +21,7 @@
 	</div>
 </template>
 
-<style lang="scss">
+<style lang="scss" >
 .home-page{
 	margin-top: 7rem;
     display: flex;
@@ -30,7 +30,7 @@
 	text-align: center;
 	height: auto;
 }
-   .container{
+   .home-page__container{
     width: 100%;
 }
 
@@ -103,4 +103,5 @@
 	border: 2px solid var(--color-text-important);
 	transform: scale(1.05);
 }
+
 </style>

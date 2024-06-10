@@ -13,7 +13,7 @@
 		</div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container__about{
 	width: 50%;
 	margin: 200px auto;
@@ -44,6 +44,4 @@
 	font-weight: 500;
 	color: #666666;
 }
-
-
 </style>

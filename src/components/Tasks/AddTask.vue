@@ -6,7 +6,7 @@
 		  <form class="form-container" @submit.prevent="addTask">
 			<div class="close-button" @click="closeForm">✖</div>
 			<div class="form-container__item">
-			  <label for="name">Имя задачи:</label>
+			  <label for="name">Название задачи:</label>
 			  <input id="name" v-model="newTask.name" required />
 			</div>
 			<div class="form-container__item">
@@ -23,7 +23,10 @@
 			</div>
 			<div class="form-container__item">
 			  <label for="briefcaseName">Портфель:</label>
-			  <SearchBriefcase :briefcases="briefcases" v-model:query="newTask.briefcase.name" />
+			  <div class="briefcase-selector">
+				<SearchBriefcase :briefcases="briefcases" v-model:query="newTask.briefcase.name" @select="handleBriefcaseSelect" ref="searchBriefcase" />
+				<span v-if="selectedBriefcaseIcon" :class="`briefcase-icon portfolio-card__icon--${selectedBriefcaseIcon.color}`"></span>
+			  </div>
 			</div>
 			<div class="form-container__item" v-if="newTask.briefcase.name === 'custom'">
 			  <input v-model="customBriefcaseName" placeholder="Введите название проекта" />
@@ -71,6 +74,7 @@
   
   const isFormOpen = ref(false);
   const customBriefcaseName = ref('');
+  const selectedBriefcaseIcon = ref(null);
   
   const openForm = () => {
 	isFormOpen.value = true;
@@ -92,6 +96,10 @@
 	}
   });
   
+  const handleBriefcaseSelect = (briefcase) => {
+	selectedBriefcaseIcon.value = briefcase;
+  };
+  
   const addTask = () => {
 	if (newTask.value.briefcase.name === 'custom') {
 	  newTask.value.briefcase.name = customBriefcaseName.value;
@@ -112,10 +120,14 @@
 	  },
 	};
 	customBriefcaseName.value = '';
+	selectedBriefcaseIcon.value = null;
 	closeForm();
   };
-  </script>
   
+  const searchBriefcaseRef = ref(null);
+  </script>
+
+
   <style lang="scss" scoped>
   button {
 	position: relative;
@@ -146,7 +158,7 @@
   label {
 	font-weight: 500;
   }
-  
+
   .overlay {
 	position: fixed;
 	top: 0;
@@ -169,6 +181,8 @@
 	transition: all 0.3s ease-in-out;
 	transform: translateY(0);
 	opacity: 1;
+	height: 100%;
+	max-height: 350px;
   }
   
   .form-container__item {
@@ -250,6 +264,12 @@
   .color-option input[type="radio"]:checked + span {
 	border: 2px solid #000;
   }
+
+  .briefcase-icon {
+	width: 20px;
+	height: 20px;
+	margin-left: 8px;
+  }
   
   @media only screen and (max-width: 800px) {
 	.form-container__item {
@@ -260,10 +280,12 @@
 	  align-items: center;
 	  margin: 5px;
 	}
+	.form-container {
+	max-height: 570px;
+  }
   
 	label {
 	  margin: 15px;
 	}
   }
   </style>
-  
