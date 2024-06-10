@@ -3,15 +3,7 @@
     <div class="selector__option">
       <div  v-if="!dropdownVisible" class="selector__circle" :class="'selector__circle--' + selectedColor"></div>
     </div>
-    <ul 
-      v-if="dropdownVisible" 
-      :class="
-      {'selector__options--to-bottom': props.isVertical,
-        'selector__options--to-right': props.isRight,
-        'selector__options--to-left': props.isLeft,
-      }"
-      class="selector__options"
-    >
+    <ul v-if="dropdownVisible" class="selector__options">
       <li 
         v-for="color in colors" 
         :key="color" 
@@ -24,40 +16,13 @@
 </template>
 
 <script setup>
-  import { ref, watchEffect } from 'vue'
+  import { ref } from 'vue'
   import colorConst from '@/constants/color';
-
-  const props = defineProps({
-    defaultColor: {
-      type: String,
-      required: false,
-      default: 'blue',
-    },
-    isVertical: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    isRight: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    isLeft: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-  })
 
   const colors = colorConst
 
-  const selectedColor = ref(props.defaultColor)
+  const selectedColor = ref('blue')
   const dropdownVisible = ref(false)
-
-  watchEffect(() => {
-    selectedColor.value = props.defaultColor;
-  })
 
   const toggleDropdown = () => {
     dropdownVisible.value = !dropdownVisible.value
@@ -99,6 +64,7 @@
       flex-wrap: wrap;
       gap: 5px;
       top: 0;
+      left: 0;
       width: 550%;
       border-top: none;
       background: rgba(255, 255, 255, 0.1);
@@ -109,20 +75,12 @@
       list-style: none;
       margin: 0;
 
-      &--to-bottom {
-        width: auto;
-      }
-
-      &--to-left {
-        left: 0;
-      }
-
-      &--to-right {
-        right: 0;
-      }
-
       li {
         cursor: pointer;
+      }
+
+      li:hover {
+        background-color: #f0f0f0;
       }
     }
 
@@ -131,10 +89,6 @@
       height: 25px;
       border-radius: 50%;
       box-shadow: 0px 0px 5px #9c9c9c;
-
-      &:hover {
-        filter: brightness(80%);
-      }
 
       &--purple {
         background-color: var(--tag-4-text);

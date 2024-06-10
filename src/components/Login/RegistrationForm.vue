@@ -62,7 +62,7 @@
       <div class="login-form__wrap">
         <input class="login-form__input-row" type="checkbox" name="" id="accept-license" required>
         <label class="login-form__label-row login-form__label-row--muted" for="accept-license">
-          Я принимаю <a href="">правила и условия Миртек Трекер</a></label>
+          Я принимаю <RouterLink to="/" class="login-form__link">правила и условия Миртек Трекер</RouterLink></label>
       </div>
 
       <div class="login-form__wrap login-form__wrap--column">
@@ -153,6 +153,10 @@
       row-gap: 10px;
       max-width: 400px;
       width: 100%;
+    }
+
+    &__link {
+      color: var(--color-text-important);
     }
 
     &__label {
