@@ -60,7 +60,7 @@
       />
       
       <div class="login-form__wrap">
-        <input class="login-form__input-row" type="checkbox" name="" id="accept-license">
+        <input class="login-form__input-row" type="checkbox" name="" id="accept-license" required>
         <label class="login-form__label-row login-form__label-row--muted" for="accept-license">
           Я принимаю <a href="">правила и условия Миртек Трекер</a></label>
       </div>
