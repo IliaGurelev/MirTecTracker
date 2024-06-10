@@ -15,7 +15,7 @@
       <button 
         class="switcher__btn" 
         id="switch-btn"
-        @click="switchMode"
+        @click="$emit('clickSwitch')"
       >
         <p v-if="!isRegistration">Зарегистрироваться</p>
         <p v-else-if="isRegistration">Войти</p>
@@ -25,13 +25,20 @@
 </template>
 
 <script setup>
-  import {ref} from 'vue';
+  import {ref, watchEffect} from 'vue';
 
-  const isRegistration = ref(false)
+  const props = defineProps({
+    isRegistration: {
+      type: Boolean,
+      required: true,
+    }
+  })
 
-  const switchMode = () => {
-    isRegistration.value = !isRegistration.value;
-  }
+  const isRegistration = ref(props.isRegistration)
+
+  watchEffect(() => {
+    isRegistration.value = props.isRegistration;
+  })
 </script>
 
 <style lang="scss" scoped>
