@@ -41,8 +41,10 @@
 			<div class="line"></div>
 		  </div>
 		  <div class='auth-buttons'>
-			<RouterLink :to="{name: 'Login'}" class='button__login'>Войти</RouterLink>
-			<RouterLink :to="{name: 'Login'}" class='button_registration'>
+			<RouterLink :to="{name: 'Login'}" class='button__login'>
+				Войти
+			</RouterLink>
+			<RouterLink :to="{name: 'Registration'}" class='button_registration'>
 					Регистрация
 				</RouterLink>
 		  </div>
@@ -50,17 +52,17 @@
 </template>
 
 <script setup>
- import { ref, onMounted } from 'vue';
-    const isNavActive = ref(false);
-    const elements = ref([]);
+ 	import { ref, onMounted } from 'vue';
+	const isNavActive = ref(false);
+	const elements = ref([]);
 
-    const toggleNav = () => {
-      isNavActive.value = !isNavActive.value;
-    };
+	const toggleNav = () => {
+		isNavActive.value = !isNavActive.value;
+	};
 
-    const closeNav = () => {
-      isNavActive.value = false;
-    };
+	const closeNav = () => {
+		isNavActive.value = false;
+	};
 
 	onMounted(() => {
       const observer = new IntersectionObserver((entries) => {

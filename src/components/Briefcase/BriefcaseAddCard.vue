@@ -11,24 +11,39 @@
       class="briefcase"
       :class="'briefcase--' + currentColor"
     >
-      <input 
-        type="text" 
-        class="briefcase__name" 
-        placeholder="Название"
-        required
-        v-model="nameBriefcase"
-      />
+      <div class="briefcase__wrap--relative">
+        <input 
+          type="text" 
+          class="briefcase__name" 
+          placeholder="Название"
+          required
+          v-model="nameBriefcase"
+          maxlength="14"
+        />
+        <CharacterLimitWarning 
+          :limit="14"
+          :length="nameBriefcase.length"
+        />
+      </div>
       <div class="briefcase__wrapper">
         <ColorPicker 
           class="briefcase__color" 
           @clickColor="switchColor"
         />
-        <button 
-          type="submit" 
-          class="briefcase__button"
-        >
-          <CompleteIcon class="briefcase__button-icon" />
-        </button>
+        <div class="briefcase__wrapper">
+          <button 
+            @click="switchIsActive" 
+            class="briefcase__button"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button 
+            type="submit" 
+            class="briefcase__button"
+          >
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
       </div>
     </section>
   </form>
@@ -37,7 +52,7 @@
 <script setup>
   import {ref, computed} from 'vue';
   import ColorPicker from '@/components/UI/ColorPicker.vue';
-  import CompleteIcon from '@/assets/CompleteIcon.vue';
+  import CharacterLimitWarning from '@/components/UI/CharacterLimitWarning.vue';
 
   const isAcive = ref(false);
   const currentColor = ref('blue');
@@ -122,14 +137,22 @@
     &__wrapper {
       display: flex;
       justify-content: space-between;
-      align-items: center
+      align-items: center;
+      column-gap: 15px;
+    }
+    
+    &__wrap {
+      &--relative {
+        position: relative
+      }
     }
 
     &__button {
+      width: 30px;
+      height: 30px;
       background-color: #fffcfc8e;
       border: none;
       border-radius: 10px;
-      padding: 5px;
       transition: background-color 0.3s;
       cursor: pointer;
     }
