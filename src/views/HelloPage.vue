@@ -39,13 +39,14 @@
 	<Footer></Footer>
 </template>
 
-<style lang="scss" scoped> 
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-		font-family: "Raleway", sans-serif;
-	}
+
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+}
 
 	a{
 		text-decoration: none;

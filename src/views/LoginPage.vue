@@ -1,15 +1,40 @@
 <template>
   <main class="login-page">
-    <LoginForm />
-    <RegistrationForm />
-    <LoginSwitcher />
+    <LoginHeader 
+      :isRegistration="isRegistration"
+      @clickSwitch="switchMode"
+    />
+    <LoginForm v-if="!isRegistration"/>
+    <RegistrationForm v-else />
+    <LoginSwitcher 
+      :isRegistration="isRegistration"
+      @clickSwitch="switchMode"
+    />
   </main>
 </template>
 
 <script setup>
+  import {ref} from 'vue';
+
   import LoginForm from '@/components/Login/LoginForm.vue'
   import RegistrationForm from '@/components/Login/RegistrationForm.vue'
   import LoginSwitcher from '@/components/Login/LoginSwitcher.vue';
+  import LoginHeader from '@/components/Login/LoginHeader.vue';
+
+  const props = defineProps({
+    isRegistration: {
+      type: Boolean,
+      required: false,
+      default: false,
+    }
+  })
+
+  const isRegistration = ref(props.isRegistration);
+
+  const switchMode = () => {
+    isRegistration.value = !isRegistration.value;
+  }
+
 </script>
 
 <style lang="scss" scoped>
@@ -47,44 +72,6 @@
 
   .--transparent {
     opacity: 0 !important;
-  }
-
-  .main-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-  }
-
-  .main-header__link {
-    z-index: 2;
-  }
-
-  .main-header__logo {
-    width: 50px;
-    height: 50px;
-    padding: 10px;
-  }
-
-  .main-header__logo .s0,
-  .main-header__logo .s1 {
-    fill: var(--color-text-important);
-  }
-
-  .main-header__logo--white .s0,
-  .main-header__logo--white .s1 {
-    fill: #ffffff;
-  }
-
-  .main-header__button {
-    display: none;
-    font-size: 16px;
-    color: #ffffff;
-    margin: 15px 15px 15px 0;
-    padding: 0 15px 0 15px;
-    border-radius: 5px;
-    background-color: var(--color-text-important);
-    border: 2px solid var(--color-text-important);
-    cursor: pointer;
   }
 
   /* Адаптация */
@@ -133,15 +120,6 @@
   }
 
   @media (max-width: 1120px) {
-    .main-header__button {
-      display: inline;
-    }
-
-    .main-header__logo--white .s0,
-    .main-header__logo--white .s1 {
-      fill: var(--color-text-important);
-    }
-    
     .login-page {
       display: flex;
       flex-direction: column;
@@ -190,10 +168,6 @@
     
     .--transparent {
       opacity: 1 !important;
-    }
-
-    #reg-form {
-      display: none;
     }
   }
 </style>

@@ -60,7 +60,7 @@
       />
       
       <div class="login-form__wrap">
-        <input class="login-form__input-row" type="checkbox" name="" id="accept-license">
+        <input class="login-form__input-row" type="checkbox" name="" id="accept-license" required>
         <label class="login-form__label-row login-form__label-row--muted" for="accept-license">
           Я принимаю <RouterLink to="/" class="login-form__link">правила и условия Миртек Трекер</RouterLink></label>
       </div>
