@@ -43,7 +43,7 @@
 		</div>
 		</div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .contact-us{
 	width: 100%;
 	min-height: 50vh;
@@ -194,4 +194,6 @@ textarea::-webkit-scrollbar-thumb{
 	border: 2px solid var(--color-text-important);
 	transform: scale(1.05);
 }
+
+
 </style>

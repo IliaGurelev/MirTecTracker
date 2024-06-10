@@ -1,3 +1,19 @@
+
+<template>
+	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
+	<body>
+		<Header></Header>
+	<StartSection></StartSection>
+	<AboutTheProgram></AboutTheProgram>
+	<Opportunities></Opportunities>
+	<Features></Features>
+	<Advetages></Advetages>
+	<ContactUs></ContactUs>
+	<Slogan></Slogan>
+	<Footer></Footer>
+	</body>
+</template>
+
 <script setup>
   import Header from '@/components/HelloPage/Header.vue';
   import StartSection from '@/components/HelloPage/StartSection.vue';
@@ -25,20 +41,6 @@
     })
 
 </script>
-
-<template>
-	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
-	<Header></Header>
-	<StartSection></StartSection>
-	<AboutTheProgram></AboutTheProgram>
-	<Opportunities></Opportunities>
-	<Features></Features>
-	<Advetages></Advetages>
-	<ContactUs></ContactUs>
-	<Slogan></Slogan>
-	<Footer></Footer>
-</template>
-
 
 <style lang="scss">
 * {
@@ -162,6 +164,9 @@
 	.main-img{
 		display: none;
 	}
+	.home-page__container{
+		max-width: 100%;
+	}
 	.container{
 		max-width: 100%;
 	}
@@ -279,6 +284,9 @@
 	.main-img{
 		display: none;
 	}
+	.home-page__container{
+		max-width: 100%;
+	}
 	.container{
 		max-width: 100%;
 	}
@@ -360,6 +368,9 @@
 	.footer-list a::after{
 		bottom: 2px;
 	}
+	.home-page__container{
+		max-width: 100%;
+	}
 	.container{
 		max-width: 100%;
 	}
@@ -417,6 +428,9 @@
 	.main-img{
 		display: inline;
 	}
+	.home-page__container{
+		max-width: 100%;
+	}
 	.container{
 		max-width: 100%;
 	}
@@ -444,6 +458,9 @@
   @media (min-width: 1200px) {
 	.contact-us {
 		background: url(../../assets/layered-waves-haikei.svg) no-repeat center center/cover;
+	}
+	.home-page__container{
+		max-width: 100%;
 	}
 	.container{
 		max-width: 100%;
@@ -629,7 +646,7 @@
 	  }
 
 		
-		.navigation-menu .button_registrations {
+		.navigation-menu .button__registrations {
 		  cursor: pointer;
 		position: relative;
 		padding: 10px 10px;

@@ -39,7 +39,7 @@
 		  </footer>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .footer__logo {
 	display: flex;
 	align-items: center;

@@ -32,9 +32,8 @@
 </div>
 </template>
 
-<style lang="scss">
-
-.container__advantages{
+<style lang="scss" scoped>
+  .container__advantages{
 	width: 100%;
 	height: auto;
 	padding: 0 8%;
