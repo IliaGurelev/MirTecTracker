@@ -1,5 +1,12 @@
 <template>
 	<Sidebar />
+	<AgreementPopup 
+		v-if="isActiveRemovePopup" 
+		@yesClick="switchShowPopup(false), removeBriefcase(currentBriefcase.id)"
+		@notClick="switchShowPopup(false)"
+		@closeClick="switchShowPopup(false)"
+		@clickOverlay="switchShowPopup(false)"
+	/>
   <main class="briefcase">
 		<h2 class="briefcase__title">Ваши портфели</h2>
 		<section class="briefcase__section">
@@ -19,7 +26,7 @@
 			:briefcase="currentBriefcase"
 			:taskByBriefcase="taskByBriefcase"
 			@closeClick="switchShowSideBar(false)"
-			@removeClick="removeBriefcase(currentBriefcase.id), switchShowSideBar(false)"
+			@removeClick="switchShowPopup(true)"
 			@editBriefcase="editBriefcase"
 			class="briefcase__sidebar"
 		/>
@@ -36,11 +43,14 @@
 	import BriefcaseAddCard from '@/components/Briefcase/BriefcaseAddCard.vue';
 	import BriefcaseSideBar from '@/components/Briefcase/BriefcaseSideBar.vue';
 
+	import AgreementPopup from '@/components/UI/AgreementPopup.vue'
+
 	const store = useMainStore();
 
 	const {briefcases, tasks} = storeToRefs(store);
 
-	const isActiveSideBar = ref(false)
+	const isActiveSideBar = ref(false);
+	const isActiveRemovePopup = ref(false);
 	const taskByBriefcase = ref([]);
 	const currentBriefcase = ref({});
 
@@ -53,6 +63,10 @@
 		if(!isActiveSideBar.value) {
 			switchShowSideBar(true);
 		}
+	}
+
+	const switchShowPopup = (state) => {
+		isActiveRemovePopup.value = state;
 	}
 
 	const switchShowSideBar = (state) => {
