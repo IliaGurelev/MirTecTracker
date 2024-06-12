@@ -99,6 +99,7 @@ const isSidebarOpen = ref(false);
 	position: relative;
   margin: 0 auto;
   border-radius: 20px;
+  font-weight: 500;
   }
 
   .search-task input{

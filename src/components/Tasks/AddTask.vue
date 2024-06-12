@@ -1,6 +1,6 @@
 <template>
 	<div>
-	  <button @click="openForm" v-if="!isFormOpen">Добавить задачу</button>
+	  <button @click="openForm">Добавить задачу</button>
 	  <transition name="fade">
 		<div v-if="isFormOpen" class="overlay" v-click-outside="closeForm" @click.self="closeForm">
 		  <form class="form-container" @submit.prevent="addTask">
@@ -69,6 +69,7 @@
 	dueDate: '',
 	briefcase: {
 	  name: '',
+	  color: '',
 	},
   });
   
@@ -97,7 +98,8 @@
   });
   
   const handleBriefcaseSelect = (briefcase) => {
-	selectedBriefcaseIcon.value = briefcase;
+	newTask.value.briefcase.name = briefcase.name;
+	newTask.value.briefcase.color = briefcase.color;
   };
   
   const addTask = () => {
@@ -117,6 +119,7 @@
 	  dueDate: '',
 	  briefcase: {
 		name: '',
+		color: '',
 	  },
 	};
 	customBriefcaseName.value = '';
@@ -135,10 +138,12 @@
 	color: #707070;
 	border-radius: 8px;
 	background-color: var(--bg);
-	font-weight: 600;
+	font-weight: 400;
 	overflow: hidden;
-	border: 2px solid #c9c9c9;
+	border: 2px solid #dddddd;
 	transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
+	font-weight: 500;
+	
   }
   
   button:hover {
@@ -151,8 +156,9 @@
   input {
 	border-radius: 8px;
 	padding: 5px;
-	width: 70%;
+	width: 65%;
 	border: 2px solid #c9c9c9;
+	font-weight: 500;
   }
   
   label {
@@ -183,6 +189,7 @@
 	opacity: 1;
 	height: 100%;
 	max-height: 350px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
   }
   
   .form-container__item {
@@ -195,19 +202,18 @@
   }
   
   .close-button {
+	position:absolute;
 	padding: 0;
-	top: 8px;
-	float: right;
+	top: 0px;
+	right: 5px;
 	font-size: 1.5rem;
 	cursor: pointer;
 	color: #c9c9c9;
-	margin-left: 10px;
-	margin-bottom: 10px;
 	transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
   }
 
   .close-button:hover {
-	color: #a3a3a3;
+	color: black;
   }
   
   .fade-enter-active,
@@ -287,5 +293,15 @@
 	label {
 	  margin: 15px;
 	}
+	.search{
+		margin-left: 0;
+		margin-bottom: 10px;
+	}
+
   }
+  @media only screen and (max-width: 552px) {
+	input{
+		width: 100%;
+	}
+}
   </style>

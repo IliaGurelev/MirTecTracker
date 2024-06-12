@@ -3,14 +3,17 @@
 	  <div class="search__input-container" @click="toggleFocus">
 		<transition name="slide-icon">
 		  <div 
-			v-if="selectedBriefcase && query.length > 0" 
+			v-if="selectedWorker && query.length > 0" 
 			class="search__icon-wrapper"
-			:class="{ 'search__icon-wrapper--active': isFocus || selectedBriefcase }"
+			:class="{ 'search__icon-wrapper--active': isFocus || selectedWorker }"
 		  >
-			<BriefcaseIcon
-			  class="search__briefcase-icon"
-			  :class="`portfolio-card__icon--${selectedBriefcase.color}`"
+			<img
+			  v-if="selectedWorker.avatar"
+			  :src="selectedWorker.avatar"
+			  class="search__worker-icon"
+			  alt="Worker Avatar"
 			/>
+			<div v-else class="search__worker-icon">👤</div>
 		  </div>
 		  <div 
 			v-else-if="!filteredItems.length && query.length > 0"
@@ -32,34 +35,31 @@
 		  v-model="query"
 		  placeholder="Поиск..."
 		  class="search__input"
-		  :class="{'--smouth-bottom': query.length === 0}"
+		  :class="{'--smooth-bottom': query.length === 0}"
 		  @input="handleInput"
 		/>
 	  </div>
 	  <transition name="slide">
-		<ul v-show="isFocus" class="search__list --smouth-bottom" @click.stop>
+		<ul v-show="isFocus" class="search__list --smooth-bottom" @click.stop>
 		  <li v-if="!filteredItems.length">
 			<p class="search__text">
-			  Портфели не найдены
-			</p>
-		  </li>
-		  <li v-if="availableBriefcase && filteredItems.length === 0">
-			<p class="search__text">
-			  У вас нет портфелей, добавьте их
-			  <RouterLink :to="{name: 'Briefcase'}" class="search__link">здесь</RouterLink>
+			  Исполнители не найдены
 			</p>
 		  </li>
 		  <li
 			v-for="item in filteredItems"
 			:key="item.id"
 			class="search__item"
-			@mousedown.prevent="selectBriefcase(item)"
+			@mousedown.prevent="selectWorker(item)"
 		  >
-			<BriefcaseIcon
-			  class="search__briefcase-icon"
-			  :class="`portfolio-card__icon--${item.color || getFirstColor(filteredItems)}`"
+			<img
+			  v-if="item.avatar"
+			  :src="item.avatar"
+			  class="search__worker-icon"
+			  alt="Worker Avatar"
 			/>
-			{{ item.name }}
+			<div v-else class="search__worker-icon">👤</div>
+			{{ item.nameUser }}
 		  </li>
 		</ul>
 	  </transition>
@@ -67,30 +67,27 @@
   </template>
   
   <script setup>
-  import { ref, computed, defineEmits, defineExpose, watchEffect } from 'vue';
-  import BriefcaseIcon from '@/assets/BriefcaseIcon.vue';
+  import { ref, computed, onMounted } from 'vue';
+  import { useMainStore } from '@/store';
+  import { storeToRefs } from 'pinia';
   
-  const props = defineProps({
-	briefcases: {
-	  type: Array,
-	  required: false,
-	  default: () => [],
-	},
+  const store = useMainStore();
+  const { usersData } = storeToRefs(store);
+  
+  onMounted(() => {
+	store.fetchWorkers();
   });
   
-  const emit = defineEmits(['update:query', 'select']);
-  
   const query = ref('');
-  const selectedBriefcase = ref(null);
+  const selectedWorker = ref(null);
   const isFocus = ref(false);
-  const availableBriefcase = computed(() => props.briefcases.length === 0);
   
   const filteredItems = computed(() => {
 	if (!isFocus.value) {
-	  return props.briefcases;
+	  return usersData.value;
 	}
-	return props.briefcases.filter((briefcase) =>
-	  briefcase.name.toLowerCase().includes(query.value.toLowerCase())
+	return usersData.value.filter((worker) =>
+	  worker.nameUser.toLowerCase().includes(query.value.toLowerCase())
 	);
   });
   
@@ -99,37 +96,15 @@
   };
   
   const handleInput = () => {
-	emit('update:query', query.value);
 	if (!query.value) {
 	  isFocus.value = true;
 	}
   };
   
-  
-  const selectBriefcase = (item) => {
-	query.value = item.name;
-	selectedBriefcase.value = item;
-	emit('update:query', query.value);
-	emit('select', item);
+  const selectWorker = (item) => {
+	query.value = item.nameUser;
+	selectedWorker.value = item;
 	isFocus.value = false;
-  };
-  
-  watchEffect(() => {
-	const closeOnClickOutside = (event) => {
-	  if (!event.target.closest('.search__input-container')) {
-		isFocus.value = false;
-	  }
-	};
-	document.addEventListener('click', closeOnClickOutside);
-	return () => document.removeEventListener('click', closeOnClickOutside);
-  });
-  
-  defineExpose({ selectedBriefcase });
-  
-  const getFirstColor = (items) => {
-	if (items.length > 0) {
-	  return items[0].color;
-	}
   };
   </script>
   
@@ -140,11 +115,10 @@
 	border: 2px solid #c9c9c9;
 	position: relative;
 	z-index: 2;
-	margin-left: 50px;
   }
   
   .search__input {
-	width: 100%; /* Добавлено, чтобы input занимал всю ширину */
+	width: 100%;
 	padding: 5px 25px 5px 40px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -178,13 +152,10 @@
 	font-size: 14px;
   }
   
-  .search__link {
-	color: var(--color-text-important);
-  }
-  
-  .search__briefcase-icon {
+  .search__worker-icon {
 	width: 25px;
-	padding: 3px;
+	height: 25px;
+	border-radius: 50%;
   }
   
   .search__input-container {
@@ -216,7 +187,7 @@
 	transform: translateX(0);
   }
   
-  .--smouth-bottom {
+  .--smooth-bottom {
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
   }

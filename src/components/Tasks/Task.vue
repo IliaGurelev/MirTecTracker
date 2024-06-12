@@ -1,67 +1,62 @@
 <template>
-		<Sidebar :task="selectedTask" :isOpen="isSidebarOpen" @close="closeSidebar" />
-	<div 
-	  :key="item.id"
-	  class="task"
-	  :draggable="true"
-	  @dragstart="startDrag($event, item)"
-	  @drop="onDropSort($event, item)"
-	  @dragover.prevent="onOver($event)"
-	  @dragleave.prevent="onLeave($event)"
-	  @click="selectTask(item)"
-	>
-	  <div class='tasktags'>
-		<span class='task__tag' ><TaskBriefcase  :briefcase="props.item.briefcase"  class="task__briefcase"/></span>
-	  </div>
-	  <DeleteTaskButton :taskId="item.id" />
-	  <p>{{ item.name }}</p>
-	  
-	  <div class='task__stats'>
-		<span>
-		  <time :datetime="item.createdAt">
-			<i class='fa-regular fa-calendar-days'></i> {{ formatDate(item.dueDate) }}
-		  </time>
-		</span>
-		<div class='status__owners'>
-		  <TaskStatus :taskStatus="item.status"/>
-		</div>
-	  </div>
-	</div>
-  </template>
-  
-  <script setup>
-  import { ref, computed } from 'vue';
-  import formatDate from "@/utils/format-date.js";
-  import DeleteTaskButton from "@/components/Tasks/DeleteTask.vue";
-  import Sidebar from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
-  import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
-  import TaskStatus from '@/components/Tasks/TaskStatus.vue';
+  <Sidebar :task="selectedTask" :isOpen="isSidebarOpen" @close="closeSidebar" />
+  <transition name="task" appear enter-active-class="task-enter" leave-active-class="task-leave">
+    <div :key="item.id" class="task" :draggable="true" @dragstart="startDrag($event, item)" @drop="onDropSort($event, item)" @dragover.prevent="onOver($event)" @dragleave.prevent="onLeave($event)" @click="selectTask(item)">
+      <div class='tasktags'>
+        <span class='task__tag'><TaskBriefcase :briefcase="item.briefcase" class="task__briefcase"/></span>
+      </div>
+      <button @click.stop="handleDeleteClick" class="delete-button">
+        <i class="fa-regular fa-trash-can"></i>
+      </button>
+      <p>{{ item.name }}</p>
+      <div class='task__stats'>
+        <span>
+          <time :datetime="item.createdAt">
+            <i class='fa-regular fa-calendar-days'></i> {{ formatDate(item.dueDate) }}
+          </time>
+        </span>
+        <div class='status__owners'>
+          <TaskStatus :taskStatus="item.status"/>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
 
-  const props = defineProps({
-	item: Object,
-	items: Array,
-	statuses: Array,
-	globaltype: String,
-	sort: Boolean,
-  });
- 
-  const startDrag = (event, item) => {
-	event.dataTransfer.dropEffect = 'move';
-	event.dataTransfer.effectAllowed = 'move';
-	event.dataTransfer.setData('itemId', item.id);
-  };
-  
-  const onDropSort = (event, droppedItem) => {
-	if (!props.sort) return;
-	onLeave(event);
-	const { item, itemId } = getItemById(event);
-	const itemPosition = props.items.findIndex(item => item.id == itemId);
-	const droppedItemPosition = props.items.findIndex(item => item.id == droppedItem.id);
-	props.items.splice(itemPosition, 1);
-	props.items.splice(droppedItemPosition, 0, item);
-  };
-  
-  const isSidebarOpen = ref(false);
+<script setup>
+import { ref, defineProps, defineEmits } from 'vue';
+import formatDate from "@/utils/format-date.js";
+import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+import TaskStatus from '@/components/Tasks/TaskStatus.vue';
+import Sidebar from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
+
+const props = defineProps({
+  item: Object,
+  items: Array,
+  statuses: Array,
+  globaltype: String,
+  sort: Boolean,
+});
+
+const emit = defineEmits(['openDeleteModal']);
+
+const startDrag = (event, item) => {
+  event.dataTransfer.dropEffect = 'move';
+  event.dataTransfer.effectAllowed = 'move';
+  event.dataTransfer.setData('itemId', item.id);
+};
+
+const onDropSort = (event, droppedItem) => {
+  if (!props.sort) return;
+  onLeave(event);
+  const { item, itemId } = getItemById(event);
+  const itemPosition = props.items.findIndex(item => item.id == itemId);
+  const droppedItemPosition = props.items.findIndex(item => item.id == droppedItem.id);
+  props.items.splice(itemPosition, 1);
+  props.items.splice(droppedItemPosition, 0, item);
+};
+
+const isSidebarOpen = ref(false);
 const selectedTask = ref(null);
 
 const selectTask = (item) => {
@@ -77,24 +72,73 @@ const closeSidebar = () => {
   isSidebarOpen.value = false;
 };
 
+const handleDeleteClick = () => {
+  emit('openDeleteModal', props.item.id);
+};
 
-  const onOver = event => (props.sort ? event.target.classList.add('on-over') : '');
-  const onLeave = event => (props.sort ? event.target.classList.remove('on-over') : '');
-  
-  
-  const getItemById = event => {
-	const itemId = event.dataTransfer.getData('itemId');
-	const item = props.items.findIndex(item => item.id == itemId);
-	return { item, itemId };
-  };
-  </script>
-  
-  <style scoped>
-  .tasktags{
-	display: inline-block
+const onOver = event => (props.sort ? event.target.classList.add('on-over') : '');
+const onLeave = event => (props.sort ? event.target.classList.remove('on-over') : '');
+
+const getItemById = event => {
+  const itemId = event.dataTransfer.getData('itemId');
+  const item = props.items.find(item => item.id == itemId);
+  return { item, itemId };
+};
+</script>
+
+<style scoped>
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  .tasktags DeleteTaskButton{
-	text-align: center;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.task-enter-active, .task-leave-active {
+  animation: fadeIn 0.5s ease, fadeOut 0.5s ease;
+}
+
+.task-enter, .task-leave-to {
+  opacity: 0;
+}
+
+.task-enter {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.task-leave {
+  animation: fadeOut 0.5s ease forwards;
+}
+  .delete-button {
+	background: transparent;
+	border: 0;
+	color: var(--light-grey);
+	font-size: 17px;
+	cursor: pointer;
+	float: right;
+	transition: color 0.2s linear;
+  }
+  
+  .delete-button:hover {
+	color: var(--text);
+  }
+  .tasktags {
+	display: inline-block;
   }
   .task {
 	cursor: grab;
@@ -117,7 +161,7 @@ const closeSidebar = () => {
 	font-weight: 500;
   }
   .task__tag {
-	position:relative;
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	border-radius: 100px;
@@ -172,13 +216,13 @@ const closeSidebar = () => {
 	font-weight: 700;
   }
   .status__owners {
-	position:relative;
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	right: 0;
 	bottom: 0;
   }
-  .status__owner{
+  .status__owner {
 	border-radius: 100px;
 	padding: 2px 13px;
 	font-size: 12px;
