@@ -5,20 +5,24 @@
         :avatarUser="props.currentUser.avatar"
         :nameUser="props.currentUser.nameUser"
       />
-      <div class="diary__settings">
-        <i class="fa-solid fa-gear"></i>
+      <div 
+        @click="setActiveSettings(); $emit('clickSettings')"
+        class="diary__settings"
+      >
+        <i v-if="!isActiveSettings" class="fa-solid fa-gear"></i>
+        <i v-else class="fa-solid fa-arrow-left"></i>
       </div>
     </section>
     <section class="diary__tasks">
       <div class="diary__header">
         <CurentDate :currentDate="activeDate" />
         <div class="diary__wrapper">
-          <button 
-            @click="setActivePopup"
+          <BlackButton 
+            @clickButton="setActivePopup"
             class="diary__button"
           >
             <i class="fa-regular fa-plus"></i> Добавить задачу
-          </button>
+          </BlackButton>
           <DiaryTaskAddPopup 
             v-if="isActivePopup"
             :defaultDate="activeDate"
@@ -44,12 +48,14 @@
 <script setup>
   import { ref, computed } from 'vue'
   import { useMainStore } from '@/store'
+
   import taskFilter from '@/utils/task-filter'
   import UserInfo from '@/components/Personal/UserInfo.vue'
   import UserCalendar from '@/components/UI/UserCalendar.vue'
   import CurentDate from '@/components/UI/CurrentDate.vue'
   import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
   import DiaryTaskAddPopup from '@/components/Tasks/DiaryTaskAddPopup.vue';
+  import BlackButton from '@/components/UI/BlackButton.vue'
 
   const props = defineProps({
     currentUser: {
@@ -68,6 +74,8 @@
 
   const isActivePopup = ref(false);
 
+  const isActiveSettings = ref(false);
+
   const tasksForDay = computed(() => {
     return taskFilter('today', props.tasks, activeDate.value);
   });
@@ -82,6 +90,10 @@
 
   const setActivePopup = () => {
     isActivePopup.value = !isActivePopup.value;
+  }
+
+  const setActiveSettings = () => {
+    isActiveSettings.value = !isActiveSettings.value;
   }
 
   const addToDiary = (task) => {
@@ -116,22 +128,6 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
-    }
-
-    &__button {
-      font-weight: 600;
-      color: #ffffff;
-      background-color: black;
-      border: none;
-      border-radius: 10px;
-      padding: 15px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    &__button:hover {
-      cursor: pointer;
-      background-color: rgb(71, 71, 71);
     }
 
     &__calendar {
