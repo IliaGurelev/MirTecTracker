@@ -14,7 +14,7 @@
   button {
     font-weight: 600;
     color: #ffffff;
-    background-color: #28282d;;
+    background-color: #28282d;
     border: none;
     border-radius: 10px;
     padding: 15px;

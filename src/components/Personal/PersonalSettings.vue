@@ -1,26 +1,33 @@
 <template>
   <form action="" @submit.prevent="editUser">
-  <section class="settings">
-      <div class="settings__wrap">
+    <section class="settings">
+      <div class="settings__wrap settings__wrap--center">
+        <UserInfo 
+          :avatarUser="avatarUser"
+          :nameUser="''"
+          class="settings__user"
+        />
         <label for="avatar-user">
-          <UserInfo 
-            :avatarUser="avatarUser"
-            :nameUser="''"
-            class="settings__user"
-          />
+          <div class="settings__edit">
+            <p class="settings__button-text">Изменить <i class="fa-solid fa-pen-to-square"></i></p>
+          </div>
         </label>
+      </div>
+      <div class="settings__wrap">
         <input v-model="nameUser" class="settings__input" type="text" placeholder="Введите ваше имя" required>
       </div>
       <div class="settings__wrap settings__wrap--between">
-        <BlackButton class="settings__logout">
-          <p class="settings__button-text">Выйти   <i class="fa-solid fa-arrow-right-from-bracket"></i></p>
-        </BlackButton>
+        <RouterLink :to="{ name: 'Login' }">
+          <BlackButton class="settings__logout">
+            <p class="settings__button-text">Выйти   <i class="fa-solid fa-arrow-right-from-bracket"></i></p>
+          </BlackButton>
+        </RouterLink>
         <BlackButton class="settings__button" type="submit">
           <p class="settings__button-text"><i class="fa-solid fa-check"></i>  Сохранить</p>
         </BlackButton>
       </div>
     </section>
-    <input class="settings__avatar-input" type="file" id="avatar-user" onchange="changeAvatar(this.files)" accept="image/png, image/jpeg" />
+    <input class="settings__avatar-input" type="file" id="avatar-user" @change="changeAvatar($event.target.files[0])" accept="image/png, image/jpeg" />
   </form>
 </template>
 
@@ -45,13 +52,13 @@
   const userData = computed(() => {
     return {
       id: props.currentUser.id,
-      avatar: '',
+      avatar: avatarUser.value,
       nameUser: nameUser.value,
     }
   });
 
   function changeAvatar (file) {
-    avatarUser.value = window.URL.createObjectURL(file[0])
+    avatarUser.value = URL.createObjectURL(file)
   }
 
   const editUser = () => {
@@ -88,6 +95,10 @@
       &--between {
         justify-content: space-between;
       }
+
+      &--center {
+        align-items: center;
+      }
     }
 
     &__input {
@@ -111,16 +122,28 @@
 
       :deep(.user__icon) {
         width: 100px;
-
-        :hover {
-          filter: brightness(80%);
-        }
+        height: 100px;
       }
 
       :deep(.user__name) {
         font-size: 35px;
         text-decoration: underline;
         cursor: text;
+      }
+    }
+
+    &__edit {
+      background-color: #e9e9e9;
+      color: black;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      padding: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #e2e2e2;
       }
     }
 

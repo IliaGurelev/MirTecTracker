@@ -6,10 +6,11 @@
         :nameUser="props.currentUser.nameUser"
       />
       <div 
-        @click="$emit('clickSettings')"
+        @click="setActiveSettings(); $emit('clickSettings')"
         class="diary__settings"
       >
-        <i class="fa-solid fa-gear"></i>
+        <i v-if="!isActiveSettings" class="fa-solid fa-gear"></i>
+        <i v-else class="fa-solid fa-arrow-left"></i>
       </div>
     </section>
     <section class="diary__tasks">
@@ -73,6 +74,8 @@
 
   const isActivePopup = ref(false);
 
+  const isActiveSettings = ref(false);
+
   const tasksForDay = computed(() => {
     return taskFilter('today', props.tasks, activeDate.value);
   });
@@ -87,6 +90,10 @@
 
   const setActivePopup = () => {
     isActivePopup.value = !isActivePopup.value;
+  }
+
+  const setActiveSettings = () => {
+    isActiveSettings.value = !isActiveSettings.value;
   }
 
   const addToDiary = (task) => {

@@ -34,10 +34,11 @@
   .user {
     display: flex;
     align-items: center;
-    cursor: pointer;
 
     &__icon {
       width: 50px;
+      height: 50px;
+      object-fit: cover;
       border-radius: 50%;
       margin-right: 15px;
     }

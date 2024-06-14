@@ -48,7 +48,7 @@
     display: flex;
     margin-top: 80px;
     margin-left: 90px;
-    column-gap: 50px;
+    column-gap: 60px;
     overflow-x: hidden;
 
     @media (max-width: 600px) {
