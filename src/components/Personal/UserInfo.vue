@@ -20,7 +20,8 @@
   const props = defineProps({
     avatarUser: {
       type: String,
-      required: true,
+      required: false,
+      default: '',
     },
     nameUser: {
       type: String,

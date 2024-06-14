@@ -15,6 +15,7 @@ export const useMainStore = defineStore('main', {
     diary: [],
     briefcases: [],
     currentUser: {},
+    users: [],
   }),
   actions: {
     fetchTasks() {
@@ -29,6 +30,9 @@ export const useMainStore = defineStore('main', {
 
     loginCurrentUser(id) {
       this.currentUser = usersData[id];
+    },
+    editCurrentUser(user) {
+      this.currentUser = user
     },
 
     addDiaryTask(task) {
