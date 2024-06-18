@@ -62,7 +62,7 @@
 	  emit('remove', selectedWorker.value);
 	  selectedWorker.value = null;
 	  searchQuery.value = '';
-	  filterWorkers(); // обновляем filteredWorkers после удаления
+	  filterWorkers(); 
 	}
   };
   
