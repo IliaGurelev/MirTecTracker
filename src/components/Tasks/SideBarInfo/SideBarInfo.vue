@@ -13,7 +13,7 @@
 			<textarea v-model="props.task.description" @input="updateTask" placeholder="Описание задачи"></textarea>
 		  </div>
 		  <div class="sidebars-content__items">
-			<p>Статус: <EditTaskStatus :taskStatus="taskStatus" @update-status="updateTaskStatus" /></p>
+			<p>Статус: <EditTaskStatus :taskStatus="props.task.status" @update-status="updateTaskStatus" /></p>
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Дата начала:
@@ -175,10 +175,11 @@ const handleEsc = (event) => {
 
 const updateTask = debounce(() => {
   emitEvents('update-task', props.task);
-}, 300);
+  console.log('Task updated:', props.task);
+}, 1000);
 
-const updateTaskStatus = (newStatus) => {
-  props.task.status = newStatus;
+const updateTaskStatus = (status) => {
+  props.task.status = status;
   updateTask();
 };
 
