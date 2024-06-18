@@ -5,7 +5,7 @@
   >
     <div class="task__header">
       <p class="task__title">{{props.task.name}}</p>
-      <time datetime="09:00">{{props.task.timeStart}}</time>
+      <time datetime="09:00">{{timeTask}}</time>
     </div>
     <div class="task__content">
       <p class="task__description">{{props.task.description}}</p>
@@ -20,6 +20,8 @@
 
 <script setup>
   import CompleteIcon from '@/assets/CompleteIcon.vue';
+  import parseTime from '@/utils/parse-time';
+  import { format } from 'date-fns';
 
   const props = defineProps({
     isActive: {
@@ -31,6 +33,8 @@
       required: true,
     },
   });
+
+  const timeTask = format(parseTime(props.task.timeStart), 'HH:mm');
 </script>
 
 <style lang="scss" scoped>

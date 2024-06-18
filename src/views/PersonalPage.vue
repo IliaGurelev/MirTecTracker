@@ -49,7 +49,6 @@
     margin-top: 80px;
     margin-left: 90px;
     column-gap: 60px;
-    overflow-x: hidden;
 
     @media (max-width: 600px) {
       margin-left: 10px;

@@ -28,14 +28,29 @@ export const useMainStore = defineStore('main', {
     },
 
     //Запросы на дневник
-    fetchDiary() {
-      this.diary = tasksDiary;
+    async fetchDiary() {
+      try {
+        const response = await apiClient.get('/diary');
+        this.diary = response.data;
+      } catch (error) {
+        console.error('Ошибка get diary: ' + error);
+      }
     },
-    addDiaryTask(task) {
-      this.diary.push(task);
+    async addDiaryTask(task) {
+      try {
+        const response = await apiClient.post('/diary', task);
+        this.diary.push(response.data);
+      } catch (error) {
+        console.error('Ошибка post diary: ' + error);
+      }
     },
-    removeDiaryTaskById(id) {
-      this.diary = this.diary.filter((task) => task.id !== id)
+    async removeDiaryTaskById(id) {
+      try {
+        const response = await apiClient.delete(`/diary/${id}`);
+        removeById(this.diary, id);
+      } catch (error) {
+        console.error('Ошибка delete diary: ' + error);
+      }
     },
 
     //Запросы на задачи
