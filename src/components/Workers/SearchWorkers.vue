@@ -78,6 +78,8 @@
 	store.fetchWorkers();
   });
   
+  const emit = defineEmits(['select', 'update:query']); 
+  
   const query = ref('');
   const selectedWorker = ref(null);
   const isFocus = ref(false);
@@ -86,8 +88,8 @@
 	if (!isFocus.value) {
 	  return usersData.value;
 	}
-	return usersData.value.filter((worker) =>
-	  worker.nameUser.toLowerCase().includes(query.value.toLowerCase())
+	return usersData.value.filter((item) =>
+	  item.nameUser.toLowerCase().includes(query.value.toLowerCase())
 	);
   });
   
@@ -105,6 +107,8 @@
 	query.value = item.nameUser;
 	selectedWorker.value = item;
 	isFocus.value = false;
+	emit('select', item);
+	emit('update:query', item.nameUser);
   };
   </script>
   
@@ -214,4 +218,3 @@
 	opacity: 0;
   }
   </style>
-  

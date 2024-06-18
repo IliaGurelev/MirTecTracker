@@ -1,65 +1,107 @@
 <template>
 	<transition name="sidebars">
 	  <div v-if="isOpen" class="sidebars" @mouseenter="cancelClose" @mouseleave="restartCloseTimer">
-		<div class="sidebars-content">
+		<div class="sidebars-content" @click.away="handleClickOutside">
 		  <div class="sidebars__title">
 			<div class="sidebars__close" @click="closeSidebar">
 			  <i class="fa-solid fa-xmark"></i>
 			</div>
-			<textarea v-model="localTask.name" @input="updateTask" placeholder="Название задачи"></textarea>
+			<h2>{{ props.task.name }}</h2>
+			<textarea v-model="props.task.name" @input="updateTask" placeholder="Название задачи"></textarea>
 		  </div>
 		  <div class="sidebars-content__description">
-			<textarea v-model="localTask.description" @input="updateTask" placeholder="Описание задачи"></textarea>
+			<textarea v-model="props.task.description" @input="updateTask" placeholder="Описание задачи"></textarea>
 		  </div>
 		  <div class="sidebars-content__items">
-			<p>Статус: <span><TaskStatus :taskStatus="localTask.status" @update-status="updateTaskStatus" /></span></p>
+			<p>Статус: <EditTaskStatus :taskStatus="taskStatus" @update-status="updateTaskStatus" /></p>
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Дата начала:
 			  <transition name="input-fade__createdAt">
-				<input v-if="isEditcreatedAt" type="date" v-model="localTask.createdAt" @input="updateTask" @blur="toggleEditcreatedAt" class="sidebars-content__items-createdAt" key="input">
+				<input v-if="isEditCreatedAt" type="date" v-model="props.task.createdAt" @input="updateTask" @blur="closeInput('createdAt')" class="sidebars-content__items-createdAt" key="input">
 			  </transition>
 			  <transition name="span-fade__createdAt">
-				<span v-if="!isEditcreatedAt" key="span">{{ formatDate(localTask.createdAt) }}</span>
+				<div v-if="!isEditCreatedAt" class="editable-field" key="span">
+				  <span @click="toggleEdit('createdAt')">{{ formatDate(props.task.createdAt) }}</span>
+				  <i class="fa-solid fa-pen" @click="toggleEdit('createdAt')"></i>
+				</div>
 			  </transition>
-			  <i class="fa-solid fa-pen" @click="toggleEditcreatedAt"></i>
 			</p>
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Дедлайн:
 			  <transition name="input-fade">
-				<input v-if="isEditDueDate" type="date" v-model="localTask.dueDate" @input="updateTask" @blur="toggleEditDueDate" class="sidebars-content__items-dueDate" key="input">
+				<input v-if="isEditDueDate" type="date" v-model="props.task.dueDate" @input="updateTask" @blur="closeInput('dueDate')" class="sidebars-content__items-dueDate" key="input">
 			  </transition>
 			  <transition name="span-fade">
-				<span v-if="!isEditDueDate" key="span">{{ formatDate(localTask.dueDate) }}</span>
+				<div v-if="!isEditDueDate" class="editable-field" key="span">
+				  <span @click="toggleEdit('dueDate')">{{ formatDate(props.task.dueDate) }}</span>
+				  <i class="fa-solid fa-pen" @click="toggleEdit('dueDate')"></i>
+				</div>
 			  </transition>
-			  <i class="fa-solid fa-pen" @click="toggleEditDueDate"></i>
 			</p>
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Портфель:
 			  <transition name="input-fade">
 				<div v-if="isEditBriefcase">
-				  <SearchBriefcase :briefcases="briefcases" @select="selectBriefcase" />
+				  <SearchBriefcase :briefcases="briefcases" @select="selectBriefcase" @blur="closeInput('briefcase')" />
 				</div>
 			  </transition>
 			  <transition name="span-fade">
-				<div v-if="!isEditBriefcase" @click="toggleEditBriefcase" class="task__briefcase" key="span">
-				  <TaskBriefcase :briefcase="localTask.briefcase" />
+				<div v-if="!isEditBriefcase" class="task__briefcase editable-field" key="span">
+				  <TaskBriefcase :briefcase="props.task.briefcase" />
+				  <i class="fa-solid fa-pen" @click="toggleEdit('briefcase')"></i>
 				</div>
 			  </transition>
 			</p>
 		  </div>
+		  <transition name="message-fade">
+			<div v-if="isBriefcaseChanged" class="sidebars-content__items">
+			  <p class="success-message"><i class="fa-solid fa-check"></i> Портфель успешно изменен!</p>
+			</div>
+		  </transition>
 		  <div class="sidebars-content__items">
-			<p>Исполнители: <WorkerList :workerList="localTask.workers" class="task__workers" />
-			  <i class="fa-solid fa-pen" @click="toggleisWorker"></i>
+			<p>Исполнители:
+			  <div class="editable-field">
+				<WorkerList :workerList="props.task.workers" class="task__workers" />
+				<i class="fa-solid fa-pen" @click="toggleisWorker"></i>
+				<i class="fa-solid fa-trash" @click="toggleRemoveWorker"></i>
+			  </div>
 			</p>
 		  </div>
 		  <transition name="input-fade">
 			<div v-if="isWorker" class="sidebars-content__items--AddWork" key="span">
-			  <p>Добавление исполнителя:</p>
-			  <SearchWorkers @select="selectWorker" />
+			  <div class="update">
+				<p>Добавление исполнителя:</p>
+				<i class="fa-solid fa-xmark" @click="closeAddWorker"></i>
+			  </div>
+			  <SearchWorkers :workers="userData" @select="handleWorkerSelect" @update="updateQuery" />
 			  <button class="add-button" @click="addWorker">Добавить</button>
+			</div>
+		  </transition>
+		  <transition name="message-fade">
+			<div v-if="isWorkerAdded" class="sidebars-content__items">
+			  <p class="success-message"><i class="fa-solid fa-check"></i> Исполнитель успешно добавлен!</p>
+			</div>
+		  </transition>
+		  <transition name="message-fade">
+			<div v-if="isWorkerAlreadyAssigned" class="sidebars-content__items">
+			  <p class="error-message"><i class="fa-solid fa-bug"></i> Такой исполнитель уже добавлен!</p>
+			</div>
+		  </transition>
+		  <transition name="input-fade">
+			<div v-if="isRemoveWorker" class="sidebars-content__items--RemoveWork" key="span">
+			  <div class="update">
+				<p>Удаление исполнителя:</p>
+				<i class="fa-solid fa-xmark" @click="closeRemoveWorker"></i>
+			  </div>
+			  <DeleteWorkers :workerList="props.task.workers" @remove="handleRemoveWorker" @select="handleRemoveWorker" />
+			</div>
+		  </transition>
+		  <transition name="message-fade">
+			<div v-if="isWorkerRemoved" class="sidebars-content__items">
+			  <p class="success-message"><i class="fa-solid fa-check"></i> Исполнитель успешно удален!</p>
 			</div>
 		  </transition>
 		</div>
@@ -70,110 +112,237 @@
 	</transition>
   </template>
   
-  
   <script setup>
-  import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
-  import { debounce } from 'lodash-es';
-  import formatDate from "@/utils/format-date.js";
-  import WorkerList from '@/components/Tasks/WorkerList.vue';
-  import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
-  import TaskStatus from '@/components/UI/TaskStatusSelect.vue';
-  import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue'; 
-  import SearchWorkers from '@/components/Workers/SearchWorkers.vue';
-  import { useMainStore } from '@/store';
-  import { storeToRefs } from 'pinia';
-  
-  const store = useMainStore();
-  const { briefcases } = storeToRefs(store);
-  
-  onMounted(() => {
-	store.fetchBriefcase();
-  });
-  const props = defineProps({
-	task: Object,
-	isOpen: Boolean,
-  });
-  const emit = defineEmits(['close', 'update-task']);
-  
-  const localTask = ref({ ...props.task });
-  const isEditDueDate = ref(false);
-  const isEditcreatedAt = ref(false);
-  const isEditBriefcase = ref(false); 
-  const isWorker = ref(false); 
-  const selectedWorker = ref(null); 
-  const closeSidebar = () => {
-	emit('close');
-  };
-  
-  const handleEsc = (event) => {
-	if (event.key === 'Escape') {
-	  closeSidebar();
-	}
-  };
-  
+import { ref, watch, defineEmits, defineProps, onMounted, onBeforeUnmount } from 'vue';
+import { debounce } from 'lodash-es';
+import formatDate from "@/utils/format-date.js";
+import WorkerList from '@/components/Tasks/WorkerList.vue';
+import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+import TaskStatus from '@/components/UI/TaskStatusSelect.vue';
+import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue';
+import SearchWorkers from '@/components/Workers/SearchWorkers.vue';
+import DeleteWorkers from '@/components/Workers/DeleteWorkers.vue';
+import EditTaskStatus from '@/components/UI/TaskStatusSelect.vue';
+import { useMainStore } from '@/store';
+import { storeToRefs } from 'pinia';
+
+const store = useMainStore();
+const { briefcases } = storeToRefs(store);
+const { userData } = storeToRefs(store);
+const props = defineProps({
+  isOpen: {
+    type: Boolean,
+    default: false,
+  },
+  task: {
+    type: Object,
+    required: true,
+  },
+  workers: {
+    type: Array,
+    default: () => [],
+  },
+});
+
+const emitEvents = defineEmits(['close', 'update-task']);
+
+
+const isEditDueDate = ref(false);
+const isEditCreatedAt = ref(false);
+const isEditBriefcase = ref(false);
+const isBriefcaseChanged = ref(false);
+const isWorker = ref(false);
+const isRemoveWorker = ref(false);
+const isWorkerAdded = ref(false);
+const isWorkerAlreadyAssigned = ref(false);
+const isWorkerRemoved = ref(false);
+const selectedWorker = ref(null);
+const taskStatus = ref('open');
+
+const Inputs = () => {
+  isEditDueDate.value = false;
+  isEditCreatedAt.value = false;
+  isEditBriefcase.value = false;
+  isWorker.value = false;
+  isRemoveWorker.value = false;
+};
+
+const handleEsc = (event) => {
+  if (event.key === 'Escape') {
+    closeSidebar();
+  }
+};
+
+const updateTask = debounce(() => {
+  emitEvents('update-task', props.task);
+}, 300);
+
+const updateTaskStatus = (newStatus) => {
+  props.task.status = newStatus;
+  updateTask();
+};
+
+const updateQuery = debounce((query) => {
+  store.updateQuery(query);
+}, 300);
+
+const toggleEdit = (field) => {
+  if (field === 'dueDate') {
+    isEditDueDate.value = !isEditDueDate.value;
+  } else if (field === 'createdAt') {
+    isEditCreatedAt.value = !isEditCreatedAt.value;
+  } else if (field === 'briefcase') {
+    isEditBriefcase.value = !isEditBriefcase.value;
+  }
+};
+
+const toggleisWorker = () => {
+  isWorker.value = !isWorker.value;
+  isRemoveWorker.value = false;
+};
+
+const toggleRemoveWorker = () => {
+  isRemoveWorker.value = !isRemoveWorker.value;
+  isWorker.value = false;
+};
+
+const closeInput = (field) => {
+  if (field === 'dueDate') {
+    isEditDueDate.value = false;
+  } else if (field === 'createdAt') {
+    isEditCreatedAt.value = false;
+  } else if (field === 'briefcase') {
+    isEditBriefcase.value = false;
+  }
+};
+
+const selectBriefcase = (briefcase) => {
+  props.task.briefcase = briefcase;
+  updateTask();
+  showBriefcaseChangedMessage();
+  isEditBriefcase.value = false;
+};
+
+const showBriefcaseChangedMessage = () => {
+  isBriefcaseChanged.value = true;
+  setTimeout(() => {
+    isBriefcaseChanged.value = false;
+  }, 2000);
+};
+
+const handleWorkerSelect = (worker) => {
+  selectedWorker.value = worker;
+};
+
+const addWorker = () => {
+  if (selectedWorker.value && !props.task.workers.some(worker => worker.id === selectedWorker.value.id)) {
+    props.task.workers.push(selectedWorker.value);
+    updateTask();
+    showWorkerAddedMessage();
+    selectedWorker.value = null;
+  } else {
+    showWorkerAlreadyAssignedMessage();
+  }
+};
+
+const showWorkerAddedMessage = () => {
+  isWorkerAdded.value = true;
+  setTimeout(() => {
+    isWorkerAdded.value = false;
+  }, 2000);
+};
+
+const showWorkerAlreadyAssignedMessage = () => {
+  isWorkerAlreadyAssigned.value = true;
+  setTimeout(() => {
+    isWorkerAlreadyAssigned.value = false;
+  }, 2000);
+};
+
+const removeWorker = (worker) => {
+  props.task.workers = props.task.workers.filter(w => w.id !== worker.id);
+  updateTask();
+  showWorkerRemovedMessage();
+};
+
+// обработка события remove
+const handleRemoveWorker = (worker) => {
+  removeWorker(worker);
+};
+
+watch(() => props.isOpen, (newVal) => {
+  if (newVal) {
+    cancelClose();
+  } else {
+    restartCloseTimer();
+  }
+});
+
+const showWorkerRemovedMessage = () => {
+  isWorkerRemoved.value = true;
+  setTimeout(() => {
+    isWorkerRemoved.value = false;
+  }, 2000);
+};
+
+const cancelClose = () => {
+  clearTimeout(timeoutId.value);
+};
+
+const restartCloseTimer = () => {
+  timeoutId.value = setTimeout(() => {
+    closeSidebar();
+  }, 30000);
+};
+
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.sidebars-content')) {
+    closeSidebar();
+  }
+};
+
+const closeAddWorker = () => {
+  isWorker.value = false;
+};
+
+const closeRemoveWorker = () => {
+  isRemoveWorker.value = false;
+};
+
+const closeSidebar = () => {
+  emitEvents('close');
+  Inputs();
+};
+
+let timeoutId = ref(null);
+
+watch(() => props.isOpen, (newVal) => {
+  if (newVal) {
+    cancelClose();
+  } else {
+    restartCloseTimer();
+  }
+});
+
+onMounted(() => {
+  document.addEventListener('keydown', handleEsc);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleEsc);
+});
+</script>
 
   
-  onMounted(() => {
-	window.addEventListener('keydown', handleEsc);
-  });
-  
-  onBeforeUnmount(() => {
-	window.removeEventListener('keydown', handleEsc);
-  });
-  
-  const debouncedUpdateTask = debounce(() => {
-	emit('update-task', localTask.value);
-  }, 2000);
-  
-  const updateTask = () => {
-	debouncedUpdateTask();
-  };
-  
-  const updateTaskStatus = (status) => {
-	localTask.value.status = status;
-	updateTask();
-  };
-  
-  const selectBriefcase = (briefcase) => {
-	localTask.value.briefcase = briefcase;
-	updateTask();
-	isEditBriefcase.value = false;
-  };
-  
-  const toggleEditDueDate = () => {
-	isEditDueDate.value = !isEditDueDate.value;
-  };
-  
-  const toggleEditcreatedAt = () => {
-	isEditcreatedAt.value = !isEditcreatedAt.value;
-  };
-  
-  const toggleEditBriefcase = () => {
-	isEditBriefcase.value = !isEditBriefcase.value;
-  };
-  const toggleisWorker = () => {
-	isWorker.value = !isWorker.value;
-  };
-  
-  const selectWorker = (worker) => {
-	selectedWorker.value = worker; 
-  };
-  
-  const addWorker = () => {
-	if (selectedWorker.value && !localTask.value.workers.some(w => w.id === selectedWorker.value.id)) {
-	  localTask.value.workers.push(selectedWorker.value);
-	  updateTask();
-	  selectedWorker.value = null; 
-	}
-  };
-  
-  watch(props.task, (newTask) => {
-	localTask.value = { ...newTask };
-  });
-  </script>
-  
-  
   <style scoped>
+  .update{
+	margin: 10px;
+	position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  }
   button {
 	position: relative;
 	padding: 0.5rem 1rem;
@@ -184,220 +353,282 @@
 	overflow: hidden;
 	border: 2px solid #dddddd;
 	transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
-	font-weight: 500;
-	margin-top: 1rem;
-  }
-  
-  button:hover {
-	color: rgb(58, 58, 58);
-	background-color: #e4e4e4;
-	border: 2px solid #e4e4e4;
-	transform: scale(1.05);
-  }
+  font-weight: 500;
+  margin-top: 1rem;
+}
 
-  .sidebars {
-	position: fixed;
-	top: 4rem;
-	right: 0;
-	width: 350px;
-	height: 100%;
-	background-color: var(--bg);
-	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.329);
-	transition: transform 0.2s ease-in-out;
-	z-index: 1000;
-	transform: translateX(0%);
-  }
-  
-  .sidebars-enter-active, .sidebars-leave-active {
-	transition: transform 0.2s ease-in-out;
-  }
-  
-  .sidebars-enter-from, .sidebars-leave-to {
-	transform: translateX(100%);
-  }
-  .sidebars__title textarea{
-	width: 100%;
-	height: auto;
-	padding: 5px;
-	margin-top: 5px;
-	font-size: 20px;
-	border: 2px solid #c9c9c9;
-	border-radius: 4px;
-	font-weight: 600;
-	color: black;
-	resize: none;
-	border-radius: 8px;
-  }
-  .sidebars-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 900;
-	transition: opacity 0.3s ease-in-out;
-  }
-  
-  .sidebars-overlay-enter-active, .sidebars-overlay-leave-active {
-	transition: opacity 0.3s ease-in-out;
-  }
-  
-  .sidebars-overlay-enter-from, .sidebars-overlay-leave-to {
-	opacity: 0;
-  }
-  
-  .sidebars__close {
-	float: right;
-	font-size: 25px;
-	cursor: pointer;
-  }
-  
-  .sidebars-content {
-	padding: 20px;
-  }
-  
-  .sidebars-content__description textarea {
-	width: 100%;
-	height: 80px;
-	padding: 10px;
-	font-size: 14px;
-	color: #666666;
-	border: 2px solid #c9c9c9;
-	border-radius: 4px;
-	resize: none;
-  }
-  
-  
-  .sidebars-content__items {
-	padding-bottom: 20px;
-  }
-  .sidebars-content__items--AddWork{
-		text-align: center;
-	}
-  .sidebars-content__items--AddWork p{
-	margin-bottom: 10px;
-	}
-  .sidebars-content__items-dueDate{
-	width: 100%;
-	padding: 5px;
-	margin-top: 5px;
-	font-size: 17px;
-	border: 2px solid #c9c9c9;
-	border-radius: 8px;
-	font-weight: 500;
-	color: black;
-	position: absolute;
-  }
-  .sidebars-content__items-createdAt{
-	width: 100%;
-	padding: 5px;
-	margin-top: 5px;
-	font-size: 17px;
-	border: 2px solid #c9c9c9;
-	border-radius: 8px;
-	font-weight: 500;
-	color: black;
-	position: absolute;
-  }
-   input {
-	width: 100%;
-	padding: 5px;
-	margin-top: 5px;
-	font-size: 20px;
-	border: 2px solid #c9c9c9;
-	border-radius: 8px;
-	font-weight: 600;
-	color: black;
-	position: absolute;right: 0;
-	z-index: 100;
-  }
-  .sidebars-content__description textarea {
-	width: 100%;
-	padding: 5px;
-	margin-top: 5px;
-	border: 2px solid #c9c9c9;
-	margin-bottom: 15px;
-	color: #666666;
-	font-size: 20px;
-	font-weight: 600;
-	border-radius: 8px;
-  }
+button:hover {
+  color: rgb(58, 58, 58);
+  background-color: #e4e4e4;
+  border: 2px solid #e4e4e4;
+  transform: scale(1.05);
+}
 
-  .sidebars p {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	align-items: center;
-	font-weight: 500;
-	color: black;
-  }
+.error-message, .success-message {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
 
-  span{
-	cursor:pointer;
-  }
-  .span-fade__createdAt span{
-	right: 5px;
-  }
+.error-message {
+  color: red;
+  background-color: #ffebee;
+}
+.error-message i {
+  margin-right: 0.5rem;
+  animation: checkmark 2s ease-in-out;
+  color: #b63434;
+}
+.success-message i {
+  margin-right: 0.5rem;
+  animation: checkmark 1s ease-in-out;
+  color: #39b634;
+}
 
-  i {
-	color: #666666;
-	z-index: 50;
-	  transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
   }
-  i:hover {
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.success-message {
+  color: green;
+  background-color: #e8f5e9;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  animation: fadeOut 4s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.sidebars {
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  width: 350px;
+  height: 100%;
+  background-color: var(--bg);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.329);
+  transition: transform 0.2s ease-in-out;
+  z-index: 1000;
+  transform: translateX(0%);
+}
+
+.sidebars-enter-active, .sidebars-leave-active {
+  transition: transform 0.2s ease-in-out;
+}
+
+.sidebars-enter-from, .sidebars-leave-to {
+  transform: translateX(100%);
+}
+
+.sidebars__title textarea {
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 20px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-weight: 600;
+  color: black;
+  resize: none;
+  border-radius: 8px;
+}
+
+.sidebars-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebars__close {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.sidebars-content {
+  padding: 20px;
+}
+
+.sidebars-content__items {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddddddc2;
+}
+
+.sidebars-content__items:last-child {
+  border-bottom: none;
+}
+
+.sidebars-content__items--AddWork {
+  text-align: center;
+}
+
+.sidebars-content__items--AddWork p {
+  margin-bottom: 10px;
+}
+
+.sidebars-content__items-dueDate {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 17px;
+  border: 2px solid #c9c9c9;
+  border-radius: 8px;
+  font-weight: 500;
+  color: black;
+  position: absolute;
+}
+
+.sidebars-content__items-createdAt {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 17px;
+  border: 2px solid #c9c9c9;
+  border-radius: 8px;
+  font-weight: 500;
+  color: black;
+  position: absolute;
+  right: 0;
+  z-index: 100;
+}
+.task__briefcase{
+  margin-top: 5px;
+  position: absolute;
+  right: 0;
+  z-index: 100;
+}
+input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 20px;
+  border: 2px solid #c9c9c9;
+  border-radius: 8px;
+  font-weight: 600;
+  color: black;
+  position: absolute;
+  right: 0;
+  z-index: 100;
+}
+
+.sidebars-content__description textarea {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ddddddc2;
+  margin-bottom: 15px;
+  color: #666666;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  resize: none;
+}
+
+.sidebars p {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+}
+
+span {
+  cursor: pointer;
+}
+
+.span-fade__createdAt span {
+  right: 5px;
+}
+
+i {
+  color: #666666;
+  z-index: 50;
+  transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
+  margin-left: 1rem;
+}
+
+i:hover {
   color: rgb(58, 58, 58);
   transform: scale(1.05);
 }
 
-  .sidebars-content__items input[type="date"] {
+.sidebars-content__items input[type="date"] {
   width: auto;
 }
-.input-fade-enter-active {
-  transition: opacity 0.6s ease-in;
+
+.sidebars-overlay-enter-active, .sidebars-overlay-leave-active {
+  transition: opacity 0.2s ease-in-out;
 }
-.input-fade-leave-active {
-  transition: opacity 0.2s ease-out;
+
+sidebars-overlay-enter-from, .sidebars-overlay-leave-to {
+  opacity: 0;
 }
+
+.editable-field {
+  display: flex;
+  align-items: center;
+}
+
+.editable-field span {
+  margin-right: 10px;
+}
+
+.input-fade-enter-active,
+.input-fade-leave-active,
+.input-fade__createdAt-enter-active,
+.input-fade__createdAt-leave-active,
+.span-fade-enter-active,
+.span-fade-leave-active,
+.span-fade__createdAt-enter-active,
+.span-fade__createdAt-leave-active,
+.message-fade-enter-active,
+.message-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
 .input-fade-enter-from,
-.input-fade-leave-to {
-  opacity: 0;
-}
-
-.span-fade-enter-active {
-  transition: opacity 0.2s ease-in;
-}
-.span-fade-leave-active {
-  transition: opacity 0.6s ease-out;
-}
-.span-fade-enter-from,
-.span-fade-leave-to {
-  opacity: 0;
-}
-
-
-.input-fade__createdAt-enter-active {
-  transition: opacity 0.6s ease-in;
-}
-.input-fade__createdAt-leave-active {
-  transition: opacity 0.2s ease-out;
-}
+.input-fade-leave-to,
 .input-fade__createdAt-enter-from,
-.input-fade__createdAt-leave-to {
-  opacity: 0;
-}
-
-.span-fade__createdAt-enter-active {
-  transition: opacity 0.2s ease-in;
-}
-.span-fade__createdAt-leave-active {
-  transition: opacity 0.6s ease-out;
-}
+.input-fade__createdAt-leave-to,
+.span-fade-enter-from,
+.span-fade-leave-to,
 .span-fade__createdAt-enter-from,
-.span-fade__createdAt-leave-to {
+.span-fade__createdAt-leave-to,
+.message-fade-enter-from,
+.message-fade-leave-to {
   opacity: 0;
 }
+</style>
 
-  </style>
   
