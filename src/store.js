@@ -55,19 +55,36 @@ export const useMainStore = defineStore('main', {
 
     //Запросы на задачи
     fetchTasks() {
-      this.tasks = tasksData;
-    },
+		apiClient.get('/taskss')
+		  .then(response => {
+			this.tasks = response.data;
+		  })
+		  .catch(error => {
+			console.error('Ошибка при загрузке задач:', error);
+		  });
+	  },
 	  addTask(task) {
-		  this.tasks.push({ ...task, id: Date.now() });
+		apiClient.post('/taskss', task)
+		  .then(response => {
+			this.tasks.push(response.data);
+		  })
+		  .catch(error => {
+			console.error('Ошибка при добавлении задачи:', error);
+		  });
 	  },
+	  
 	  deleteTask(taskId) {
-      const index = this.tasks.findIndex(task => task.id === taskId);
-      if (index !== -1) {
-        this.tasks.splice(index, 1);
-      }
-      console.log(taskId)
+		apiClient.delete(`/taskss/${taskId}`)
+		  .then(response => {
+			const index = this.tasks.findIndex(task => task.id === taskId);
+			if (index !== -1) {
+			  this.tasks.splice(index, 1);
+			}
+		  })
+		  .catch(error => {
+			console.error('Ошибка при удалении задачи:', error);
+		  });
 	  },
-
     //Запросы на портфели
     async fetchBriefcase() {
       try {
