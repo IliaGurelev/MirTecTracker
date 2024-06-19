@@ -28,7 +28,9 @@
 
   const store = useMainStore();
 
-  const {diary, tasks, currentUser} = storeToRefs(store);
+  const {diary, tasks} = storeToRefs(store);
+
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   
   const activeSettings = ref(false);
 
@@ -39,7 +41,7 @@
   onMounted(() => {
     store.fetchTasks();
     store.fetchDiary();
-    store.loginCurrentUser(0);
+    //store.loginCurrentUser(0);
   }) 
 </script>
 

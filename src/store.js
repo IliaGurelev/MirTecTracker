@@ -6,33 +6,51 @@ import removeById from '@/utils/remove-element';
 import { apiClient } from '@/config.js';
 
 // Моковые данные
-import usersData from '@/mock/users-data.js';
 import tasksData from '@/mock/tasks-data.js';
-import tasksDiary from '@/mock/tasks-diary.js';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
     tasks: [],
     diary: [],
     briefcases: [],
-    currentUser: {},
     users: [],
+    currentUser: localStorage.getItem('currentUser') || 
+      `{id: "", 
+      nameUser: "", 
+      avatar: ""}`, 
+    token: localStorage.getItem('token') || '',
   }),
   actions: {
     //Запросы на пользователя
     async registrationUser(user) {
       try {
-        const response = await apiClient.post('/user', user)
-        this.currentUser = response.data;
+        const response = await apiClient.post('/user', user);
+        
+        this.loginCurrentUser(user.email, user.password);
       } catch(error) {
         console.error('Ошибка user reg-post: ', error)
       }
     },
-    loginCurrentUser(id) {
-      this.currentUser = usersData[id];
+    async loginCurrentUser(email, password) {
+      try {
+        const response = await apiClient.post('/user/login', {
+          email: email,
+          password: password
+        });
+
+        localStorage.setItem('token', response.data.token);
+
+        localStorage.setItem('currentUser', JSON.stringify({
+          id: response.data.id,
+          nameUser: response.data.name,
+          avatar: response.data.avatar,
+        }));
+      } catch (error) {
+        console.error('Ошибка login user post: ', error);
+      }
     },
     editCurrentUser(user) {
-      this.currentUser = user
+      //this.currentUser = user
     },
 
     //Запросы на дневник

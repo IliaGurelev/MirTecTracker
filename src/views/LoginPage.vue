@@ -4,7 +4,10 @@
       :isRegistration="isRegistration"
       @clickSwitch="switchMode"
     />
-    <LoginForm v-if="!isRegistration"/>
+    <LoginForm 
+      v-if="!isRegistration"
+      @submitForm="loginUser"
+    />
     <RegistrationForm 
       v-else 
       @registrationForm="registrationUser"
@@ -19,6 +22,7 @@
 <script setup>
   import {ref} from 'vue';
   import { useMainStore } from '@/store';
+  import router from '@/router/index.js';
 
   import LoginForm from '@/components/Login/LoginForm.vue'
   import RegistrationForm from '@/components/Login/RegistrationForm.vue'
@@ -43,6 +47,12 @@
 
   const registrationUser = (user) => {
     store.registrationUser(user);
+    router.push({ name: 'Personal'})
+  }
+
+  const loginUser = (email, password) => {
+    store.loginCurrentUser(email, password)
+    router.push({ name: 'Personal'})
   }
 
 </script>

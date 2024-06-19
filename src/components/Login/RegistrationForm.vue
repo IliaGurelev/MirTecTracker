@@ -93,7 +93,7 @@
 
   const userData = computed(() => {
     return {
-      name: nameUser.value,
+      name: `${nameUser.value} ${surnameUser.value}`,
       avatar: "",
       email: mailUser.value,
       password: passwordUser.value
