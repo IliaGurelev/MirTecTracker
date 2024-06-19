@@ -30,7 +30,7 @@
 					</div>
 				</div>
 			</main>
-			<SidebarInfo :task="selectedTask" :isOpen="isSidebarOpen" />
+			<SidebarInfo :task="foundTasks" :isOpen="isSidebarOpen" :briefcases = "briefcases"/>
 			<ProgressBars :items="tasks" :sort="true"/>
 		</div>
 	</section>
@@ -50,9 +50,11 @@
 
 	const store = useMainStore();
 	const { tasks } = storeToRefs(store);
-
+	const { briefcases } = storeToRefs(store);
+	
 	onMounted(() => {
 		store.fetchTasks();
+		store.fetchBriefcase();
 	});
 
 	const searchQuery = ref('');
@@ -66,6 +68,8 @@
 
 	const selectedTask = ref(null); 
 const isSidebarOpen = ref(false);
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -99,6 +103,7 @@ const isSidebarOpen = ref(false);
 	position: relative;
   margin: 0 auto;
   border-radius: 20px;
+  font-weight: 500;
   }
 
   .search-task input{
@@ -228,7 +233,9 @@ const isSidebarOpen = ref(false);
 	.project-tasks {
 	  grid-template-columns: 1fr 1fr;
 	}
-
+	.sidebars-content {
+  	  overflow-y: auto; 
+	}
 
   }
   .home-section{

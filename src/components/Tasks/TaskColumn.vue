@@ -13,18 +13,20 @@
 			:item="item"
 			:statuses="column.statuses"
 			:globaltype="column.globaltype"
-			:sort="sort"/>
+			:sort="sort"
+			@openDeleteModal="openDeleteModal"/>
 	  <div class="kanban__descriprion">
 		<span>{{ dropText }}</span>
 	  </div>
 	</div>
+	<ConfirmationModal :visible="isModalVisible" @confirm="deleteTask" @cancel="hideModal"/>
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue';
+  import { ref } from 'vue';
   import Task from '@/components/Tasks/Task.vue';
-  import AddTaskButton from '@/components/Tasks/AddTask.vue';
-
+  import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal.vue';
+  
   const props = defineProps({
 	column: Object,
 	items: Array,
@@ -38,7 +40,7 @@
 	},
 	dropIcon: {
 	  type: String,
-	  default: "copy",
+	  default: "drag",
 	},
 	noBorder: Boolean,
 	colBgColor: String,
@@ -54,6 +56,8 @@
   });
   
   const overColumn = ref(null);
+  const isModalVisible = ref(false);
+  const taskIdToDelete = ref(null);
   
   const getList = status => props.items ? props.items.filter(item => item.status === status) : [];
   
@@ -87,9 +91,26 @@
 	  return getList(column.globaltype).length;
 	}
   };
+  
+  const openDeleteModal = (taskId) => {
+	taskIdToDelete.value = taskId;
+	isModalVisible.value = true;
+  };
+  
+  const deleteTask = () => {
+	const index = props.items.findIndex(item => item.id === taskIdToDelete.value);
+	if (index !== -1) {
+	  props.items.splice(index, 1);
+	}
+	hideModal();
+  };
+  
+  const hideModal = () => {
+	isModalVisible.value = false;
+  };
   </script>
   
-  <style lang="scss" scoped>
+  <style scoped>
   .project-column {
 	background: #e6e6e670;
 	padding: 5px 10px;
@@ -112,13 +133,16 @@
   }
   
   .kanban__move-icon {
-	padding: 1rem;	font-size: 20px;
+	padding: 1rem;
+	font-size: 20px;
 	color: #b0b0b0;
 	user-select: none;
   }
+  
   .kanban__descriprion {
 	text-align: center;
-	padding: 1rem;	font-size: 1rem;
+	padding: 1rem;
+	font-size: 1rem;
 	color: #b0b0b0;
 	user-select: none;
   }
@@ -126,6 +150,5 @@
   .kanban__move-icon span {
 	margin-left: 10px;
   }
-  
   </style>
   

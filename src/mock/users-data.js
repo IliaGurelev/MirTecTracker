@@ -7,7 +7,7 @@ const usersData = [
   {
     "id": 2,
     nameUser: "Bob",
-    "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
+    avatar: "https://randomuser.me/api/portraits/men/2.jpg"
   },
   {
     id: 3,
