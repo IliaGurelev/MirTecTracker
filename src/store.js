@@ -41,17 +41,38 @@ export const useMainStore = defineStore('main', {
       this.diary = this.diary.filter((task) => task.id !== id)
     },
 
-	  addTask(task) {
-		  this.tasks.push({ ...task, id: Date.now() });
-	  },
-	  deleteTask(taskId) {
-      const index = this.tasks.findIndex(task => task.id === taskId);
-      if (index !== -1) {
-        this.tasks.splice(index, 1);
-      }
-      console.log(taskId)
-	  },
-  
+	async addTask(task) {
+		try {
+			const response = await fetch('your-api-endpoint/tasks', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(task),
+			});
+			if (!response.ok) {
+				throw new Error('Failed to add task');
+			}
+			const newTask = await response.json();
+			this.tasks.push(newTask);
+		} catch (error) {
+			console.error('Error adding task:', error);
+
+		}
+	},
+	async deleteTask(taskId) {
+		try {
+			const response = await fetch(`your-api-endpoint/tasks/${taskId}`, {
+				method: 'DELETE',
+			});
+			if (!response.ok) {
+				throw new Error('Failed to delete task');
+			}
+			this.tasks = this.tasks.filter(task => task.id !== taskId);
+		} catch (error) {
+			console.error('Error deleting task:', error);
+		}
+	},
     addBriefcase(briefcase) {
       this.briefcases.push(briefcase);
     },
