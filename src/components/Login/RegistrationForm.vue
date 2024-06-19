@@ -93,10 +93,9 @@
 
   const userData = computed(() => {
     return {
-      id: 6,
       name: nameUser.value,
       avatar: "",
-      mail: mailUser.value,
+      email: mailUser.value,
       password: passwordUser.value
     }
   })

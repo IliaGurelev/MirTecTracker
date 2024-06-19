@@ -20,6 +20,14 @@ export const useMainStore = defineStore('main', {
   }),
   actions: {
     //Запросы на пользователя
+    async registrationUser(user) {
+      try {
+        const response = await apiClient.post('/user', user)
+        this.currentUser = response.data;
+      } catch(error) {
+        console.error('Ошибка user reg-post: ', error)
+      }
+    },
     loginCurrentUser(id) {
       this.currentUser = usersData[id];
     },

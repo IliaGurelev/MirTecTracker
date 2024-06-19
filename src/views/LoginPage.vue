@@ -5,7 +5,10 @@
       @clickSwitch="switchMode"
     />
     <LoginForm v-if="!isRegistration"/>
-    <RegistrationForm v-else />
+    <RegistrationForm 
+      v-else 
+      @registrationForm="registrationUser"
+    />
     <LoginSwitcher 
       :isRegistration="isRegistration"
       @clickSwitch="switchMode"
@@ -15,6 +18,7 @@
 
 <script setup>
   import {ref} from 'vue';
+  import { useMainStore } from '@/store';
 
   import LoginForm from '@/components/Login/LoginForm.vue'
   import RegistrationForm from '@/components/Login/RegistrationForm.vue'
@@ -29,10 +33,16 @@
     }
   })
 
+  const store = useMainStore();
+
   const isRegistration = ref(props.isRegistration);
 
   const switchMode = () => {
     isRegistration.value = !isRegistration.value;
+  }
+
+  const registrationUser = (user) => {
+    store.registrationUser(user);
   }
 
 </script>
