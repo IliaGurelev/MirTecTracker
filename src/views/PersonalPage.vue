@@ -8,22 +8,33 @@
     <PersonalDiary
       :currentUser="currentUser"
       :tasks="diary"
+      @clickSettings="switchSettings"
       class="user-page__diary"
+    />
+    <PersonalSettings v-if="activeSettings"
+      :currentUser="currentUser"
     />
   </main>
 </template>
 
 <script setup>
-  import { onMounted, computed } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { useMainStore } from '@/store.js';
   import { storeToRefs } from 'pinia';
   import Sidebar from '@/components/Sidebar/Sidebar.vue';
   import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
+  import PersonalSettings from '@/components/Personal/PersonalSettings.vue';
 
   const store = useMainStore();
 
   const {diary, tasks, currentUser} = storeToRefs(store);
+  
+  const activeSettings = ref(false);
+
+  const switchSettings = () => {
+    activeSettings.value = !activeSettings.value;
+  }
 
   onMounted(() => {
     store.fetchTasks();
@@ -37,7 +48,7 @@
     display: flex;
     margin-top: 80px;
     margin-left: 90px;
-    column-gap: 50px;
+    column-gap: 60px;
 
     @media (max-width: 600px) {
       margin-left: 10px;

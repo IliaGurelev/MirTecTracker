@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia';
+
 import replaceItemById from '@/utils/replace-element';
 import removeById from '@/utils/remove-element';
+
+import { apiClient } from '@/config.js';
 
 // Моковые данные
 import usersData from '@/mock/users-data.js';
 import tasksData from '@/mock/tasks-data.js';
 import tasksDiary from '@/mock/tasks-diary.js';
-import briefcaseData from '@/mock/briefcase-data.js';
-
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -15,72 +16,90 @@ export const useMainStore = defineStore('main', {
     diary: [],
     briefcases: [],
     currentUser: {},
-	usersData: [],
+    users: [],
   }),
   actions: {
-    fetchTasks() {
-      this.tasks = tasksData;
-    },
-    fetchDiary() {
-      this.diary = tasksDiary;
-    },
-    fetchBriefcase() {
-      this.briefcases = briefcaseData;
-    },
-	fetchWorkers() {
-		this.usersData = usersData;
-	  },
+    //Запросы на пользователя
     loginCurrentUser(id) {
       this.currentUser = usersData[id];
     },
-
-    addDiaryTask(task) {
-      this.diary.push(task);
-    },
-    removeDiaryTaskById(id) {
-      this.diary = this.diary.filter((task) => task.id !== id)
+    editCurrentUser(user) {
+      this.currentUser = user
     },
 
-	async addTask(task) {
-		try {
-			const response = await fetch('your-api-endpoint/tasks', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(task),
-			});
-			if (!response.ok) {
-				throw new Error('Failed to add task');
-			}
-			const newTask = await response.json();
-			this.tasks.push(newTask);
-		} catch (error) {
-			console.error('Error adding task:', error);
+    //Запросы на дневник
+    async fetchDiary() {
+      try {
+        const response = await apiClient.get('/diary');
+        this.diary = response.data;
+      } catch (error) {
+        console.error('Ошибка get diary: ' + error);
+      }
+    },
+    async addDiaryTask(task) {
+      try {
+        const response = await apiClient.post('/diary', task);
+        this.diary.push(response.data);
+      } catch (error) {
+        console.error('Ошибка post diary: ' + error);
+      }
+    },
+    async removeDiaryTaskById(id) {
+      try {
+        const response = await apiClient.delete(`/diary/${id}`);
+        removeById(this.diary, id);
+      } catch (error) {
+        console.error('Ошибка delete diary: ' + error);
+      }
+    },
 
-		}
-	},
-	async deleteTask(taskId) {
-		try {
-			const response = await fetch(`your-api-endpoint/tasks/${taskId}`, {
-				method: 'DELETE',
-			});
-			if (!response.ok) {
-				throw new Error('Failed to delete task');
-			}
-			this.tasks = this.tasks.filter(task => task.id !== taskId);
-		} catch (error) {
-			console.error('Error deleting task:', error);
-		}
-	},
-    addBriefcase(briefcase) {
-      this.briefcases.push(briefcase);
+    //Запросы на задачи
+    fetchTasks() {
+      this.tasks = tasksData;
     },
-    editBriefcase(briefcase) {
-      replaceItemById(this.briefcases, briefcase)
+	  addTask(task) {
+		  this.tasks.push({ ...task, id: Date.now() });
+	  },
+	  deleteTask(taskId) {
+      const index = this.tasks.findIndex(task => task.id === taskId);
+      if (index !== -1) {
+        this.tasks.splice(index, 1);
+      }
+      console.log(taskId)
+	  },
+
+    //Запросы на портфели
+    async fetchBriefcase() {
+      try {
+        const response = await apiClient.get('/briefcase');
+        this.briefcases = response.data;
+      } catch (error) {
+        console.error(`Ошибка fetching briefcase: `, error);
+      }
     },
-    removeBriefcase(id) {
-      removeById(this.briefcases, id);
+    async addBriefcase(briefcase) {
+      try {
+        const response = await apiClient.post('/briefcase', briefcase);
+        this.briefcases.push(response.data);
+      } catch (error) {
+        console.error('Ошибка adding briefcase:', error);
+      }
+    },
+    async editBriefcase(briefcase) {
+      try {
+        const response = await apiClient.put(`/briefcase/${briefcase.id}`, briefcase)
+        replaceItemById(this.briefcases, response.data);
+      } catch (error) {
+        console.error('Ошибка put briefcase:', error)
+      }
+    },
+    async removeBriefcase(id) {
+      try {
+        const response = await apiClient.delete(`/briefcase/${id}`)
+        removeById(this.briefcases, id);
+      } catch (error) {
+        console.error('Ошибка delete briefcase:', error);
+      }
     }
   },
 });

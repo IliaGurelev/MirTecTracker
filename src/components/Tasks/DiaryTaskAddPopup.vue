@@ -60,11 +60,10 @@
 
   const dataTask = computed(() => {
     return {
-      id: 4,
       name: nameTask.value,
       description: descriptionTask.value,
-      timeStart: timeTask.value,
-      dueDate: dateTask.value,
+      timeStart: timeTask.value + ':00',
+      dueDate: format(new Date(dateTask.value), 'yyyy-MM-dd'),
     }
   })
 </script>
