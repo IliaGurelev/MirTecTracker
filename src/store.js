@@ -54,19 +54,57 @@ export const useMainStore = defineStore('main', {
     },
 
     //Запросы на задачи
-    fetchTasks() {
-      this.tasks = tasksData;
-    },
+	fetchTasks() {
+		apiClient.get('/task')
+			.then(response => {
+				this.tasks = response.data.map(task => ({
+					...task,
+					createdAt: new Date(task.createdAt),
+					dueDate: new Date(task.dueDate),
+					briefcase: {
+						id: task.briefcase.id,
+						name: task.briefcase.name,
+						color: task.briefcase.color
+					},
+					workers: task.taskWorkers.map(tw => ({
+						id: tw.worker.id,
+						name: tw.worker.name,
+						avatar: tw.worker.avatar
+					}))
+				}));
+			})
+			.catch(error => {
+				if (error.response && error.response.status === 404) {
+					console.error('Ошибка при загрузке задач: конечная точка не найдена (404).');
+				} else {
+					console.error('Ошибка при загрузке задач:', error);    
+				}
+			});
+	}
+	  ,
 	  addTask(task) {
-		  this.tasks.push({ ...task, id: Date.now() });
+		apiClient.post('/task', task)
+		  .then(response => {
+			this.tasks.push(response.data);
+		  })
+		  .catch(error => {
+			console.error('Ошибка при добавлении задачи:', error);
+		  });
 	  },
+	  
 	  deleteTask(taskId) {
-      const index = this.tasks.findIndex(task => task.id === taskId);
-      if (index !== -1) {
-        this.tasks.splice(index, 1);
-      }
-      console.log(taskId)
+		apiClient.delete(`/task/${taskId}`)
+		  .then(response => {
+			const index = this.tasks.findIndex(task => task.id === taskId);
+			if (index !== -1) {
+			  this.tasks.splice(index, 1);
+			}
+		  })
+		  .catch(error => {
+			console.error('Ошибка при удалении задачи:', error);
+		  });
 	  },
+	  
 
     //Запросы на портфели
     async fetchBriefcase() {
