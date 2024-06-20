@@ -80,8 +80,9 @@ export const useMainStore = defineStore('main', {
     },
 
     //Запросы на задачи
-    fetchTasks() {
-      this.tasks = tasksData;
+    async fetchTasks() {
+      const response = await apiClient.get('/task');
+      this.tasks = response.data;
     },
 	  addTask(task) {
 		  this.tasks.push({ ...task, id: Date.now() });
