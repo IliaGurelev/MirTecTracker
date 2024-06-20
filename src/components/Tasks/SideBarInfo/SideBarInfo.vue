@@ -7,13 +7,13 @@
 			  <i class="fa-solid fa-xmark"></i>
 			</div>
 			<h2>{{ props.task.name }}</h2>
-			<textarea v-model="props.task.name" @input="updateTask" placeholder="Название задачи"></textarea>
+			<textarea v-model="editTasks.name" @blur="updateTask" placeholder="Название задачи"></textarea>
 		  </div>
 		  <div class="sidebars-content__description">
-			<textarea v-model="props.task.description" @input="updateTask" placeholder="Описание задачи"></textarea>
+			<textarea v-model="editTasks.description" @blur="updateTask" placeholder="Описание задачи"></textarea>
 		  </div>
 		  <div class="sidebars-content__items">
-			<p>Статус: <EditTaskStatus :taskStatus="props.task.status" @update-status="updateTaskStatus" /></p>
+			<p>Статус: <EditTaskStatus :taskStatus="editTasks.status" @update-status="updateTaskStatus" /></p>
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Дата начала:
@@ -113,7 +113,7 @@
   </template>
   
   <script setup>
-import { ref, watch, defineEmits, defineProps, onMounted, onBeforeUnmount } from 'vue';
+import { ref, watch, defineEmits, defineProps, onMounted, onBeforeUnmount, watchEffect } from 'vue';
 import { debounce } from 'lodash-es';
 import formatDate from "@/utils/format-date.js";
 import WorkerList from '@/components/Tasks/WorkerList.vue';
@@ -146,6 +146,7 @@ const props = defineProps({
 
 const emitEvents = defineEmits(['close', 'update-task']);
 
+const editTasks = ref(props.task);
 
 const isEditDueDate = ref(false);
 const isEditCreatedAt = ref(false);
@@ -174,12 +175,11 @@ const handleEsc = (event) => {
 };
 
 const updateTask = debounce(() => {
-  emitEvents('update-task', props.task);
-  console.log('Task updated:', props.task);
+  store.editTask(editTasks.value);
 }, 1000);
 
 const updateTaskStatus = (status) => {
-  props.task.status = status;
+  editTasks.value.status = status;
   updateTask();
 };
 
@@ -218,7 +218,7 @@ const closeInput = (field) => {
 };
 
 const selectBriefcase = (briefcase) => {
-  props.task.briefcase = briefcase;
+  editTasks.value.briefcase = briefcase;
   updateTask();
   showBriefcaseChangedMessage();
   isEditBriefcase.value = false;
@@ -236,8 +236,8 @@ const handleWorkerSelect = (worker) => {
 };
 
 const addWorker = () => {
-  if (selectedWorker.value && !props.task.workers.some(worker => worker.id === selectedWorker.value.id)) {
-    props.task.workers.push(selectedWorker.value);
+  if (selectedWorker.value && !editTasks.value.workers.some(worker => worker.id === selectedWorker.value.id)) {
+    editTasks.value.workers.push(selectedWorker.value);
     updateTask();
     showWorkerAddedMessage();
     selectedWorker.value = null;
@@ -261,7 +261,7 @@ const showWorkerAlreadyAssignedMessage = () => {
 };
 
 const removeWorker = (worker) => {
-  props.task.workers = props.task.workers.filter(w => w.id !== worker.id);
+  editTasks.value.workers = editTasks.value.workers.filter(w => w.id !== worker.id);
   updateTask();
   showWorkerRemovedMessage();
 };
@@ -332,6 +332,10 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', handleEsc);
 });
+
+watchEffect(() => {
+  editTasks.value = props.task;
+})
 </script>
 
   

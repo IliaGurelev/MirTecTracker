@@ -24,6 +24,7 @@
   
   <script setup>
   import { ref } from 'vue';
+	import { useMainStore } from '@/store';
   import Task from '@/components/Tasks/Task.vue';
   import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal.vue';
   
@@ -55,6 +56,8 @@
 	},
   });
   
+	const store = useMainStore();
+
   const overColumn = ref(null);
   const isModalVisible = ref(false);
   const taskIdToDelete = ref(null);
@@ -62,26 +65,28 @@
   const getList = status => props.items ? props.items.filter(item => item.status === status) : [];
   
   const onEnterColumn = (columnType) => {
-	overColumn.value = columnType;
+		overColumn.value = columnType;
   };
   
   const onOverColumn = (columnType) => {
-	overColumn.value = columnType;
+		overColumn.value = columnType;
   };
   
   const onLeaveColumn = () => {
-	overColumn.value = null;
+		overColumn.value = null;
   };
   
   const onDrop = (event, status) => {
 	const { item } = getItemById(event);
-	item.status = status;
+		item.status = status;
+		store.editTask(item);
   };
   
   const getItemById = (event) => {
-	const itemId = event.dataTransfer.getData('itemId');
-	const item = props.items.find(item => item.id == itemId);
-	return { item, itemId };
+		const itemId = event.dataTransfer.getData('itemId');
+
+		const item = props.items.find(item => item.id == itemId);
+			return { item, itemId };
   };
   
   const getCount = (column) => {
@@ -93,16 +98,13 @@
   };
   
   const openDeleteModal = (taskId) => {
-	taskIdToDelete.value = taskId;
-	isModalVisible.value = true;
+		taskIdToDelete.value = taskId;
+		isModalVisible.value = true;
   };
   
   const deleteTask = () => {
-	const index = props.items.findIndex(item => item.id === taskIdToDelete.value);
-	if (index !== -1) {
-	  props.items.splice(index, 1);
-	}
-	hideModal();
+		store.deleteTask(taskIdToDelete.value);
+		hideModal();
   };
   
   const hideModal = () => {
@@ -111,10 +113,10 @@
   </script>
   
   <style scoped>
-  .project-column {
-	background: #e6e6e670;
-	padding: 5px 10px;
-	border-radius: 8px;
+		.project-column {
+		background: #e6e6e670;
+		padding: 5px 10px;
+		border-radius: 8px;
   }
   
   .project-column-heading {

@@ -1,5 +1,5 @@
 <template>
-  <Sidebar :task="selectedTask" :isOpen="isSidebarOpen" @close="closeSidebar" />
+  <Sidebar :task="selectedTask" :isOpen="isSidebarOpen" @close="closeSidebar"/>
   <transition name="task" appear enter-active-class="task-enter" leave-active-class="task-leave">
     <div :key="item.id" class="task" :draggable="true" @dragstart="startDrag($event, item)" @drop="onDropSort($event, item)" @dragover.prevent="onOver($event)" @dragleave.prevent="onLeave($event)" @click="selectTask(item)">
       <div class='tasktags'>

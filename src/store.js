@@ -84,15 +84,30 @@ export const useMainStore = defineStore('main', {
       const response = await apiClient.get('/task');
       this.tasks = response.data;
     },
-	  addTask(task) {
-		  this.tasks.push({ ...task, id: Date.now() });
-	  },
-	  deleteTask(taskId) {
-      const index = this.tasks.findIndex(task => task.id === taskId);
-      if (index !== -1) {
-        this.tasks.splice(index, 1);
+	  async addTask(task) {
+      try {
+        const response = await apiClient.post('/task', task);
+        this.tasks.push(response.data)
+        console.log(response.data)
+      } catch (error) {
+        console.log('Ошибка task post: ', error)
       }
-      console.log(taskId)
+	  },
+    async editTask(task) {
+      try {
+        const response = await apiClient.put(`/task/${task.id}`, task);
+        replaceItemById(this.tasks, response.data);
+      } catch (error) {
+        console.error('Ошибка put task: ', error)
+      }
+    },
+	  async deleteTask(taskId) {
+      try {
+        const response = await apiClient.delete(`/task/${taskId}`)
+        removeById(this.tasks, taskId);
+      } catch (error) {
+        console.error('Ошибка delete task: ', error)
+      }
 	  },
 
     //Запросы на портфели

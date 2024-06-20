@@ -57,20 +57,22 @@
   });
   
   const getTodayDate = () => {
-	const today = new Date();
-	return today.toISOString().split('T')[0];
+		const today = new Date();
+		return today.toISOString().split('T')[0];
   };
   
   const newTask = ref({
-	name: '',
-	description: '',
-	status: 'open',
-	createdAt: getTodayDate(),
-	dueDate: '',
-	briefcase: {
-	  name: '',
-	  color: '',
-	},
+		name: '',
+		description: '',
+		status: 'open',
+		createdAt: getTodayDate(),
+		dueDate: '',
+		briefcase: {
+			id: '',
+			name: '',
+			color: '',
+		},
+		workers: [],
   });
   
   const isFormOpen = ref(false);
@@ -86,45 +88,40 @@
   };
   
   const handleEsc = (event) => {
-	if (event.key === 'Escape' && isFormOpen.value) {
-	  closeForm();
-	}
-  };
-  
-  watch(newTask.value.briefcase, (newVal) => {
-	if (newVal.name !== 'custom') {
-	  customBriefcaseName.value = '';
-	}
-  });
-  
-  const handleBriefcaseSelect = (briefcase) => {
-	newTask.value.briefcase.name = briefcase.name;
-	newTask.value.briefcase.color = briefcase.color;
-  };
-  
-  const addTask = () => {
-	if (newTask.value.briefcase.name === 'custom') {
-	  newTask.value.briefcase.name = customBriefcaseName.value;
-	}
-  
-	store.addTask(newTask.value);
-  
-	console.log('New Task:', newTask.value);
-  
-	newTask.value = {
-	  name: '',
-	  description: '',
-	  status: 'open',
-	  createdAt: getTodayDate(),
-	  dueDate: '',
-	  briefcase: {
-		name: '',
-		color: '',
-	  },
+			if (event.key === 'Escape' && isFormOpen.value) {
+				closeForm();
+			}
+		};
+		
+	watch(newTask.value.briefcase, (newVal) => {
+		if (newVal.name !== 'custom') {
+			customBriefcaseName.value = '';
+		}
+	});
+	
+	const handleBriefcaseSelect = (briefcase) => {
+		newTask.value.briefcase = briefcase;
 	};
-	customBriefcaseName.value = '';
-	selectedBriefcaseIcon.value = null;
-	closeForm();
+	
+	const addTask = () => {
+		store.addTask(newTask.value);
+
+		newTask.value = {
+			name: '',
+			description: '',
+			status: 'open',
+			createdAt: getTodayDate(),
+			dueDate: '',
+			briefcase: {
+				id: '',
+				name: '',
+				color: '',
+			},
+			workers: [],
+		};
+			customBriefcaseName.value = '';
+			selectedBriefcaseIcon.value = null;
+			closeForm();
   };
   
   const searchBriefcaseRef = ref(null);
