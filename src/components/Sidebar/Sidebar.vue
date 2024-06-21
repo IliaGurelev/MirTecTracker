@@ -1,4 +1,5 @@
 <template>
+
 	<div>
 	  <!-- Основной сайдбар -->
 	  <nav class="navbar">
@@ -9,7 +10,7 @@
 		  </router-link>
 		</div>
 	  </nav>
-  
+
 	  <nav class="sidebar" :class="{ close: isSidebarClose, hoverable: isHoverable }"
 		   @mouseenter="handleSidebarMouseEnter" @mouseleave="handleSidebarMouseLeave">
 		<div class="menu_content">
@@ -55,10 +56,10 @@
 		  <!-- Контроллы сайдбара -->
 		  <sidebar-controls :expandSidebar="expandSidebar" :closeSidebar="closeSidebar" />
 		</div>
+		
 	  </nav>
-  
-	  <!-- Второй сайдбар для дашбордов -->
-	  <sidebar-dashboards v-if="showDashboardsSidebar"  />
+<!-- Второй сайдбар для дашбордов -->
+<sidebar-dashboards v-if="showDashboardsSidebar"  />
 	</div>
   </template>
   

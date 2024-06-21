@@ -67,15 +67,15 @@ export const useMainStore = defineStore('main', {
 	fetchDashboard() {
 		this.dashboards = dasboardData;
 	  },
-	  setCurrentDashboardById(id) {
+	setCurrentDashboardById(id) {
 		//Илья, это отправка айди в роутер для фильтрация тасков и названия дашборда
-		this.currentDashboard = this.dashboards.find(dashboard => dashboard.id === id);
-	  },
-	  addDashboard(newDashboard) {
+	this.currentDashboard = this.dashboards.find(dashboard => dashboard.id === id);
+	 },
+	addDashboard(newDashboard) {
 		// Генерация уникального id для нового дашборда
-		const id = this.dashboards.length + 1;
+	const id = this.dashboards.length + 1;
 		// Добавление нового дашборда в массив dashboards
-		this.dashboards.push({ id, ...newDashboard });
-	  },
+	this.dashboards.push({ id, ...newDashboard });
+	},
   },
 });
