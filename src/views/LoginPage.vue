@@ -45,13 +45,13 @@
     isRegistration.value = !isRegistration.value;
   }
 
-  const registrationUser = (user) => {
-    store.registrationUser(user);
+  const registrationUser = async (user) => {
+    await store.registrationUser(user);
     router.push({ name: 'Personal'})
   }
 
-  const loginUser = (email, password) => {
-    store.loginCurrentUser(email, password)
+  const loginUser = async (email, password) => {
+    await store.loginCurrentUser(email, password)
     router.push({ name: 'Personal'})
   }
 

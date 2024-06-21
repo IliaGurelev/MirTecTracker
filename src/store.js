@@ -14,10 +14,7 @@ export const useMainStore = defineStore('main', {
     diary: [],
     briefcases: [],
     users: [],
-    currentUser: localStorage.getItem('currentUser') || 
-      `{id: "", 
-      nameUser: "", 
-      avatar: ""}`, 
+    currentUser: localStorage.getItem('currentUser') || { id: '', name: '', avatar: '' },
     token: localStorage.getItem('token') || '',
   }),
   actions: {
@@ -49,22 +46,50 @@ export const useMainStore = defineStore('main', {
         console.error('Ошибка login user post: ', error);
       }
     },
-    editCurrentUser(user) {
-      //this.currentUser = user
+    async editCurrentUser(user) {
+      const response = await apiClient.put(`/user/${user.id}`, user);
+
+      localStorage.setItem('currentUser', JSON.stringify({
+        id: response.data.id,
+        nameUser: response.data.name,
+        avatar: response.data.avatar,
+      }));
+    },
+    logoutCurrentUser() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('currentUser');
+
+      this.token = '';
+      this.currentUser = {
+        id: '',
+        nameUser: '',
+        avatar: '',
+      };
+      this.tasks = [];
+      this.diary = [];
+      this.briefcases = [];
+      this.users = [];
     },
 
     //Запросы на дневник
     async fetchDiary() {
       try {
-        const response = await apiClient.get('/diary');
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const userId = currentUser.id;
+  
+        const response = await apiClient.get(`/diary?userId=${userId}`);
         this.diary = response.data;
+
       } catch (error) {
         console.error('Ошибка get diary: ' + error);
       }
     },
     async addDiaryTask(task) {
       try {
-        const response = await apiClient.post('/diary', task);
+        const currentUser = JSON.parse(this.currentUser);
+        const userId = currentUser.id;
+
+        const response = await apiClient.post(`/diary?userId=${userId}`, task);
         this.diary.push(response.data);
       } catch (error) {
         console.error('Ошибка post diary: ' + error);
@@ -88,9 +113,8 @@ export const useMainStore = defineStore('main', {
       try {
         const response = await apiClient.post('/task', task);
         this.tasks.push(response.data)
-        console.log(response.data)
       } catch (error) {
-        console.log('Ошибка task post: ', error)
+        console.error('Ошибка task post: ', error)
       }
 	  },
     async editTask(task) {
