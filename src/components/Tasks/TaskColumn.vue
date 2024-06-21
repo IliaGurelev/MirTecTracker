@@ -13,18 +13,21 @@
 			:item="item"
 			:statuses="column.statuses"
 			:globaltype="column.globaltype"
-			:sort="sort"/>
+			:sort="sort"
+			@openDeleteModal="openDeleteModal"/>
 	  <div class="kanban__descriprion">
 		<span>{{ dropText }}</span>
 	  </div>
 	</div>
+	<ConfirmationModal :visible="isModalVisible" @confirm="deleteTask" @cancel="hideModal"/>
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue';
+  import { ref } from 'vue';
+	import { useMainStore } from '@/store';
   import Task from '@/components/Tasks/Task.vue';
-  import AddTaskButton from '@/components/Tasks/AddTask.vue';
-
+  import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal.vue';
+  
   const props = defineProps({
 	column: Object,
 	items: Array,
@@ -38,7 +41,7 @@
 	},
 	dropIcon: {
 	  type: String,
-	  default: "copy",
+	  default: "drag",
 	},
 	noBorder: Boolean,
 	colBgColor: String,
@@ -53,31 +56,37 @@
 	},
   });
   
+	const store = useMainStore();
+
   const overColumn = ref(null);
+  const isModalVisible = ref(false);
+  const taskIdToDelete = ref(null);
   
   const getList = status => props.items ? props.items.filter(item => item.status === status) : [];
   
   const onEnterColumn = (columnType) => {
-	overColumn.value = columnType;
+		overColumn.value = columnType;
   };
   
   const onOverColumn = (columnType) => {
-	overColumn.value = columnType;
+		overColumn.value = columnType;
   };
   
   const onLeaveColumn = () => {
-	overColumn.value = null;
+		overColumn.value = null;
   };
   
   const onDrop = (event, status) => {
 	const { item } = getItemById(event);
-	item.status = status;
+		item.status = status;
+		store.editTask(item);
   };
   
   const getItemById = (event) => {
-	const itemId = event.dataTransfer.getData('itemId');
-	const item = props.items.find(item => item.id == itemId);
-	return { item, itemId };
+		const itemId = event.dataTransfer.getData('itemId');
+
+		const item = props.items.find(item => item.id == itemId);
+			return { item, itemId };
   };
   
   const getCount = (column) => {
@@ -87,13 +96,27 @@
 	  return getList(column.globaltype).length;
 	}
   };
+  
+  const openDeleteModal = (taskId) => {
+		taskIdToDelete.value = taskId;
+		isModalVisible.value = true;
+  };
+  
+  const deleteTask = () => {
+		store.deleteTask(taskIdToDelete.value);
+		hideModal();
+  };
+  
+  const hideModal = () => {
+	isModalVisible.value = false;
+  };
   </script>
   
-  <style lang="scss" scoped>
-  .project-column {
-	background: #e6e6e670;
-	padding: 5px 10px;
-	border-radius: 8px;
+  <style scoped>
+		.project-column {
+		background: #e6e6e670;
+		padding: 5px 10px;
+		border-radius: 8px;
   }
   
   .project-column-heading {
@@ -112,13 +135,16 @@
   }
   
   .kanban__move-icon {
-	padding: 1rem;	font-size: 20px;
+	padding: 1rem;
+	font-size: 20px;
 	color: #b0b0b0;
 	user-select: none;
   }
+  
   .kanban__descriprion {
 	text-align: center;
-	padding: 1rem;	font-size: 1rem;
+	padding: 1rem;
+	font-size: 1rem;
 	color: #b0b0b0;
 	user-select: none;
   }
@@ -126,6 +152,5 @@
   .kanban__move-icon span {
 	margin-left: 10px;
   }
-  
   </style>
   

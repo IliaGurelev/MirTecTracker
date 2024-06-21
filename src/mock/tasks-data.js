@@ -14,14 +14,14 @@ const tasksData = [
       {
         "id": 1,
         "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+        "avatar": ""
       },
       {
         "id": 2,
         "name": "Bob",
         "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
       },
-    ],stroke : 1,
+    ],
   },
   {
     "id": 4,
@@ -38,7 +38,7 @@ const tasksData = [
       {
         "id": 1,
         "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+        "avatar": ""
       },
       {
         "id": 2,
@@ -50,7 +50,7 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],stroke : 4,
+    ],
   },
   {
     "id": 3,
@@ -67,7 +67,7 @@ const tasksData = [
       {
         "id": 1,
         "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+        "avatar": ""
       },
       {
         "id": 2,
@@ -79,7 +79,7 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],stroke : 3,
+    ],
   },
   {
     "id": 2,
@@ -96,14 +96,14 @@ const tasksData = [
       {
         "id": 1,
         "name": "Alice",
-        "avatar": "https://randomuser.me/api/portraits/women/1.jpg"
+        "avatar": ""
       },
       {
         "id": 3,
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],stroke : 2,
+    ],
   }
 ]
 

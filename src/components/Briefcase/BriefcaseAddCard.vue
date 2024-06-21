@@ -58,7 +58,12 @@
   const currentColor = ref('blue');
   const nameBriefcase = defineModel();
 
-  const briefcaseData = computed(() => {return{name: nameBriefcase.value, color: currentColor.value}})
+  const briefcaseData = computed(() => {
+    return {
+      name: nameBriefcase.value, 
+      color: currentColor.value
+    }
+  })
 
   const switchIsActive = () => {
     isAcive.value = !isAcive.value;

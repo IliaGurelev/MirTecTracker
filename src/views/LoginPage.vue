@@ -4,8 +4,14 @@
       :isRegistration="isRegistration"
       @clickSwitch="switchMode"
     />
-    <LoginForm v-if="!isRegistration"/>
-    <RegistrationForm v-else />
+    <LoginForm 
+      v-if="!isRegistration"
+      @submitForm="loginUser"
+    />
+    <RegistrationForm 
+      v-else 
+      @registrationForm="registrationUser"
+    />
     <LoginSwitcher 
       :isRegistration="isRegistration"
       @clickSwitch="switchMode"
@@ -15,6 +21,8 @@
 
 <script setup>
   import {ref} from 'vue';
+  import { useMainStore } from '@/store';
+  import router from '@/router/index.js';
 
   import LoginForm from '@/components/Login/LoginForm.vue'
   import RegistrationForm from '@/components/Login/RegistrationForm.vue'
@@ -29,10 +37,22 @@
     }
   })
 
+  const store = useMainStore();
+
   const isRegistration = ref(props.isRegistration);
 
   const switchMode = () => {
     isRegistration.value = !isRegistration.value;
+  }
+
+  const registrationUser = async (user) => {
+    await store.registrationUser(user);
+    router.push({ name: 'Personal'})
+  }
+
+  const loginUser = async (email, password) => {
+    await store.loginCurrentUser(email, password)
+    router.push({ name: 'Personal'})
   }
 
 </script>
