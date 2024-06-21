@@ -8,7 +8,7 @@
 			<main class='project'>
 				
 				<div class='project-info'>
-					<h1 class="txt">Дашборд со всеми задачами</h1>
+					<h1 class="txt">{{ currentDashboardName }}</h1>
 					<div class="search-task">		
 						<input type="text" v-model="searchQuery" placeholder="Поиск задач">
 						<div class="search-task__icon">
@@ -18,7 +18,7 @@
 					<AddTaskButton />
 				</div>	
 				<div v-if="searchQuery.trim() === ''">
-					<ProjectTask :items="tasks" :sort="sort"  />
+					<ProjectTask :items="filteredTasks" :sort="sort"  />
 				</div>
 				<div v-else-if="foundTasks.length > 0">
 					<ProjectTask :items="foundTasks" :sort="sort"   />
@@ -31,7 +31,7 @@
 				</div>
 			</main>
 			<SidebarInfo :task="foundTasks" :isOpen="isSidebarOpen" :briefcases = "briefcases"/>
-			<ProgressBars :items="tasks" :sort="true"/>
+			<ProgressBars :items="filteredTasks" :sort="true"/>
 		</div>
 	</section>
 	</body>
@@ -39,6 +39,7 @@
 
 <script setup>
 	import { ref, computed } from 'vue';
+	import { useRouter } from 'vue-router';
 	import AddTaskButton from '@/components/Tasks/AddTask.vue';
 	import { onMounted } from 'vue';
 	import { useMainStore } from '@/store';
@@ -49,6 +50,7 @@
 	import SidebarInfo from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
 
 	const store = useMainStore();
+	const router = useRouter();
 	const { tasks } = storeToRefs(store);
 	const { briefcases } = storeToRefs(store);
 	
@@ -58,14 +60,25 @@
 	});
 
 	const searchQuery = ref('');
-
+	const filteredTasks = computed(() => {
+  if (!currentDashboard.value) return [];
+  
+  return tasks.value.filter(task => task.dashboardId === currentDashboard.value.id);
+});
 	const foundTasks = computed(() => {
 		const query = searchQuery.value.trim().toLowerCase();
 		if (!query) return tasks.value;
 
 		return tasks.value.filter(item => item.name.toLowerCase().includes(query));
 	});
+	const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
+	const currentDashboard = computed(() => {
+	return store.dashboards.find(dashboard => dashboard.id === currentDashboardId.value);
+	});
 
+	const currentDashboardName = computed(() => {
+	return currentDashboard.value ? currentDashboard.value.name : 'Дашборд со всеми задачами';
+	});
 	const selectedTask = ref(null); 
 const isSidebarOpen = ref(false);
 

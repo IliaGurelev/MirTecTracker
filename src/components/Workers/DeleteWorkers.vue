@@ -13,7 +13,7 @@
 				<img :src="worker.avatar" class="worker-photo" alt="Фото исполнителя">
 			  </template>
 			  <template v-else>
-				<i class="fa-solid fa-user-secret worker-photo"></i>
+				<UserIcon class="worker__icon" />
 			  </template>
 			  <span>{{ worker.nameUser || worker.name }}</span>
 			</div>
@@ -27,7 +27,7 @@
   
   <script setup>
   import { ref, watch } from 'vue';
-  
+  import UserIcon from '@/assets/UserIcon.vue';
   const props = defineProps({
 	workerList: {
 	  type: Array,
@@ -87,6 +87,17 @@
   </script>
   
   <style scoped>
+  .worker {
+    width: 30px;
+    position: relative;
+
+  }
+  .worker__icon {
+      width: 40px;
+      border-radius: 50%;
+      border: #ffffff 4px solid;
+      cursor: pointer;
+    }
   .delete-workers {
 	display: flex;
 	flex-direction: column;

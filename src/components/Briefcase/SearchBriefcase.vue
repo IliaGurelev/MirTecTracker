@@ -139,7 +139,7 @@
 	padding: 0 5px;
 	border: 2px solid #c9c9c9;
 	position: relative;
-	z-index: 2;
+	z-index: 100;
 	margin-left: 50px;
   }
   

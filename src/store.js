@@ -1,14 +1,13 @@
 import { defineStore } from 'pinia';
-
 import replaceItemById from '@/utils/replace-element';
 import removeById from '@/utils/remove-element';
-
-import { apiClient } from '@/config.js';
 
 // Моковые данные
 import usersData from '@/mock/users-data.js';
 import tasksData from '@/mock/tasks-data.js';
 import tasksDiary from '@/mock/tasks-diary.js';
+import briefcaseData from '@/mock/briefcase-data.js';
+import dasboardData from '@/mock/dashboards-data.js';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -16,128 +15,67 @@ export const useMainStore = defineStore('main', {
     diary: [],
     briefcases: [],
     currentUser: {},
-    users: [],
+	usersData: [],
+	dashboards: [],
+	currentDashboard: null,
   }),
   actions: {
-    //Запросы на пользователя
+    fetchTasks() {
+      this.tasks = tasksData;
+    },
+    fetchDiary() {
+      this.diary = tasksDiary;
+    },
+    fetchBriefcase() {
+      this.briefcases = briefcaseData;
+    },
+	fetchWorkers() {
+		this.usersData = usersData;
+	  },
     loginCurrentUser(id) {
       this.currentUser = usersData[id];
     },
-    editCurrentUser(user) {
-      this.currentUser = user
+
+    addDiaryTask(task) {
+      this.diary.push(task);
+    },
+    removeDiaryTaskById(id) {
+      this.diary = this.diary.filter((task) => task.id !== id)
     },
 
-    //Запросы на дневник
-    async fetchDiary() {
-      try {
-        const response = await apiClient.get('/diary');
-        this.diary = response.data;
-      } catch (error) {
-        console.error('Ошибка get diary: ' + error);
-      }
-    },
-    async addDiaryTask(task) {
-      try {
-        const response = await apiClient.post('/diary', task);
-        this.diary.push(response.data);
-      } catch (error) {
-        console.error('Ошибка post diary: ' + error);
-      }
-    },
-    async removeDiaryTaskById(id) {
-      try {
-        const response = await apiClient.delete(`/diary/${id}`);
-        removeById(this.diary, id);
-      } catch (error) {
-        console.error('Ошибка delete diary: ' + error);
-      }
-    },
-
-    //Запросы на задачи
-	fetchTasks() {
-		apiClient.get('/task')
-			.then(response => {
-				this.tasks = response.data.map(task => ({
-					...task,
-					createdAt: new Date(task.createdAt),
-					dueDate: new Date(task.dueDate),
-					briefcase: {
-						id: task.briefcase.id,
-						name: task.briefcase.name,
-						color: task.briefcase.color
-					},
-					workers: task.taskWorkers.map(tw => ({
-						id: tw.worker.id,
-						name: tw.worker.name,
-						avatar: tw.worker.avatar
-					}))
-				}));
-			})
-			.catch(error => {
-				if (error.response && error.response.status === 404) {
-					console.error('Ошибка при загрузке задач: конечная точка не найдена (404).');
-				} else {
-					console.error('Ошибка при загрузке задач:', error);    
-				}
-			});
-	}
-	  ,
 	  addTask(task) {
-		apiClient.post('/task', task)
-		  .then(response => {
-			this.tasks.push(response.data);
-		  })
-		  .catch(error => {
-			console.error('Ошибка при добавлении задачи:', error);
-		  });
+		  this.tasks.push({ ...task, id: Date.now() });
 	  },
-	  
 	  deleteTask(taskId) {
-		apiClient.delete(`/task/${taskId}`)
-		  .then(response => {
-			const index = this.tasks.findIndex(task => task.id === taskId);
-			if (index !== -1) {
-			  this.tasks.splice(index, 1);
-			}
-		  })
-		  .catch(error => {
-			console.error('Ошибка при удалении задачи:', error);
-		  });
+      const index = this.tasks.findIndex(task => task.id === taskId);
+      if (index !== -1) {
+        this.tasks.splice(index, 1);
+      }
+      console.log(taskId)
 	  },
-	  
-
-    //Запросы на портфели
-    async fetchBriefcase() {
-      try {
-        const response = await apiClient.get('/briefcase');
-        this.briefcases = response.data;
-      } catch (error) {
-        console.error(`Ошибка fetching briefcase: `, error);
-      }
+  
+    addBriefcase(briefcase) {
+      this.briefcases.push(briefcase);
     },
-    async addBriefcase(briefcase) {
-      try {
-        const response = await apiClient.post('/briefcase', briefcase);
-        this.briefcases.push(response.data);
-      } catch (error) {
-        console.error('Ошибка adding briefcase:', error);
-      }
+    editBriefcase(briefcase) {
+      replaceItemById(this.briefcases, briefcase)
     },
-    async editBriefcase(briefcase) {
-      try {
-        const response = await apiClient.put(`/briefcase/${briefcase.id}`, briefcase)
-        replaceItemById(this.briefcases, response.data);
-      } catch (error) {
-        console.error('Ошибка put briefcase:', error)
-      }
+    removeBriefcase(id) {
+      removeById(this.briefcases, id);
     },
-    async removeBriefcase(id) {
-      try {
-        const response = await apiClient.delete(`/briefcase/${id}`)
-        removeById(this.briefcases, id);
-      } catch (error) {
-        console.error('Ошибка delete briefcase:', error);
-      }
-    }
+	//Вывод дашбордов
+	fetchDashboard() {
+		this.dashboards = dasboardData;
+	  },
+	  setCurrentDashboardById(id) {
+		//Илья, это отправка айди в роутер для фильтрация тасков и названия дашборда
+		this.currentDashboard = this.dashboards.find(dashboard => dashboard.id === id);
+	  },
+	  addDashboard(newDashboard) {
+		// Генерация уникального id для нового дашборда
+		const id = this.dashboards.length + 1;
+		// Добавление нового дашборда в массив dashboards
+		this.dashboards.push({ id, ...newDashboard });
+	  },
   },
 });
