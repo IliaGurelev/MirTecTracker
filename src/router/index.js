@@ -4,6 +4,7 @@ import PersonalPage from '@/views/PersonalPage.vue';
 import HelloPage from '@/views/HelloPage.vue';
 import BriefcasePage from '@/views/BriefcasePage.vue';
 import LoginPage from '@/views/LoginPage.vue';
+import NotFound from '@/views/NotFound.vue';
 
 const routes = [
   {
@@ -35,7 +36,12 @@ const routes = [
     path: '/registration',
     name: 'Registration',
     component: LoginPage,
-    props: {isRegistration: true}
+    props: { isRegistration: true }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound,
   },
 ];
 
