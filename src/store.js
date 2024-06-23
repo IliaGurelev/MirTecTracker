@@ -14,7 +14,11 @@ export const useMainStore = defineStore('main', {
     diary: [],
     briefcases: [],
     users: [],
-    currentUser: localStorage.getItem('currentUser') || { id: '', name: '', avatar: '' },
+
+    currentUser: localStorage.getItem('currentUser') || 
+    sessionStorage.getItem('currentUser') || 
+    { id: '', name: '', avatar: '' },
+
     token: localStorage.getItem('token') || '',
   }),
   actions: {
@@ -22,26 +26,23 @@ export const useMainStore = defineStore('main', {
     async registrationUser(user) {
       try {
         const response = await apiClient.post('/user', user);
-        
-        this.loginCurrentUser(user.email, user.password);
+        await this.loginCurrentUser(response.data.email, response.data.password);
       } catch(error) {
         console.error('Ошибка user reg-post: ', error)
       }
     },
-    async loginCurrentUser(email, password) {
+    async loginCurrentUser(email, password, rememberMe=false) {
       try {
         const response = await apiClient.post('/user/login', {
           email: email,
           password: password
         });
 
-        localStorage.setItem('token', response.data.token);
-
-        localStorage.setItem('currentUser', JSON.stringify({
-          id: response.data.id,
-          nameUser: response.data.name,
-          avatar: response.data.avatar,
-        }));
+        if(rememberMe) {
+          this.rememberCurrentUser(response.data);
+        } else {
+          this.notRememberCurrentUser(response.data);
+        }
       } catch (error) {
         console.error('Ошибка login user post: ', error);
       }
@@ -58,6 +59,8 @@ export const useMainStore = defineStore('main', {
     logoutCurrentUser() {
       localStorage.removeItem('token');
       localStorage.removeItem('currentUser');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('currentUser');
 
       this.token = '';
       this.currentUser = {
@@ -70,11 +73,29 @@ export const useMainStore = defineStore('main', {
       this.briefcases = [];
       this.users = [];
     },
+    rememberCurrentUser(data) {
+      localStorage.setItem('token', data.token);
+
+      localStorage.setItem('currentUser', JSON.stringify({
+        id: data.id,
+        nameUser: data.name,
+        avatar: data.avatar,
+      }));
+    },
+    notRememberCurrentUser(data) {
+      sessionStorage.setItem('token', data.token);
+
+      sessionStorage.setItem('currentUser', JSON.stringify({
+        id: data.id,
+        nameUser: data.name,
+        avatar: data.avatar,
+      }));
+    },
 
     //Запросы на дневник
     async fetchDiary() {
       try {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(this.currentUser);
         const userId = currentUser.id;
   
         const response = await apiClient.get(`/diary?userId=${userId}`);

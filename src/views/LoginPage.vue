@@ -7,10 +7,12 @@
     <LoginForm 
       v-if="!isRegistration"
       @submitForm="loginUser"
+      v-model="rememberUserLogin"
     />
     <RegistrationForm 
       v-else 
       @registrationForm="registrationUser"
+      v-model="rememberUserReg"
     />
     <LoginSwitcher 
       :isRegistration="isRegistration"
@@ -40,6 +42,8 @@
   const store = useMainStore();
 
   const isRegistration = ref(props.isRegistration);
+  const rememberUserLogin = defineModel('rememberUserLogin');
+  const rememberUserReg = defineModel('rememberUserReg');
 
   const switchMode = () => {
     isRegistration.value = !isRegistration.value;
@@ -51,7 +55,7 @@
   }
 
   const loginUser = async (email, password) => {
-    await store.loginCurrentUser(email, password)
+    await store.loginCurrentUser(email, password, rememberUserLogin.value)
     router.push({ name: 'Personal'})
   }
 

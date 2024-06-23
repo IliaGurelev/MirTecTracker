@@ -22,7 +22,13 @@
         :isValid="validPassword"
       />
       <div class="login-form__wrap">
-        <input class="login-form__input-row" type="checkbox" name="" id="remember-me">
+        <input 
+          v-model="rememberMe"
+          type="checkbox" 
+          class="login-form__input-row" 
+          name="" 
+          id="remember-me"
+        >
         <label class="login-form__label-row login-form__label-row--muted" for="remember-me">Запомнить меня</label>
       </div>
 
@@ -45,6 +51,8 @@
 
   const mailUser = ref('');
   const passwordUser = ref('');
+
+  const rememberMe = defineModel();
 
   const validEmail = computed(() => {
     return checkValidMail(mailUser.value);

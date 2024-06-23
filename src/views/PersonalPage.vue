@@ -31,7 +31,7 @@
 
   const {diary, tasks} = storeToRefs(store);
 
-  const currentUser = ref(JSON.parse(localStorage.getItem('currentUser')));
+  const currentUser = ref(JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser')));
   
   const activeSettings = ref(false);
 
@@ -41,7 +41,7 @@
 
   const changedUser = async (user) => {
     await store.editCurrentUser(user);
-    currentUser.value = JSON.parse(localStorage.getItem('currentUser'))
+    currentUser.value = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'))
   }
 
   onMounted(() => {
