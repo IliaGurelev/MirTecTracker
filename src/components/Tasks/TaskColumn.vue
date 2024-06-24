@@ -14,7 +14,9 @@
 			:statuses="column.statuses"
 			:globaltype="column.globaltype"
 			:sort="sort"
-			@openDeleteModal="openDeleteModal"/>
+			:workers="workers"
+			@openDeleteModal="openDeleteModal"
+		/>
 	  <div class="kanban__descriprion">
 		<span>{{ dropText }}</span>
 	  </div>
@@ -42,6 +44,10 @@
 	dropIcon: {
 	  type: String,
 	  default: "drag",
+	},
+	workers: {
+		type: Array,
+		required: true,
 	},
 	noBorder: Boolean,
 	colBgColor: String,

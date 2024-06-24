@@ -3,7 +3,7 @@
     <section class="settings">
       <div class="settings__wrap settings__wrap--center">
         <UserInfo 
-          :avatarUser="avatarUser"
+          :avatarUser="avatarUrl"
           :nameUser="''"
           class="settings__user"
         />
@@ -51,6 +51,7 @@
 
   const nameUser = defineModel('nameUser');
   const avatarUser = ref(props.currentUser.avatar);
+  const avatarUrl = ref(props.currentUser.avatar);
 
   const userData = computed(() => {
     return {
@@ -61,7 +62,8 @@
   });
 
   function changeAvatar (file) {
-    avatarUser.value = URL.createObjectURL(file);
+    avatarUrl.value = URL.createObjectURL(file);
+    avatarUser.value = file;
   }
 
   const logout = () => {

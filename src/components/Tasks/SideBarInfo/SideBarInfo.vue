@@ -76,7 +76,7 @@
 				<p>Добавление исполнителя:</p>
 				<i class="fa-solid fa-xmark" @click="closeAddWorker"></i>
 			  </div>
-			  <SearchWorkers :workers="userData" @select="handleWorkerSelect" @update="updateQuery" />
+			  <SearchWorkers :workers="props.workers" @select="handleWorkerSelect" @update="updateQuery" />
 			  <button class="add-button" @click="addWorker">Добавить</button>
 			</div>
 		  </transition>
@@ -128,7 +128,6 @@ import { storeToRefs } from 'pinia';
 
 const store = useMainStore();
 const { briefcases } = storeToRefs(store);
-const { userData } = storeToRefs(store);
 const props = defineProps({
   isOpen: {
     type: Boolean,
@@ -140,8 +139,8 @@ const props = defineProps({
   },
   workers: {
     type: Array,
-    default: () => [],
-  },
+    required: true,
+  }
 });
 
 const emitEvents = defineEmits(['close', 'update-task']);
@@ -184,6 +183,7 @@ const updateTaskStatus = (status) => {
 };
 
 const updateQuery = debounce((query) => {
+  console.log(query);
   store.updateQuery(query);
 }, 300);
 
@@ -237,6 +237,8 @@ const handleWorkerSelect = (worker) => {
 
 const addWorker = () => {
   if (selectedWorker.value && !editTasks.value.workers.some(worker => worker.id === selectedWorker.value.id)) {
+    store.addWorkers(props.task.id, selectedWorker.value.id)
+
     editTasks.value.workers.push(selectedWorker.value);
     updateTask();
     showWorkerAddedMessage();

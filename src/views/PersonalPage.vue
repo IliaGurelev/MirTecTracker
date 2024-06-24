@@ -22,6 +22,8 @@
   import { ref, onMounted } from 'vue';
   import { useMainStore } from '@/store.js';
   import { storeToRefs } from 'pinia';
+  import { uploadImage } from '@/utils/upload-image';
+
   import Sidebar from '@/components/Sidebar/Sidebar.vue';
   import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
@@ -40,6 +42,7 @@
   }
 
   const changedUser = async (user) => {
+    user.avatar = await uploadImage(user.avatar);
     await store.editCurrentUser(user);
     currentUser.value = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'))
   }

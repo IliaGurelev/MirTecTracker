@@ -13,7 +13,7 @@ export const useMainStore = defineStore('main', {
     tasks: [],
     diary: [],
     briefcases: [],
-    users: [],
+    workers: [],
 
     currentUser: localStorage.getItem('currentUser') || 
     sessionStorage.getItem('currentUser') || 
@@ -48,6 +48,7 @@ export const useMainStore = defineStore('main', {
       }
     },
     async editCurrentUser(user) {
+      console.log(user);
       const response = await apiClient.put(`/user/${user.id}`, user);
 
       localStorage.setItem('currentUser', JSON.stringify({
@@ -154,6 +155,28 @@ export const useMainStore = defineStore('main', {
         console.error('Ошибка delete task: ', error)
       }
 	  },
+
+    //Запросы на исполнителей 
+    async fetchWorkers() {
+      try {
+        const response = await apiClient.get(`/user`);
+        this.workers = response.data;
+      } catch (error) {
+        console.error('Ошибка delete task: ', error)
+      }
+    },
+    async addWorkers(taskId, userId) {
+      try{
+        const dto = {
+          taskId: taskId,
+          userId: userId,
+        };
+        console.log(dto);
+        const response = await apiClient.post('/task/addWorker', dto);
+      } catch (error) {
+        console.error(error);
+      }
+    },
 
     //Запросы на портфели
     async fetchBriefcase() {

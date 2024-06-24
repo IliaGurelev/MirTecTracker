@@ -35,7 +35,7 @@
 		  v-model="query"
 		  placeholder="Поиск..."
 		  class="search__input"
-		  :class="{'--smooth-bottom': query.length === 0}"
+		  :class="{'--smooth-bottom': isEmptyQuery}"
 		  @input="handleInput"
 		/>
 	  </div>
@@ -59,7 +59,7 @@
 			  alt="Worker Avatar"
 			/>
 			<div v-else class="search__worker-icon">👤</div>
-			{{ item.nameUser }}
+			{{ item.name }}
 		  </li>
 		</ul>
 	  </transition>
@@ -71,27 +71,37 @@
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
   
-  const store = useMainStore();
-  const { usersData } = storeToRefs(store);
+	const props = {
+		workers: {
+			type: Array,
+			required: true,
+		}
+	}
   
-  onMounted(() => {
-	store.fetchWorkers();
-  });
-  
+	const store = useMainStore();
+
+	const { workers } = storeToRefs(store); 
+
   const emit = defineEmits(['select', 'update:query']); 
   
+	const workersList = ref(props.workers);
+
   const query = ref('');
   const selectedWorker = ref(null);
   const isFocus = ref(false);
   
   const filteredItems = computed(() => {
-	if (!isFocus.value) {
-	  return usersData.value;
-	}
-	return usersData.value.filter((item) =>
-	  item.nameUser.toLowerCase().includes(query.value.toLowerCase())
-	);
+		if (!isFocus.value) {
+			return workers.value;
+		}
+		return workers.value.filter((item) =>
+			item.name.toLowerCase().includes(query.value.toLowerCase())
+		);
   });
+
+	const isEmptyQuery = computed(() => {
+		return query.value.length === 0;
+	})
   
   const toggleFocus = () => {
 	isFocus.value = !isFocus.value;
@@ -104,12 +114,16 @@
   };
   
   const selectWorker = (item) => {
-	query.value = item.nameUser;
-	selectedWorker.value = item;
-	isFocus.value = false;
-	emit('select', item);
-	emit('update:query', item.nameUser);
+		query.value = item.name;
+		selectedWorker.value = item;
+		isFocus.value = false;
+		emit('select', item);
+		emit('update:query', item.name);
   };
+
+	onMounted(() => {
+		store.fetchWorkers();
+	})
   </script>
   
   <style lang="scss" scoped>
@@ -157,9 +171,10 @@
   }
   
   .search__worker-icon {
-	width: 25px;
-	height: 25px;
-	border-radius: 50%;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		object-fit: cover;
   }
   
   .search__input-container {

@@ -6,7 +6,6 @@
 		<div class="text">Миртек Трекер</div>
 		<div class='app'>
 			<main class='project'>
-				
 				<div class='project-info'>
 					<h1 class="txt">Дашборд со всеми задачами</h1>
 					<div class="search-task">		
@@ -18,10 +17,10 @@
 					<AddTaskButton />
 				</div>	
 				<div v-if="searchQuery.trim() === ''">
-					<ProjectTask :items="tasks" :sort="sort"  />
+					<ProjectTask :items="tasks" :sort="sort" :workers="workers" />
 				</div>
 				<div v-else-if="foundTasks.length > 0">
-					<ProjectTask :items="foundTasks" :sort="sort"   />
+					<ProjectTask :items="foundTasks" :sort="sort" :workers="workers"  />
 				</div>
 				<div v-else>
 					<div class="not-found">
@@ -30,7 +29,6 @@
 					</div>
 				</div>
 			</main>
-			<SidebarInfo :task="foundTasks" :isOpen="isSidebarOpen" :briefcases = "briefcases"/>
 			<ProgressBars :items="tasks" :sort="true"/>
 		</div>
 	</section>
@@ -51,10 +49,12 @@
 	const store = useMainStore();
 	const { tasks } = storeToRefs(store);
 	const { briefcases } = storeToRefs(store);
+	const { workers } = storeToRefs(store);
 	
 	onMounted(() => {
 		store.fetchTasks();
 		store.fetchBriefcase();
+		store.fetchWorkers();
 	});
 
 	const searchQuery = ref('');
@@ -67,7 +67,7 @@
 	});
 
 	const selectedTask = ref(null); 
-const isSidebarOpen = ref(false);
+	const isSidebarOpen = ref(false);
 
 
 </script>
