@@ -13,6 +13,7 @@
     />
     <PersonalSettings v-if="activeSettings"
       :currentUser="currentUser"
+      @submitForm="changedUser"
     />
   </main>
 </template>
@@ -21,6 +22,8 @@
   import { ref, onMounted } from 'vue';
   import { useMainStore } from '@/store.js';
   import { storeToRefs } from 'pinia';
+  import { uploadImage } from '@/utils/upload-image';
+
   import Sidebar from '@/components/Sidebar/Sidebar.vue';
   import PersonalDiary from '@/components/Personal/PersonalDiary.vue'
   import PersonalTasks from '@/components/Personal/PersonalTasks.vue'
@@ -28,7 +31,9 @@
 
   const store = useMainStore();
 
-  const {diary, tasks, currentUser} = storeToRefs(store);
+  const {diary, tasks} = storeToRefs(store);
+
+  const currentUser = ref(JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser')));
   
   const activeSettings = ref(false);
 
@@ -36,10 +41,16 @@
     activeSettings.value = !activeSettings.value;
   }
 
+  const changedUser = async (user) => {
+    user.avatar = await uploadImage(user.avatar);
+    await store.editCurrentUser(user);
+    currentUser.value = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'))
+  }
+
   onMounted(() => {
     store.fetchTasks();
     store.fetchDiary();
-    store.loginCurrentUser(0);
+    //store.loginCurrentUser(0);
   }) 
 </script>
 

@@ -1,20 +1,22 @@
 <template>
   <div class="worker">
-    <UserIcon 
-      v-if="props.worker.avatar === '' "
-      class="worker__icon"
-    />
-    <img 
-      v-else
+     <img 
+      v-if="imageExists"
       :src="props.worker.avatar" 
       :alt="props.worker.name"
       class="worker__icon" 
+      @error="handleImageError"
     >
+    <UserIcon 
+      v-else
+      class="worker__icon"
+    />
   </div>
 </template>
 
 <script setup>
   import UserIcon from '@/assets/UserIcon.vue';
+  import { ref } from 'vue';
 
   const props = defineProps({
     worker: {
@@ -22,6 +24,12 @@
       required: true,
     },
   })
+
+  const imageExists = ref(props.worker.avatar !== '' );
+
+  const handleImageError = () => { 
+    imageExists.value = false;
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -31,6 +39,8 @@
 
     &__icon {
       width: 40px;
+      height: 40px;
+      object-fit: cover;
       border-radius: 50%;
       border: #ffffff 4px solid;
       cursor: pointer;

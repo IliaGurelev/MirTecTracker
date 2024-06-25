@@ -20,7 +20,8 @@ const routes = [
   {
     path: '/user',
     name: 'Personal',
-    component: PersonalPage
+    component: PersonalPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/briefcase',
@@ -50,4 +51,21 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!token) {
+      next('/login');
+    } else {
+      next();
+    }
+  } else if ((to.path === '/login' || to.path === '/registration') && token) {
+    next('/user');
+  } else {
+    next();
+  }
+});
+
 export default router;
+

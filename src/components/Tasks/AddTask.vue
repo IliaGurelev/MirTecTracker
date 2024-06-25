@@ -59,21 +59,22 @@
   });
   
   const getTodayDate = () => {
-	const today = new Date();
-	return today.toISOString().split('T')[0];
+		const today = new Date();
+		return today.toISOString().split('T')[0];
   };
   
   const newTask = ref({
-	name: '',
-	description: '',
-	status: 'open',
-	createdAt: getTodayDate(),
-	dueDate: '',
-	briefcase: {
-	  name: '',
-	  color: '',
-	},
-	dashboardId: null,
+    name: '',
+    description: '',
+    status: 'open',
+    createdAt: getTodayDate(),
+    dueDate: '',
+    briefcase: {
+      name: '',
+      color: '',
+    },
+    dashboardId: null,
+    workers: [],
   });
   
   const isFormOpen = ref(false);
@@ -89,6 +90,7 @@
   };
   
   const handleEsc = (event) => {
+
 	if (event.key === 'Escape' && isFormOpen.value) {
 	  closeForm();
 	}
@@ -106,8 +108,7 @@
   });
   
   const handleBriefcaseSelect = (briefcase) => {
-	newTask.value.briefcase.name = briefcase.name;
-	newTask.value.briefcase.color = briefcase.color;
+	  newTask.value.briefcase = briefcase;
   };
   
   const addTask = () => {
@@ -133,9 +134,26 @@
 	  },
 	  dashboardId: null,
 	};
-	customBriefcaseName.value = '';
-	selectedBriefcaseIcon.value = null;
-	closeForm();
+	
+	const addTask = () => {
+		store.addTask(newTask.value);
+
+		newTask.value = {
+			name: '',
+			description: '',
+			status: 'open',
+			createdAt: getTodayDate(),
+			dueDate: '',
+			briefcase: {
+				id: '',
+				name: '',
+				color: '',
+			},
+			workers: [],
+		};
+			customBriefcaseName.value = '';
+			selectedBriefcaseIcon.value = null;
+			closeForm();
   };
   
   const searchBriefcaseRef = ref(null);

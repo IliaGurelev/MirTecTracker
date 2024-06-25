@@ -1,9 +1,9 @@
 <template>
-  <form action="" @submit.prevent="editUser">
+  <form action="" @submit.prevent="$emit('submitForm', userData)">
     <section class="settings">
       <div class="settings__wrap settings__wrap--center">
         <UserInfo 
-          :avatarUser="avatarUser"
+          :avatarUser="avatarUrl"
           :nameUser="''"
           class="settings__user"
         />
@@ -17,9 +17,9 @@
         <input v-model="nameUser" class="settings__input" type="text" placeholder="Введите ваше имя" required>
       </div>
       <div class="settings__wrap settings__wrap--between">
-        <RouterLink :to="{ name: 'Login' }">
+        <RouterLink :to="{ name: 'Login' }" @click="logout">
           <BlackButton class="settings__logout">
-            <p class="settings__button-text">Выйти   <i class="fa-solid fa-arrow-right-from-bracket"></i></p>
+            <p class="settings__button-text">Выйти <i class="fa-solid fa-arrow-right-from-bracket"></i></p>
           </BlackButton>
         </RouterLink>
         <BlackButton class="settings__button" type="submit">
@@ -32,8 +32,9 @@
 </template>
 
 <script setup>
-  import { computed, watchEffect } from 'vue';
+  import { computed, watchEffect, ref } from 'vue';
   import { useMainStore } from '@/store.js';
+
   import UserInfo from '@/components/Personal/UserInfo.vue';
   import BlackButton from '@/components/UI/BlackButton.vue';
 
@@ -45,24 +46,28 @@
       required: true,
     }
   });
+  
+  const submitForm = defineEmits()
 
   const nameUser = defineModel('nameUser');
-  const avatarUser = defineModel('avatarUser');
+  const avatarUser = ref(props.currentUser.avatar);
+  const avatarUrl = ref(props.currentUser.avatar);
 
   const userData = computed(() => {
     return {
       id: props.currentUser.id,
       avatar: avatarUser.value,
-      nameUser: nameUser.value,
+      name: nameUser.value,
     }
   });
 
   function changeAvatar (file) {
-    avatarUser.value = URL.createObjectURL(file)
+    avatarUrl.value = URL.createObjectURL(file);
+    avatarUser.value = file;
   }
 
-  const editUser = () => {
-    store.editCurrentUser(userData.value);
+  const logout = () => {
+    store.logoutCurrentUser();
   }
 
   watchEffect(() => {

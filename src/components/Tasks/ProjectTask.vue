@@ -3,11 +3,12 @@
 	<div class="project-tasks">
 
 	  <TaskColumn
-		v-for="column in columns"
-		:key="column.globaltype"
-		:column="column"
-		:items="items"
-		:sort="sort"
+			v-for="column in columns"
+			:key="column.globaltype"
+			:column="column"
+			:items="items"
+			:sort="sort"
+			:workers="workers"
 	  />	
 	</div>
   </template>  
@@ -24,6 +25,10 @@
 	sort: {
 	  type: Boolean,
 	  default: false
+	},
+	workers: {
+		type: Array,
+		required: true,
 	}
   });
   
