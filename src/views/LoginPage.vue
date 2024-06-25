@@ -9,7 +9,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useMainStore } from '@/store'
+import { useUserStore } from '@/store/userStore'
 import router from '@/router/index.js'
 
 import LoginForm from '@/components/Login/LoginForm.vue'
@@ -25,7 +25,7 @@ const props = defineProps({
   }
 })
 
-const store = useMainStore()
+const userStore = useUserStore()
 
 const isRegistration = ref(props.isRegistration)
 const rememberUserLogin = defineModel('rememberUserLogin')
@@ -36,12 +36,12 @@ const switchMode = () => {
 }
 
 const registrationUser = async (user) => {
-  await store.registrationUser(user)
+  await userStore.registrationUser(user)
   router.push({ name: 'Personal' })
 }
 
 const loginUser = async (email, password) => {
-  await store.loginCurrentUser(email, password, rememberUserLogin.value)
+  await userStore.loginCurrentUser(email, password, rememberUserLogin.value)
   router.push({ name: 'Personal' })
 }
 </script>

@@ -39,7 +39,7 @@
           <div class="form-container__item" v-if="newTask.briefcase.name === 'custom'">
             <input v-model="customBriefcaseName" placeholder="Введите название проекта" />
           </div>
-          <button type="submit">Добавить задачу</button>
+          <button :disabled="!isSelectedBriefcase" type="submit">Добавить задачу</button>
         </form>
       </div>
     </transition>
@@ -89,6 +89,8 @@ const newTask = ref({
   createdAt: getTodayDate(),
   dueDate: '',
   briefcase: {
+    id: null,
+    dashboardId: '',
     name: '',
     color: ''
   },
@@ -100,12 +102,14 @@ const isFormOpen = ref(false)
 const customBriefcaseName = ref('')
 const selectedBriefcaseIcon = ref('null')
 const searchBriefcaseRef = ref(null)
+const isSelectedBriefcase = ref(false);
 
 const openForm = () => {
   isFormOpen.value = true
 }
 
 const closeForm = () => {
+  isSelectedBriefcase.value = false;
   isFormOpen.value = false
 }
 
@@ -127,7 +131,8 @@ const currentDashboard = computed(() => {
 })
 
 const handleBriefcaseSelect = (briefcase) => {
-  newTask.value.briefcase = briefcase
+  newTask.value.briefcase = briefcase;
+  isSelectedBriefcase.value = true;
 }
 
 const addTask = () => {
@@ -139,8 +144,6 @@ const addTask = () => {
 
   taskStore.addTask(newTask.value)
 
-  console.log('New Task:', newTask.value)
-
   newTask.value = {
     name: '',
     description: '',
@@ -148,6 +151,8 @@ const addTask = () => {
     createdAt: getTodayDate(),
     dueDate: '',
     briefcase: {
+      id: null,
+      dashboardId: '',
       name: '',
       color: ''
     },
@@ -172,11 +177,20 @@ button {
   overflow: hidden;
   border: 2px solid #dddddd;
   transition:
-    background-color 0.2s linear,
-    color 0.2s linear,
-    border 0.2s linear,
-    transform 0.5s;
+  background-color 0.2s linear,
+  color 0.2s linear,
+  border 0.2s linear,
+  transform 0.5s;
   font-weight: 500;
+
+  &:disabled {
+    background-color: #e4e4e4;
+    cursor: default;
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
 }
 
 button:hover {

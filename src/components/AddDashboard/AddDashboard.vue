@@ -19,9 +19,16 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useMainStore } from '@/store'
 
-const store = useMainStore()
+import { useDashboardStore } from '@/store/dashboardStore';
+import { useUserStore } from '@/store/userStore';
+import { storeToRefs } from 'pinia';
+
+const store = useDashboardStore()
+const userStore = useUserStore();
+
+const {currentUser} = storeToRefs(userStore);
+
 const newDashboardName = ref('')
 const showModal = ref(true)
 
@@ -30,10 +37,13 @@ const addDashboard = () => {
     alert('Введите название дашборда')
     return
   }
-  store.addDashboard({
-    name: newDashboardName.value.trim(),
-    color: generateRandomColor()
-  })
+  store.addDashboard(
+    {
+      name: newDashboardName.value.trim(),
+      color: generateRandomColor()
+    },
+    currentUser.value.id
+  )
   newDashboardName.value = ''
 }
 

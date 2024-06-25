@@ -26,6 +26,7 @@ export const useTaskStore = defineStore('task', {
     },
     async addTask(task) {
       try {
+        console.log(task);
         const response = await axios.post('/task', task)
         this.tasks.push(response.data)
       } catch (error) {

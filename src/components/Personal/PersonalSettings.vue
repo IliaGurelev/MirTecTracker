@@ -43,12 +43,13 @@
 
 <script setup>
 import { computed, watchEffect, ref } from 'vue'
-import { useMainStore } from '@/store.js'
+
+import { useUserStore } from '@/store/userStore';
 
 import UserInfo from '@/components/Personal/UserInfo.vue'
 import BlackButton from '@/components/UI/BlackButton.vue'
 
-const store = useMainStore()
+const store = useUserStore()
 
 const props = defineProps({
   currentUser: {
