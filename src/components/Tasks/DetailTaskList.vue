@@ -13,10 +13,16 @@
         :key="task.id" 
         class="task-list__item"
       >
+      <router-link 
+					:to="{ name: 'Dashboard', query: { id: task.dashboardId } }"
+					@click="toggleSidebar"
+				>
         <DetailTask 
           :task="task"
           class="task-list__task"
+          @click="$emit('clickTask', task)"
         />
+      </router-link>
       </li>
     </ul>
   </div>

@@ -109,19 +109,19 @@
 	</transition>
   </template>
   
-  <script setup>
-import { ref, watch, defineEmits, defineProps, onMounted, onBeforeUnmount, watchEffect } from 'vue';
-import { debounce } from 'lodash-es';
-import formatDate from "@/utils/format-date.js";
-import WorkerList from '@/components/Tasks/WorkerList.vue';
-import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
-import TaskStatus from '@/components/UI/TaskStatusSelect.vue';
-import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue';
-import SearchWorkers from '@/components/Workers/SearchWorkers.vue';
-import DeleteWorkers from '@/components/Workers/DeleteWorkers.vue';
-import EditTaskStatus from '@/components/UI/TaskStatusSelect.vue';
-import { useMainStore } from '@/store';
-import { storeToRefs } from 'pinia';
+<script setup>
+  import { ref, watch, defineEmits, defineProps, onMounted, onBeforeUnmount, watchEffect } from 'vue';
+  import { debounce } from 'lodash-es';
+  import formatDate from "@/utils/format-date.js";
+  import WorkerList from '@/components/Tasks/WorkerList.vue';
+  import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+  import TaskStatus from '@/components/UI/TaskStatusSelect.vue';
+  import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue';
+  import SearchWorkers from '@/components/Workers/SearchWorkers.vue';
+  import DeleteWorkers from '@/components/Workers/DeleteWorkers.vue';
+  import EditTaskStatus from '@/components/UI/TaskStatusSelect.vue';
+  import { useMainStore } from '@/store';
+  import { storeToRefs } from 'pinia';
 
 const store = useMainStore();
 const { briefcases } = storeToRefs(store);

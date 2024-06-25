@@ -4,6 +4,7 @@
     <PersonalTasks 
       :currentUser="currentUser"
       :tasksUser="tasks"
+      @clickTask="openSidebarTask"
     />
     <PersonalDiary
       :currentUser="currentUser"
@@ -36,6 +37,8 @@
   const currentUser = ref(JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser')));
   
   const activeSettings = ref(false);
+  const currentTask = ref({});
+  const isActiveSideBarTask = ref(false);
 
   const switchSettings = () => {
     activeSettings.value = !activeSettings.value;
@@ -45,6 +48,10 @@
     user.avatar = await uploadImage(user.avatar);
     await store.editCurrentUser(user);
     currentUser.value = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'))
+  }
+
+  const openSidebarTask = (task) => {
+    
   }
 
   onMounted(async () => {

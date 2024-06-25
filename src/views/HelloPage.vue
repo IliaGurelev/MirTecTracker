@@ -28,7 +28,7 @@
   import Footer from '@/components/HelloPage/Footer.vue';
   import { ref, onMounted } from 'vue'
 
-	const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+	const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'))
 
 	const elements = ref(null)
 	const observer = ref(null)

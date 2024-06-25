@@ -14,7 +14,10 @@
       v-model:currentFilter="currentFilter"
       class="tasks__filter" 
     />
-    <DetailTaskList :tasksList="filteredTasks" />
+    <DetailTaskList 
+      :tasksList="filteredTasks" 
+      @clickTask="clickTask"
+    />
   </section>
 </template>
 
@@ -56,6 +59,7 @@
   ];
 
   const currentFilter = ref('new');
+  const emit = defineEmits(['clickTask']); 
 
   const filteredTasks = computed(() => {
     return taskFilter(currentFilter.value, props.tasksUser);
@@ -63,6 +67,11 @@
 
   const setFilter = (filter) => {
     currentFilter.value = filter;
+  }
+  
+  const clickTask = (task) => {
+    console.log(task);
+    emit('clickTask', task)
   }
 </script>
 

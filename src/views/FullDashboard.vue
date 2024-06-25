@@ -111,11 +111,11 @@
 	})
 
 	onMounted(() => {
-		store.fetchByDashboardTasks(currentDashboard.value.id);
-		store.fetchBriefcase(currentDashboard.value.id);
+		store.fetchByDashboardTasks(parseInt(router.currentRoute.value.query.id));
+		store.fetchBriefcase(parseInt(router.currentRoute.value.query.id));
 		store.fetchWorkers();
     store.fetchDashboards();
-		store.fetchUsersByDashboard(currentDashboard.value.id);
+		store.fetchUsersByDashboard(parseInt(router.currentRoute.value.query.id));
 	});
 </script>
 
