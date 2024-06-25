@@ -1,84 +1,88 @@
 <template>
- <section id="reg-form" class="login-form login-page__login-form  --center-to-right ">
-    <h2 class="login-form__title">Зарегистрируйте ваш аккаунт</h2>
-    <p class="login-form__subtitle login-form__subtitle--muted">Зарегистрируйте свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
-    <form 
-      class="login-form__form" 
-      action="" 
-      @submit.prevent="$emit('registrationForm', userData)"
-    >
-      <div class="login-form__wrap">
-        <ul class="login-form__list">
-          <li class="login-form__item">
-            <LoginInput 
-              v-model="nameUser"
-              :idInput="'reg-name'"
-              :labelInput="'Имя'"
-              :placeholderInput="'Ваше имя'"
-              :warningMessage="'Имя должно содержать минимум 2 буквы'"
-              :isValid="validName"
-            />
-          </li>
-          <li class="login-form__item">
-            <LoginInput 
-              v-model="surnameUser"
-              :idInput="'reg-surname'"
-              :labelInput="'Фамилия'"
-              :placeholderInput="'Ваша фамилия'"
-              :warningMessage="'Фамилия должна содержать минимум 2 буквы'"
-              :isValid="validSurname"
-            />
-          </li>
-        </ul>
-      </div>
-      <LoginInput 
-        v-model="mailUser"
-        :idInput="'reg-mail'"
-        :labelInput="'Почта'"
-        :placeholderInput="'Ваша почта'"
-        :typeInput="'email'"
-        :warningMessage="'Введите валидный email'"
-        :isValid="validEmail"
-      />
-      <LoginInput 
-        v-model="passwordUser"
-        :idInput="'reg-password'"
-        :labelInput="'Пароль'"
-        :placeholderInput="'Ваш Пароль'"
-        :typeInput="'password'"
-        :warningMessage="'Пароль должен содержать минимум 8 символов'"
-        :isValid="validPassword"
-      />
-      <LoginInput 
-        v-model="repeatedPassword"
-        :idInput="'reg-repeated-password'"
-        :labelInput="'Повторите пароль'"
-        :placeholderInput="'Повторите ваш пароль'"
-        :typeInput="'password'"
-        :warningMessage="'Пароль не совпадает'"
-        :isValid="validRepeatedPassword"
-      />
-      
-      <div class="login-form__wrap">
-        <input class="login-form__input-row" type="checkbox" name="" id="accept-license" required>
-        <label class="login-form__label-row login-form__label-row--muted" for="accept-license">
-          Я принимаю <RouterLink to="/" class="login-form__link">правила и условия Миртек Трекер</RouterLink></label>
-      </div>
-
-      <div class="login-form__wrap login-form__wrap--column">
-        <button 
-          :disabled="!isCorrect"
-          class="login-form__button" 
-          type="submit"
-          id="reg-btn"
-        >
-          Зарегистрироваться
-        </button>
-      </div>
-    </form>
-  </section>
-</template>
-
+	<section id="reg-form" class="login-form login-page__login-form --center-to-right">
+	  <h2 class="login-form__title">Зарегистрируйте ваш аккаунт</h2>
+	  <p class="login-form__subtitle login-form__subtitle--muted">Зарегистрируйте свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
+	  <form 
+		class="login-form__form" 
+		action="" 
+		@submit.prevent="$emit('registrationForm', userData)"
+	  >
+		<div class="login-form__wrap">
+		  <ul class="login-form__list">
+			<li class="login-form__item">
+			  <LoginInput 
+				v-model="nameUser"
+				:idInput="'reg-name'"
+				:labelInput="'Имя'"
+				:placeholderInput="'Ваше имя'"
+				:warningMessage="'Имя должно содержать минимум 2 буквы'"
+				:isValid="validName"
+			  />
+			</li>
+			<li class="login-form__item">
+			  <LoginInput 
+				v-model="surnameUser"
+				:idInput="'reg-surname'"
+				:labelInput="'Фамилия'"
+				:placeholderInput="'Ваша фамилия'"
+				:warningMessage="'Фамилия должна содержать минимум 2 буквы'"
+				:isValid="validSurname"
+			  />
+			</li>
+		  </ul>
+		</div>
+		<LoginInput 
+		  v-model="mailUser"
+		  :idInput="'reg-mail'"
+		  :labelInput="'Почта'"
+		  :placeholderInput="'Ваша почта'"
+		  :typeInput="'email'"
+		  :warningMessage="'Введите валидный email'"
+		  :isValid="validEmail"
+		/>
+		<LoginInput 
+		  v-model="passwordUser"
+		  :idInput="'reg-password'"
+		  :labelInput="'Пароль'"
+		  :placeholderInput="'Ваш Пароль'"
+		  :typeInput="'password'"
+		  :warningMessage="'Пароль должен содержать минимум 8 символов'"
+		  :isValid="validPassword"
+		/>
+		<LoginInput 
+		  v-model="repeatedPassword"
+		  :idInput="'reg-repeated-password'"
+		  :labelInput="'Повторите пароль'"
+		  :placeholderInput="'Повторите ваш пароль'"
+		  :typeInput="'password'"
+		  :warningMessage="'Пароль не совпадает'"
+		  :isValid="validRepeatedPassword"
+		/>
+		
+		<div class="login-form__wrap">
+		  <input class="login-form__input-row" type="checkbox" name="" id="accept-license" required>
+		  <label class="login-form__label-row login-form__label-row--muted" for="accept-license">
+			Я принимаю 
+			<a href="/assets/739522.pdf" target="_blank" class="login-form__link">
+			  правила и условия Миртек Трекер
+			</a>
+		  </label>
+		</div>
+  
+		<div class="login-form__wrap login-form__wrap--column">
+		  <button 
+			:disabled="!isCorrect"
+			class="login-form__button" 
+			type="submit"
+			id="reg-btn"
+		  >
+			Зарегистрироваться
+		  </button>
+		</div>
+	  </form>
+	</section>
+  </template>
+  
 <script setup>
   import {ref, computed} from 'vue';
   import { checkValidName, checkValidPassword, checkValidMail } from '@/utils/check-valid';
