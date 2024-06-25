@@ -39,13 +39,15 @@
   </template>
   
   <script setup>
-  import { ref, watch, onMounted, onUnmounted } from 'vue';
+  import { ref, watch, onMounted, onUnmounted, computed } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
   import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue';
+  import { useRouter } from 'vue-router';
   
   const store = useMainStore();
-  const { briefcases } = storeToRefs(store);
+  const router = useRouter();
+  const { briefcases, dashboards } = storeToRefs(store);
   
   onMounted(() => {
 	store.fetchBriefcase();
@@ -71,6 +73,7 @@
 	  name: '',
 	  color: '',
 	},
+	dashboardId: null,
   });
   
   const isFormOpen = ref(false);
@@ -97,6 +100,11 @@
 	}
   });
   
+  const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
+  const currentDashboard = computed(() => {
+	return dashboards.value.find(dashboard => dashboard.id === currentDashboardId.value);
+  });
+  
   const handleBriefcaseSelect = (briefcase) => {
 	newTask.value.briefcase.name = briefcase.name;
 	newTask.value.briefcase.color = briefcase.color;
@@ -106,6 +114,8 @@
 	if (newTask.value.briefcase.name === 'custom') {
 	  newTask.value.briefcase.name = customBriefcaseName.value;
 	}
+  
+	newTask.value.dashboardId = currentDashboardId.value; // Set dashboardId from currentDashboardId
   
 	store.addTask(newTask.value);
   
@@ -121,6 +131,7 @@
 		name: '',
 		color: '',
 	  },
+	  dashboardId: null,
 	};
 	customBriefcaseName.value = '';
 	selectedBriefcaseIcon.value = null;
@@ -129,6 +140,7 @@
   
   const searchBriefcaseRef = ref(null);
   </script>
+  
 
 
   <style lang="scss" scoped>
@@ -138,10 +150,12 @@
 	color: #707070;
 	border-radius: 8px;
 	background-color: var(--bg);
+	font-weight: 400;
 	overflow: hidden;
 	border: 2px solid #dddddd;
 	transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
 	font-weight: 500;
+	
   }
   
   button:hover {
