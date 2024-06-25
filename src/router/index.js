@@ -15,7 +15,8 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: { requiresAuth: true },
   },
   {
     path: '/user',
@@ -26,7 +27,8 @@ const routes = [
   {
     path: '/briefcase',
     name: 'Briefcase',
-    component: BriefcasePage
+    component: BriefcasePage,
+    meta: { requiresAuth: true },
   },
   {
     path: '/login',

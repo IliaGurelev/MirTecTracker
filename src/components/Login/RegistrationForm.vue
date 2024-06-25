@@ -13,9 +13,9 @@
             <LoginInput 
               v-model="nameUser"
               :idInput="'reg-name'"
-              :labelInput="'Имя'"
-              :placeholderInput="'Ваше имя'"
-              :warningMessage="'Имя должно содержать минимум 2 буквы'"
+              labelInput="Имя"
+              placeholderInput="Ваше имя"
+              warningMessage="Имя должно содержать минимум 2 буквы"
               :isValid="validName"
             />
           </li>
@@ -23,9 +23,9 @@
             <LoginInput 
               v-model="surnameUser"
               :idInput="'reg-surname'"
-              :labelInput="'Фамилия'"
-              :placeholderInput="'Ваша фамилия'"
-              :warningMessage="'Фамилия должна содержать минимум 2 буквы'"
+              labelInput="Фамилия"
+              placeholderInput="Ваша фамилия"
+              warningMessage="Фамилия должна содержать минимум 2 буквы"
               :isValid="validSurname"
             />
           </li>
@@ -34,28 +34,28 @@
       <LoginInput 
         v-model="mailUser"
         :idInput="'reg-mail'"
-        :labelInput="'Почта'"
-        :placeholderInput="'Ваша почта'"
+        labelInput="Почта"
+        placeholderInput="Ваша почта"
         :typeInput="'email'"
-        :warningMessage="'Введите валидный email'"
+        warningMessage="Введите валидный email"
         :isValid="validEmail"
       />
       <LoginInput 
         v-model="passwordUser"
         :idInput="'reg-password'"
-        :labelInput="'Пароль'"
-        :placeholderInput="'Ваш Пароль'"
+        labelInput="Пароль"
+        placeholderInput="Ваш Пароль"
         :typeInput="'password'"
-        :warningMessage="'Пароль должен содержать минимум 8 символов'"
+        warningMessage="Пароль должен содержать минимум 8 символов"
         :isValid="validPassword"
       />
       <LoginInput 
         v-model="repeatedPassword"
         :idInput="'reg-repeated-password'"
-        :labelInput="'Повторите пароль'"
-        :placeholderInput="'Повторите ваш пароль'"
+        labelInput="Повторите пароль"
+        placeholderInput="Повторите ваш пароль"
         :typeInput="'password'"
-        :warningMessage="'Пароль не совпадает'"
+        warningMessage="Пароль не совпадает"
         :isValid="validRepeatedPassword"
       />
       

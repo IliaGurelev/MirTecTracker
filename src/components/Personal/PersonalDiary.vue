@@ -6,11 +6,11 @@
         :nameUser="props.currentUser.nameUser"
       />
       <div 
-        @click="setActiveSettings(); $emit('clickSettings')"
+        @click="setActiveSettings()"
         class="diary__settings"
       >
-        <i v-if="!isActiveSettings" class="fa-solid fa-gear"></i>
-        <i v-else class="fa-solid fa-arrow-left"></i>
+        <i class="fa-solid"
+        :class=" isActiveSettings ? 'fa-arrow-left' : 'fa-gear' "></i>
       </div>
     </section>
     <section class="diary__tasks">
@@ -39,7 +39,7 @@
       />
       <DiaryTaskList 
         :tasks="tasksForDay"
-        @click-complite="removeTask"
+        @click-complite="compliteTask"
       />
     </section>
   </section>
@@ -47,7 +47,7 @@
 
 <script setup>
   import { ref, computed } from 'vue'
-  import { useMainStore } from '@/store'
+  import { useDiaryStore } from '@/store/diaryStore'
 
   import taskFilter from '@/utils/task-filter'
   import UserInfo from '@/components/Personal/UserInfo.vue'
@@ -68,7 +68,9 @@
     },
   })
 
-  const store = useMainStore();
+  const diaryStore = useDiaryStore();
+
+  const emit = defineEmits(['clickSettings', 'addToDiary', 'compliteTask'])
 
   const activeDate = ref(new Date());
 
@@ -94,15 +96,16 @@
 
   const setActiveSettings = () => {
     isActiveSettings.value = !isActiveSettings.value;
+    emit('clickSettings');
   }
 
   const addToDiary = (task) => {
     setActivePopup();
-    store.addDiaryTask(task);
+    emit('addToDiary', task)
   }
 
-  const removeTask = (id) => {
-    store.removeDiaryTaskById(id);
+  const compliteTask = (id) => {
+    emit('compliteTask', id);
   }
 </script>
 

@@ -4,6 +4,7 @@ import App from './App.vue';
 import router from './router';
 
 import './assets/style.css';
+import '@/axiosConfig.js';
 
 const pinia = createPinia();
 const app = createApp(App);

@@ -1,9 +1,8 @@
+import axios from 'axios';
+
 import { defineStore } from 'pinia';
 import replaceItemById from '@/utils/replace-element';
 import removeById from '@/utils/remove-element';
-import { apiClient } from '@/config.js';
-
-import dashboardsData from './mock/dashboards-data';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -27,7 +26,7 @@ export const useMainStore = defineStore('main', {
     //Запросы на пользователя
     async registrationUser(user) {
       try {
-        const response = await apiClient.post('/user', user);
+        const response = await axios.post('/user', user);
         await this.loginCurrentUser(response.data.email, response.data.password);
       } catch(error) {
         console.error('Ошибка user reg-post: ', error)
@@ -35,7 +34,7 @@ export const useMainStore = defineStore('main', {
     },
     async loginCurrentUser(email, password, rememberMe=false) {
       try {
-        const response = await apiClient.post('/user/login', {
+        const response = await axios.post('/user/login', {
           email: email,
           password: password
         });
@@ -51,7 +50,7 @@ export const useMainStore = defineStore('main', {
     },
     async editCurrentUser(user) {
       console.log(user);
-      const response = await apiClient.put(`/user/${user.id}`, user);
+      const response = await axios.put(`/user/${user.id}`, user);
 
       localStorage.setItem('currentUser', JSON.stringify({
         id: response.data.id,
@@ -106,7 +105,7 @@ export const useMainStore = defineStore('main', {
         const currentUser = JSON.parse(this.currentUser);
         const userId = currentUser.id;
   
-        const response = await apiClient.get(`/diary?userId=${userId}`);
+        const response = await axios.get(`/diary?userId=${userId}`);
         this.diary = response.data;
 
       } catch (error) {
@@ -118,7 +117,7 @@ export const useMainStore = defineStore('main', {
         const currentUser = JSON.parse(this.currentUser);
         const userId = currentUser.id;
 
-        const response = await apiClient.post(`/diary?userId=${userId}`, task);
+        const response = await axios.post(`/diary?userId=${userId}`, task);
         this.diary.push(response.data);
       } catch (error) {
         console.error('Ошибка post diary: ' + error);
@@ -126,7 +125,7 @@ export const useMainStore = defineStore('main', {
     },
     async removeDiaryTaskById(id) {
       try {
-        const response = await apiClient.delete(`/diary/${id}`);
+        const response = await axios.delete(`/diary/${id}`);
         removeById(this.diary, id);
       } catch (error) {
         console.error('Ошибка delete diary: ' + error);
@@ -135,23 +134,23 @@ export const useMainStore = defineStore('main', {
 
     //Запросы на задачи
     async fetchByDashboardTasks(dashboardId) {
-      const response = await apiClient.get(`/task/${dashboardId}`);
+      const response = await axios.get(`/task/${dashboardId}`);
       this.tasks = response.data;
     },
     async fetchBriefcaseTasks(briefcaseId) {
-      const response = await apiClient.get(`task/briefcase/${briefcaseId}`)
+      const response = await axios.get(`task/briefcase/${briefcaseId}`)
       this.tasks = response.data;
     },
     async fetchAllTasks() {
       this.tasks = [];
       for (const dashboard of this.dashboards) {
-        const response = await apiClient.get(`/task/${dashboard.id}`);
+        const response = await axios.get(`/task/${dashboard.id}`);
         this.tasks.push(...response.data);
       }
     },
 	  async addTask(task) {
       try {
-        const response = await apiClient.post('/task', task);
+        const response = await axios.post('/task', task);
         this.tasks.push(response.data)
       } catch (error) {
         console.error('Ошибка task post: ', error)
@@ -160,7 +159,7 @@ export const useMainStore = defineStore('main', {
 	  },
     async editTask(task) {
       try {
-        const response = await apiClient.put(`/task/${task.id}`, task);
+        const response = await axios.put(`/task/${task.id}`, task);
         replaceItemById(this.tasks, response.data);
       } catch (error) {
         console.error('Ошибка put task: ', error)
@@ -168,7 +167,7 @@ export const useMainStore = defineStore('main', {
     },
 	  async deleteTask(taskId) {
       try {
-        const response = await apiClient.delete(`/task/${taskId}`)
+        const response = await axios.delete(`/task/${taskId}`)
         removeById(this.tasks, taskId);
       } catch (error) {
         console.error('Ошибка delete task: ', error)
@@ -178,7 +177,7 @@ export const useMainStore = defineStore('main', {
     //Запросы на исполнителей 
     async fetchWorkers() {
       try {
-        const response = await apiClient.get(`/user`);
+        const response = await axios.get(`/user`);
         this.workers = response.data;
       } catch (error) {
         console.error('Ошибка delete task: ', error)
@@ -190,7 +189,7 @@ export const useMainStore = defineStore('main', {
           taskId: taskId,
           userId: userId,
         };
-        const response = await apiClient.post('/task/addWorker', dto);
+        const response = await axios.post('/task/addWorker', dto);
       } catch (error) {
         console.error(error);
       }
@@ -202,7 +201,7 @@ export const useMainStore = defineStore('main', {
           userId: userId,
         };
         console.log(dto);
-        const response = await apiClient.delete('/task/removeWorker', { data: dto });
+        const response = await axios.delete('/task/removeWorker', { data: dto });
       } catch (error) {
         console.error(error);
       }
@@ -211,7 +210,7 @@ export const useMainStore = defineStore('main', {
     //Запросы на портфели
     async fetchBriefcase(dashboardId) {
       try {
-        const response = await apiClient.get(`/briefcase/${dashboardId}`);
+        const response = await axios.get(`/briefcase/${dashboardId}`);
         this.briefcases = response.data;
       } catch (error) {
         console.error(`Ошибка fetching briefcase: `, error);
@@ -220,7 +219,7 @@ export const useMainStore = defineStore('main', {
     async fetchAllBriefcase() {
       this.briefcasesByDashboard = [];
       for (const dashboard of this.dashboards) {
-        const response = await apiClient.get(`/briefcase/${dashboard.id}`);
+        const response = await axios.get(`/briefcase/${dashboard.id}`);
         this.briefcasesByDashboard.push(
           {
             id: dashboard.id,
@@ -231,13 +230,13 @@ export const useMainStore = defineStore('main', {
       }
     },
     async addBriefcase(briefcase) {
-      const response = await apiClient.post('/briefcase', briefcase)
+      const response = await axios.post('/briefcase', briefcase)
 
       const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
       dashboard.briefcases.push(response.data);
     },
     async editBriefcase(briefcase) {
-      const response = await apiClient.put(`/briefcase/${briefcase.id}`, briefcase)
+      const response = await axios.put(`/briefcase/${briefcase.id}`, briefcase)
       replaceItemById(this.briefcases, response.data)
 
       const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
@@ -245,7 +244,7 @@ export const useMainStore = defineStore('main', {
     },
     async removeBriefcase(briefcase) {
       try {
-        const response = await apiClient.delete(`/briefcase/${briefcase.id}`)
+        const response = await axios.delete(`/briefcase/${briefcase.id}`)
   
         removeById(this.briefcases, briefcase.id);
   
@@ -261,11 +260,11 @@ export const useMainStore = defineStore('main', {
       const currentUser = JSON.parse(this.currentUser);
       const userId = currentUser.id;
 
-      const response = await apiClient.get(`/dashboard/user/${userId}`)
+      const response = await axios.get(`/dashboard/user/${userId}`)
       this.dashboards = response.data;
     },
     async fetchUsersByDashboard(idDashboard) {
-      const response = await apiClient.get(`/dashboard/users/${idDashboard}`)
+      const response = await axios.get(`/dashboard/users/${idDashboard}`)
       return this.userCurrentDashboard = response.data;
     },
     async addDashboard(newDashboard) {
@@ -279,7 +278,7 @@ export const useMainStore = defineStore('main', {
           userId: userId,
         }
   
-        const response = await apiClient.post('/dashboard', dashboard)
+        const response = await axios.post('/dashboard', dashboard)
         this.dashboards.push(response.data);
       } catch (error) {
         console.error(error);
@@ -294,7 +293,7 @@ export const useMainStore = defineStore('main', {
           inviteCode: inviteCode,
           userId: userId
         };
-        const response = await apiClient.post('/dashboard/addUserToDashboard', dto);
+        const response = await axios.post('/dashboard/addUserToDashboard', dto);
         console.log(response.data);
       } catch (error) {
         console.error(error);

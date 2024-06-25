@@ -6,19 +6,19 @@
       <LoginInput 
         v-model="mailUser"
         :idInput="'login-mail'"
-        :labelInput="'Почта'"
-        :placeholderInput="'Ваша почта'"
+        labelInput="Почта"
+        placeholderInput="Ваша почта"
         :typeInput="'email'"
-        :warningMessage="'Введите валидный email'"
+        warningMessage="Введите валидный email"
         :isValid="validEmail"
       />
       <LoginInput 
         v-model="passwordUser"
         :idInput="'login-password'"
-        :labelInput="'Пароль'"
-        :placeholderInput="'Ваш Пароль'"
+        placeholderInput="Ваш Пароль"
+        labelInput="Пароль"
         :typeInput="'password'"
-        :warningMessage="'Пароль должен содержать минимум 8 символов'"
+        warningMessage="Пароль должен содержать минимум 8 символов"
         :isValid="validPassword"
       />
       <div class="login-form__wrap">
