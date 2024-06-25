@@ -1,7 +1,7 @@
 <template>
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
 	<body id="main">
-		<Sidebar/>
+	<Sidebar/>
 		<section class="home-section">
 			<div class="text">Миртек Трекер</div>
 			<div class='app'>
@@ -39,42 +39,46 @@
 		</section>
 	</body>
 </template>
-  
-  <script setup>
-  import { ref, computed, onMounted } from 'vue';
+
+<script setup>
+	import { ref, computed, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
-  import { useMainStore } from '@/store';
-  import { storeToRefs } from 'pinia';
-  import Sidebar from '@/components/Sidebar/Sidebar.vue';
+	import { useMainStore } from '@/store';
+	import { storeToRefs } from 'pinia';
   import AddTaskButton from '@/components/Tasks/AddTask.vue';
-  import ProjectTask from '@/components/Tasks/ProjectTask.vue';
-  import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue';
-  import SidebarInfo from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
+	import Sidebar from '@/components/Sidebar/Sidebar.vue';
+	import ProjectTask from '@/components/Tasks/ProjectTask.vue';
+	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue';
+	import SidebarInfo from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
   import InviteModal from '@/components/ConfirmationModal/CopyInvite.vue';
-  
-  const store = useMainStore();
+
+	const store = useMainStore();
   const router = useRouter();
-  const { tasks, briefcases } = storeToRefs(store);
-  
-  onMounted(() => {
-	store.fetchTasks();
-	store.fetchBriefcase();
-	store.fetchDashboards();
-  });
-  
-  const searchQuery = ref('');
+	const { tasks } = storeToRefs(store);
+	const { briefcases } = storeToRefs(store);
+	const { workers } = storeToRefs(store);
+	
+	onMounted(() => {
+		store.fetchTasks();
+		store.fetchBriefcase();
+		store.fetchWorkers();
+    store.fetchDashboards();
+	});
+
+	const searchQuery = ref('');
   const isInviteModalOpen = ref(false);
   
   const filteredTasks = computed(() => {
-	if (!currentDashboard.value) return [];
-	return tasks.value.filter(task => task.dashboardId === currentDashboard.value.id);
+    if (!currentDashboard.value) return [];
+    return tasks.value.filter(task => task.dashboardId === currentDashboard.value.id);
   });
-  
-  const foundTasks = computed(() => {
-	const query = searchQuery.value.trim().toLowerCase();
-	if (!query) return tasks.value;
-	return tasks.value.filter(item => item.name.toLowerCase().includes(query));
-  });
+
+	const foundTasks = computed(() => {
+		const query = searchQuery.value.trim().toLowerCase();
+		if (!query) return tasks.value;
+
+		return tasks.value.filter(item => item.name.toLowerCase().includes(query));
+	});
   
   const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
   const currentDashboard = computed(() => {
@@ -89,8 +93,10 @@
 	return currentDashboard.value ? currentDashboard.value.invite : '';
   });
   
-  const isSidebarOpen = ref(false);
-  
+
+	const selectedTask = ref(null); 
+	const isSidebarOpen = ref(false);
+
   const openInviteModal = () => {
 	isInviteModalOpen.value = true;
   };
@@ -98,8 +104,7 @@
   const closeInviteModal = () => {
 	isInviteModalOpen.value = false;
   };
-  </script>
-  
+</script>
 
 <style lang="scss" scoped>
 

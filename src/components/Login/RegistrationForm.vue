@@ -60,6 +60,16 @@
       />
       
       <div class="login-form__wrap">
+        <input 
+          v-model="rememberMe"
+          type="checkbox" 
+          class="login-form__input-row" 
+          name="" 
+          id="remember-me"
+        >
+        <label class="login-form__label-row login-form__label-row--muted" for="remember-me">Запомнить меня</label>
+      </div>
+      <div class="login-form__wrap">
         <input class="login-form__input-row" type="checkbox" name="" id="accept-license" required>
         <label class="login-form__label-row login-form__label-row--muted" for="accept-license">
           Я принимаю <RouterLink to="/" class="login-form__link">правила и условия Миртек Трекер</RouterLink></label>
@@ -91,12 +101,13 @@
   const passwordUser = ref('');
   const repeatedPassword = ref('');
 
+  const rememberMe = defineModel();
+
   const userData = computed(() => {
     return {
-      id: 6,
-      name: nameUser.value,
+      name: `${nameUser.value} ${surnameUser.value}`,
       avatar: "",
-      mail: mailUser.value,
+      email: mailUser.value,
       password: passwordUser.value
     }
   })
