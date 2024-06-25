@@ -38,7 +38,7 @@
 	</div>
   </template>
   
-<script setup>
+  <script setup>
   import { ref, watch, onMounted, onUnmounted, computed } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
@@ -50,48 +50,45 @@
   const { briefcases, dashboards } = storeToRefs(store);
   
   onMounted(() => {
-		store.fetchBriefcase();
-		document.addEventListener('keydown', handleEsc);
+	store.fetchBriefcase();
+	document.addEventListener('keydown', handleEsc);
   });
   
   onUnmounted(() => {
-		document.removeEventListener('keydown', handleEsc);
+	document.removeEventListener('keydown', handleEsc);
   });
   
   const getTodayDate = () => {
-		const today = new Date();
-		return today.toISOString().split('T')[0];
+	const today = new Date();
+	return today.toISOString().split('T')[0];
   };
   
   const newTask = ref({
-    name: '',
-    description: '',
-    status: 'open',
-    createdAt: getTodayDate(),
-    dueDate: '',
-    briefcase: {
-      name: '',
-      color: '',
-    },
-    dashboardId: null,
-    workers: [],
+	name: '',
+	description: '',
+	status: 'open',
+	createdAt: getTodayDate(),
+	dueDate: '',
+	briefcase: {
+	  name: '',
+	  color: '',
+	},
+	dashboardId: null,
   });
   
   const isFormOpen = ref(false);
   const customBriefcaseName = ref('');
-  const selectedBriefcaseIcon = ref('null');
-	const searchBriefcaseRef = ref(null);
+  const selectedBriefcaseIcon = ref(null);
   
   const openForm = () => {
-		isFormOpen.value = true;
+	isFormOpen.value = true;
   };
   
   const closeForm = () => {
-		isFormOpen.value = false;
+	isFormOpen.value = false;
   };
   
   const handleEsc = (event) => {
-
 	if (event.key === 'Escape' && isFormOpen.value) {
 	  closeForm();
 	}
@@ -105,44 +102,47 @@
   
   const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
   const currentDashboard = computed(() => {
-		return dashboards.value.find(dashboard => dashboard.id === currentDashboardId.value);
+	return dashboards.value.find(dashboard => dashboard.id === currentDashboardId.value);
   });
   
   const handleBriefcaseSelect = (briefcase) => {
-	  newTask.value.briefcase = briefcase;
+	newTask.value.briefcase.name = briefcase.name;
+	newTask.value.briefcase.color = briefcase.color;
   };
   
   const addTask = () => {
-		if (newTask.value.briefcase.name === 'custom') {
-			newTask.value.briefcase.name = customBriefcaseName.value;
-		}
-		
-		newTask.value.dashboardId = currentDashboardId.value; // Set dashboardId from currentDashboardId
-		
-		store.addTask(newTask.value);
-		
-		console.log('New Task:', newTask.value);
-		
-		newTask.value = {
-			name: '',
-			description: '',
-			status: 'open',
-			createdAt: getTodayDate(),
-			dueDate: '',
-			briefcase: {
-				name: '',
-				color: '',
-			},
-			dashboardId: null,
-			workers: [],
-		};
-
-		customBriefcaseName.value = '';
-		selectedBriefcaseIcon.value = null;
-		closeForm();
+	if (newTask.value.briefcase.name === 'custom') {
+	  newTask.value.briefcase.name = customBriefcaseName.value;
 	}
-</script>
   
+	newTask.value.dashboardId = currentDashboardId.value; // Set dashboardId from currentDashboardId
+  
+	store.addTask(newTask.value);
+  
+	console.log('New Task:', newTask.value);
+  
+	newTask.value = {
+	  name: '',
+	  description: '',
+	  status: 'open',
+	  createdAt: getTodayDate(),
+	  dueDate: '',
+	  briefcase: {
+		name: '',
+		color: '',
+	  },
+	  dashboardId: null,
+	};
+	customBriefcaseName.value = '';
+	selectedBriefcaseIcon.value = null;
+	closeForm();
+  };
+  
+  const searchBriefcaseRef = ref(null);
+  </script>
+  
+
+
   <style lang="scss" scoped>
   button {
 	position: relative;
@@ -187,6 +187,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 100;
   }
   
   .form-container {

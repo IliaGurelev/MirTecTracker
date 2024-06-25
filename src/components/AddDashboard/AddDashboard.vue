@@ -25,7 +25,6 @@ const addDashboard = () => {
     alert('Введите название дашборда');
     return;
   }
-  console.log(color);
   store.addDashboard({
     name: newDashboardName.value.trim(),
     color: generateRandomColor(),

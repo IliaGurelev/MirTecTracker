@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div :class="['modal-overlay', { show: isOpen }]" @click="closeModal">
+	  <div :class="['modal-overlay', { show: isOpen }]" @click="closeModal">
 		<div class="modal-content" @click.stop>
 		  <h2>{{ dashboardName }}</h2>
 		  <p>Инвайт код: <span class="invite-code">{{ inviteCode }}</span></p>
@@ -21,9 +21,10 @@
 	dashboardName: String,
 	inviteCode: String,
   });
+  
   const emit = defineEmits(['close']);
   
-  const internalIsOpen = ref(props.isOpen);  
+  const internalIsOpen = ref(props.isOpen);
   
   const openModal = () => {
 	internalIsOpen.value = true;
@@ -56,6 +57,9 @@
   </script>
   
   <style scoped>
+  h2 {
+	word-wrap: break-word;
+  }
   .modal-overlay {
 	position: fixed;
 	top: 0;
@@ -84,6 +88,8 @@
 	position: relative;
 	transform: translateY(-20px);
 	transition: transform 0.3s ease;
+	width: 90%;
+	max-width: 500px;
   }
   
   .modal-overlay.show .modal-content {

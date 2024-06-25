@@ -2,7 +2,7 @@
   <section id="login-form" class="login-page__login-form login-form --center-to-left">
     <h2 class="login-form__title">Войдите в ваш аккаунт</h2>
     <p class="login-form__subtitle login-form__subtitle--muted">Войдите в свою учетную запись, чтобы продолжить создавать и редактировать свои задачи.</p>
-    <form class="login-form__form" action="" @submit.prevent="$emit('submitForm', mailUser, passwordUser)">
+    <form class="login-form__form" action="">
       <LoginInput 
         v-model="mailUser"
         :idInput="'login-mail'"
@@ -22,13 +22,7 @@
         :isValid="validPassword"
       />
       <div class="login-form__wrap">
-        <input 
-          v-model="rememberMe"
-          type="checkbox" 
-          class="login-form__input-row" 
-          name="" 
-          id="remember-me"
-        >
+        <input class="login-form__input-row" type="checkbox" name="" id="remember-me">
         <label class="login-form__label-row login-form__label-row--muted" for="remember-me">Запомнить меня</label>
       </div>
 
@@ -51,8 +45,6 @@
 
   const mailUser = ref('');
   const passwordUser = ref('');
-
-  const rememberMe = defineModel();
 
   const validEmail = computed(() => {
     return checkValidMail(mailUser.value);

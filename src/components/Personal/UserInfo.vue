@@ -1,22 +1,20 @@
 <template>
   <div class="user">
+    <UserIcon 
+      v-if="props.avatarUser === '' "
+      class="user__icon"
+    />
     <img 
-      v-if="imageExists"
+      v-else
       :src="props.avatarUser" 
       class="user__icon" 
       alt="Аватар пользователя"
-      @error="handleImageError"
-    />
-    <UserIcon 
-      v-else
-      class="user__icon"
     />
     <p class="user__name">{{ props.nameUser }}</p>
   </div>
 </template>
 
 <script setup>
-  import { ref, watchEffect } from 'vue';
   import UserIcon from '@/assets/UserIcon.vue';
 
   const props = defineProps({
@@ -30,16 +28,6 @@
       required: true,
     }
   });
-
-  const imageExists = ref(props.avatarUser !== '');
-
-  const handleImageError = () => { 
-    imageExists.value = false;
-  }
-
-  watchEffect(() => {
-    imageExists.value = props.avatarUser !== '';
-  })
 </script>
 
 <style lang="scss" scoped>

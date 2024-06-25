@@ -45,6 +45,7 @@
   import DetailTaskList from '@/components/Tasks/DetailTaskList.vue';
 	import BriefcaseEdit from '@/components/Briefcase/BriefcaseEdit.vue';
 	import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
+	import ProgressBar from '@/components/UI/ProgressBar.vue';
 
 	const props = defineProps({
 		briefcase: {

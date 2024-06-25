@@ -21,7 +21,7 @@
 		<ul class="menu_items">
 		  <transition-group name="dashboard-list" tag="div">
 			<li class="item" v-for="dashboard in dashboards" :key="dashboard.id">
-			  <router-link :to="{ name: 'Dashboard', query: { id: dashboard.id } }">
+			  <router-link :to="{ name: 'Dashboard', query: { id: dashboard.id } }" tag="div">
 				<div class="nav_link submenu_item">
 				  <span class="nav_link_icon">
 					<div class="squares" :style="{ color: dashboard.color }">
@@ -34,6 +34,9 @@
 					</div>
 				  </span>
 				  <span class="nav_link_text">{{ truncateText(dashboard.name) }}</span>
+				  <span class="nav_link_icon" @mouseover="startShake" @mouseleave="stopShake">
+					<i class="fas fa-trash-alt icon-trash" @click.prevent="showDeleteModal(dashboard.id)"></i>
+				  </span>
 				</div>
 			  </router-link>
 			</li>
@@ -41,6 +44,8 @@
 		</ul>
 	  </div>
 	</nav>
+	<Modal :visible="modalVisible" @confirm="handleDelete" @cancel="cancelDelete">
+	</Modal>
   </template>
   
   <script setup>
@@ -49,13 +54,15 @@
   import { storeToRefs } from 'pinia';
   import AddDashboardModal from '@/components/AddDashboard/AddDashboard.vue';
   import AddInviteDashboard from '@/components/AddDashboard/AddInviteCode.vue';
+  import Modal from '@/components/ConfirmationModal/ConfirmationModal.vue';
   
   const store = useMainStore();
   const { dashboards } = storeToRefs(store);
   
   const isAddDashboardModalOpen = ref(false);
   const isSidebarClosed = ref(false);
-
+  const modalVisible = ref(false);
+  const dashboardToDeleteId = ref(null);
   
   const toggleAddDashboardModal = () => {
 	isAddDashboardModalOpen.value = !isAddDashboardModalOpen.value;
@@ -77,11 +84,40 @@
   onMounted(() => {
 	store.fetchDashboards();
   });
+  
+  const showDeleteModal = (dashboardId) => {
+	dashboardToDeleteId.value = dashboardId;
+	modalVisible.value = true;
+  };
+  
+  const handleDelete = () => {
+  console.log(`Deleting dashboard with ID ${dashboardToDeleteId.value}`);
+  modalVisible.value = false; 
+  dashboardToDeleteId.value = null; 
+};
+  
+  const cancelDelete = () => {
+	modalVisible.value = false;
+  };
+  
+ 
+  const isShaking = ref(false);
+  
+  const startShake = () => {
+	isShaking.value = true;
+  };
+  
+  const stopShake = () => {
+	isShaking.value = false;
+  };
   </script>
   
   <style scoped>
-  .dashboards__togglebutton{
+  .dashboards__togglebutton {
 	text-align: center;
+  }
+  .navlink {
+	margin-left: 10px;
   }
   .nav_link {
 	display: flex;
@@ -94,32 +130,39 @@
   }
   
   .nav_link_icon {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 35px;
-	height: 35px;
-	margin-right: 10px;
-	border-radius: 4px;
+	position: relative;
+	margin-left: 10px; /* Adjust spacing as needed */
   }
   
-  .icon-animation {
-	transition: transform 0.3s ease;
+  .nav_link_icon:hover .icon-trash {
+	animation: shake 0.5s infinite; /* Apply shake animation on hover */
   }
   
-  .menu_content {
-	padding: 20px;
+  @keyframes shake {
+	0% { transform: translateX(0); }
+	10% { transform: translateX(1px); }
+	20% { transform: translateX(-1px); }
+	30% { transform: translateX(1px); }
+	40% { transform: translateX(-1px); }
+	50% { transform: translateX(1px); }
+	60% { transform: translateX(-1px); }
+	70% { transform: translateX(1px); }
+	80% { transform: translateX(-1px); }
+	90% { transform: translateX(1px); }
+	100% { transform: translateX(0); }
   }
   
-  .menu_items {
-	list-style-type: none;
-	padding: 0;
+  .icon-trash {
+	font-size: 18px;
+	color: red; /* Change color as needed */
+	cursor: pointer;
+	transition: transform 0.3s ease; /* Smooth transition for shake effect */
   }
   
   .squares {
 	width: 35px;
 	height: 40px;
-	margin: auto;
+	margin-right: 10px; /* Adjust spacing as needed */
   }
   
   .square {
@@ -155,10 +198,30 @@
 	right: 0;
   }
   
+  .menu_items {
+	list-style-type: none;
+	padding: 0;
+  }
+  
+  .item {
+	margin-bottom: 10px;
+	transition: opacity 0.3s ease;
+  }
+  
+  .nav_link:hover {
+	background-color: #e7e7e7;
+  }
+  
+  .item:hover {
+	border-radius: 8px;
+	opacity: 0.9;
+	background-color: #e7e7e7;
+  }
+  
   .sidebar.dashboards-sidebar {
 	position: fixed;
 	top: 0;
-	left: 70px;
+	left: 70px; /* Adjusted left position to fit your design */
 	width: 260px;
 	height: 100%;
 	background-color: var(--bg);
@@ -186,34 +249,6 @@
 	cursor: pointer;
   }
   
-  .menu_content {
-	padding: 20px;
-  }
-  
-  .menu_items .item {
-	margin-bottom: 10px;
-	transition: opacity 0.3s ease;
-  }
-  
-  .nav_link:hover {
-	background-color: #e7e7e7;
-  }
-  
-  .item {
-	position: relative;
-	background-color: var(--bg);
-	font-weight: 400;
-	overflow: hidden;
-	font-weight: 500;
-	border: none;
-  }
-  
-  .item:hover {
-	border-radius: 8px;
-	opacity: 0.9;
-	background-color: #e7e7e7;
-  }
-  
   @media screen and (max-width: 800px) {
 	.sidebar.dashboards-sidebar {
 	  left: 0px;
@@ -230,3 +265,4 @@
 	opacity: 0;
   }
   </style>
+  

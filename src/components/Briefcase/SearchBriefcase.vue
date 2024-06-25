@@ -39,27 +39,27 @@
 	  <transition name="slide">
 		<ul v-show="isFocus" class="search__list --smouth-bottom" @click.stop>
 		  <li v-if="!filteredItems.length">
-				<p class="search__text">
-					Портфели не найдены
-				</p>
+			<p class="search__text">
+			  Портфели не найдены
+			</p>
 		  </li>
 		  <li v-if="availableBriefcase && filteredItems.length === 0">
-				<p class="search__text">
-					У вас нет портфелей, добавьте их
-					<RouterLink :to="{name: 'Briefcase'}" class="search__link">здесь</RouterLink>
-				</p>
+			<p class="search__text">
+			  У вас нет портфелей, добавьте их
+			  <RouterLink :to="{name: 'Briefcase'}" class="search__link">здесь</RouterLink>
+			</p>
 		  </li>
 		  <li
-				v-for="item in filteredItems"
-				:key="item.id"
-				class="search__item"
-				@mouseup.prevent="selectBriefcase(item)"
+			v-for="item in filteredItems"
+			:key="item.id"
+			class="search__item"
+			@mousedown.prevent="selectBriefcase(item)"
 		  >
-				<BriefcaseIcon
-					class="search__briefcase-icon"
-					:class="`portfolio-card__icon--${item.color || getFirstColor(filteredItems)}`"
-				/>
-				{{ item.name }}
+			<BriefcaseIcon
+			  class="search__briefcase-icon"
+			  :class="`portfolio-card__icon--${item.color || getFirstColor(filteredItems)}`"
+			/>
+			{{ item.name }}
 		  </li>
 		</ul>
 	  </transition>
@@ -107,11 +107,11 @@
   
   
   const selectBriefcase = (item) => {
-		query.value = item.name;
-		selectedBriefcase.value = item;
-		emit('update:query', query.value);
-		emit('select', item);
-		isFocus.value = false;
+	query.value = item.name;
+	selectedBriefcase.value = item;
+	emit('update:query', query.value);
+	emit('select', item);
+	isFocus.value = false;
   };
   
   watchEffect(() => {

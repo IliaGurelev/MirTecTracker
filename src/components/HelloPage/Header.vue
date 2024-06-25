@@ -25,11 +25,11 @@
 			  </li>
 			  <div class="visible-btn">
 				<li class='navigation-menu__item'>
-					<RouterLink :to="{name: 'Login'}" class='button__login'>Войти</RouterLink>
+					<RouterLink :to="{name: 'Dashboard'}" class='button__login'>Войти</RouterLink>
 			  </li>
 			</div>
 			<div class="visible-btn">
-				<RouterLink :to="{name: 'Registration'}" class='button__login button_registration'>
+				<RouterLink :to="{name: 'Dashboard'}" class='button__login button_registration'>
 					Регистрация
 				</RouterLink>
 				</div>
@@ -40,25 +40,12 @@
 			<div class="line"></div>
 			<div class="line"></div>
 		  </div>
-			<RouterLink 
-				v-if="userExists"
-				:to="{ name: 'Personal' }"
-			>
-				<UserInfo 
-					class="hellopage__user"
-					:avatarUser="currentUser.avatarUser"
-					:nameUser="currentUser.nameUser"
-				/>
+		  <div class='auth-buttons'>
+			<RouterLink :to="{name: 'Login'}" class='button__login'>
+				Войти
 			</RouterLink>
-		  <div 
-				v-else
-				class='auth-buttons'
-			>
-				<RouterLink :to="{name: 'Login'}" class='button__login'>
-					Войти
-				</RouterLink>
-				<RouterLink :to="{name: 'Registration'}" class='button_registration'>
-						Регистрация
+			<RouterLink :to="{name: 'Registration'}" class='button_registration'>
+					Регистрация
 				</RouterLink>
 		  </div>
 	  </header>
@@ -66,18 +53,8 @@
 
 <script setup>
  	import { ref, onMounted } from 'vue';
-	import UserInfo from '@/components/Personal/UserInfo.vue';
-
-	const props = defineProps({
-		currentUser: {
-			type: Object,
-			required: true,
-		}
-	})
-
 	const isNavActive = ref(false);
 	const elements = ref([]);
-	const userExists = ref(props.currentUser !== null)
 
 	const toggleNav = () => {
 		isNavActive.value = !isNavActive.value;
@@ -321,8 +298,4 @@
 	  border-radius: 5px;
 	  background-color: var(--color-text-important);
   }
-
-	.hellopage__user {
-		cursor: pointer;
-	}
 </style>

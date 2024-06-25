@@ -35,7 +35,7 @@
 		  v-model="query"
 		  placeholder="Поиск..."
 		  class="search__input"
-		  :class="{'--smooth-bottom': isEmptyQuery}"
+		  :class="{'--smooth-bottom': query.length === 0}"
 		  @input="handleInput"
 		/>
 	  </div>
@@ -52,10 +52,14 @@
 			class="search__item"
 			@mousedown.prevent="selectWorker(item)"
 		  >
-				<Worker 
-					:worker="item"
-				/>
-				{{ item.name }}
+			<img
+			  v-if="item.avatar"
+			  :src="item.avatar"
+			  class="search__worker-icon"
+			  alt="Worker Avatar"
+			/>
+			<div v-else class="search__worker-icon"><UserIcon class="worker__icon" /></div>
+			{{ item.nameUser }}
 		  </li>
 		</ul>
 	  </transition>
@@ -67,39 +71,28 @@
   import { ref, computed, onMounted } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
-	import Worker from '@/components/Tasks/Worker.vue';
   
-	const props = {
-		workers: {
-			type: Array,
-			required: true,
-		}
-	}
+  const store = useMainStore();
+  const { usersData } = storeToRefs(store);
   
-	const store = useMainStore();
-
-	const { workers } = storeToRefs(store); 
-
+  onMounted(() => {
+	store.fetchWorkers();
+  });
+  
   const emit = defineEmits(['select', 'update:query']); 
   
-	const workersList = ref(props.workers);
-
   const query = ref('');
   const selectedWorker = ref(null);
   const isFocus = ref(false);
   
   const filteredItems = computed(() => {
-		if (!isFocus.value) {
-			return workers.value;
-		}
-		return workers.value.filter((item) =>
-			item.name.toLowerCase().includes(query.value.toLowerCase())
-		);
+	if (!isFocus.value) {
+	  return usersData.value;
+	}
+	return usersData.value.filter((item) =>
+	  item.nameUser.toLowerCase().includes(query.value.toLowerCase())
+	);
   });
-
-	const isEmptyQuery = computed(() => {
-		return query.value.length === 0;
-	})
   
   const toggleFocus = () => {
 	isFocus.value = !isFocus.value;
@@ -112,16 +105,12 @@
   };
   
   const selectWorker = (item) => {
-		query.value = item.name;
-		selectedWorker.value = item;
-		isFocus.value = false;
-		emit('select', item);
-		emit('update:query', item.name);
+	query.value = item.nameUser;
+	selectedWorker.value = item;
+	isFocus.value = false;
+	emit('select', item);
+	emit('update:query', item.nameUser);
   };
-
-	onMounted(() => {
-		store.fetchWorkers();
-	})
   </script>
   
   <style lang="scss" scoped>
@@ -177,10 +166,9 @@
   }
   
   .search__worker-icon {
-		width: 25px;
-		height: 25px;
-		border-radius: 50%;
-		object-fit: cover;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
   }
   
   .search__input-container {

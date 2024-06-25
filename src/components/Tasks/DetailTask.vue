@@ -15,6 +15,7 @@
       :workerList="props.task.workers" 
       class="task__workers" 
     />
+    <ProgressBar class="task__progress-bar" />
     <div class="task__status">
       <TaskDate :dateCreated="props.task.dueDate"/>
       <TaskStatus :taskStatus="props.task.status" />
@@ -24,6 +25,7 @@
 
 <script setup>
   import ProperityButton from '@/components/UI/ProperityButton.vue';
+  import ProgressBar from '@/components/UI/ProgressBar.vue';
   import TaskBriefcase from '@/components/Tasks/TaskBriefcase.vue';
   import TaskStatus from '@/components/Tasks/TaskStatus.vue';
   import TaskDate from '@/components/Tasks/TaskDate.vue';

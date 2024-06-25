@@ -1,0 +1,45 @@
+<template>
+	<div class="loading-screen" v-if="visible">
+	  <div class="spinner"></div>
+	</div>
+  </template>
+  
+  <script setup>
+  const props = defineProps({
+	visible: {
+	  type: Boolean,
+	  required: true
+	}
+  });
+  </script>
+  
+  <style scoped>
+  .loading-screen {
+	position: fixed;
+	top:
+  0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  }
+  
+  .spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+  to {
+  transform: rotate(360deg);
+  }
+  }
+  </style>

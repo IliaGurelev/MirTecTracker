@@ -2,9 +2,7 @@
 <template>
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
 	<body>
-		<Header
-			:currentUser="currentUser"
-		/>
+		<Header></Header>
 	<StartSection></StartSection>
 	<AboutTheProgram></AboutTheProgram>
 	<Opportunities></Opportunities>
@@ -28,21 +26,19 @@
   import Footer from '@/components/HelloPage/Footer.vue';
   import { ref, onMounted } from 'vue'
 
-	const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-
-	const elements = ref(null)
-	const observer = ref(null)
-	onMounted(() => {
-		elements.value = document.querySelectorAll('.animation')
-		observer.value = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('show')
-				}
-			})
-		})
-		elements.value.forEach(element => observer.value.observe(element))
-	})
+    const elements = ref(null)
+    const observer = ref(null)
+    onMounted(() => {
+      elements.value = document.querySelectorAll('.animation')
+      observer.value = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show')
+          }
+        })
+      })
+      elements.value.forEach(element => observer.value.observe(element))
+    })
 
 </script>
 

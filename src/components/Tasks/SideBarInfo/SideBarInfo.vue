@@ -7,13 +7,13 @@
 			  <i class="fa-solid fa-xmark"></i>
 			</div>
 			<h2>{{ props.task.name }}</h2>
-			<textarea v-model="editTasks.name" @blur="updateTask" placeholder="Название задачи"></textarea>
+			<textarea v-model="props.task.name" @input="updateTask" placeholder="Название задачи"></textarea>
 		  </div>
 		  <div class="sidebars-content__description">
-			<textarea v-model="editTasks.description" @blur="updateTask" placeholder="Описание задачи"></textarea>
+			<textarea v-model="props.task.description" @input="updateTask" placeholder="Описание задачи"></textarea>
 		  </div>
 		  <div class="sidebars-content__items">
-			<p>Статус: <EditTaskStatus :taskStatus="editTasks.status" @update-status="updateTaskStatus" /></p>
+			<p>Статус: <EditTaskStatus :taskStatus="props.task.status" @update-status="updateTaskStatus" /></p>
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Дата начала:
@@ -73,7 +73,7 @@
 				<p>Добавление исполнителя:</p>
 				<i class="fa-solid fa-xmark" @click="closeAddWorker"></i>
 			  </div>
-			  <SearchWorkers :workers="props.workers" @select="handleWorkerSelect" @update="updateQuery" />
+			  <SearchWorkers :workers="userData" @select="handleWorkerSelect" @update="updateQuery" />
 			  <button class="add-button" @click="addWorker">Добавить</button>
 			</div>
 		  </transition>
@@ -110,7 +110,7 @@
   </template>
   
   <script setup>
-import { ref, watch, defineEmits, defineProps, onMounted, onBeforeUnmount, watchEffect } from 'vue';
+import { ref, watch, defineEmits, defineProps, onMounted, onBeforeUnmount } from 'vue';
 import { debounce } from 'lodash-es';
 import formatDate from "@/utils/format-date.js";
 import WorkerList from '@/components/Tasks/WorkerList.vue';
@@ -125,6 +125,7 @@ import { storeToRefs } from 'pinia';
 
 const store = useMainStore();
 const { briefcases } = storeToRefs(store);
+const { userData } = storeToRefs(store);
 const props = defineProps({
   isOpen: {
     type: Boolean,
@@ -136,13 +137,12 @@ const props = defineProps({
   },
   workers: {
     type: Array,
-    required: true,
-  }
+    default: () => [],
+  },
 });
 
 const emitEvents = defineEmits(['close', 'update-task']);
 
-const editTasks = ref(props.task);
 
 const isEditDueDate = ref(false);
 const isEditCreatedAt = ref(false);
@@ -174,16 +174,15 @@ const handleEsc = (event) => {
 const updateTask = debounce(() => {
 	
   emitEvents('update-task', props.task);
-  store.editTask(editTasks.value);
+  console.log('Task updated:', props.task);
 }, 1000);
 
 const updateTaskStatus = (status) => {
-  editTasks.value.status = status;
+  props.task.status = status;
   updateTask();
 };
 
 const updateQuery = debounce((query) => {
-  console.log(query);
   store.updateQuery(query);
 }, 300);
 
@@ -221,7 +220,7 @@ const closeInput = (field) => {
 };
 
 const selectBriefcase = (briefcase) => {
-  editTasks.value.briefcase = briefcase;
+  props.task.briefcase = briefcase;
   updateTask();
   showBriefcaseChangedMessage();
   isEditBriefcase.value = false;
@@ -239,10 +238,8 @@ const handleWorkerSelect = (worker) => {
 };
 
 const addWorker = () => {
-  if (selectedWorker.value && !editTasks.value.workers.some(worker => worker.id === selectedWorker.value.id)) {
-    store.addWorkers(props.task.id, selectedWorker.value.id)
-
-    editTasks.value.workers.push(selectedWorker.value);
+  if (selectedWorker.value && !props.task.workers.some(worker => worker.id === selectedWorker.value.id)) {
+    props.task.workers.push(selectedWorker.value);
     updateTask();
     showWorkerAddedMessage();
     selectedWorker.value = null;
@@ -266,14 +263,13 @@ const showWorkerAlreadyAssignedMessage = () => {
 };
 
 const removeWorker = (worker) => {
-  editTasks.value.workers = editTasks.value.workers.filter(w => w.id !== worker.id);
+  props.task.workers = props.task.workers.filter(w => w.id !== worker.id);
   updateTask();
   showWorkerRemovedMessage();
 };
 
 // обработка события remove
 const handleRemoveWorker = (worker) => {
-  store.deleteWorkers(props.task.id, worker.id)
   removeWorker(worker);
 };
 
@@ -338,10 +334,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', handleEsc);
 });
-
-watchEffect(() => {
-  editTasks.value = props.task;
-})
 </script>
 
   

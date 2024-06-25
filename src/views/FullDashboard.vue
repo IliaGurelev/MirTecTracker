@@ -1,84 +1,94 @@
 <template>
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
 	<body id="main">
-	<Sidebar/>
-		<section class="home-section">
-			<div class="text">Миртек Трекер</div>
-			<div class='app'>
-				<main class='project'>
-					<div class='project-info'>
-						<h1 class="txt">{{ currentDashboardName }}</h1>
-						<div class="search-task">        
-							<input type="text" v-model="searchQuery" placeholder="Поиск задач">
-							<div class="search-task__icon">
-								<i class="fa-solid fa-magnifying-glass"></i>
-							</div>                        
-						</div>
-						<div class="project-info__button">
-							<AddTaskButton />
-							<span class="button__invite_code" @click="openInviteModal"><i class="fa-solid fa-user-plus"></i></span>
-						</div>
-						<InviteModal :isOpen="isInviteModalOpen" :dashboardName="currentDashboardName" :inviteCode="currentDashboardInviteCode" @close="closeInviteModal" @click="openInviteModal"/>
-					</div>  
-					<div v-if="searchQuery.trim() === ''">
-						<ProjectTask :items="filteredTasks" :sort="sort"  />
-					</div>
-					<div v-else-if="foundTasks.length > 0">
-						<ProjectTask :items="foundTasks" :sort="sort"   />
-					</div>
-					<div v-else>
-						<div class="not-found">
-							<img src="../assets/notfound.svg" alt="">
-							<p class="not-found__title">Задачи не найдены</p>
-						</div>
-					</div>
-				</main>
-				<SidebarInfo :task="foundTasks" :isOpen="isSidebarOpen" :briefcases="briefcases"/>
-				<ProgressBars :items="filteredTasks" :sort="true"/>
+	  <LoadingScreen :visible="isLoading" />
+	  <Sidebar/>
+	  <section class="home-section" v-show="!isLoading">
+		<div class="text">Миртек Трекер</div>
+		<div class='app'>
+		  <main class='project'>
+			<div class='project-info'>
+			  <h1 class="txt">{{ currentDashboardName }}</h1>
+			  <div class="search-task">        
+				<input type="text" v-model="searchQuery" placeholder="Поиск задач">
+				<div class="search-task__icon">
+				  <i class="fa-solid fa-magnifying-glass"></i>
+				</div>                        
+			  </div>
+			  <div class="project-info__button">
+				<AddTaskButton />
+				<span class="button__invite_code" @click="openInviteModal"><i class="fa-solid fa-user-plus"></i></span>
+				<span class="nav_link_icon" @mouseover="startShake" @mouseleave="stopShake">
+				  <i class="fas fa-trash-alt icon-trash" @click.prevent="showDeleteModal(currentDashboardId)"></i>
+				</span>
+				<InviteModal :isOpen="isInviteModalOpen" :dashboardName="currentDashboardName" :inviteCode="currentDashboardInviteCode" @close="closeInviteModal" @click="openInviteModal"/>
+				<Modal :visible="modalVisible" @confirm="handleDelete" @cancel="cancelDelete"></Modal>
+			  </div>
+			</div>  
+			<div v-if="searchQuery.trim() === ''">
+			  <ProjectTask :items="filteredTasks" :sort="sort"  />
 			</div>
-		</section>
+			<div v-else-if="foundTasks.length > 0">
+			  <ProjectTask :items="foundTasks" :sort="sort"   />
+			</div>
+			<div v-else>
+			  <div class="not-found">
+				<img src="../assets/notfound.svg" alt="">
+				<p class="not-found__title">Задачи не найдены</p>
+			  </div>
+			</div>
+		  </main>
+		  <SidebarInfo :task="foundTasks" :isOpen="isSidebarOpen" :briefcases="briefcases"/>
+		  <ProgressBars :items="filteredTasks" :sort="true"/>
+		</div>
+	  </section>
 	</body>
-</template>
-
-<script setup>
-	import { ref, computed, onMounted } from 'vue';
-  import { useRouter } from 'vue-router';
-	import { useMainStore } from '@/store';
-	import { storeToRefs } from 'pinia';
-  import AddTaskButton from '@/components/Tasks/AddTask.vue';
-	import Sidebar from '@/components/Sidebar/Sidebar.vue';
-	import ProjectTask from '@/components/Tasks/ProjectTask.vue';
-	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue';
-	import SidebarInfo from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
-  import InviteModal from '@/components/ConfirmationModal/CopyInvite.vue';
-
-	const store = useMainStore();
-  const router = useRouter();
-	const { tasks } = storeToRefs(store);
-	const { briefcases } = storeToRefs(store);
-	const { workers } = storeToRefs(store);
-	
-	onMounted(() => {
-		store.fetchTasks();
-		store.fetchBriefcase();
-		store.fetchWorkers();
-    store.fetchDashboards();
-	});
-
-	const searchQuery = ref('');
-  const isInviteModalOpen = ref(false);
+  </template>
   
+  <script setup>
+  import { ref, computed, onMounted } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useMainStore } from '@/store';
+  import { storeToRefs } from 'pinia';
+  import Sidebar from '@/components/Sidebar/Sidebar.vue';
+  import AddTaskButton from '@/components/Tasks/AddTask.vue';
+  import ProjectTask from '@/components/Tasks/ProjectTask.vue';
+  import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue';
+  import SidebarInfo from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
+  import InviteModal from '@/components/ConfirmationModal/CopyInvite.vue';
+  import Modal from '@/components/ConfirmationModal/ConfirmationModal.vue';
+  import LoadingScreen from '@/components/UI/LoadingScreen.vue';
+
+  const store = useMainStore();
+  const router = useRouter();
+  const { tasks, briefcases } = storeToRefs(store);
+  const isLoading = ref(true);
+  onMounted(() => {
+  // Simulate loading for 2 seconds
+  setTimeout(() => {
+    Promise.all([
+      store.fetchTasks(),
+      store.fetchBriefcase(),
+      store.fetchDashboards()
+    ]).then(() => {
+      isLoading.value = false; // Once data is fetched, hide loading screen
+    });
+  }, 2000); // 2000 milliseconds = 2 seconds
+});
+  const searchQuery = ref('');
+  const isInviteModalOpen = ref(false);
+  const modalVisible = ref(false);
+  const dashboardToDeleteId = ref(null);
   const filteredTasks = computed(() => {
-    if (!currentDashboard.value) return [];
-    return tasks.value.filter(task => task.dashboardId === currentDashboard.value.id);
+	if (!currentDashboard.value) return [];
+	return tasks.value.filter(task => task.dashboardId === currentDashboard.value.id);
   });
-
-	const foundTasks = computed(() => {
-		const query = searchQuery.value.trim().toLowerCase();
-		if (!query) return tasks.value;
-
-		return tasks.value.filter(item => item.name.toLowerCase().includes(query));
-	});
+  
+  const foundTasks = computed(() => {
+	const query = searchQuery.value.trim().toLowerCase();
+	if (!query) return tasks.value;
+	return tasks.value.filter(item => item.name.toLowerCase().includes(query));
+  });
   
   const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
   const currentDashboard = computed(() => {
@@ -93,10 +103,8 @@
 	return currentDashboard.value ? currentDashboard.value.invite : '';
   });
   
-
-	const selectedTask = ref(null); 
-	const isSidebarOpen = ref(false);
-
+  const isSidebarOpen = ref(false);
+  
   const openInviteModal = () => {
 	isInviteModalOpen.value = true;
   };
@@ -104,7 +112,34 @@
   const closeInviteModal = () => {
 	isInviteModalOpen.value = false;
   };
-</script>
+
+const showDeleteModal = (currentDashboardId) => {
+	dashboardToDeleteId.value = currentDashboardId;
+	modalVisible.value = true;
+  };
+  
+  const handleDelete = () => {
+  console.log(`Айди удаленного дашборда ID ${currentDashboardId.value}`);
+  modalVisible.value = false; 
+  dashboardToDeleteId.value = null; 
+};
+  
+  const cancelDelete = () => {
+	modalVisible.value = false;
+  };
+  
+ 
+  const isShaking = ref(false);
+  
+  const startShake = () => {
+	isShaking.value = true;
+  };
+  
+  const stopShake = () => {
+	isShaking.value = false;
+  };
+  </script>
+  
 
 <style lang="scss" scoped>
 
@@ -127,6 +162,7 @@
   }
   
   h1 {
+	word-wrap: break-word;
 	font-size: 30px;
   }
   .button__invite_code{
@@ -210,10 +246,33 @@
 		justify-content: space-between;
 		align-items: center;
 		display: grid;
-		grid-template-columns: 100% 60%;
+		grid-template-columns: 90% 40% 70%;
 	}
   }
-
+  .nav_link_icon {
+	position: relative;
+	margin-left: 10px;
+  }
+  
+  .nav_link_icon:hover .icon-trash {
+	animation: shake 0.5s infinite;
+  }
+  
+  @keyframes shake {
+	0% { transform: translateX(0); }
+	10% { transform: translateX(2px); }
+	20% { transform: translateX(-2px); }
+	30% { transform: translateX(1px); }
+	40% { transform: translateX(-1px); }
+	50% { transform: translateX(0); }
+  }
+  
+  .icon-trash {
+	font-size: 18px;
+	color: red; 
+	cursor: pointer;
+	transition: transform 0.3s ease; 
+  }
   
   .project-column{
 	background: #e6e6e670;
@@ -307,18 +366,23 @@
   @media only screen and (max-width: 800px) {
 	.form-container{
 		display: flex;
-	flex-direction: column;
-	align-items: center;
+		flex-direction: column;
+		align-items: center;
 	}
 	.project-info{
 		text-align: center;
 		grid-template-columns: 100% ;
 		grid-gap: 1.5rem;
 		&__button{
-			grid-template-columns: 60% 15%;
+			grid-template-columns: 50% 15% 15%;
 			grid-gap: 1.5rem;
 		}
 	}
+	h1 {
+		width: 100%;
+	word-wrap: break-word;
+	font-size: 30px;
+  }
 	.home-section{
 		width: 100%;
 	}
@@ -331,6 +395,7 @@
 		margin-top: 1rem;
 	}
 	 .txt {
+		word-wrap: break-word;
 		margin: auto;
 	}
 	.sidebar.open{

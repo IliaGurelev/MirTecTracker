@@ -1,7 +1,7 @@
 const dashboardsData = [
 	{
 	  "id": 1,
-	  "name": "Разработка",
+	  "name": "asdasdasdasdasdasdasdasdasdasdasdasdsasdasdasdasdasdasdasdasda",
 	  "сolor": "#FBCEB1",
 	  "invite": "123124513512"
 	},

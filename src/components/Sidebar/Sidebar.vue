@@ -58,8 +58,8 @@
 		</div>
 		
 	  </nav>
-		<!-- Второй сайдбар для дашбордов -->
-		<sidebar-dashboards v-if="showDashboardsSidebar"  />
+<!-- Второй сайдбар для дашбордов -->
+<sidebar-dashboards v-if="showDashboardsSidebar"  />
 	</div>
   </template>
   

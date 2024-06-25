@@ -17,12 +17,12 @@
   import Sidebar from '@/components/Tasks/SideBarInfo/SideBarInfo.vue';
   
   const props = defineProps({
-		items: Array,
-		statuses: Array,
-		globaltype: String,
-		sort: Boolean,
+	items: Array,
+	statuses: Array,
+	globaltype: String,
+	sort: Boolean,
   });
-
+  
   const isSidebarOpen = ref(false);
   const selectedTask = ref(null);
   const isModalVisible = ref(false);
@@ -42,12 +42,16 @@
   };
   
   const openDeleteModal = (taskId) => {
-		taskIdToDelete.value = taskId;
-		isModalVisible.value = true;
+	taskIdToDelete.value = taskId;
+	isModalVisible.value = true;
   };
   
   const deleteTask = () => {
-		hideModal();
+	const index = props.items.findIndex(item => item.id === taskIdToDelete.value);
+	if (index !== -1) {
+	  props.items.splice(index, 1);
+	}
+	hideModal();
   };
   
   const hideModal = () => {

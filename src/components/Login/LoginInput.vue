@@ -125,7 +125,7 @@
       }
 
       &--red-border {
-        box-shadow: 0 1px 0px 0px red;
+        border-bottom: 1px red solid;
       }
     }
   }
