@@ -1,6 +1,6 @@
 const statusTaskConst = {
   open: 'Открыт',
   work: 'В работе',
-  close: 'Закрыт',
+  close: 'Закрыт'
 }
-export default statusTaskConst;
+export default statusTaskConst

@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from 'axios'
 
-import { defineStore } from 'pinia';
-import replaceItemById from '@/utils/replace-element';
-import removeById from '@/utils/remove-element';
+import { defineStore } from 'pinia'
+import replaceItemById from '@/utils/replace-element'
+import removeById from '@/utils/remove-element'
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -16,85 +16,93 @@ export const useMainStore = defineStore('main', {
     userCurrentDashboard: [],
     briefcasesByDashboard: [],
 
-    currentUser: localStorage.getItem('currentUser') || 
-    sessionStorage.getItem('currentUser') || 
-    { id: '', name: '', avatar: '' },
+    currentUser: localStorage.getItem('currentUser') ||
+      sessionStorage.getItem('currentUser') || { id: '', name: '', avatar: '' },
 
-    token: localStorage.getItem('token') || '',
+    token: localStorage.getItem('token') || ''
   }),
   actions: {
     //Запросы на пользователя
     async registrationUser(user) {
       try {
-        const response = await axios.post('/user', user);
-        await this.loginCurrentUser(response.data.email, response.data.password);
-      } catch(error) {
+        const response = await axios.post('/user', user)
+        await this.loginCurrentUser(response.data.email, response.data.password)
+      } catch (error) {
         console.error('Ошибка user reg-post: ', error)
       }
     },
-    async loginCurrentUser(email, password, rememberMe=false) {
+    async loginCurrentUser(email, password, rememberMe = false) {
       try {
         const response = await axios.post('/user/login', {
           email: email,
           password: password
-        });
+        })
 
-        if(rememberMe) {
-          this.rememberCurrentUser(response.data);
+        if (rememberMe) {
+          this.rememberCurrentUser(response.data)
         } else {
-          this.notRememberCurrentUser(response.data);
+          this.notRememberCurrentUser(response.data)
         }
       } catch (error) {
-        console.error('Ошибка login user post: ', error);
+        console.error('Ошибка login user post: ', error)
       }
     },
     async editCurrentUser(user) {
-      console.log(user);
-      const response = await axios.put(`/user/${user.id}`, user);
+      console.log(user)
+      const response = await axios.put(`/user/${user.id}`, user)
 
-      localStorage.setItem('currentUser', JSON.stringify({
-        id: response.data.id,
-        nameUser: response.data.name,
-        avatar: response.data.avatar,
-      }));
+      localStorage.setItem(
+        'currentUser',
+        JSON.stringify({
+          id: response.data.id,
+          nameUser: response.data.name,
+          avatar: response.data.avatar
+        })
+      )
     },
     logoutCurrentUser() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('currentUser');
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('currentUser');
+      localStorage.removeItem('token')
+      localStorage.removeItem('currentUser')
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('currentUser')
 
-      this.token = '';
+      this.token = ''
       this.currentUser = {
         id: '',
         nameUser: '',
-        avatar: '',
-      };
-      this.tasks = [];
-      this.diary = [];
-      this.briefcases = [];
-      this.users = [];
-      this.dashboards = [];
+        avatar: ''
+      }
+      this.tasks = []
+      this.diary = []
+      this.briefcases = []
+      this.users = []
+      this.dashboards = []
     },
     rememberCurrentUser(data) {
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.token)
 
-      localStorage.setItem('currentUser', JSON.stringify({
-        id: data.id,
-        nameUser: data.name,
-        avatar: data.avatar,
-      }));
+      localStorage.setItem(
+        'currentUser',
+        JSON.stringify({
+          id: data.id,
+          nameUser: data.name,
+          avatar: data.avatar
+        })
+      )
 
       this.currentUser = localStorage.getItem('currentUser')
     },
     notRememberCurrentUser(data) {
-      sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem('token', data.token)
 
-      sessionStorage.setItem('currentUser', JSON.stringify({
-        id: data.id,
-        nameUser: data.name,
-        avatar: data.avatar,
-      }));
+      sessionStorage.setItem(
+        'currentUser',
+        JSON.stringify({
+          id: data.id,
+          nameUser: data.name,
+          avatar: data.avatar
+        })
+      )
 
       this.currentUser = sessionStorage.getItem('currentUser')
     },
@@ -102,211 +110,207 @@ export const useMainStore = defineStore('main', {
     //Запросы на дневник
     async fetchDiary() {
       try {
-        const currentUser = JSON.parse(this.currentUser);
-        const userId = currentUser.id;
-  
-        const response = await axios.get(`/diary?userId=${userId}`);
-        this.diary = response.data;
+        const currentUser = JSON.parse(this.currentUser)
+        const userId = currentUser.id
 
+        const response = await axios.get(`/diary?userId=${userId}`)
+        this.diary = response.data
       } catch (error) {
-        console.error('Ошибка get diary: ' + error);
+        console.error('Ошибка get diary: ' + error)
       }
     },
     async addDiaryTask(task) {
       try {
-        const currentUser = JSON.parse(this.currentUser);
-        const userId = currentUser.id;
+        const currentUser = JSON.parse(this.currentUser)
+        const userId = currentUser.id
 
-        const response = await axios.post(`/diary?userId=${userId}`, task);
-        this.diary.push(response.data);
+        const response = await axios.post(`/diary?userId=${userId}`, task)
+        this.diary.push(response.data)
       } catch (error) {
-        console.error('Ошибка post diary: ' + error);
+        console.error('Ошибка post diary: ' + error)
       }
     },
     async removeDiaryTaskById(id) {
       try {
-        const response = await axios.delete(`/diary/${id}`);
-        removeById(this.diary, id);
+        const response = await axios.delete(`/diary/${id}`)
+        removeById(this.diary, id)
       } catch (error) {
-        console.error('Ошибка delete diary: ' + error);
+        console.error('Ошибка delete diary: ' + error)
       }
     },
 
     //Запросы на задачи
     async fetchByDashboardTasks(dashboardId) {
-      const response = await axios.get(`/task/${dashboardId}`);
-      this.tasks = response.data;
+      const response = await axios.get(`/task/${dashboardId}`)
+      this.tasks = response.data
     },
     async fetchBriefcaseTasks(briefcaseId) {
       const response = await axios.get(`task/briefcase/${briefcaseId}`)
-      this.tasks = response.data;
+      this.tasks = response.data
     },
     async fetchAllTasks() {
-      this.tasks = [];
+      this.tasks = []
       for (const dashboard of this.dashboards) {
-        const response = await axios.get(`/task/${dashboard.id}`);
-        this.tasks.push(...response.data);
+        const response = await axios.get(`/task/${dashboard.id}`)
+        this.tasks.push(...response.data)
       }
     },
-	  async addTask(task) {
+    async addTask(task) {
       try {
-        const response = await axios.post('/task', task);
+        const response = await axios.post('/task', task)
         this.tasks.push(response.data)
       } catch (error) {
         console.error('Ошибка task post: ', error)
       }
-
-	  },
+    },
     async editTask(task) {
       try {
-        const response = await axios.put(`/task/${task.id}`, task);
-        replaceItemById(this.tasks, response.data);
+        const response = await axios.put(`/task/${task.id}`, task)
+        replaceItemById(this.tasks, response.data)
       } catch (error) {
         console.error('Ошибка put task: ', error)
       }
     },
-	  async deleteTask(taskId) {
+    async deleteTask(taskId) {
       try {
         const response = await axios.delete(`/task/${taskId}`)
-        removeById(this.tasks, taskId);
+        removeById(this.tasks, taskId)
       } catch (error) {
         console.error('Ошибка delete task: ', error)
       }
-	  },
+    },
 
-    //Запросы на исполнителей 
+    //Запросы на исполнителей
     async fetchWorkers() {
       try {
-        const response = await axios.get(`/user`);
-        this.workers = response.data;
+        const response = await axios.get(`/user`)
+        this.workers = response.data
       } catch (error) {
         console.error('Ошибка delete task: ', error)
       }
     },
     async addWorkers(taskId, userId) {
-      try{
+      try {
         const dto = {
           taskId: taskId,
-          userId: userId,
-        };
-        const response = await axios.post('/task/addWorker', dto);
+          userId: userId
+        }
+        const response = await axios.post('/task/addWorker', dto)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
     async deleteWorkers(taskId, userId) {
       try {
         const dto = {
           taskId: taskId,
-          userId: userId,
-        };
-        console.log(dto);
-        const response = await axios.delete('/task/removeWorker', { data: dto });
+          userId: userId
+        }
+        console.log(dto)
+        const response = await axios.delete('/task/removeWorker', { data: dto })
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
 
     //Запросы на портфели
     async fetchBriefcase(dashboardId) {
       try {
-        const response = await axios.get(`/briefcase/${dashboardId}`);
-        this.briefcases = response.data;
+        const response = await axios.get(`/briefcase/${dashboardId}`)
+        this.briefcases = response.data
       } catch (error) {
-        console.error(`Ошибка fetching briefcase: `, error);
+        console.error(`Ошибка fetching briefcase: `, error)
       }
     },
     async fetchAllBriefcase() {
-      this.briefcasesByDashboard = [];
+      this.briefcasesByDashboard = []
       for (const dashboard of this.dashboards) {
-        const response = await axios.get(`/briefcase/${dashboard.id}`);
-        this.briefcasesByDashboard.push(
-          {
-            id: dashboard.id,
-            name: dashboard.name,
-            briefcases: response.data,
-          }
-        );
+        const response = await axios.get(`/briefcase/${dashboard.id}`)
+        this.briefcasesByDashboard.push({
+          id: dashboard.id,
+          name: dashboard.name,
+          briefcases: response.data
+        })
       }
     },
     async addBriefcase(briefcase) {
       const response = await axios.post('/briefcase', briefcase)
 
-      const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
-      dashboard.briefcases.push(response.data);
+      const dashboard = this.briefcasesByDashboard.find((d) => d.id === briefcase.dashboardId)
+      dashboard.briefcases.push(response.data)
     },
     async editBriefcase(briefcase) {
       const response = await axios.put(`/briefcase/${briefcase.id}`, briefcase)
       replaceItemById(this.briefcases, response.data)
 
-      const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
+      const dashboard = this.briefcasesByDashboard.find((d) => d.id === briefcase.dashboardId)
       replaceItemById(dashboard.briefcases, response.data)
     },
     async removeBriefcase(briefcase) {
       try {
         const response = await axios.delete(`/briefcase/${briefcase.id}`)
-  
-        removeById(this.briefcases, briefcase.id);
-  
-        const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
+
+        removeById(this.briefcases, briefcase.id)
+
+        const dashboard = this.briefcasesByDashboard.find((d) => d.id === briefcase.dashboardId)
         removeById(dashboard.briefcases, briefcase.id)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
 
     //Запросы на дашборды
     async fetchDashboards() {
-      const currentUser = JSON.parse(this.currentUser);
-      const userId = currentUser.id;
+      const currentUser = JSON.parse(this.currentUser)
+      const userId = currentUser.id
 
       const response = await axios.get(`/dashboard/user/${userId}`)
-      this.dashboards = response.data;
+      this.dashboards = response.data
     },
     async fetchUsersByDashboard(idDashboard) {
       const response = await axios.get(`/dashboard/users/${idDashboard}`)
-      return this.userCurrentDashboard = response.data;
+      return (this.userCurrentDashboard = response.data)
     },
     async addDashboard(newDashboard) {
       try {
-        const currentUser = JSON.parse(this.currentUser);
-        const userId = currentUser.id;
-  
+        const currentUser = JSON.parse(this.currentUser)
+        const userId = currentUser.id
+
         const dashboard = {
           name: newDashboard.name,
           color: newDashboard.color,
-          userId: userId,
+          userId: userId
         }
-  
+
         const response = await axios.post('/dashboard', dashboard)
-        this.dashboards.push(response.data);
+        this.dashboards.push(response.data)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
     async addUserToDashboard(inviteCode) {
       try {
-        const currentUser = JSON.parse(this.currentUser);
-        const userId = currentUser.id;
+        const currentUser = JSON.parse(this.currentUser)
+        const userId = currentUser.id
 
         const dto = {
           inviteCode: inviteCode,
           userId: userId
-        };
-        const response = await axios.post('/dashboard/addUserToDashboard', dto);
-        console.log(response.data);
+        }
+        const response = await axios.post('/dashboard/addUserToDashboard', dto)
+        console.log(response.data)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
     setInviteCode({ dashboardId }) {
-      this.inviteCode[dashboardId] = true; 
+      this.inviteCode[dashboardId] = true
     },
     getInviteCode(dashboardId) {
-      return this.inviteCode[dashboardId] || null;
+      return this.inviteCode[dashboardId] || null
     },
     setCurrentDashboardById(id) {
-      this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
-    },
-  },
-});
+      this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id)
+    }
+  }
+})

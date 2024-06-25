@@ -1,29 +1,29 @@
 const briefcaseData = [
   {
     id: 1,
-    name: "Разработка",
-    color: "purple",
+    name: 'Разработка',
+    color: 'purple'
   },
   {
     id: 2,
-    name: "Продажи",
-    color: "green",
+    name: 'Продажи',
+    color: 'green'
   },
   {
     id: 3,
-    name: "Маркетинг",
-    color: "blue",
+    name: 'Маркетинг',
+    color: 'blue'
   },
   {
     id: 4,
-    name: "Личное",
-    color: "orange",
+    name: 'Личное',
+    color: 'orange'
   },
   {
     id: 5,
-    name: "Неважно",
-    color: "purple",
-  },
+    name: 'Неважно',
+    color: 'purple'
+  }
 ]
 
-export default briefcaseData;
+export default briefcaseData

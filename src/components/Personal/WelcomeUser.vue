@@ -5,22 +5,22 @@
 </template>
 
 <script setup>
-  const props = defineProps({
-    nameUser: {
-      type: String,
-      required: true
-    }
-  })
+const props = defineProps({
+  nameUser: {
+    type: String,
+    required: true
+  }
+})
 </script>
 
 <style lang="scss" scoped>
-  .welcome {
-    &__text {
-      padding: 0;
-      margin: 0;
-      font-weight: 400;
-      color: #b8b8b8;
-      cursor: default;
-    }
+.welcome {
+  &__text {
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+    color: #b8b8b8;
+    cursor: default;
   }
+}
 </style>

@@ -1,151 +1,138 @@
 <template>
   <section class="diary">
     <section class="diary__user">
-      <UserInfo 
-        :avatarUser="props.currentUser.avatar"
-        :nameUser="props.currentUser.nameUser"
-      />
-      <div 
-        @click="setActiveSettings()"
-        class="diary__settings"
-      >
-        <i class="fa-solid"
-        :class=" isActiveSettings ? 'fa-arrow-left' : 'fa-gear' "></i>
+      <UserInfo :avatarUser="props.currentUser.avatar" :nameUser="props.currentUser.nameUser" />
+      <div @click="setActiveSettings()" class="diary__settings">
+        <i class="fa-solid" :class="isActiveSettings ? 'fa-arrow-left' : 'fa-gear'"></i>
       </div>
     </section>
     <section class="diary__tasks">
       <div class="diary__header">
         <CurentDate :currentDate="activeDate" />
         <div class="diary__wrapper">
-          <BlackButton 
-            @clickButton="setActivePopup"
-            class="diary__button"
-          >
+          <BlackButton @clickButton="setActivePopup" class="diary__button">
             <i class="fa-regular fa-plus"></i> Добавить задачу
           </BlackButton>
-          <DiaryTaskAddPopup 
+          <DiaryTaskAddPopup
             v-if="isActivePopup"
             :defaultDate="activeDate"
             @submitForm="addToDiary"
-            class="diary__popup-add-task" 
+            class="diary__popup-add-task"
           />
         </div>
       </div>
-      <UserCalendar 
+      <UserCalendar
         :currentDate="activeDate"
         :setDate="setCurrentDate"
         :plannedDates="planedDates"
-        class="diary__calendar" 
+        class="diary__calendar"
       />
-      <DiaryTaskList 
-        :tasks="tasksForDay"
-        @click-complite="compliteTask"
-      />
+      <DiaryTaskList :tasks="tasksForDay" @click-complite="compliteTask" />
     </section>
   </section>
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue'
-  import { useDiaryStore } from '@/store/diaryStore'
+import { ref, computed } from 'vue'
+import { useDiaryStore } from '@/store/diaryStore'
 
-  import taskFilter from '@/utils/task-filter'
-  import UserInfo from '@/components/Personal/UserInfo.vue'
-  import UserCalendar from '@/components/UI/UserCalendar.vue'
-  import CurentDate from '@/components/UI/CurrentDate.vue'
-  import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
-  import DiaryTaskAddPopup from '@/components/Tasks/DiaryTaskAddPopup.vue';
-  import BlackButton from '@/components/UI/BlackButton.vue'
+import taskFilter from '@/utils/task-filter'
+import UserInfo from '@/components/Personal/UserInfo.vue'
+import UserCalendar from '@/components/UI/UserCalendar.vue'
+import CurentDate from '@/components/UI/CurrentDate.vue'
+import DiaryTaskList from '@/components/Tasks/DiaryTaskList.vue'
+import DiaryTaskAddPopup from '@/components/Tasks/DiaryTaskAddPopup.vue'
+import BlackButton from '@/components/UI/BlackButton.vue'
 
-  const props = defineProps({
-    currentUser: {
-      type: Object,
-      required: true,
-    },
-    tasks: {
-      type: Array,
-      required: true,
-    },
-  })
-
-  const diaryStore = useDiaryStore();
-
-  const emit = defineEmits(['clickSettings', 'addToDiary', 'compliteTask'])
-
-  const activeDate = ref(new Date());
-
-  const isActivePopup = ref(false);
-
-  const isActiveSettings = ref(false);
-
-  const tasksForDay = computed(() => {
-    return taskFilter('today', props.tasks, activeDate.value);
-  });
-
-  const planedDates = computed(() => {
-    return props.tasks.map(task => task.dueDate);
-  })
-
-  const setCurrentDate = (date) => {
-    activeDate.value = date;
+const props = defineProps({
+  currentUser: {
+    type: Object,
+    required: true
+  },
+  tasks: {
+    type: Array,
+    required: true
   }
+})
 
-  const setActivePopup = () => {
-    isActivePopup.value = !isActivePopup.value;
-  }
+const diaryStore = useDiaryStore()
 
-  const setActiveSettings = () => {
-    isActiveSettings.value = !isActiveSettings.value;
-    emit('clickSettings');
-  }
+const emit = defineEmits(['clickSettings', 'addToDiary', 'compliteTask'])
 
-  const addToDiary = (task) => {
-    setActivePopup();
-    emit('addToDiary', task)
-  }
+const activeDate = ref(new Date())
 
-  const compliteTask = (id) => {
-    emit('compliteTask', id);
-  }
+const isActivePopup = ref(false)
+
+const isActiveSettings = ref(false)
+
+const tasksForDay = computed(() => {
+  return taskFilter('today', props.tasks, activeDate.value)
+})
+
+const planedDates = computed(() => {
+  return props.tasks.map((task) => task.dueDate)
+})
+
+const setCurrentDate = (date) => {
+  activeDate.value = date
+}
+
+const setActivePopup = () => {
+  isActivePopup.value = !isActivePopup.value
+}
+
+const setActiveSettings = () => {
+  isActiveSettings.value = !isActiveSettings.value
+  emit('clickSettings')
+}
+
+const addToDiary = (task) => {
+  setActivePopup()
+  emit('addToDiary', task)
+}
+
+const compliteTask = (id) => {
+  emit('compliteTask', id)
+}
 </script>
 
 <style lang="scss" scoped>
-  .diary {
+.diary {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  width: 100%;
+
+  &__user {
     display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    width: 100%;
-
-    &__user {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-    }
-
-    &__settings {
-      cursor: pointer;
-    }
-
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    &__calendar {
-      margin-bottom: 20px;
-    }
-    
-    &__wrapper {
-      position: relative;
-    }
-
-    &__popup-add-task {
-      position: absolute;
-      top: 115%;
-      right: 0;
-      z-index: 1;
-    }
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
   }
+
+  &__settings {
+    cursor: pointer;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__calendar {
+    margin-bottom: 20px;
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__popup-add-task {
+    position: absolute;
+    top: 115%;
+    right: 0;
+    z-index: 1;
+  }
+}
 </style>

@@ -1,9 +1,9 @@
 const replaceItemById = (array, newItem) => {
-  const index = array.findIndex(item => item.id === newItem.id);
+  const index = array.findIndex((item) => item.id === newItem.id)
 
   if (index !== -1) {
-    array.splice(index, 1, newItem);
+    array.splice(index, 1, newItem)
   }
 }
 
-export default replaceItemById;
+export default replaceItemById

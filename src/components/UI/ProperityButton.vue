@@ -6,20 +6,19 @@
   </div>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
-  .button {
-    display: flex;
-    cursor: pointer;
-    column-gap: 3px;
+.button {
+  display: flex;
+  cursor: pointer;
+  column-gap: 3px;
 
-    &__element {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: rgb(197, 197, 197);
-    }
+  &__element {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgb(197, 197, 197);
   }
+}
 </style>

@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Dashboard from '@/views/FullDashboard.vue';
-import PersonalPage from '@/views/PersonalPage.vue';
-import HelloPage from '@/views/HelloPage.vue';
-import BriefcasePage from '@/views/BriefcasePage.vue';
-import LoginPage from '@/views/LoginPage.vue';
-import NotFound from '@/views/NotFound.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import Dashboard from '@/views/FullDashboard.vue'
+import PersonalPage from '@/views/PersonalPage.vue'
+import HelloPage from '@/views/HelloPage.vue'
+import BriefcasePage from '@/views/BriefcasePage.vue'
+import LoginPage from '@/views/LoginPage.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const routes = [
   {
@@ -16,7 +16,7 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true }
   },
   {
     path: '/user',
@@ -28,7 +28,7 @@ const routes = [
     path: '/briefcase',
     name: 'Briefcase',
     component: BriefcasePage,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
@@ -44,30 +44,29 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: NotFound,
-  },
-];
+    component: NotFound
+  }
+]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-});
+})
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token')
 
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!token) {
-      next('/login');
+      next('/login')
     } else {
-      next();
+      next()
     }
   } else if ((to.path === '/login' || to.path === '/registration') && token) {
-    next('/user');
+    next('/user')
   } else {
-    next();
+    next()
   }
-});
+})
 
-export default router;
-
+export default router

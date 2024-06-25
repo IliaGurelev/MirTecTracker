@@ -1,6 +1,11 @@
 <template>
   <transition name="modal-fade">
-    <div v-if="visible || modalVisible" class="modal-overlay" @click.self="cancel" @keydown.esc="handleEsc">
+    <div
+      v-if="visible || modalVisible"
+      class="modal-overlay"
+      @click.self="cancel"
+      @keydown.esc="handleEsc"
+    >
       <div class="modal">
         <button class="close-button" @click="cancel"><i class="fa-solid fa-xmark"></i></button>
         <div class="modal-content">
@@ -14,49 +19,56 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 
-const modalVisible = ref(false);
+const modalVisible = ref(false)
 
 const props = defineProps({
-  visible: Boolean,
-});
+  visible: Boolean
+})
 
-const emit = defineEmits(['confirm', 'cancel']);
+const emit = defineEmits(['confirm', 'cancel'])
 
 const confirm = () => {
-  emit('confirm');
-};
+  emit('confirm')
+}
 
 const cancel = () => {
-  emit('cancel');
-};
+  emit('cancel')
+}
 
 const handleEsc = (event) => {
   if (event.key === 'Escape') {
-    cancel();
+    cancel()
   }
-};
+}
 
-watch(() => props.visible, (newVal) => {
-  modalVisible.value = newVal;
-});
+watch(
+  () => props.visible,
+  (newVal) => {
+    modalVisible.value = newVal
+  }
+)
 
 onMounted(() => {
-  window.addEventListener('keydown', handleEsc);
-});
+  window.addEventListener('keydown', handleEsc)
+})
 
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleEsc);
-});
+  window.removeEventListener('keydown', handleEsc)
+})
 </script>
 
 <style scoped>
-.modal-fade-enter-active, .modal-fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
-.modal-fade-enter-from, .modal-fade-leave-to {
+.modal-fade-enter-from,
+.modal-fade-leave-to {
   opacity: 0;
   transform: translateY(-20px);
 }
@@ -101,7 +113,11 @@ onBeforeUnmount(() => {
   font-weight: 500;
   overflow: hidden;
   border: 2px solid #dddddd;
-  transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
+  transition:
+    background-color 0.2s linear,
+    color 0.2s linear,
+    border 0.2s linear,
+    transform 0.5s;
   margin: 0.3rem;
 }
 
@@ -121,7 +137,11 @@ onBeforeUnmount(() => {
   font-size: 1.5rem;
   cursor: pointer;
   color: #c9c9c9;
-  transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
+  transition:
+    background-color 0.2s linear,
+    color 0.2s linear,
+    border 0.2s linear,
+    transform 0.5s;
 }
 
 .close-button:hover {

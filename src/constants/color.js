@@ -2,7 +2,7 @@ const colorConst = {
   purple: 'purple',
   blue: 'blue',
   green: 'green',
-  orange: 'orange',
+  orange: 'orange'
 }
 
-export default colorConst;
+export default colorConst

@@ -73,7 +73,7 @@
 				<p>Добавление исполнителя:</p>
 				<i class="fa-solid fa-xmark" @click="closeAddWorker"></i>
 			  </div>
-			  <SearchWorkers :workers="props.workers" @select="handleWorkerSelect" @update="updateQuery" />
+			  <SearchWorkers @select="handleWorkerSelect" @update="updateQuery" />
 			  <button class="add-button" @click="addWorker">Добавить</button>
 			</div>
 		  </transition>
@@ -120,25 +120,28 @@
   import SearchWorkers from '@/components/Workers/SearchWorkers.vue';
   import DeleteWorkers from '@/components/Workers/DeleteWorkers.vue';
   import EditTaskStatus from '@/components/UI/TaskStatusSelect.vue';
-  import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
+  
+  import { useWorkerStore } from '@/store/workerStore';
+  import { useBriefcaseStore } from '@/store/briefcaseStore';
+  import { useTaskStore } from '@/store/taskStore';
 
-const store = useMainStore();
-const { briefcases } = storeToRefs(store);
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    default: false,
-  },
-  task: {
-    type: Object,
-    required: true,
-  },
-  workers: {
-    type: Array,
-    required: true,
-  }
-});
+  const workerStore = useWorkerStore();
+  const taskStore = useTaskStore(); 
+  const briefcaseStore = useBriefcaseStore();
+
+  const { briefcases } = storeToRefs(briefcaseStore);
+
+  const props = defineProps({
+    isOpen: {
+      type: Boolean,
+      default: false,
+    },
+    task: {
+      type: Object,
+      required: true,
+    },
+  });
 
 const emitEvents = defineEmits(['close', 'update-task']);
 
@@ -172,9 +175,8 @@ const handleEsc = (event) => {
 };
 
 const updateTask = debounce(() => {
-	
   emitEvents('update-task', props.task);
-  store.editTask(editTasks.value);
+  taskStore.editTask(editTasks.value);
 }, 1000);
 
 const updateTaskStatus = (status) => {
@@ -184,7 +186,7 @@ const updateTaskStatus = (status) => {
 
 const updateQuery = debounce((query) => {
   console.log(query);
-  store.updateQuery(query);
+  //store.updateQuery(query);
 }, 300);
 
 const toggleEdit = (field) => {
@@ -240,7 +242,7 @@ const handleWorkerSelect = (worker) => {
 
 const addWorker = () => {
   if (selectedWorker.value && !editTasks.value.workers.some(worker => worker.id === selectedWorker.value.id)) {
-    store.addWorkers(props.task.id, selectedWorker.value.id)
+    workerStore.addWorkerToTask(props.task.id, selectedWorker.value.id)
 
     editTasks.value.workers.push(selectedWorker.value);
     updateTask();
@@ -273,7 +275,7 @@ const removeWorker = (worker) => {
 
 // обработка события remove
 const handleRemoveWorker = (worker) => {
-  store.deleteWorkers(props.task.id, worker.id)
+  workerStore.deleteWorkers(props.task.id, worker.id)
   removeWorker(worker);
 };
 

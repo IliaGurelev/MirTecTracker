@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 * {
   font-family: var(--main-font);
   margin: 0;
@@ -17,63 +16,62 @@ body {
 }
 
 :root {
-  --main-font: "Raleway", sans-serif;
+  --main-font: 'Raleway', sans-serif;
   --color-background: #f7f7f7;
   --color-light: #cfeaff;
   --color-light-dark: #a5d8ff;
   --color-text-muted: #7fc7ff;
   --color-text-important: #59b6ff;
-  --header:#f7f7f7;
-  --text:#2e2e2f;
-  --white:#ffffff;
-  --light-grey:#c4cad3;
-  --tag-1:#ceecfd;
-  --tag-1-text:#2e87ba;
-  --tag-1-light-dark:#a7dfff;
-  --tag-2:#d6ede2;
-  --tag-2-text:#13854e;
-  --tag-2-light-dark:#c0f3da;
-  --tag-3:#ceecfd;
-  --tag-3-text:#2d86ba;
-  --tag-3-light-dark:#9ad8fa;
-  --tag-4:#f2dcf5;
-  --tag-4-text:#a734ba;
+  --header: #f7f7f7;
+  --text: #2e2e2f;
+  --white: #ffffff;
+  --light-grey: #c4cad3;
+  --tag-1: #ceecfd;
+  --tag-1-text: #2e87ba;
+  --tag-1-light-dark: #a7dfff;
+  --tag-2: #d6ede2;
+  --tag-2-text: #13854e;
+  --tag-2-light-dark: #c0f3da;
+  --tag-3: #ceecfd;
+  --tag-3-text: #2d86ba;
+  --tag-3-light-dark: #9ad8fa;
+  --tag-4: #f2dcf5;
+  --tag-4-text: #a734ba;
   --tag-4-light-dark: #e5c3eb;
-  --tag-5:#fde3ce;
-  --tag-5-text:#ba662e;
-  --tag-5-light-dark:#f8c297;
-  --status-open:#e9edf0;
-  --status-open-text:#586a7a;
-  --status-inwork:#e5ecff;
-  --status-inwork-text:#4e79eb;
-  --status-close:#e1f7e1;
-  --status-close-text:#39b634;
-  --light-grey:#c4cad3;
+  --tag-5: #fde3ce;
+  --tag-5-text: #ba662e;
+  --tag-5-light-dark: #f8c297;
+  --status-open: #e9edf0;
+  --status-open-text: #586a7a;
+  --status-inwork: #e5ecff;
+  --status-inwork-text: #4e79eb;
+  --status-close: #e1f7e1;
+  --status-close-text: #39b634;
+  --light-grey: #c4cad3;
 
-  --bg:#f7f7f7;
-  --text:#2e2e2f;
+  --bg: #f7f7f7;
+  --text: #2e2e2f;
   --white-color: #f7f7f7;
-	--blue-color: #59b6ff;
-	--grey-color: #000000;
-	-grey-color-lig-ht: #aaa;
-
+  --blue-color: #59b6ff;
+  --grey-color: #000000;
+  -grey-color-lig-ht: #aaa;
 }
 
 *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 
 *::-webkit-scrollbar-track {
-  background: #f1f1f1;  
-  border-radius: 10px; 
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #b4b4b4; 
-  border-radius: 20px; 
+  background: #b4b4b4;
+  border-radius: 20px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #a5a5a5; 
+  background: #a5a5a5;
 }
