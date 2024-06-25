@@ -203,7 +203,7 @@ export const useMainStore = defineStore('main', {
     },
 	//Вывод дашбордов
 	fetchDashboards() {
-		this.dashboards = dasboardData; // Populate dashboards from mock data
+		this.dashboards = dasboardData; 
 	  },
 	  setCurrentDashboardById(id) {
 		this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
@@ -213,7 +213,7 @@ export const useMainStore = defineStore('main', {
 		this.dashboards.push({ id, ...newDashboard });
 	  },
 	  setInviteCode({ dashboardId }) {
-		this.inviteCode[dashboardId] = true; // Example: set invite status
+		this.inviteCode[dashboardId] = true; 
 	  },
 	  getInviteCode(dashboardId) {
 		return this.inviteCode[dashboardId] || null;
