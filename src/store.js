@@ -18,6 +18,7 @@ export const useMainStore = defineStore('main', {
 	usersData: [],
 	dashboards: [],
 	currentDashboard: null,
+	inviteCode: {},
   }),
   actions: {
     fetchTasks() {
@@ -64,18 +65,21 @@ export const useMainStore = defineStore('main', {
       removeById(this.briefcases, id);
     },
 	//Вывод дашбордов
-	fetchDashboard() {
-		this.dashboards = dasboardData;
+	fetchDashboards() {
+		this.dashboards = dasboardData; // Populate dashboards from mock data
 	  },
-	setCurrentDashboardById(id) {
-		//Илья, это отправка айди в роутер для фильтрация тасков и названия дашборда
-	this.currentDashboard = this.dashboards.find(dashboard => dashboard.id === id);
-	 },
-	addDashboard(newDashboard) {
-		// Генерация уникального id для нового дашборда
-	const id = this.dashboards.length + 1;
-		// Добавление нового дашборда в массив dashboards
-	this.dashboards.push({ id, ...newDashboard });
-	},
+	  setCurrentDashboardById(id) {
+		this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
+	  },
+	  addDashboard(newDashboard) {
+		const id = this.dashboards.length + 1;
+		this.dashboards.push({ id, ...newDashboard });
+	  },
+	  setInviteCode({ dashboardId }) {
+		this.inviteCode[dashboardId] = true; // Example: set invite status
+	  },
+	  getInviteCode(dashboardId) {
+		return this.inviteCode[dashboardId] || null;
+	  },
   },
 });

@@ -13,7 +13,10 @@
 		  <i class="fas fa-times"></i>
 		</button>
 	  </div>
-	  <AddDashboardModal v-if="isAddDashboardModalOpen" @close="closeAddDashboardModal" />
+	  <data class="dashboards__togglebutton">
+		  <AddDashboardModal v-if="isAddDashboardModalOpen" @close="closeAddDashboardModal" />
+		  <AddInviteDashboard />
+	  </data>
 	  <div class="menu_content">
 		<ul class="menu_items">
 		  <transition-group name="dashboard-list" tag="div">
@@ -40,44 +43,47 @@
 	</nav>
   </template>
   
+  
   <script setup>
   import { useMainStore } from '@/store';
-  import { storeToRefs } from 'pinia';
   import { ref, onMounted } from 'vue';
+  import { storeToRefs } from 'pinia';
   import AddDashboardModal from '@/components/AddDashboard/AddDashboard.vue';
-  
+  import AddInviteDashboard from '@/components/AddDashboard/AddInviteCode.vue';
   const store = useMainStore();
   const { dashboards } = storeToRefs(store);
-  
+
   const isAddDashboardModalOpen = ref(false);
   const isSidebarClosed = ref(false);
-  
+
   const toggleAddDashboardModal = () => {
-	isAddDashboardModalOpen.value = !isAddDashboardModalOpen.value;
+    isAddDashboardModalOpen.value = !isAddDashboardModalOpen.value;
   };
-  
+
   const closeAddDashboardModal = () => {
-	isAddDashboardModalOpen.value = false;
+    isAddDashboardModalOpen.value = false;
   };
-  
+
   const toggleSidebar = () => {
-	isSidebarClosed.value = !isSidebarClosed.value;
+    isSidebarClosed.value = !isSidebarClosed.value;
   };
-  
+
   onMounted(() => {
-	loadDashboards();
+    loadDashboards();
   });
-  
+
   const loadDashboards = () => {
-	const storedDashboards = localStorage.getItem('dashboards');
-	if (storedDashboards) {
-	  store.dashboards = JSON.parse(storedDashboards);
-	}
+    const storedDashboards = localStorage.getItem('dashboards');
+    if (storedDashboards) {
+      store.dashboards = JSON.parse(storedDashboards);
+    }
   };
-  </script>
+</script>
   
   <style scoped>
-  
+  .dashboards__togglebutton{
+	text-align: center;
+  }
   .nav_link {
 	display: flex;
 	align-items: center;

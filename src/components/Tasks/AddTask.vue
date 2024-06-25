@@ -138,12 +138,10 @@
 	color: #707070;
 	border-radius: 8px;
 	background-color: var(--bg);
-	font-weight: 400;
 	overflow: hidden;
 	border: 2px solid #dddddd;
 	transition: background-color 0.2s linear, color 0.2s linear, border 0.2s linear, transform 0.5s;
 	font-weight: 500;
-	
   }
   
   button:hover {
