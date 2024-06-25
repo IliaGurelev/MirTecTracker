@@ -13,7 +13,7 @@
 		  <h3>Введите код приглашения</h3>
 		  <form @submit.prevent="handleInviteSubmit" class="add-invite-form">
 			<input v-model="inviteCode" type="text" placeholder="Введите инвайт код" />
-			<button type="submit">Добавить</button>
+				<button type="submit">Добавить</button>
 		  </form>
 		</div>
 	  </transition>
@@ -29,6 +29,8 @@
   import { ref } from 'vue';
   import dashboardsData from '@/mock/dashboards-data.js';
   
+	const emit = defineEmits(['submitForm']); 
+	
   const store = useMainStore();
   const { dashboards, addDashboard, setInviteCode } = store;
   
@@ -36,31 +38,9 @@
   const alertMessage = ref('');
   const showForm = ref(false); 
   
-  const handleInviteSubmit = () => {
-	if (inviteCode.value.trim() !== '') {
-	  const invitedDashboard = dashboardsData.find(dashboard => dashboard.invite === inviteCode.value.trim());
-	  if (invitedDashboard) {
-		const existingDashboard = dashboards.find(dashboard => dashboard.id === invitedDashboard.id);
-		if (!existingDashboard) {
-		  addDashboard(invitedDashboard);
-		  setInviteCode({ dashboardId: invitedDashboard.id });
-		  inviteCode.value = '';
-		  alertMessage.value = `Дашборд "${invitedDashboard.name}" успешно добавлен!`;
-		  console.log('Dashboard added:', invitedDashboard);
-		} else {
-		  alertMessage.value = 'Дашборд уже добавлен.';
-		}
-	  } else {
-		alertMessage.value = 'Дашборд с таким инвайт кодом не найден.';
-	  }
-	} else {
-	  alertMessage.value = 'Введите инвайт код.';
-	}
-  
-
-	setTimeout(() => {
-	  alertMessage.value = '';
-	}, 3000);
+  const handleInviteSubmit = async () => {
+		await store.addUserToDashboard(inviteCode.value)
+		emit('submitForm')
   };
   
   const toggleForm = () => {

@@ -44,14 +44,15 @@
     }
   })
 
-  const currentColor = ref(props.briefcase.color)
-  const currentName = ref(props.briefcase.name)
+  const currentColor = ref(props.briefcase.color);
+  const currentName = ref(props.briefcase.name);
 
   const currentBriefcase = computed(() => {
     return {
       id: props.briefcase.id,
       name: currentName.value,
       color: currentColor.value,
+      dashboardId: props.briefcase.dashboardId,
     }
   })
 

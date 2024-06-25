@@ -2,68 +2,67 @@
 	<link rel="icon" type="image/x-icon" href="../img/logo.svg">
 	<body id="main">
 	<Sidebar/>
-		<section class="home-section">
-			<div class="text">Миртек Трекер</div>
-			<div class='app'>
-				<main class='project'>
-					<div class='project-info'>
-						<h1 class="txt">{{ currentDashboardName }}</h1>
-						<div class="search-task">        
-							<input type="text" v-model="searchQuery" placeholder="Поиск задач">
-							<div class="search-task__icon">
-								<i class="fa-solid fa-magnifying-glass"></i>
-							</div>                        
-						</div>
-						<div class="project-info__button">
-							<AddTaskButton />
-							<span class="button__invite_code" @click="openInviteModal"><i class="fa-solid fa-user-plus"></i></span>
-						</div>
-						<InviteModal :isOpen="isInviteModalOpen" :dashboardName="currentDashboardName" :inviteCode="currentDashboardInviteCode" @close="closeInviteModal" @click="openInviteModal"/>
-					</div>  
-					<div v-if="searchQuery.trim() === ''">
-						<ProjectTask :items="filteredTasks" :sort="sort"  />
+	<section class="home-section">
+		<div class="text">Миртек Трекер</div>
+		<div class='app'>
+			<main class='project'>
+				<div class='project-info'>
+					<h1 class="txt">{{ currentDashboardName }}</h1>
+					<div class="search-task">        
+						<input type="text" v-model="searchQuery" placeholder="Поиск задач">
+						<div class="search-task__icon">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</div>                        
 					</div>
-					<div v-else-if="foundTasks.length > 0">
-						<ProjectTask :items="foundTasks" :sort="sort"   />
+					<div class="project-info__button">
+						<AddTaskButton />
+						<span class="button__invite_code" @click="openInviteModal"><i class="fa-solid fa-user-plus"></i></span>
 					</div>
-					<div v-else>
-						<div class="not-found">
-							<img src="../assets/notfound.svg" alt="">
-							<p class="not-found__title">Задачи не найдены</p>
-						</div>
+					<InviteModal :isOpen="isInviteModalOpen" :dashboardName="currentDashboardName" :inviteCode="currentDashboardInviteCode" @close="closeInviteModal" @click="openInviteModal"/>
+				</div>  
+				<div v-if="searchQuery.trim() === ''">
+					<ProjectTask :items="filteredTasks" :sort="sort"  />
+				</div>
+				<div v-else-if="foundTasks.length > 0">
+					<ProjectTask :items="foundTasks" :sort="sort"   />
+				</div>
+				<div v-else>
+					<div class="not-found">
+						<img src="../assets/notfound.svg" alt="">
+						<p class="not-found__title">Задачи не найдены</p>
 					</div>
-				</main>
-				<SidebarInfo :task="foundTasks" :isOpen="isSidebarOpen" :briefcases="briefcases"/>
-				<ProgressBars :items="filteredTasks" :sort="true"/>
-			</div>
-		</section>
+				</div>
+			</main>
+			<SidebarInfo :task="foundTasks" :isOpen="isSidebarOpen" :briefcases="briefcases"/>
+			<ProgressBars :items="filteredTasks" :sort="true">
+				<WorkerList 
+					:workerList="userCurrentDashboard"
+				/>
+			</ProgressBars>
+		</div>
+	</section>
 	</body>
 </template>
 
 <script setup>
-	import { ref, computed, onMounted } from 'vue';
+	import { ref, computed, onMounted, watch } from 'vue';
   import { useRouter } from 'vue-router';
 	import { useMainStore } from '@/store';
 	import { storeToRefs } from 'pinia';
+
   import AddTaskButton from '@/components/Tasks/AddTask.vue';
 	import Sidebar from '@/components/Sidebar/Sidebar.vue';
 	import ProjectTask from '@/components/Tasks/ProjectTask.vue';
 	import ProgressBars from '@/components/Tasks/ProgressTuskForDashboard/Progressbar.vue';
 	import SidebarInfo from "@/components/Tasks/SideBarInfo/SideBarInfo.vue";
   import InviteModal from '@/components/ConfirmationModal/CopyInvite.vue';
+	import WorkerList from '@/components/Tasks/WorkerList.vue';
 
 	const store = useMainStore();
   const router = useRouter();
 	const { tasks } = storeToRefs(store);
 	const { briefcases } = storeToRefs(store);
-	const { workers } = storeToRefs(store);
-	
-	onMounted(() => {
-		store.fetchTasks();
-		store.fetchBriefcase();
-		store.fetchWorkers();
-    store.fetchDashboards();
-	});
+	const { userCurrentDashboard } = storeToRefs(store);
 
 	const searchQuery = ref('');
   const isInviteModalOpen = ref(false);
@@ -82,15 +81,15 @@
   
   const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
   const currentDashboard = computed(() => {
-	return store.dashboards.find(dashboard => dashboard.id === currentDashboardId.value);
+		return store.dashboards.find(dashboard => dashboard.id === currentDashboardId.value);
   });
   
   const currentDashboardName = computed(() => {
-	return currentDashboard.value ? currentDashboard.value.name : 'Дашборд со всеми задачами';
+		return currentDashboard.value ? currentDashboard.value.name : 'Дашборд со всеми задачами';
   });
   
   const currentDashboardInviteCode = computed(() => {
-	return currentDashboard.value ? currentDashboard.value.invite : '';
+		return currentDashboard.value ? currentDashboard.value.invite : '';
   });
   
 
@@ -98,12 +97,26 @@
 	const isSidebarOpen = ref(false);
 
   const openInviteModal = () => {
-	isInviteModalOpen.value = true;
+		console.log(currentDashboard.value)
+		isInviteModalOpen.value = true;
   };
   
   const closeInviteModal = () => {
-	isInviteModalOpen.value = false;
+		isInviteModalOpen.value = false;
   };
+
+	watch(currentDashboard, () => {
+		store.fetchByDashboardTasks(currentDashboard.value.id);
+		store.fetchBriefcase(currentDashboard.value.id);
+	})
+
+	onMounted(() => {
+		store.fetchByDashboardTasks(currentDashboard.value.id);
+		store.fetchBriefcase(currentDashboard.value.id);
+		store.fetchWorkers();
+    store.fetchDashboards();
+		store.fetchUsersByDashboard(currentDashboard.value.id);
+	});
 </script>
 
 <style lang="scss" scoped>

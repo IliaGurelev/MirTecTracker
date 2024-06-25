@@ -54,6 +54,13 @@
   import ColorPicker from '@/components/UI/ColorPicker.vue';
   import CharacterLimitWarning from '@/components/UI/CharacterLimitWarning.vue';
 
+  const props = defineProps({
+    dashboardId: {
+      type: Number,
+      required: true,
+    }
+  })
+
   const isAcive = ref(false);
   const currentColor = ref('blue');
   const nameBriefcase = defineModel();
@@ -61,7 +68,8 @@
   const briefcaseData = computed(() => {
     return {
       name: nameBriefcase.value, 
-      color: currentColor.value
+      color: currentColor.value,
+      dashboardId: props.dashboardId,
     }
   })
 

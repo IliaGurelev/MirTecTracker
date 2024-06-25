@@ -15,26 +15,31 @@
 	  </div>
 	  <data class="dashboards__togglebutton">
 		  <AddDashboardModal v-if="isAddDashboardModalOpen" @close="closeAddDashboardModal" />
-		  <AddInviteDashboard />
+		  <AddInviteDashboard 
+				@submitForm="addDashboardByInvite"
+			/>
 	  </data>
 	  <div class="menu_content">
 		<ul class="menu_items">
 		  <transition-group name="dashboard-list" tag="div">
 			<li class="item" v-for="dashboard in dashboards" :key="dashboard.id">
-			  <router-link :to="{ name: 'Dashboard', query: { id: dashboard.id } }">
-				<div class="nav_link submenu_item">
-				  <span class="nav_link_icon">
-					<div class="squares" :style="{ color: dashboard.color }">
-					  <div class="square">
-						<i class="fas fa-square icon top-left"></i>
-						<i class="fas fa-square icon top-right"></i>
-						<i class="fas fa-square icon bottom-left"></i>
-						<i class="fas fa-square icon bottom-right"></i>
-					  </div>
+			  <router-link 
+					:to="{ name: 'Dashboard', query: { id: dashboard.id } }"
+					@click="toggleSidebar"
+				>
+					<div class="nav_link submenu_item">
+						<span class="nav_link_icon">
+						<div class="squares" :style="{ color: dashboard.color }">
+							<div class="square">
+							<i class="fas fa-square icon top-left"></i>
+							<i class="fas fa-square icon top-right"></i>
+							<i class="fas fa-square icon bottom-left"></i>
+							<i class="fas fa-square icon bottom-right"></i>
+							</div>
+						</div>
+						</span>
+						<span class="navlink">{{ dashboard.name }}</span>
 					</div>
-				  </span>
-				  <span class="navlink">{{ dashboard.name }}</span>
-				</div>
 			  </router-link>
 			</li>
 		  </transition-group>
@@ -50,6 +55,7 @@
   import { storeToRefs } from 'pinia';
   import AddDashboardModal from '@/components/AddDashboard/AddDashboard.vue';
   import AddInviteDashboard from '@/components/AddDashboard/AddInviteCode.vue';
+
   const store = useMainStore();
   const { dashboards } = storeToRefs(store);
 
@@ -67,6 +73,10 @@
   const toggleSidebar = () => {
     isSidebarClosed.value = !isSidebarClosed.value;
   };
+
+	const addDashboardByInvite = () => {
+		store.fetchDashboards();
+	}
 
   onMounted(() => {
     store.fetchDashboards();

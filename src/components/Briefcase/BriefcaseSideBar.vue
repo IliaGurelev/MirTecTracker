@@ -1,41 +1,41 @@
 <template>
   <SidebarForContent class="sidebar">
-			<div class="sidebar__properity">
-				<i 
-					@click="$emit('removeClick')" 
-					class="fa-solid fa-trash-can"
+		<div class="sidebar__properity">
+			<i 
+				@click="$emit('removeClick')" 
+				class="fa-solid fa-trash-can"
+			></i>
+			<div class="sidebar__properity-wrapper">
+				<i
+					v-if="!isEdit" 
+					@click.stop="switchIsEdit" 
+					class="fa-solid fa-pencil"
 				></i>
-				<div class="sidebar__properity-wrapper">
-					<i
-						v-if="!isEdit" 
-						@click.stop="switchIsEdit" 
-						class="fa-solid fa-pencil"
-					></i>
-					<i 
-						@click="$emit('closeClick')" 
-						class="fa-solid fa-xmark"
-					></i>
-				</div>
+				<i 
+					@click="$emit('closeClick')" 
+					class="fa-solid fa-xmark"
+				></i>
 			</div>
-			<section class="sidebar__task">
-				<div v-if="!isEdit" class="sidebar__wrapper">
-					<TaskBriefcase 
-						class="sidebar__tag-briefcase" 
-						:briefcase="currentBriefcase" 
-					/>
-					<ProgressBar class="sidebar__progress" />
-				</div> 
-				<BriefcaseEdit
-					v-else 
-					:briefcase="currentBriefcase"
-					@submitForm="editBriefcase"
+		</div>
+		<section class="sidebar__task">
+			<div v-if="!isEdit" class="sidebar__wrapper">
+				<TaskBriefcase 
+					class="sidebar__tag-briefcase" 
+					:briefcase="currentBriefcase" 
 				/>
-				<DetailTaskList
-					class="sidebar__task-list"
-					:tasksList="props.taskByBriefcase"	
-				/>
-			</section>
-		</SidebarForContent>
+				<ProgressBar class="sidebar__progress" />
+			</div> 
+			<BriefcaseEdit
+				v-else 
+				:briefcase="currentBriefcase"
+				@submitForm="editBriefcase"
+			/>
+			<DetailTaskList
+				class="sidebar__task-list"
+				:tasksList="props.taskByBriefcase"	
+			/>
+		</section>
+	</SidebarForContent>
 </template>
 
 <script setup>

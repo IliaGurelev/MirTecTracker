@@ -47,8 +47,9 @@
     currentUser.value = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'))
   }
 
-  onMounted(() => {
-    store.fetchTasks();
+  onMounted(async () => {
+    await store.fetchDashboards();
+    store.fetchAllTasks();
     store.fetchDiary();
     //store.loginCurrentUser(0);
   }) 

@@ -1,5 +1,6 @@
 <template>
 	<aside class='task-details'>
+		<slot></slot>
 		<h2>Статус задач по портфелям</h2>
 		<div v-for="(barData, index) in progressBarsData" :key="index" class="tag-progress">
 			<div class='tag-progress'>

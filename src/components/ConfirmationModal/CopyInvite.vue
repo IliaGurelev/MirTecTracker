@@ -17,9 +17,9 @@
   import { ref, watch } from 'vue';
   
   const props = defineProps({
-	isOpen: Boolean,
-	dashboardName: String,
-	inviteCode: String,
+		isOpen: Boolean,
+		dashboardName: String,
+		inviteCode: String,
   });
   const emit = defineEmits(['close']);
   

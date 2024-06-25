@@ -2,19 +2,27 @@
 	<Sidebar />
 	<AgreementPopup 
 		v-if="isActiveRemovePopup" 
-		@yesClick="switchShowPopup(false), removeBriefcase(currentBriefcase.id)"
+		@yesClick="switchShowPopup(false), removeBriefcase(currentBriefcase)"
 		@notClick="switchShowPopup(false)"
 		@closeClick="switchShowPopup(false)"
 		@clickOverlay="switchShowPopup(false)"
 	/>
   <main class="briefcase">
 		<h2 class="briefcase__title">Ваши портфели</h2>
-		<section class="briefcase__section">
+		<section 
+			v-for="briefcases in briefcasesByDashboard"
+			:key="briefcases.id"
+			class="briefcase__section"
+		>
+			<h2 class="briefcase__title">
+				{{ briefcases.name }}
+			</h2>
 			<BriefcaseCardList
-			 :briefcases="briefcases"
-			 @clickCard="clickBriefcase"
+				:briefcases="briefcases.briefcases"
+				@clickCard="clickBriefcase"
 			>	
 				<BriefcaseAddCard
+					:dashboardId="briefcases.id"
 					@submitForm="addBriefcase"
 				/>
 			</BriefcaseCardList>
@@ -24,7 +32,7 @@
 			v-if="isActiveSideBar"
 			v-click-outside="() => switchShowSideBar(false)"
 			:briefcase="currentBriefcase"
-			:taskByBriefcase="taskByBriefcase"
+			:taskByBriefcase="tasks"
 			@closeClick="switchShowSideBar(false)"
 			@removeClick="switchShowPopup(true)"
 			@editBriefcase="editBriefcase"
@@ -47,7 +55,7 @@
 
 	const store = useMainStore();
 
-	const {briefcases, tasks} = storeToRefs(store);
+	const {briefcasesByDashboard, tasks} = storeToRefs(store);
 
 	const isActiveSideBar = ref(false);
 	const isActiveRemovePopup = ref(false);
@@ -55,9 +63,9 @@
 	const currentBriefcase = ref({});
 
 	const clickBriefcase = (briefcase = [], type) => {
-		store.fetchTasks();
-		taskByBriefcase.value = tasks.value.filter((task) => task.briefcase.name === briefcase.name)
-		
+		store.fetchBriefcaseTasks(briefcase.id);
+		taskByBriefcase.value = tasks;
+
 		currentBriefcase.value = briefcase;
 
 		if(!isActiveSideBar.value) {
@@ -87,19 +95,22 @@
 		store.editBriefcase(briefcase);
 	}
 
-	const removeBriefcase = (id) => {
-		store.removeBriefcase(id);
+	const removeBriefcase = (briefcase) => {
+		store.removeBriefcase(briefcase);
 	}
 
-	onMounted(() => {
-		store.fetchBriefcase();
-		store.fetchTasks();
+	onMounted(async () => {
+		await store.fetchDashboards();
+		store.fetchAllBriefcase();
 		document.addEventListener('keydown', hideSideBarOnEsc)
 	})
 </script>
 
 <style lang="scss" scoped>
 	.briefcase {
+		display: flex;
+		flex-direction: column;
+		row-gap: 20px;
 		margin-left: 110px;
 		margin-top: 80px;
 
@@ -113,7 +124,7 @@
 
 		&__list {
 			display: flex;
-			gap: 30px;
+			gap: 10px;
 			flex-wrap: wrap;
 			list-style: none;
 

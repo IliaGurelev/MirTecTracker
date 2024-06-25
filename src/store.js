@@ -14,6 +14,8 @@ export const useMainStore = defineStore('main', {
 
     dashboards: [],
     currentDashboard: null,
+    userCurrentDashboard: [],
+    briefcasesByDashboard: [],
 
     currentUser: localStorage.getItem('currentUser') || 
     sessionStorage.getItem('currentUser') || 
@@ -73,6 +75,7 @@ export const useMainStore = defineStore('main', {
       this.diary = [];
       this.briefcases = [];
       this.users = [];
+      this.dashboards = [];
     },
     rememberCurrentUser(data) {
       localStorage.setItem('token', data.token);
@@ -82,6 +85,8 @@ export const useMainStore = defineStore('main', {
         nameUser: data.name,
         avatar: data.avatar,
       }));
+
+      this.currentUser = localStorage.getItem('currentUser')
     },
     notRememberCurrentUser(data) {
       sessionStorage.setItem('token', data.token);
@@ -91,6 +96,8 @@ export const useMainStore = defineStore('main', {
         nameUser: data.name,
         avatar: data.avatar,
       }));
+
+      this.currentUser = sessionStorage.getItem('currentUser')
     },
 
     //Запросы на дневник
@@ -127,9 +134,20 @@ export const useMainStore = defineStore('main', {
     },
 
     //Запросы на задачи
-    async fetchTasks() {
-      const response = await apiClient.get('/task');
+    async fetchByDashboardTasks(dashboardId) {
+      const response = await apiClient.get(`/task/${dashboardId}`);
       this.tasks = response.data;
+    },
+    async fetchBriefcaseTasks(briefcaseId) {
+      const response = await apiClient.get(`task/briefcase/${briefcaseId}`)
+      this.tasks = response.data;
+    },
+    async fetchAllTasks() {
+      this.tasks = [];
+      for (const dashboard of this.dashboards) {
+        const response = await apiClient.get(`/task/${dashboard.id}`);
+        this.tasks.push(...response.data);
+      }
     },
 	  async addTask(task) {
       try {
@@ -191,37 +209,105 @@ export const useMainStore = defineStore('main', {
     },
 
     //Запросы на портфели
-    async fetchBriefcase() {
+    async fetchBriefcase(dashboardId) {
       try {
-        const response = await apiClient.get('/briefcase');
+        const response = await apiClient.get(`/briefcase/${dashboardId}`);
         this.briefcases = response.data;
       } catch (error) {
         console.error(`Ошибка fetching briefcase: `, error);
       }
     },
-    editBriefcase(briefcase) {
-      replaceItemById(this.briefcases, briefcase)
+    async fetchAllBriefcase() {
+      this.briefcasesByDashboard = [];
+      for (const dashboard of this.dashboards) {
+        const response = await apiClient.get(`/briefcase/${dashboard.id}`);
+        this.briefcasesByDashboard.push(
+          {
+            id: dashboard.id,
+            name: dashboard.name,
+            briefcases: response.data,
+          }
+        );
+      }
     },
-    removeBriefcase(id) {
-      removeById(this.briefcases, id);
+    async addBriefcase(briefcase) {
+      const response = await apiClient.post('/briefcase', briefcase)
+
+      const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
+      dashboard.briefcases.push(response.data);
+    },
+    async editBriefcase(briefcase) {
+      const response = await apiClient.put(`/briefcase/${briefcase.id}`, briefcase)
+      replaceItemById(this.briefcases, response.data)
+
+      const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
+      replaceItemById(dashboard.briefcases, response.data)
+    },
+    async removeBriefcase(briefcase) {
+      try {
+        const response = await apiClient.delete(`/briefcase/${briefcase.id}`)
+  
+        removeById(this.briefcases, briefcase.id);
+  
+        const dashboard = this.briefcasesByDashboard.find(d => d.id === briefcase.dashboardId);
+        removeById(dashboard.briefcases, briefcase.id)
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     //Запросы на дашборды
-    fetchDashboards() {
-      this.dashboards = dashboardsData; 
+    async fetchDashboards() {
+      const currentUser = JSON.parse(this.currentUser);
+      const userId = currentUser.id;
+
+      const response = await apiClient.get(`/dashboard/user/${userId}`)
+      this.dashboards = response.data;
     },
-    setCurrentDashboardById(id) {
-      this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
+    async fetchUsersByDashboard(idDashboard) {
+      const response = await apiClient.get(`/dashboard/users/${idDashboard}`)
+      return this.userCurrentDashboard = response.data;
     },
-    addDashboard(newDashboard) {
-      const id = this.dashboards.length + 1;
-      this.dashboards.push({ id, ...newDashboard });
+    async addDashboard(newDashboard) {
+      try {
+        const currentUser = JSON.parse(this.currentUser);
+        const userId = currentUser.id;
+  
+        const dashboard = {
+          name: newDashboard.name,
+          color: newDashboard.color,
+          userId: userId,
+        }
+  
+        const response = await apiClient.post('/dashboard', dashboard)
+        this.dashboards.push(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async addUserToDashboard(inviteCode) {
+      try {
+        const currentUser = JSON.parse(this.currentUser);
+        const userId = currentUser.id;
+
+        const dto = {
+          inviteCode: inviteCode,
+          userId: userId
+        };
+        const response = await apiClient.post('/dashboard/addUserToDashboard', dto);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     },
     setInviteCode({ dashboardId }) {
       this.inviteCode[dashboardId] = true; 
     },
     getInviteCode(dashboardId) {
       return this.inviteCode[dashboardId] || null;
+    },
+    setCurrentDashboardById(id) {
+      this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
     },
   },
 });
