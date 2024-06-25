@@ -9,12 +9,10 @@
 		<transition name="slide-fade">
 		  <div v-show="isDropdownOpen" class="dropdown-menu">
 			<div v-if="filteredWorkers.length" v-for="worker in filteredWorkers" :key="worker.id" class="worker-item" @click="selectWorker(worker)">
-			  <template v-if="worker.avatar">
-				<img :src="worker.avatar" class="worker-photo" alt="Фото исполнителя">
-			  </template>
-			  <template v-else>
-				<i class="fa-solid fa-user-secret worker-photo"></i>
-			  </template>
+			  <Worker
+					class="worker-photo"
+					:worker="worker"
+				/>
 			  <span>{{ worker.nameUser || worker.name }}</span>
 			</div>
 			<div v-else class="no-results">Исполнитель не найден</div>
@@ -27,12 +25,14 @@
   
   <script setup>
   import { ref, watch } from 'vue';
-  
+
+  import Worker from '@/components/Tasks/Worker.vue';
+
   const props = defineProps({
-	workerList: {
-	  type: Array,
-	  required: true,
-	},
+		workerList: {
+			type: Array,
+			required: true,
+		},
   });
   
   const emit = defineEmits(['remove', 'close']);
@@ -44,17 +44,17 @@
   const searchNotFound = ref(false);
   
   const openDropdown = () => {
-	isDropdownOpen.value = true;
+		isDropdownOpen.value = true;
   };
   
   const closeDropdown = () => {
-	isDropdownOpen.value = false;
+		isDropdownOpen.value = false;
   };
   
   const selectWorker = (worker) => {
-	selectedWorker.value = worker;
-	searchQuery.value = worker.nameUser || worker.name;
-	isDropdownOpen.value = false;
+		selectedWorker.value = worker;
+		searchQuery.value = worker.nameUser || worker.name;
+		isDropdownOpen.value = false;
   };
   
   const removeWorker = () => {
@@ -82,7 +82,7 @@
   watch(() => props.workerList, filterWorkers, { immediate: true });
   
   const closeDeleteWorkers = () => {
-	emit('close');
+		emit('close');
   };
   </script>
   
@@ -142,6 +142,7 @@
   .worker-photo {
 	width: 30px;
 	height: 30px;
+	object-fit: cover;
 	border-radius: 50%;
 	margin-right: 10px;
   }

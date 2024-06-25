@@ -270,6 +270,7 @@ const removeWorker = (worker) => {
 
 // обработка события remove
 const handleRemoveWorker = (worker) => {
+  store.deleteWorkers(props.task.id, worker.id)
   removeWorker(worker);
 };
 

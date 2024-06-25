@@ -52,14 +52,10 @@
 			class="search__item"
 			@mousedown.prevent="selectWorker(item)"
 		  >
-			<img
-			  v-if="item.avatar"
-			  :src="item.avatar"
-			  class="search__worker-icon"
-			  alt="Worker Avatar"
-			/>
-			<div v-else class="search__worker-icon">👤</div>
-			{{ item.name }}
+				<Worker 
+					:worker="item"
+				/>
+				{{ item.name }}
 		  </li>
 		</ul>
 	  </transition>
@@ -70,6 +66,7 @@
   import { ref, computed, onMounted } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
+	import Worker from '@/components/Tasks/Worker.vue';
   
 	const props = {
 		workers: {

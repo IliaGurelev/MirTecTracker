@@ -171,8 +171,19 @@ export const useMainStore = defineStore('main', {
           taskId: taskId,
           userId: userId,
         };
-        console.log(dto);
         const response = await apiClient.post('/task/addWorker', dto);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteWorkers(taskId, userId) {
+      try {
+        const dto = {
+          taskId: taskId,
+          userId: userId,
+        };
+        console.log(dto);
+        const response = await apiClient.delete('/task/removeWorker', { data: dto });
       } catch (error) {
         console.error(error);
       }
