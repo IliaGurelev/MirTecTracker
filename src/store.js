@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import replaceItemById from '@/utils/replace-element';
 import removeById from '@/utils/remove-element';
+import { apiClient } from '@/config.js';
 
-
+import dashboardsData from './mock/dashboards-data';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -10,6 +11,9 @@ export const useMainStore = defineStore('main', {
     diary: [],
     briefcases: [],
     workers: [],
+
+    dashboards: [],
+    currentDashboard: null,
 
     currentUser: localStorage.getItem('currentUser') || 
     sessionStorage.getItem('currentUser') || 
@@ -201,22 +205,23 @@ export const useMainStore = defineStore('main', {
     removeBriefcase(id) {
       removeById(this.briefcases, id);
     },
-	//Вывод дашбордов
-	fetchDashboards() {
-		this.dashboards = dasboardData; // Populate dashboards from mock data
-	  },
-	  setCurrentDashboardById(id) {
-		this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
-	  },
-	  addDashboard(newDashboard) {
-		const id = this.dashboards.length + 1;
-		this.dashboards.push({ id, ...newDashboard });
-	  },
-	  setInviteCode({ dashboardId }) {
-		this.inviteCode[dashboardId] = true; // Example: set invite status
-	  },
-	  getInviteCode(dashboardId) {
-		return this.inviteCode[dashboardId] || null;
-	  },
+
+    //Запросы на дашборды
+    fetchDashboards() {
+      this.dashboards = dashboardsData; 
+    },
+    setCurrentDashboardById(id) {
+      this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
+    },
+    addDashboard(newDashboard) {
+      const id = this.dashboards.length + 1;
+      this.dashboards.push({ id, ...newDashboard });
+    },
+    setInviteCode({ dashboardId }) {
+      this.inviteCode[dashboardId] = true; 
+    },
+    getInviteCode(dashboardId) {
+      return this.inviteCode[dashboardId] || null;
+    },
   },
 });

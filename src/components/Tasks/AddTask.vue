@@ -38,7 +38,7 @@
 	</div>
   </template>
   
-  <script setup>
+<script setup>
   import { ref, watch, onMounted, onUnmounted, computed } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
@@ -50,12 +50,12 @@
   const { briefcases, dashboards } = storeToRefs(store);
   
   onMounted(() => {
-	store.fetchBriefcase();
-	document.addEventListener('keydown', handleEsc);
+		store.fetchBriefcase();
+		document.addEventListener('keydown', handleEsc);
   });
   
   onUnmounted(() => {
-	document.removeEventListener('keydown', handleEsc);
+		document.removeEventListener('keydown', handleEsc);
   });
   
   const getTodayDate = () => {
@@ -79,14 +79,15 @@
   
   const isFormOpen = ref(false);
   const customBriefcaseName = ref('');
-  const selectedBriefcaseIcon = ref(null);
+  const selectedBriefcaseIcon = ref('null');
+	const searchBriefcaseRef = ref(null);
   
   const openForm = () => {
-	isFormOpen.value = true;
+		isFormOpen.value = true;
   };
   
   const closeForm = () => {
-	isFormOpen.value = false;
+		isFormOpen.value = false;
   };
   
   const handleEsc = (event) => {
@@ -104,7 +105,7 @@
   
   const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
   const currentDashboard = computed(() => {
-	return dashboards.value.find(dashboard => dashboard.id === currentDashboardId.value);
+		return dashboards.value.find(dashboard => dashboard.id === currentDashboardId.value);
   });
   
   const handleBriefcaseSelect = (briefcase) => {
@@ -112,32 +113,16 @@
   };
   
   const addTask = () => {
-	if (newTask.value.briefcase.name === 'custom') {
-	  newTask.value.briefcase.name = customBriefcaseName.value;
-	}
-  
-	newTask.value.dashboardId = currentDashboardId.value; // Set dashboardId from currentDashboardId
-  
-	store.addTask(newTask.value);
-  
-	console.log('New Task:', newTask.value);
-  
-	newTask.value = {
-	  name: '',
-	  description: '',
-	  status: 'open',
-	  createdAt: getTodayDate(),
-	  dueDate: '',
-	  briefcase: {
-		name: '',
-		color: '',
-	  },
-	  dashboardId: null,
-	};
-	
-	const addTask = () => {
+		if (newTask.value.briefcase.name === 'custom') {
+			newTask.value.briefcase.name = customBriefcaseName.value;
+		}
+		
+		newTask.value.dashboardId = currentDashboardId.value; // Set dashboardId from currentDashboardId
+		
 		store.addTask(newTask.value);
-
+		
+		console.log('New Task:', newTask.value);
+		
 		newTask.value = {
 			name: '',
 			description: '',
@@ -145,22 +130,19 @@
 			createdAt: getTodayDate(),
 			dueDate: '',
 			briefcase: {
-				id: '',
 				name: '',
 				color: '',
 			},
+			dashboardId: null,
 			workers: [],
 		};
-			customBriefcaseName.value = '';
-			selectedBriefcaseIcon.value = null;
-			closeForm();
-  };
-  
-  const searchBriefcaseRef = ref(null);
-  </script>
-  
 
-
+		customBriefcaseName.value = '';
+		selectedBriefcaseIcon.value = null;
+		closeForm();
+	}
+</script>
+  
   <style lang="scss" scoped>
   button {
 	position: relative;

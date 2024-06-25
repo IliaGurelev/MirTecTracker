@@ -69,15 +69,8 @@
   };
 
   onMounted(() => {
-    loadDashboards();
+    store.fetchDashboards();
   });
-
-  const loadDashboards = () => {
-    const storedDashboards = localStorage.getItem('dashboards');
-    if (storedDashboards) {
-      store.dashboards = JSON.parse(storedDashboards);
-    }
-  };
 </script>
   
   <style scoped>
