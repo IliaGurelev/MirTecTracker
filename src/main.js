@@ -1,12 +1,19 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import App from './App.vue';
+import router from './router';
 
-import router from '@/router';
-import App from '@/App.vue'
-import '@/assets/style.css';
+import './assets/style.css';
 
 const pinia = createPinia();
 const app = createApp(App);
+
 app.use(router);
 app.use(pinia);
+
+app.config.errorHandler = (err, vm, info) => {
+  console.error('Global Error Handler:', err, info);
+  router.push({ name: 'NotFound' });
+};
+
 app.mount('#app');

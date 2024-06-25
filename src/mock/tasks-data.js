@@ -21,7 +21,7 @@ const tasksData = [
         "name": "Bob",
         "avatar": "https://randomuser.me/api/portraits/men/2.jpg"
       },
-    ],
+    ],"dashboardId": 1,
   },
   {
     "id": 4,
@@ -50,7 +50,7 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],
+    ],"dashboardId": 2,
   },
   {
     "id": 3,
@@ -79,7 +79,7 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],
+    ],"dashboardId": 3,
   },
   {
     "id": 2,
@@ -103,7 +103,7 @@ const tasksData = [
         "name": "Charlie",
         "avatar": "https://randomuser.me/api/portraits/men/3.jpg"
       }
-    ],
+    ],"dashboardId": 4,
   }
 ]
 

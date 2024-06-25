@@ -1,12 +1,8 @@
 import { defineStore } from 'pinia';
-
 import replaceItemById from '@/utils/replace-element';
 import removeById from '@/utils/remove-element';
 
-import { apiClient } from '@/config.js';
 
-// Моковые данные
-import tasksData from '@/mock/tasks-data.js';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -138,6 +134,7 @@ export const useMainStore = defineStore('main', {
       } catch (error) {
         console.error('Ошибка task post: ', error)
       }
+
 	  },
     async editTask(task) {
       try {
@@ -198,29 +195,28 @@ export const useMainStore = defineStore('main', {
         console.error(`Ошибка fetching briefcase: `, error);
       }
     },
-    async addBriefcase(briefcase) {
-      try {
-        const response = await apiClient.post('/briefcase', briefcase);
-        this.briefcases.push(response.data);
-      } catch (error) {
-        console.error('Ошибка adding briefcase:', error);
-      }
+    editBriefcase(briefcase) {
+      replaceItemById(this.briefcases, briefcase)
     },
-    async editBriefcase(briefcase) {
-      try {
-        const response = await apiClient.put(`/briefcase/${briefcase.id}`, briefcase)
-        replaceItemById(this.briefcases, response.data);
-      } catch (error) {
-        console.error('Ошибка put briefcase:', error)
-      }
+    removeBriefcase(id) {
+      removeById(this.briefcases, id);
     },
-    async removeBriefcase(id) {
-      try {
-        const response = await apiClient.delete(`/briefcase/${id}`)
-        removeById(this.briefcases, id);
-      } catch (error) {
-        console.error('Ошибка delete briefcase:', error);
-      }
-    }
+	//Вывод дашбордов
+	fetchDashboards() {
+		this.dashboards = dasboardData; // Populate dashboards from mock data
+	  },
+	  setCurrentDashboardById(id) {
+		this.currentDashboard = this.dashboards.find((dashboard) => dashboard.id === id);
+	  },
+	  addDashboard(newDashboard) {
+		const id = this.dashboards.length + 1;
+		this.dashboards.push({ id, ...newDashboard });
+	  },
+	  setInviteCode({ dashboardId }) {
+		this.inviteCode[dashboardId] = true; // Example: set invite status
+	  },
+	  getInviteCode(dashboardId) {
+		return this.inviteCode[dashboardId] || null;
+	  },
   },
 });

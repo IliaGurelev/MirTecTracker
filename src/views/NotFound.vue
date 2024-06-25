@@ -1,18 +1,20 @@
 <template>
-<div class="error-page">
- <img   src="../../assets/error.svg" alt="vector">
-        <div class="wrapper">
-    <h1>Странца была не найдена!</h1>
-        <p class="message">Данной страницы не существует. Мы не знаем, как вы сюда попали... Возможно, вы ввели  неправильный адрес или страница была удалена</p>
-		<RouterLink to="/Hellopage" class="button__start-work">Вернуться на главную</RouterLink>
-        <p class="copyRights">&copy; 2024 Миртек Трекер</p>
-        </div>
+	<div class="error-page">
+	  <img src="@/assets/error.svg" alt="vector">
+	  <div class="wrapper">
+		<h1>Страница не найдена!</h1>
+		<p class="message">Данной страницы не существует. Мы не знаем, как вы сюда попали... Возможно, вы ввели неправильный адрес или страница была удалена</p>
+		<router-link to="/" class="btn button__start-work">Вернуться на главную</router-link>
+		<p class="copyRights">&copy; 2024 Миртек Трекер</p>
+	  </div>
 	</div>
-</template>
-
-<script>
-
-</script>
+  </template>
+  
+  <script>
+  export default {
+	name: 'NotFound'
+  }
+  </script>
 
 <style lang="scss">
 
@@ -45,14 +47,14 @@ img{
     
 }
 .btn {
-    background: rgb(88, 0, 202);
+    background: v;
     text-decoration: none;
     font-size: 1.5rem;
     padding: 12px;
     color: rgb(255, 255, 255);
     cursor: pointer;
 }
-.btn:hover {background: rgb(132, 37, 255) ;}
+.btn:hover {  background: white;;}
 .copyRights {
     margin-top: 20px;
 }

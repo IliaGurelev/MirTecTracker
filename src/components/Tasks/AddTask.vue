@@ -39,13 +39,15 @@
   </template>
   
   <script setup>
-  import { ref, watch, onMounted, onUnmounted } from 'vue';
+  import { ref, watch, onMounted, onUnmounted, computed } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
   import SearchBriefcase from '@/components/Briefcase/SearchBriefcase.vue';
+  import { useRouter } from 'vue-router';
   
   const store = useMainStore();
-  const { briefcases } = storeToRefs(store);
+  const router = useRouter();
+  const { briefcases, dashboards } = storeToRefs(store);
   
   onMounted(() => {
 	store.fetchBriefcase();
@@ -62,17 +64,17 @@
   };
   
   const newTask = ref({
-		name: '',
-		description: '',
-		status: 'open',
-		createdAt: getTodayDate(),
-		dueDate: '',
-		briefcase: {
-			id: '',
-			name: '',
-			color: '',
-		},
-		workers: [],
+    name: '',
+    description: '',
+    status: 'open',
+    createdAt: getTodayDate(),
+    dueDate: '',
+    briefcase: {
+      name: '',
+      color: '',
+    },
+    dashboardId: null,
+    workers: [],
   });
   
   const isFormOpen = ref(false);
@@ -88,19 +90,49 @@
   };
   
   const handleEsc = (event) => {
-			if (event.key === 'Escape' && isFormOpen.value) {
-				closeForm();
-			}
-		};
-		
-	watch(newTask.value.briefcase, (newVal) => {
-		if (newVal.name !== 'custom') {
-			customBriefcaseName.value = '';
-		}
-	});
-	
-	const handleBriefcaseSelect = (briefcase) => {
-		newTask.value.briefcase = briefcase;
+
+	if (event.key === 'Escape' && isFormOpen.value) {
+	  closeForm();
+	}
+  };
+  
+  watch(newTask.value.briefcase, (newVal) => {
+	if (newVal.name !== 'custom') {
+	  customBriefcaseName.value = '';
+	}
+  });
+  
+  const currentDashboardId = computed(() => parseInt(router.currentRoute.value.query.id));
+  const currentDashboard = computed(() => {
+	return dashboards.value.find(dashboard => dashboard.id === currentDashboardId.value);
+  });
+  
+  const handleBriefcaseSelect = (briefcase) => {
+	  newTask.value.briefcase = briefcase;
+  };
+  
+  const addTask = () => {
+	if (newTask.value.briefcase.name === 'custom') {
+	  newTask.value.briefcase.name = customBriefcaseName.value;
+	}
+  
+	newTask.value.dashboardId = currentDashboardId.value; // Set dashboardId from currentDashboardId
+  
+	store.addTask(newTask.value);
+  
+	console.log('New Task:', newTask.value);
+  
+	newTask.value = {
+	  name: '',
+	  description: '',
+	  status: 'open',
+	  createdAt: getTodayDate(),
+	  dueDate: '',
+	  briefcase: {
+		name: '',
+		color: '',
+	  },
+	  dashboardId: null,
 	};
 	
 	const addTask = () => {
@@ -126,6 +158,7 @@
   
   const searchBriefcaseRef = ref(null);
   </script>
+  
 
 
   <style lang="scss" scoped>

@@ -13,7 +13,7 @@
 			  class="search__worker-icon"
 			  alt="Worker Avatar"
 			/>
-			<div v-else class="search__worker-icon">👤</div>
+			<div v-else class="search__worker-icon"><UserIcon class="worker__icon" /></div>
 		  </div>
 		  <div 
 			v-else-if="!filteredItems.length && query.length > 0"
@@ -63,6 +63,7 @@
   </template>
   
   <script setup>
+ import UserIcon from '@/assets/UserIcon.vue';
   import { ref, computed, onMounted } from 'vue';
   import { useMainStore } from '@/store';
   import { storeToRefs } from 'pinia';
@@ -124,6 +125,14 @@
   </script>
   
   <style lang="scss" scoped>
+  .worker__icon {
+	  margin-left: -5px;
+	  margin-top: -5px;
+      width: 35px;
+      border-radius: 50%;
+      border: #ffffff 4px solid;
+      cursor: pointer;
+    }
   .search {
 	border-radius: 8px;
 	padding: 0 5px;

@@ -1,84 +1,77 @@
 <template>
-	<nav class="navbar">
-			<div class="logo_item">
-				<i class="fa-solid fa-bars" id="sidebarOpen" @click="toggleSidebar" ></i>
-				<RouterLink class="logo_item" to="/">
-					<img src="../../assets/logo.svg" alt="">Миртек Трекер
-				</RouterLink>
-			</div>
-		</nav>
-		<nav class="sidebar"  :class="{ close: isSidebarClose, hoverable: isHoverable }"
-		  @mouseenter="handleSidebarMouseEnter"
-		  @mouseleave="handleSidebarMouseLeave">
-			<div class="menu_content">
-			  <ul class="menu_items">
-					<li class="item">
-						<RouterLink 
-							:to="{name: 'Personal'}"
-						>
-							<div href="#" class="nav_link  submenu_item">
-							<span class="nav_link_icon">
-								<i class="fa-solid fa-rectangle-list" ></i>
-							</span>
-							<span class="navlink">Мои задачи</span>
-							</div>
-						</RouterLink>
-					</li>
-					<li class="item">
-						<RouterLink 
-							:to="{name: 'Dashboard'}"
-						>
-							<div href="#" class="nav_link submenu_item">
-							<span class="nav_link_icon">
-								<div class="squares">
-								<div class="square">
-									<i class="fas fa-square icon top-left"></i>
-									<i class="fas fa-square icon top-right"></i>
-									<i class="fas fa-square icon bottom-left"></i>
-									<i class="fas fa-square icon bottom-right"></i>
-								</div>
-							</div>
-							</span>
-								<span class="navlink">Все задачи</span>
-							</div>
-						</RouterLink>
-					</li>
-					<li class="item_btn">
-						<RouterLink 
-							:to="{name: 'Briefcase'}"
-						>
-						<div href="#" class="menu_link submenu_item">
-							<span class="menu_titles">
-								<i class="fa-solid fa-suitcase"></i>
-							</span>
-							<span class="navlink">Портфели</span>
-						</div>
-						</RouterLink>
-					</li>
-			  </ul>
-				<div class="bottom_content">
-					<div class="bottom expand_sidebar" @click="expandSidebar">
-						<span class="text__down"> Зафиксировать</span>
-						<i class="fa-solid fa-chevron-right"></i>
-					</div>
-					<div class="bottom collapse_sidebar" @click="closeSidebar">
-						<span class="text__down"> Скрыть</span>
-						<i class="fa-solid fa-chevron-left"></i>
-					</div>
+
+	<div>
+	  <!-- Основной сайдбар -->
+	  <nav class="navbar">
+		<div class="logo_item">
+		  <i class="fa-solid fa-bars" id="sidebarOpen" @click="toggleSidebar"></i>
+		  <router-link class="logo_item" to="/">
+			<img src="../../assets/logo.svg" alt="">Миртек Трекер
+		  </router-link>
+		</div>
+	  </nav>
+
+	  <nav class="sidebar" :class="{ close: isSidebarClose, hoverable: isHoverable }"
+		   @mouseenter="handleSidebarMouseEnter" @mouseleave="handleSidebarMouseLeave">
+		<div class="menu_content">
+		  <ul class="menu_items">
+			<!-- Остальные пункты меню -->
+			<li class="item">
+			  <router-link :to="{ name: 'Personal' }">
+				<div class="nav_link submenu_item">
+				  <span class="nav_link_icon">
+					<i class="fa-solid fa-rectangle-list"></i>
+				  </span>
+				  <span class="navlink">Мои задачи</span>
 				</div>
-			</div>
-		</nav>
-		<div>
-	
+			  </router-link>
+			</li>
+			<li class="item" @click="toggleDashboardsSidebar" >
+			  <div class="nav_link submenu_item" @click="closeSidebar">
+				<span class="nav_link_icon">
+				  <div class="squares">
+					<div class="square">
+					  <i class="fas fa-square icon top-left"></i>
+					  <i class="fas fa-square icon top-right"></i>
+					  <i class="fas fa-square icon bottom-left"></i>
+					  <i class="fas fa-square icon bottom-right"></i>
+					</div>
+				  </div>
+				</span>
+				<span class="navlink">Дашборды</span>
+			  </div>
+			</li>
+			<li class="item_btn">
+			  <router-link :to="{ name: 'Briefcase' }">
+				<div class="menu_link submenu_item">
+				  <span class="menu_titles">
+					<i class="fa-solid fa-suitcase"></i>
+				  </span>
+				  <span class="navlink">Портфели</span>
+				</div>
+			  </router-link>
+			</li>
+		  </ul>
+  
+		  <!-- Контроллы сайдбара -->
+		  <sidebar-controls :expandSidebar="expandSidebar" :closeSidebar="closeSidebar" />
+		</div>
+		
+	  </nav>
+<!-- Второй сайдбар для дашбордов -->
+<sidebar-dashboards v-if="showDashboardsSidebar"  />
 	</div>
-</template>
-<script setup>
+  </template>
+  
+  <script setup>
+  import SidebarControls from '@/components/Sidebar/SidebarControls.vue';
+  import SidebarDashboards from '@/components/Sidebar/SidebarDashboard.vue'; 
 	import { ref, onMounted, onBeforeUnmount } from 'vue';
 	
 	const isSidebarClose = ref(true);
 	const isHoverable = ref(true);
 	const submenuItems = ref([]);
-	
+	const showDashboardsSidebar =  ref(false);
 		onMounted(() => {
 		submenuItems.value = document.querySelectorAll('.submenu_item');
 		if (window.innerWidth < 768) {
@@ -110,6 +103,7 @@
 	const handleSidebarMouseEnter = () => {
 		if (isHoverable.value) {
 		isSidebarClose.value = false;
+		showDashboardsSidebar.value = false;
 		}
 	};
 
@@ -128,7 +122,15 @@
 		}
 	};
 	
-	
+	  // Открытие второго сайдбара с дашбордами
+	  const toggleDashboardsSidebar = () => {
+	showDashboardsSidebar.value = true;
+  };
+  
+  // Закрытие второго сайдбара с дашбордами
+  const closeDashboardsSidebar = () => {
+	showDashboardsSidebar.value = false;
+  };
 </script>
 	
 

@@ -25,7 +25,6 @@
   
   <script setup>
   import { ref, watch } from 'vue';
-
   import Worker from '@/components/Tasks/Worker.vue';
 
   const props = defineProps({
@@ -87,6 +86,17 @@
   </script>
   
   <style scoped>
+  .worker {
+    width: 30px;
+    position: relative;
+
+  }
+  .worker__icon {
+      width: 40px;
+      border-radius: 50%;
+      border: #ffffff 4px solid;
+      cursor: pointer;
+    }
   .delete-workers {
 	display: flex;
 	flex-direction: column;

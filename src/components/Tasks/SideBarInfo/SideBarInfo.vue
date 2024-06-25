@@ -17,15 +17,7 @@
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Дата начала:
-			  <transition name="input-fade__createdAt">
-				<input v-if="isEditCreatedAt" type="date" v-model="props.task.createdAt" @input="updateTask" @blur="closeInput('createdAt')" class="sidebars-content__items-createdAt" key="input">
-			  </transition>
-			  <transition name="span-fade__createdAt">
-				<div v-if="!isEditCreatedAt" class="editable-field" key="span">
-				  <span @click="toggleEdit('createdAt')">{{ formatDate(props.task.createdAt) }}</span>
-				  <i class="fa-solid fa-pen" @click="toggleEdit('createdAt')"></i>
-				</div>
-			  </transition>
+				  <span class = "span-fade__createdAt">{{ formatDate(props.task.createdAt) }}</span>
 			</p>
 		  </div>
 		  <div class="sidebars-content__items">
@@ -40,6 +32,11 @@
 				</div>
 			  </transition>
 			</p>
+			<transition name="message-fade">
+            <div v-if="isInvalidDueDate" class="sidebars-content__items">
+              <p class="error-message"><i class="fa-solid fa-bug"></i> Дедлайн введен не полностью!</p>
+            </div>
+          </transition>
 		  </div>
 		  <div class="sidebars-content__items">
 			<p>Портфель:
@@ -157,7 +154,8 @@ const isWorkerAdded = ref(false);
 const isWorkerAlreadyAssigned = ref(false);
 const isWorkerRemoved = ref(false);
 const selectedWorker = ref(null);
-const taskStatus = ref('open');
+const isInvalidDueDate = ref(false);
+
 
 const Inputs = () => {
   isEditDueDate.value = false;
@@ -174,6 +172,8 @@ const handleEsc = (event) => {
 };
 
 const updateTask = debounce(() => {
+	
+  emitEvents('update-task', props.task);
   store.editTask(editTasks.value);
 }, 1000);
 
@@ -196,7 +196,10 @@ const toggleEdit = (field) => {
     isEditBriefcase.value = !isEditBriefcase.value;
   }
 };
-
+const validateDate = (dateString) => {
+  const date = new Date(dateString);
+  return !isNaN(date.getTime()) && dateString.length === 10; 
+};
 const toggleisWorker = () => {
   isWorker.value = !isWorker.value;
   isRemoveWorker.value = false;
@@ -575,8 +578,8 @@ span {
   cursor: pointer;
 }
 
-.span-fade__createdAt span {
-  right: 5px;
+.span-fade__createdAt {
+  cursor: default;
 }
 
 i {
