@@ -4,7 +4,7 @@
     <nav class="navigation-menu">
       <ul class="text-box__navigation-menu__list" :class="{ active: isNavActive }">
         <div class="logo">
-          <div class="header__logo"><img src="../img/logo.svg" alt="" />Миртек Трекер</div>
+          <div class="header__logo"><img src="@/assets/logo.svg" alt="" />Миртек Трекер</div>
           <button class="close" @click="closeNav"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <li class="navigation-menu__item">

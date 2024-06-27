@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+  import site from '@/assets/site.PNG';
+  import site5 from '@/assets/site5.PNG';
+  import site6 from '@/assets/site6.PNG';
+</script>
 
 <template>
   <div class="home-page">
@@ -13,9 +17,9 @@
           <RouterLink to="/user" class="button__start-work">Начать работу</RouterLink>
         </div>
         <div class="image__home-page">
-          <img class="main-img" src="../../assets/site.png" alt="" />
-          <img class="mobile-img-for-ipad" src="../../assets/site5.png" alt="" />
-          <img class="mobile-img-for-mobile" src="../../assets/site6.png" alt="" />
+          <img class="main-img" :src="site" alt="" />
+          <img class="mobile-img-for-ipad" :src="site5" alt="" />
+          <img class="mobile-img-for-mobile" :src="site6" alt="" />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <link rel="icon" type="image/x-icon" href="../img/logo.svg" />
+  <link rel="icon" type="image/x-icon" href="@/assets/logo.svg" />
   <body>
     <Header :currentUser="currentUser" />
     <StartSection></StartSection>

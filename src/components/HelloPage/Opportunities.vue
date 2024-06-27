@@ -1,5 +1,3 @@
-<script></script>
-
 <template>
   <div class="opportunities-page" id="opportunities">
     <div class="container">
@@ -17,7 +15,7 @@
             </p>
           </div>
           <div class="image__descript">
-            <img src="../../assets/site2.PNG" alt="" />
+            <img :src="site2" alt="" />
           </div>
         </div>
       </div>
@@ -32,7 +30,7 @@
             </p>
           </div>
           <div class="image__descript">
-            <img src="../../assets/site4.PNG" alt="" />
+            <img :src="site4" alt="" />
           </div>
         </div>
       </div>
@@ -49,13 +47,19 @@
             </p>
           </div>
           <div class="image__descript">
-            <img src="../../assets/site3.PNG" alt="" />
+            <img :src="site3" alt="" />
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+  import site2 from '@/assets/site2.PNG';
+  import site4 from '@/assets/site2.PNG';
+  import site3 from '@/assets/site3.PNG';
+</script>
 
 <style lang="scss" scoped>
 .opportunities-page {

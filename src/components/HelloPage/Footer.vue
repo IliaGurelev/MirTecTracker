@@ -6,7 +6,7 @@
       <div class="container">
         <div class="footer-brand-wrapper">
           <div class="footer__logo">
-            <img src="../../assets/logo.svg" alt="" />
+            <img src="@/assets/logo.svg" alt="" />
             <a href="./HelloPage.vue">Миртек Трекер</a>
           </div>
           <ul class="footer-list">
@@ -61,7 +61,7 @@
 }
 
 .footer-top {
-  background: url('../img/footer.svg') no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-color: var(--color-text-important);
